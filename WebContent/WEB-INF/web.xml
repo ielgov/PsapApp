@@ -9,4 +9,12 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <login-config id="LoginConfig_1">
+	<auth-method>FORM</auth-method>
+	<realm-name>Example Form-Based Authentication Area</realm-name>
+	<form-login-config id="FormLoginConfig_1">
+	<form-login-page>/login.html</form-login-page>
+	<form-error-page>/error.jsp</form-error-page>
+	</form-login-config>
+  </login-config>
 </web-app>
