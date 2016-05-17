@@ -5,19 +5,17 @@
     <welcome-file>login.html</welcome-file>
   </welcome-file-list>
   <login-config id="LoginConfig_1">
-	<auth-method>FORM</auth-method>
-	<realm-name>Form-Based Authentication Area</realm-name>
-	<form-login-config id="FormLoginConfig_1">
-	<form-login-page>/login.html</form-login-page>
-	<form-error-page>/loginerror.jsp</form-error-page>
-	</form-login-config>
+    <auth-method>FORM</auth-method>
+    <realm-name>Form-Based Authentication Area</realm-name>
+    <form-login-config id="FormLoginConfig_1">
+      <form-login-page>/login.html</form-login-page>
+      <form-error-page>/loginerror.jsp</form-error-page>
+    </form-login-config>
   </login-config>
-  
   <context-param>
     <param-name>log4j-config</param-name>
     <param-value>WEB-INF/log4j.xml</param-value>
   </context-param>
-  
   <error-page>
     <error-code>404</error-code>
     <location>/AppErrorHandler</location>
@@ -26,7 +24,6 @@
     <exception-type>java.lang.Throwable</exception-type>
     <location>/AppErrorHandler</location>
   </error-page>
-  
   <filter>
     <filter-name>AuthenticationFilter</filter-name>
     <filter-class>com.ibm.psap.servlet.filters.AuthenticationFilter</filter-class>
