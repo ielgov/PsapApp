@@ -3,6 +3,7 @@ package com.ibm.psap.servlet.listeners;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
+import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import javax.servlet.ServletContext;
@@ -13,7 +14,7 @@ import javax.servlet.annotation.WebListener;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.xml.DOMConfigurator;
 
-import com.ibm.psap.util.DBConnectionManager;
+
 
 
 @WebListener
@@ -22,12 +23,17 @@ public class AppContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent servletContextEvent) {
     	ServletContext ctx = servletContextEvent.getServletContext();
     	
+    	//Get the App mode
+    	String mode = ctx.getInitParameter("productionMode");
+    	ctx.setAttribute("productionMode", Boolean.parseBoolean(mode));
     	//initialize DB Connection
-    	String dbSource = ctx.getInitParameter("dataSource");
+    	String dbSource = ctx.getInitParameter("dbSource");
     
     	try {
-			DBConnectionManager connectionManager = new DBConnectionManager (dbSource);
-			ctx.setAttribute("DBConnection", connectionManager.getConnection ());
+    		InitialContext serverCtx = new javax.naming.InitialContext();
+    		javax.sql.DataSource ds = (javax.sql.DataSource) serverCtx.lookup(dbSource);
+			//DBConnectionManager connectionManager = new DBConnectionManager (dbSource);
+			ctx.setAttribute("DBConnection", ds.getConnection ());
 			System.out.println("DB Connection initialized successfully.");
 		} catch (NamingException e) {
 			e.printStackTrace();

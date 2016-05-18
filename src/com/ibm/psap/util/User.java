@@ -8,14 +8,12 @@ public class User implements Serializable{
 	
 	private String name;
 	private String email;
-	private int id;
-	private String country;
+	private String role;
 	
-	public User(String nm, String em, String country, int i){
+	public User(String nm, String em, String role){
 		this.name=nm;
-		this.id=i;
-		this.country=country;
 		this.email=em;
+		this.role=role;
 	}
 
 	public void setName(String name) {
@@ -27,14 +25,9 @@ public class User implements Serializable{
 		this.email = email;
 	}
 
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-
-	public void setCountry(String country) {
-		this.country = country;
+	
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 
@@ -46,16 +39,12 @@ public class User implements Serializable{
 		return email;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public String getCountry() {
-		return country;
+	public String getRole() {
+		return role;
 	}
 	
 	@Override
 	public String toString(){
-		return "Name="+this.name+", Email="+this.email+", Country="+this.country;
+		return "Name="+this.name+", Email="+this.email+", role="+this.role;
 	}
 }
