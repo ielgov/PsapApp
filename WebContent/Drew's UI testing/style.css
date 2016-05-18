@@ -1,0 +1,118 @@
+body
+{
+	margin:0;
+	overflow:hidden;
+	height:100%;
+	width:100%;
+}
+
+body:hover
+{
+	cursor:default;
+}
+
+#assetsSlider.hidden
+{
+	height: 0em !important;
+}
+
+#assetsSlider
+{
+	font-size:1em !important;
+	height: 0em;
+	width:100%;
+	background-color:grey;
+	
+	margin:0em;
+	padding:0em;
+	border:0em;
+	
+	position:absolute;
+	bottom:0em;
+	left:0em;
+	
+	color:black;
+	text-align:center;
+		
+	transition: all 0.4s;
+	
+	z-index:1;
+	overflow-x:auto;
+	
+	transition: all 0.4s;
+}
+
+#assetsSubSlider
+{
+	display:-webkit-flex;
+	
+	justify-content:space-around;
+	
+	-webkit-flex-wrap:wrap;
+	
+	transition: all 0.4s;
+}
+
+.asset
+{
+	background:blue;
+	color:white;
+	
+	height: 4em;
+	width: 10em;	
+	margin: 8px; /*TODO change this to be set with em type units on page load; need this so the spacingn works*/
+	
+	/*border-radius: 1.5em;*/
+	/*box-shadow: 0px 0px .5em #000000;*/
+	
+	display:-webkit-flex;
+	justify-content:center;
+	align-items:center;
+	flex-wrap:wrap;
+	
+	transition: all 0.4s;
+}
+
+.asset.open
+{
+	transition: all 0.4s;	
+}
+
+.asset.open
+{
+	width:90%;	
+	position:absolute;
+	
+	left: 1em !important;
+	top: 1em !important;
+	
+	z-index:3;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
