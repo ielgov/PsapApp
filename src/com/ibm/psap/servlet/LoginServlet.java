@@ -28,12 +28,12 @@ public class LoginServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		boolean productionMode =(boolean)getServletContext().getAttribute("productionMode");
+		boolean productionMode =(Boolean)getServletContext().getAttribute("productionMode");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String errorMsg = null;
 		
-		if (productionMode){	
+		if (productionMode){
 		if(email == null || email.equals("")){
 			errorMsg ="User Email can't be null or empty";
 		}
@@ -48,6 +48,7 @@ public class LoginServlet extends HttpServlet {
 			rd.include(request, response);
 		}else{
 		//authentication check
+		/*	
 		try {
 			request.login(email, password);
         } catch(ServletException ex) {
@@ -59,7 +60,8 @@ public class LoginServlet extends HttpServlet {
 			rd.include(request, response);	
             return;
         }
-		//check user's authority
+        */
+		//authorization check
 		Connection con = (Connection) getServletContext().getAttribute("DBConnection");
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -85,8 +87,8 @@ public class LoginServlet extends HttpServlet {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			logger.error("Database connection problem");
-			throw new ServletException("DB Connection problem.");
+			logger.error("Database problem");
+			throw new ServletException("DB problem.");
 		}finally{
 			try {
 				rs.close();

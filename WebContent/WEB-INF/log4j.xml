@@ -3,7 +3,7 @@
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
 	debug="false">
 	<appender name="PsapApp" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${catalina.home}/logs/PsapApp.log"/>
+		<param name="File" value="c:/PSAP/logs/PsapApp.log"/>
 		<param name="Append"            value="true" />
 		<param name="ImmediateFlush"    value="true" />
 		<param name="MaxFileSize"       value="10MB" />

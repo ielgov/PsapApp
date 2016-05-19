@@ -33,11 +33,11 @@ public class Search extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		String solutionName = request.getParameter("name");
 		
 		JSONObject jsonResponse =  null;
-		boolean productionMode =(boolean)getServletContext().getAttribute("productionMode");
+		boolean productionMode =(Boolean)getServletContext().getAttribute("productionMode");
 		logger.info("The requested type is Search");
 		logger.info("Serach for " +solutionName );
 		if (solutionName!=null){
@@ -50,7 +50,8 @@ public class Search extends HttpServlet {
 			}
 			
 			try {
-				jsonResponse = DBResultSetToJson.convertStringToJSONArray(jsonString);
+				logger.info("Stubed JSON string is "+jsonString);
+				jsonResponse = DBResultSetToJson.convertStringToJSON(jsonString);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				throw new IOException(e.getMessage());

@@ -33,12 +33,23 @@ public class AuthenticationFilter implements Filter {
 		logger.info("Requested Resource::"+uri);
 		
 		HttpSession session = req.getSession(false);
-		
+		/* Frame work to check for authentication
 		if(session == null && !(uri.endsWith("html") || uri.endsWith("Login") )){
 			logger.error("Unauthorized access request");
-			res.sendRedirect("login.html");
+			res.sendRedirect("/PSAP/login.html");
 		}else{
 			// pass the request along the filter chain
+			chain.doFilter(request, response);
+		}
+		*/
+		// Temporary Frame work to by-pass authentication
+		if(session == null ){
+			logger.error("Setting session and By-passing authentication");
+			session = req.getSession();
+			// pass the request along the filter chain
+			chain.doFilter(request, response);
+		}else{
+			logger.error("By-passing authentication");
 			chain.doFilter(request, response);
 		}
 		

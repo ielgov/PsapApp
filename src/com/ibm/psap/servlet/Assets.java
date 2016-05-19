@@ -33,11 +33,11 @@ public class Assets extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		String offeridid = request.getParameter("offeringId");
 		String parentid = request.getParameter("parentId");
 		JSONObject jsonResponse =  null;
-		boolean productionMode =(boolean)getServletContext().getAttribute("productionMode");
+		boolean productionMode = (Boolean) getServletContext().getAttribute("productionMode");
 		logger.info("The requested type is Asset");
 		logger.info("Serach for Asset with offeringid=" +offeridid + " and solutionid=" + parentid);
 		if (offeridid!= null && parentid!=null){
@@ -50,16 +50,18 @@ public class Assets extends HttpServlet {
 			}
 			
 			try {
+				logger.info("Stubed JSON string is "+jsonString);
 				jsonResponse = DBResultSetToJson.convertStringToJSONArray(jsonString);
+				logger.info("Returning the response to request type Asset");
+				logger.info("Response to request is "+jsonResponse.toString());
+				response.setContentType("application/json");
+				response.getWriter().write(jsonResponse.toString());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				throw new IOException(e.getMessage());
 			}
 		}
-		logger.info("Returning the response to request type Asset");
-		logger.info("Response to request is "+jsonResponse.toString());
-		response.setContentType("application/json");
-		response.getWriter().write(jsonResponse.toString());
+		
 	}
 
 	/**

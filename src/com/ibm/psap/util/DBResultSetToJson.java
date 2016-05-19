@@ -5,7 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;  
 import java.sql.ResultSet;  
 
-public class DBResultSetToJson {
+public final class DBResultSetToJson {
 	/**
      * Convert a result set into a JSON Array
      * @param resultSet
@@ -64,6 +64,29 @@ public class DBResultSetToJson {
 			jsonArray = new JSONArray(jsStr);
 			jsonObj = new JSONObject();
 			jsonObj.put("result", jsonArray);
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        return jsonObj;
+    }
+    
+    /**
+     * Convert a String into a JSON Array
+     * @param JSON String
+     * @return a JSONArray
+     * @throws Exception
+     */
+    public static JSONObject convertStringToJSON(String jsStr)
+            throws Exception {
+       
+    	JSONObject jsonObj =  null;
+        JSONObject Obj =  null;
+        try {
+			Obj = new JSONObject(jsStr);
+			jsonObj =  new JSONObject();
+			jsonObj.put("result", Obj);
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

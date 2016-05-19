@@ -1,15 +1,27 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="US-ASCII">
-<title>Login Page</title>
+	<title>PSAP</title>
+	<link rel="stylesheet" href="/css/normalize.css">
+	<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<h3>Login with email and password</h3>
-<form action="Login" method="post">
-<strong>User Email</strong>:<input type="text" name="email"><br>
-<strong>Password</strong>:<input type="password" name="password" value="test"><br>
-<input type="submit" value="Login">
-</form>
+	<section class="loginform cf">
+		<form name="login" action="Login" method="post" accept-charset="utf-8">
+			<ul>
+				<li>
+					<label for="usermail">Email</label>
+					<input type="email" name="email" placeholder="yourname@email.com" required>
+				</li>
+				<li>
+					<label for="password">Password</label>
+					<input type="password" name="password" placeholder="password" required></li>
+				<li>
+					<input type="submit" value="Login">
+				</li>
+			</ul>
+		</form>
+	</section>
 </body>
 </html>

@@ -35,43 +35,56 @@ public class Categories extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		String categorytype = request.getParameter("type");
 		JSONObject jsonResponse =  null;
-		boolean productionMode =(boolean)getServletContext().getAttribute("productionMode");
+		boolean productionMode =(Boolean)getServletContext().getAttribute("productionMode");
 		logger.info("The requested type is "+categorytype);
 		if (categorytype!= null){
 			String jsonString = null;
-			switch (categorytype){
-				case "CATEGORY":
+			int switchValue = 0;
+			if(categorytype.equalsIgnoreCase("CATEGORY"))
+				switchValue = 1;
+			else if(categorytype.equalsIgnoreCase("SOLUTION"))
+				switchValue = 2;
+			else if(categorytype.equalsIgnoreCase("OFFERING"))
+				switchValue = 3;
+			
+			switch (switchValue){
+				case 1:
 					if (productionMode){
 						//extarct from the data set
 					}else{
 						//stub
 						jsonString = Constants.CATEGORY_JSONSTR;
+						
 					}
 					break;
-				case "SOLUTION":
+				case 2:
 					if (productionMode){
 						//extarct from the data set
 					}else{
 						//stub
 						jsonString = Constants.SOLUTION_JSONSTR;
+						
 					}
 					break;
-				case "OFFERING":
+				case 3:
 					if (productionMode){
 						//extarct from the data set
 					}else{
 						//stub
 						jsonString = Constants.OFFERING_JSONSTR;
+						
 					}
 					break;	
 				default:
 					break;
 			}
 			try {
+				logger.info("Stubed JSON string is "+jsonString);
 				jsonResponse = DBResultSetToJson.convertStringToJSONArray(jsonString);
+			
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				throw new IOException(e.getMessage());

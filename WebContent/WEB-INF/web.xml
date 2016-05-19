@@ -22,7 +22,7 @@
   </context-param>
   <context-param>
     <param-name>log4j-config</param-name>
-    <param-value>WEB-INF/log4j.xml</param-value>
+    <param-value>/WEB-INF/log4j.xml</param-value>
   </context-param>
   <error-page>
     <error-code>404</error-code>

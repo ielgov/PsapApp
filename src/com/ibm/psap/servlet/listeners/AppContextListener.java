@@ -3,6 +3,9 @@ package com.ibm.psap.servlet.listeners;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Hashtable;
+
+import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -30,10 +33,15 @@ public class AppContextListener implements ServletContextListener {
     	String dbSource = ctx.getInitParameter("dbSource");
     
     	try {
-    		InitialContext serverCtx = new javax.naming.InitialContext();
+    		System.out.println("Intializing DB Connection...");
+    		Hashtable env = new Hashtable();
+    		env.put(Context.INITIAL_CONTEXT_FACTORY,
+    		     "com.ibm.websphere.naming.WsnInitialContextFactory");
+    		env.put(Context.PROVIDER_URL, "corbaloc:iiop:psap-app:2809");
+    		Context serverCtx = new InitialContext(env);
+    		System.out.println("Lookup for DB datasource...");
     		javax.sql.DataSource ds = (javax.sql.DataSource) serverCtx.lookup(dbSource);
-			//DBConnectionManager connectionManager = new DBConnectionManager (dbSource);
-			ctx.setAttribute("DBConnection", ds.getConnection ());
+			ctx.setAttribute("DBConnection", ds.getConnection());
 			System.out.println("DB Connection initialized successfully.");
 		} catch (NamingException e) {
 			e.printStackTrace();
