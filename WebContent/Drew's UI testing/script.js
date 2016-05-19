@@ -60,7 +60,7 @@ function openButton(buttonClicked) // for some reason I cant click them twice
 			//*/
 		
 			buttonClicked.style.zIndex = 1	
-		}, 5000 ) // this needs to be the same as the animation time for shrinking
+		}, animationTime ) // this needs to be the same as the animation time for shrinking
 
 	}
 	else

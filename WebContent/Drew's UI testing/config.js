@@ -1,0 +1,1 @@
+var animationTime = 400; // number of ms to wait for open and close animation to finish

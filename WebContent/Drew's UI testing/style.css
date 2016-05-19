@@ -34,11 +34,11 @@ body:hover
 	color:black;
 	text-align:center;
 		
-	transition: all 4s;
+	transition: all .4s;
 	
 	overflow-x:auto;
 	
-	transition: all 4s;
+	transition: all .4s;
 }
 
 #assetsSubSlider
@@ -49,7 +49,7 @@ body:hover
 	
 	-webkit-flex-wrap:wrap;
 	
-	transition: all 4s;
+	transition: all .4s;
 }
 
 .asset
@@ -69,7 +69,7 @@ body:hover
 	align-items:center;
 	flex-wrap:wrap;
 	
-	transition: all 4s;
+	transition: all .4s;
 }
 
 .asset.open
@@ -94,7 +94,7 @@ body:hover
 	
 	background:rgba(0,0,0,0);
 	
-	transition: all 4s;
+	transition: all .4s;
 }
 
 
