@@ -8,8 +8,9 @@ window.onload = function(){
 	console.log(assetsSlider.height)
 	
 	addButtons(50);
+		
 	
-	setTimeout(function(){button19.click();}, config.animationTime)	
+	buttonclick();setTimeout(function(){button2.click();}, config.animationTime)
 }
 
 function addButtons(numberOfButtons) // TODO remove or change to use real data
@@ -49,6 +50,12 @@ function addButtons(numberOfButtons) // TODO remove or change to use real data
 		d.classList.add("asset");
 		
 		assetsSubSlider.appendChild(d);
+		
+		title.style.marginTop =
+		( 
+			d.getBoundingClientRect().height - 
+			document.getElementsByClassName("title")[0].getBoundingClientRect().height
+		)/2	
 	}
 }
 
@@ -135,16 +142,12 @@ function openButton(buttonClicked)
 		
 		var buttonPlaceHolder = buttonClicked.cloneNode();
 		buttonPlaceHolder.id = buttonPlaceHolder.id+"PlaceHolder";
-		buttonPlaceHolder.style.position = "static";
-		buttonPlaceHolder.style.zIndex = 1;
+		buttonPlaceHolder.classList.add("placeHolder")
 		console.log( buttonPlaceHolder );
 		parent.appendChild(buttonPlaceHolder);
 		
 		console.log( buttonPlaceHolder.getBoundingClientRect() );
 		
-		//buttonPlaceHolder.classList.add("hidden");
-		buttonPlaceHolder.style.transition = "all 0s"
-		buttonPlaceHolder.style.background = "rgba(0,0,0,0)"
 		placeHolders[buttonPlaceHolder.id] = buttonPlaceHolder;
 				
 		parent.removeChild(buttonClicked);
