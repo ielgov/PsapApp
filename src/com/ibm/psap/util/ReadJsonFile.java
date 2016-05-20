@@ -15,7 +15,7 @@ public final class ReadJsonFile {
 		JSONObject jsonObject =  null; 
         try {
         	String webAppPath = ctx.getRealPath("/");
-            Object obj = parser.parse(new FileReader(webAppPath + "/data" + filename));
+            Object obj = parser.parse(new FileReader(webAppPath + "/data/" + filename));
             jsonObject = (JSONObject) obj;
     
         } catch (Exception e) {
