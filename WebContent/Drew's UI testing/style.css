@@ -57,15 +57,15 @@ body:hover
 	background:blue;
 	color:white;
 	
-	height: 4em;
-	width: 10em;	
+	height: 8em;
+	width: 15em;	
 	margin: 8px; /*TODO change this to be set with em type units on page load; need this so the spacingn works*/
 	
 	border-radius: 1.5em;
-	/*box-shadow: 0px 0px .5em #000000;*/
+	box-shadow: 0px 0px .5em #000000;
 	
 	display:-webkit-flex;
-	justify-content:center;
+	/*justify-content:center;*/
 	align-items:center;
 	flex-wrap:wrap;
 	flex-direction:column;
@@ -87,7 +87,7 @@ body:hover
 .asset > div
 {
 	
-	transition: all .4s, width .4s, height .4s;
+	/*transition: all .4s, width .4s, height .4s;*/
 }
 
 .asset.open > div.title
@@ -135,27 +135,56 @@ body:hover
 {
 	margin:3em;
 	transition: all .4s;
+	display:block;
 }
 
 .buttonContent.hidden
 {
 	/*height:0em;*/
 	/*overflow:hidden;*/
+	display:none;
 }
 
 .contentHolder
 {
 	overflow:hidden;
 	
-	height:10em;
+	/*height:100%;*/
+	opacity: 1;
 	
-    transition: all .4s, height .4s .2s; /*the .2s is really nice with the .4*/
+    transition: all .4s, height .4s .2s, opacity .4s .4s; /*the .2s is really nice with the .4*/
 }
 .contentHolder.hidden
 {	
 	/*width:0em;*/
+	opacity: 0;
 	height:0em;
-    transition: all .4s, height .4s 0s;
+    transition: all .4s, height .4s 0s, opacity .4s .4s;
+}
+
+.placeHolder
+{
+	position: static !important;
+	z-index:1 !important;
+	transition: all 0s;
+	background: rgba(0,0,0,0);
+}
+
+#xIcon
+{
+	width:2em;
+	height:2em;	
+	
+	opacity: 1;
+	
+	z-index:3;
+	position:absolute;
+    transition: opacity .4s;
+}
+#xIcon.hidden
+{
+	opacity: 0;
+    transition: all .0s;
 }
 
 

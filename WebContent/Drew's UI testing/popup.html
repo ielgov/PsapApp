@@ -5,13 +5,14 @@
 		<script src="helperFunctions.js"></script>
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
-	<body>
+	<body onresize=" sizePopUpWidth( undefined, true) " >
 		<button onclick="buttonclick()" style="width:2em;height:2em;"></button>
-		<div id="assetsSlider">
+		<div id="assetsSlider" class="hidden" >
 			<div id="assetsSubSlider">
 			</div>
 		</div>
-		<div id="greyOutBox" onclick="openButton()" ></div>
+		<img id="xIcon" src="x.png" onclick="openButton()" class="hidden"></img>
+		<div id="greyOutBox" onclick="openButton()"></div>
 		<div id='divForFindingEMSize' style=" width:1em; position:absolute; left:-10000; right:-10000;"></div><!--if this is removed the page wont format correctly-->
 	</body>
 </HTML>
