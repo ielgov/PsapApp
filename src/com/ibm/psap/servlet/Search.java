@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.ibm.psap.util.Constants;
@@ -33,29 +35,27 @@ public class Search extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		String solutionName = request.getParameter("name");
-		
-		JSONObject jsonResponse =  null;
 		boolean productionMode =(Boolean)getServletContext().getAttribute("productionMode");
+		String solutionID=null;
+		if (productionMode){
+			solutionID = request.getParameter("name");
+		}else{
+			solutionID = request.getParameter("CategoryID");
+		}
+			
+		JSONObject jsonResponse =  null;
 		logger.info("The requested type is Search");
-		logger.info("Serach for " +solutionName );
-		if (solutionName!=null){
+		logger.info("Serach for " +solutionID );
+		if (solutionID!=null){
 			String jsonString =null;
 			if (productionMode){
 				//extarct from the data set
 			}else{
-				//stub
-				jsonString = Constants.SERACH_JSONSTR;
+				//stub	
+				//jsonString = Constants.SERACH_JSONSTR;
+				jsonResponse = getJSONResponse("Offering", solutionID);
 			}
-			
-			try {
-				logger.info("Stubed JSON string is "+jsonString);
-				jsonResponse = DBResultSetToJson.convertStringToJSON(jsonString);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				throw new IOException(e.getMessage());
-			}
+		
 		}
 		logger.info("Returning the response to request type Search");
 		logger.info("Response to request is "+jsonResponse.toString());
@@ -70,5 +70,22 @@ public class Search extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
+	
+	protected JSONObject getJSONResponse(String type, String parentid) throws IOException {
+		logger.info("Retriving JSON for the type "+type);
+		JSONObject obj = (JSONObject)getServletContext().getAttribute(type);
+		//logger.info(obj.toString());
+		logger.info("Retriving JSON for the type "+type + " for parent id " + parentid);
+		JSONObject Responseobj =  new JSONObject();
+		try {
+			JSONArray objArray = (JSONArray) obj.getJSONArray(parentid);
+			//logger.info(objArray.toString());
+			Responseobj =  new JSONObject();
+			Responseobj.put("result", objArray);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			throw new IOException(e.getMessage());
+		}			
+		return Responseobj;
+	}
 }

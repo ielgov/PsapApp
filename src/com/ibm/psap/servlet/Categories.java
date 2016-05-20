@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.json.JSONObject; 
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import com.ibm.psap.util.Constants;
 import com.ibm.psap.util.DBResultSetToJson;
@@ -35,8 +37,8 @@ public class Categories extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		String categorytype = request.getParameter("type");
+		String parentId = request.getParameter("parentId");
 		JSONObject jsonResponse =  null;
 		boolean productionMode =(Boolean)getServletContext().getAttribute("productionMode");
 		logger.info("The requested type is "+categorytype);
@@ -56,8 +58,8 @@ public class Categories extends HttpServlet {
 						//extarct from the data set
 					}else{
 						//stub
-						jsonString = Constants.CATEGORY_JSONSTR;
-						
+						//jsonString = Constants.CATEGORY_JSONSTR;
+						jsonResponse = getJSONResponse("Category", parentId);						
 					}
 					break;
 				case 2:
@@ -65,8 +67,8 @@ public class Categories extends HttpServlet {
 						//extarct from the data set
 					}else{
 						//stub
-						jsonString = Constants.SOLUTION_JSONSTR;
-						
+						//jsonString = Constants.SOLUTION_JSONSTR;
+						jsonResponse = getJSONResponse("Solution", parentId);				
 					}
 					break;
 				case 3:
@@ -74,21 +76,14 @@ public class Categories extends HttpServlet {
 						//extarct from the data set
 					}else{
 						//stub
-						jsonString = Constants.OFFERING_JSONSTR;
-						
+						//jsonString = Constants.OFFERING_JSONSTR;
+						jsonResponse = getJSONResponse("Offering", parentId);
 					}
 					break;	
 				default:
 					break;
 			}
-			try {
-				logger.info("Stubed JSON string is "+jsonString);
-				jsonResponse = DBResultSetToJson.convertStringToJSONArray(jsonString);
 			
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				throw new IOException(e.getMessage());
-			}
 		}
 		logger.info("Returning the response to request type "+categorytype);
 		logger.info("Response to request is "+jsonResponse.toString());
@@ -103,5 +98,23 @@ public class Categories extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
+	
+	
+	protected JSONObject getJSONResponse(String type, String parentid) throws IOException {
+		logger.info("Retriving JSON for the type "+type);
+		JSONObject obj = (JSONObject)getServletContext().getAttribute(type);
+		//logger.info(obj.toString());
+		logger.info("Retriving JSON for the type "+type + " for parent id " + parentid);
+		JSONObject Responseobj =  new JSONObject();
+		try {
+			JSONArray objArray = (JSONArray) obj.getJSONArray(parentid);
+			//logger.info(objArray.toString());
+			Responseobj =  new JSONObject();
+			Responseobj.put("result", objArray);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			throw new IOException(e.getMessage());
+		}			
+		return Responseobj;
+	}
 }

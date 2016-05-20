@@ -1,0 +1,26 @@
+{
+	"01": [
+		{
+		"CategoryId": "101",
+		"Name": "Intelligent Analysis",
+		"Display": "EAI"
+		}, 
+		{
+		"CategoryId": "102",
+		"Name": "Procative Policing",
+		"Display": "ILE"
+		}
+	],
+	"02": [
+		{
+		"CategoryId": "201",
+		"Name": "VCategoryIdeo Analytices",
+		"Display": "IVD"
+		}, 
+		{
+		"CategoryId": "202",
+		"Name": "BodyWorn Camera",
+		"Display": "BWC"
+		}
+	]
+}

@@ -16,6 +16,10 @@ import javax.servlet.annotation.WebListener;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.xml.DOMConfigurator;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.ibm.psap.util.ReadJsonFile;
 
 
 
@@ -67,6 +71,31 @@ public class AppContextListener implements ServletContextListener {
 			}
 		}
     	System.out.println("log4j configured properly");
+    	if (true){
+    		System.out.println("Reading the JSON file");
+    		//development mode
+    		//initialize JSON ststic data
+    		JSONObject obj1;
+			try {
+				obj1 = new JSONObject(ReadJsonFile.readjson(ctx,"Category.json"));
+				ctx.setAttribute("Category", obj1);
+	    		System.out.println("Successfully loaded Category JSON data");
+	    		JSONObject obj2 = new JSONObject(ReadJsonFile.readjson(ctx,"Solution.json"));
+	    		ctx.setAttribute("Solution", obj2);
+	    		System.out.println("Successfully loaded Solution JSON data");
+	    		JSONObject obj3 = new JSONObject(ReadJsonFile.readjson(ctx,"Offering.json"));
+	    		ctx.setAttribute("Offering", obj3);
+	    		System.out.println("Successfully loaded Offering JSON data");
+	    		JSONObject obj4 = new JSONObject(ReadJsonFile.readjson(ctx, "Assets.json"));
+	    		ctx.setAttribute("Asset", obj4);
+	    		System.out.println("Successfully loaded Assets JSON data");
+	    		System.out.println("Successfully loaded JSON data");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		
+    	}
     }
 
     public void contextDestroyed(ServletContextEvent servletContextEvent) {

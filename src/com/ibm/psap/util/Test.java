@@ -2,34 +2,28 @@ package com.ibm.psap.util;
 
 
 
+import java.io.FileReader;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 public class Test {
 
 	public static void main(String[] args) {
 		
-		JSONObject jsonResponse=null;
-		// TODO Auto-generated method stub
-		String jsonstr = "[{\"CategoryId\":\"01\", \"Name\":\"Intelligent Led Policing\", \"DisplayName\":\"ILP\"},{\"CategoryId\":\"02\", \"Name\":\"Realtime Crime\", \"DisplayName\":\"RLT_CRIME\"}]";
-		try {
-			jsonResponse = DBResultSetToJson.convertStringToJSONArray(jsonstr);
-			System.out.println("jjjjj"+ jsonResponse.toString());
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+	
+			JSONParser parser = new JSONParser();
+			JSONObject jsonObject =  null; 
+	        try {
+	            Object obj = parser.parse(new FileReader("http://172.27.50.134:9080/PSAP/Assets.json"));
+	            jsonObject = (JSONObject) obj;
+	            System.out.println(jsonObject);
+	        } catch (Exception e) {
+	        	e.printStackTrace();
+	        }
 		
-		try {
-			JSONArray jsonArray = new JSONArray(jsonstr);
-			JSONObject obj = new JSONObject();
-			obj.put("result", jsonArray);
-			System.out.println(obj);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 }

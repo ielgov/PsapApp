@@ -1,0 +1,38 @@
+{
+	"101": [
+		{
+		"CategoryId": "1001",
+		"Name": "Products",
+		"Display": "Products"
+		}, 
+		{
+		"CategoryId": "1002",
+		"Name": "Services",
+		"Display": "Services"
+		}
+	],
+	"102": [
+		{
+		"CategoryId": "1010",
+		"Name": "Products",
+		"Display": "Products"
+		}, 
+		{
+		"CategoryId": "1011",
+		"Name": "Services",
+		"Display": "Services"
+		}
+	],
+	"201": [
+		{
+		"CategoryId": "2001",
+		"Name": "Products",
+		"Display": "Products"
+		}, 
+		{
+		"CategoryId": "2002",
+		"Name": "Services",
+		"Display": "Services"
+		}
+	]
+}

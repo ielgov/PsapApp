@@ -1,0 +1,50 @@
+{
+	"101": {
+		"1001": 
+		[
+			{
+				"CategoryId": "10001",
+				"Name": "ref1"
+			}, {
+				"CategoryId": "10002",
+				"Name": "ref2"
+			}
+
+		],
+		"1002": 
+		[
+			{
+				"CategoryId": "10101",
+				"Name": "ref1"
+			}, {
+				"CategoryId": "10102",
+				"Name": "ref2"
+			}
+
+		]
+	},
+	"201": {
+		"1001": 
+		[
+			{
+				"CategoryId": "20001",
+				"Name": "ref1"
+			}, {
+				"CategoryId": "20002",
+				"Name": "ref2"
+			}
+
+		],
+		"1002": 
+		[
+			{
+				"CategoryId": "20101",
+				"Name": "ref1"
+			}, {
+				"CategoryId": "20102",
+				"Name": "ref2"
+			}
+
+		]
+	},
+}
