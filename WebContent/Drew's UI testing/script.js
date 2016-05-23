@@ -1,5 +1,5 @@
 /*
-TODO resize popup when window resizes -> px and em to and from percent?
+px and em to and from percent?
 */
 
 window.onload = function(){
@@ -8,13 +8,23 @@ window.onload = function(){
 	console.log(assetsSlider.height)
 	
 	var contentObj = {
-		"paragraph":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque imperdiet vestibulum magna nec faucibus. Vestibulum mollis non enim quis cursus. Morbi auctor sapien quis mattis blandit. Suspendisse accumsan rhoncus sapien, sit amet feugiat mi dapibus vitae. Nullam sit amet condimentum nibh, non maximus sem. Quisque aliquam, orci quis suscipit venenatis, elit justo ultricies massa, sed varius risus mauris at eros. Nam pharetra ante diam, eget bibendum ex sagittis eget."
+		"paragraph":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque imperdiet vestibulum magna nec faucibus. Vestibulum mollis non enim quis cursus. Morbi auctor sapien quis mattis blandit. Suspendisse accumsan rhoncus sapien, sit amet feugiat mi dapibus vitae. Nullam sit amet condimentum nibh, non maximus sem. Quisque aliquam, orci quis suscipit venenatis, elit justo ultricies massa, sed varius risus mauris at eros. Nam pharetra ante diam, eget bibendum ex sagittis eget.",
+		"paragraph2":"Peter Piper picked a peck of pickled peppers. A peck of pickled peppers Peter Piper picked. If Peter Piper picked a peck of pickled peppers, Where's the peck of pickled peppers Peter Piper picked?<br><br>Denise sees the fleece, Denise sees the fleas. At least Denise could sneeze and feed and freeze the fleas.",
+		"link":{"text":"Click to go to IBM", "url": 'http://www.ibm.com/'}
 	}
 	
 	addButtons(14, contentObj);
 	
-	buttonclick();
-	//setTimeout(function(){button2.click();}, config.animationTime)
+	revealAssets();
+		
+	assetsSlider.addEventListener("transitionend", function(e)
+	{
+		if( !assetsSlider.classList.contains("hidden") && assetsSlider === e.srcElement )
+		{
+			button2.click();
+		}
+		
+	}, false)
 }
 
 function addButtons(numberOfButtons, contentObj) // TODO remove or change to use real data
@@ -42,17 +52,65 @@ function addButtons(numberOfButtons, contentObj) // TODO remove or change to use
 			p.classList.add("buttonContent");
 			
 			var l = document.createElement("div");
-			l.innerHTML = contentObj.paragraph;
+			l.innerHTML = contentObj.link.text;
 			l.classList.add("buttonContent");
 			l.id="l"+i;
-			l.onclick = "open_in_new_tab('http://www.ibm.com/')"
+			l.onclick = function(){open_in_new_tab(contentObj.link.url)}
+			
+			var p2 = document.createElement("div");
+			p2.innerHTML = contentObj.paragraph2;
+			p2.classList.add("buttonContent");
+			
+			var hr = document.createElement("hr");
+			hr.style.width = "90%";
 						
+			contentHolder.appendChild( hr.cloneNode() )
 			contentHolder.appendChild(l)
+			contentHolder.appendChild( hr.cloneNode() )
 			contentHolder.appendChild(p)
+			contentHolder.appendChild( hr )
+			contentHolder.appendChild(p2)
 			d.appendChild(contentHolder);
 			
 			title.innerHTML ="button"+i;
 			d.setAttribute("onclick", "openButton(this)");
+			
+			d.addEventListener("transitionend", function(e)
+			{
+				/*/
+				console.log("e.srcElement is ...")
+				console.log(e.srcElement)
+				console.log("d id ...");
+				console.log(d);
+				//*/
+				if( !e.srcElement.classList.contains("open") && e.propertyName === "width" )
+				{
+					console.log("in if");
+					console.log(e.srcElement);
+					console.log(e.propertyName);
+					greyOutBox.style.zIndex = -1;
+				
+					//////////
+					
+					var placeHolder = placeHolders[ e.srcElement.id+"PlaceHolder" ];
+		
+					assetsSubSlider.appendChild( placeHolder )
+					placeHolder.parentElement.removeChild( placeHolder );
+			
+					/*/   TODO make sure the page still works after removing this
+			
+					placeHolder.classList.remove("hidden")
+					parent.removeChild(e.srcElement); 
+					assetsSubSlider.appendChild(e.srcElement);
+					/*/
+			
+					e.srcElement.style.position = "";
+					e.srcElement.style.zIndex = "";
+					e.srcElement.style.left = oldState.left
+					e.srcElement.style.top = oldState.top		
+					e.srcElement.onclick = oldState.onclick;
+				}
+			}, false);
 		}
 		
 		d.id = title.innerHTML;
@@ -69,135 +127,111 @@ function addButtons(numberOfButtons, contentObj) // TODO remove or change to use
 var oldState = {};
 var placeHolders = {};
 var lastClicked;
-function openButton(buttonClicked)
+function openButton(buttonClicked) // the order of doing thing in this function is very sensitive 
 {
 	buttonClicked = buttonClicked || lastClicked; // TODO this seems shakey 
 	
 	//if(buttonClicked === undefined]){return;}
 	
-	//console.log("buttonClicked is ")
-	//console.log(buttonClicked)
+	var parent = buttonClicked.parentElement;
 	
-	//var title = buttonClicked.getElementsByClassName("title")[0]
-		
-	var parent = buttonClicked.parentElement
-	if( buttonClicked.classList.contains("open"))
+	if( buttonClicked.classList.contains("open")) // fork for closing
 	{	
-		greyOutBox.classList.add("hidden")
+		greyOutBox.classList.add("hidden");
 		
-		setTimeout(function(){ greyOutBox.style.zIndex = -1 }, config.animationTime)
-		
-		buttonClicked.classList.remove("open");
+		buttonClicked.classList.remove("open"); // this block is setting button back to where it was
 		buttonClicked.style.width = oldState.width
-		buttonClicked.style.height = oldState.height
-		
-		//*/
-		buttonClicked.style.top = oldState.topStep1
-		buttonClicked.style.left = oldState.leftStep1
+		buttonClicked.style.height = oldState.height		
+		//buttonClicked.style.top = oldState.topStep1
+		//buttonClicked.style.left = oldState.leftStep1
 		buttonClicked.style.position = oldState.positionStep1
-		//*/
+		buttonClicked.style.zIndex = "";
 		
-		var needToShow = buttonClicked.getElementsByClassName("contentHolder");
+		var needToShow = buttonClicked.getElementsByClassName("contentHolder"); // hides the content of the button
 		for(var k=0; k< needToShow.length; k++)
 		{
 			needToShow[k].classList.add("hidden");
 		}
 		xIcon.classList.add("hidden")
-		
-		setTimeout( function(){			
-			var placeHolder = placeHolders[ buttonClicked.id+"PlaceHolder" ];
-		
-			assetsSubSlider.appendChild( placeHolder )
-			placeHolder.classList.remove("hidden")
-			placeHolder.parentElement.removeChild( placeHolder );
-			parent.removeChild(buttonClicked);
-			document.getElementById("assetsSubSlider").appendChild(buttonClicked);
-			
-			//console.log( buttonClicked.parentElement )		
-		
-			//*
-			buttonClicked.style.position = "";
-			buttonClicked.style.zIndex = "";
-			buttonClicked.style.left = oldState.left
-			buttonClicked.style.top = oldState.top		
-			buttonClicked.onclick = oldState.onclick;
-			//*/
-		
-		}, config.animationTime ) // this needs to be the same as the animation time for shrinking
-
 	}
 	else
 	{	
-		lastClicked = buttonClicked;
-			
-		buttonClicked.style.zIndex = 3;
-		greyOutBox.style.zIndex = 2;
-		greyOutBox.classList.remove("hidden")
-				
-		// TODO make a filler so it doesnt crash down without animation
+		buttonClickedRect = buttonClicked.getBoundingClientRect()
 		var left = buttonClicked.getBoundingClientRect().left
 		var top = buttonClicked.getBoundingClientRect().top;
+		lastClicked = buttonClicked;
 		
-		//console.log("left "+buttonClicked.getBoundingClientRect().left+" & "+left)
-		//console.log("top "+buttonClicked.getBoundingClientRect().top+" & "+top)
+		//buttonClicked.classList.add("1");
+		//greyOutBox.classList.add("1");
+		greyOutBox.style.zIndex = 1;
+		greyOutBox.classList.remove("hidden")	
 		
-		oldState["left"] = left - 8;// THIS number being subtracted HAS TO BE THE SAME AS THE MARGIN VALUE IN THE CSS
-		oldState["top"] = top - 8;// THIS number being subtracted HAS TO BE THE SAME AS THE MARGIN VALUE IN THE CSS
-		oldState["width"] = buttonClicked.getBoundingClientRect().width;
-		oldState["height"] = buttonClicked.getBoundingClientRect().height;
+		oldState["left"] = left - config.assetMargin;// THIS NUMBER BEING SUBTRACTED HAS TO BE THE SAME AS THE MARGIN VALUE IN THE CSS
+		oldState["top"] = top - config.assetMargin;// THIS NUMBER BEING SUBTRACTED HAS TO BE THE SAME AS THE MARGIN VALUE IN THE CSS
+		oldState["width"] = buttonClickedRect.width;
+		oldState["height"] = buttonClickedRect.height;
 		oldState.onclick = buttonClicked.onclick;
 		
+		//buttonClicked.classList.add("2");
 		buttonClicked.style.position = "fixed"
 		buttonClicked.style.left = oldState["left"]; 
 		buttonClicked.style.top = oldState["top"];	
 		buttonClicked.onclick = "";
+		buttonClicked.style.zIndex = 2;
 		
 		var buttonPlaceHolder = buttonClicked.cloneNode();
 		buttonPlaceHolder.id = buttonPlaceHolder.id+"PlaceHolder";
 		buttonPlaceHolder.classList.add("placeHolder")
 		buttonPlaceHolder.style.boxShadow = "none";
-		//console.log( buttonPlaceHolder );
-		parent.appendChild(buttonPlaceHolder);
-		
-		//console.log( buttonPlaceHolder.getBoundingClientRect() );
+		parent.appendChild(buttonPlaceHolder);		
 		
 		placeHolders[buttonPlaceHolder.id] = buttonPlaceHolder;
 		
-		console.log(169)
-		
 		sizePopUpWidth( buttonClicked )
 		
-		setTimeout(function(){ // i have no idea why this needs a timetout
-			buttonClicked.classList.add("open");
+		buttonClicked.classList.add("open");
 			
-			var needToShow = buttonClicked.getElementsByClassName("contentHolder");
-			for(var k=0; k< needToShow.length; k++)
-			{
-				needToShow[k].classList.remove("hidden");
-			}			
-		}, 0);
+		var needToShow = buttonClicked.getElementsByClassName("contentHolder");
+		for(var k=0; k< needToShow.length; k++)
+		{
+			needToShow[k].classList.remove("hidden");
+		}
 		
-		setTimeout(function(){
-			xIcon.classList.remove("hidden")
-			moveX(buttonClicked);
-		}, config.animationTime)
+		buttonClicked.addEventListener("transitionend", function(e)
+		{
+			if( buttonClicked.classList.contains("open") )
+			{
+				xIcon.classList.remove("hidden")
+				moveX(buttonClicked);			
+			}
+			
+		}, false)
 	}
 }
-
-function sizePopUpWidth( buttonClicked, moveXFlag)
-{
-	moveXFlag = moveXFlag || false;
-	buttonClicked = buttonClicked || lastClicked
 	
-	buttonClicked.style.width = pxToEm( window.innerWidth * config.popupWidth / 100 )+"em";
-	buttonClicked.style.height = pxToEm( window.innerHeight * config.popupHeight / 100 )+"em";
-	
-	if(moveXFlag)
+	function sizePopUpWidth( buttonClicked, moveXFlag)
 	{
-		console.log("moving x");
-		moveX(buttonClicked);
+		moveXFlag = moveXFlag || false;
+		
+		if( buttonClicked == undefined && !lastClicked.classList.contains("open") )
+		{
+			return;
+		}
+		else if( buttonClicked == undefined )
+		{
+			buttonClicked = lastClicked
+		}
+			
+		buttonClicked.style.width = pxToEm( window.innerWidth * config.popupWidth / 100 )+"em";
+		buttonClicked.style.height = pxToEm( window.innerHeight * config.popupHeight / 100 )+"em";
+		
+		if(moveXFlag)
+		{
+			console.log("moving x");
+			moveX(buttonClicked);
+		}
 	}
-}
+
 
 function moveX(buttonClicked)
 {
@@ -206,11 +240,11 @@ function moveX(buttonClicked)
 	var left = boundingRect.left + boundingRect.width;
 	var top = boundingRect.top;
 	
-	console.log("boundingRect.left is "+boundingRect.left)
-	console.log("boundingRect.width is "+boundingRect.width)
+	//console.log("boundingRect.left is "+boundingRect.left)
+	//console.log("boundingRect.width is "+boundingRect.width)
 	
-	console.log("left is "+left)
-	console.log("top is "+top)
+	//console.log("left is "+left)
+	//console.log("top is "+top)
 	
 	left -= xIcon.getBoundingClientRect().width;
 	
@@ -221,7 +255,7 @@ function moveX(buttonClicked)
 	xIcon.style.top = top
 }
 
-function buttonclick()
+function revealAssets()
 {
 	toggleClass(assetsSlider, "hidden");
 }
