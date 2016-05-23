@@ -1,7 +1,3 @@
-/*
-px and em to and from percent?
-*/
-
 window.onload = function(){
 	assetsSlider.style.height = "75%";
 	console.log(assetsSubSlider.getBoundingClientRect().height)
@@ -77,12 +73,6 @@ function addButtons(numberOfButtons, contentObj) // TODO remove or change to use
 			
 			d.addEventListener("transitionend", function(e)
 			{
-				/*/
-				console.log("e.srcElement is ...")
-				console.log(e.srcElement)
-				console.log("d id ...");
-				console.log(d);
-				//*/
 				if( !e.srcElement.classList.contains("open") && e.propertyName === "width" )
 				{
 					console.log("in if");
@@ -90,25 +80,21 @@ function addButtons(numberOfButtons, contentObj) // TODO remove or change to use
 					console.log(e.propertyName);
 					greyOutBox.style.zIndex = -1;
 				
-					//////////
-					
 					var placeHolder = placeHolders[ e.srcElement.id+"PlaceHolder" ];
 		
 					assetsSubSlider.appendChild( placeHolder )
+			
+					console.log( placeHolder.getBoundingClientRect() );
+					
 					placeHolder.parentElement.removeChild( placeHolder );
-			
-					/*/   TODO make sure the page still works after removing this
-			
-					placeHolder.classList.remove("hidden")
-					parent.removeChild(e.srcElement); 
-					assetsSubSlider.appendChild(e.srcElement);
-					/*/
+					
+					console.log(e.srcElement)
 			
 					e.srcElement.style.position = "";
 					e.srcElement.style.zIndex = "";
-					e.srcElement.style.left = oldState.left
-					e.srcElement.style.top = oldState.top		
-					e.srcElement.onclick = oldState.onclick;
+					e.srcElement.style.left = "";//placeHolder.getBoundingClientRect().left
+					e.srcElement.style.top = "";//placeHolder.getBoundingClientRect().top;		
+					e.srcElement.onclick = placeHolder.onclick;
 				}
 			}, false);
 		}
@@ -124,7 +110,7 @@ function addButtons(numberOfButtons, contentObj) // TODO remove or change to use
 	}
 }
 
-var oldState = {};
+//var oldState = {}; // TODO remove all occurences 
 var placeHolders = {};
 var lastClicked;
 function openButton(buttonClicked) // the order of doing thing in this function is very sensitive 
@@ -137,14 +123,16 @@ function openButton(buttonClicked) // the order of doing thing in this function 
 	
 	if( buttonClicked.classList.contains("open")) // fork for closing
 	{	
+		var placeHolder = placeHolders[ buttonClicked.id+"PlaceHolder" ].getBoundingClientRect();
+		
+		buttonClicked.style.left = placeHolder.left - config.assetMargin;
+		buttonClicked.style.top = placeHolder.top - config.assetMargin;
+		
 		greyOutBox.classList.add("hidden");
 		
 		buttonClicked.classList.remove("open"); // this block is setting button back to where it was
-		buttonClicked.style.width = oldState.width
-		buttonClicked.style.height = oldState.height		
-		//buttonClicked.style.top = oldState.topStep1
-		//buttonClicked.style.left = oldState.leftStep1
-		buttonClicked.style.position = oldState.positionStep1
+		buttonClicked.style.width = placeHolder.width;
+		buttonClicked.style.height = placeHolder.height;
 		buttonClicked.style.zIndex = "";
 		
 		var needToShow = buttonClicked.getElementsByClassName("contentHolder"); // hides the content of the button
@@ -153,6 +141,7 @@ function openButton(buttonClicked) // the order of doing thing in this function 
 			needToShow[k].classList.add("hidden");
 		}
 		xIcon.classList.add("hidden")
+			
 	}
 	else
 	{	
@@ -161,21 +150,18 @@ function openButton(buttonClicked) // the order of doing thing in this function 
 		var top = buttonClicked.getBoundingClientRect().top;
 		lastClicked = buttonClicked;
 		
-		//buttonClicked.classList.add("1");
-		//greyOutBox.classList.add("1");
 		greyOutBox.style.zIndex = 1;
 		greyOutBox.classList.remove("hidden")	
 		
-		oldState["left"] = left - config.assetMargin;// THIS NUMBER BEING SUBTRACTED HAS TO BE THE SAME AS THE MARGIN VALUE IN THE CSS
-		oldState["top"] = top - config.assetMargin;// THIS NUMBER BEING SUBTRACTED HAS TO BE THE SAME AS THE MARGIN VALUE IN THE CSS
-		oldState["width"] = buttonClickedRect.width;
-		oldState["height"] = buttonClickedRect.height;
-		oldState.onclick = buttonClicked.onclick;
+		//oldState.left = left - config.assetMargin;
+		//oldState.top = top - config.assetMargin;// THIS NUMBER BEING SUBTRACTED HAS TO BE THE SAME AS THE MARGIN VALUE IN THE CSS
+		//oldState["width"] = buttonClickedRect.width; //TODO remove
+		//oldState["height"] = buttonClickedRect.height; //TODO remove
+		//oldState.onclick = buttonClicked.onclick;
 		
-		//buttonClicked.classList.add("2");
 		buttonClicked.style.position = "fixed"
-		buttonClicked.style.left = oldState["left"]; 
-		buttonClicked.style.top = oldState["top"];	
+		buttonClicked.style.left = left - config.assetMargin; // THIS NUMBER BEING SUBTRACTED HAS TO BE THE SAME AS THE MARGIN VALUE IN THE CSS
+		buttonClicked.style.top =  top  - config.assetMargin;	
 		buttonClicked.onclick = "";
 		buttonClicked.style.zIndex = 2;
 		
