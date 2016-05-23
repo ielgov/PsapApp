@@ -11,10 +11,10 @@ window.onload = function(){
 		"paragraph":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque imperdiet vestibulum magna nec faucibus. Vestibulum mollis non enim quis cursus. Morbi auctor sapien quis mattis blandit. Suspendisse accumsan rhoncus sapien, sit amet feugiat mi dapibus vitae. Nullam sit amet condimentum nibh, non maximus sem. Quisque aliquam, orci quis suscipit venenatis, elit justo ultricies massa, sed varius risus mauris at eros. Nam pharetra ante diam, eget bibendum ex sagittis eget."
 	}
 	
-	addButtons(50, contentObj);
-		
+	addButtons(14, contentObj);
 	
-	buttonclick();setTimeout(function(){button2.click();}, config.animationTime)
+	buttonclick();
+	//setTimeout(function(){button2.click();}, config.animationTime)
 }
 
 function addButtons(numberOfButtons, contentObj) // TODO remove or change to use real data
@@ -79,7 +79,7 @@ function openButton(buttonClicked)
 	//console.log(buttonClicked)
 	
 	//var title = buttonClicked.getElementsByClassName("title")[0]
-	
+		
 	var parent = buttonClicked.parentElement
 	if( buttonClicked.classList.contains("open"))
 	{	
@@ -129,8 +129,8 @@ function openButton(buttonClicked)
 	else
 	{	
 		lastClicked = buttonClicked;
-		
-		//buttonClicked.style.zIndex = 3		
+			
+		buttonClicked.style.zIndex = 3;
 		greyOutBox.style.zIndex = 2;
 		greyOutBox.classList.remove("hidden")
 				
@@ -146,7 +146,7 @@ function openButton(buttonClicked)
 		oldState["width"] = buttonClicked.getBoundingClientRect().width;
 		oldState["height"] = buttonClicked.getBoundingClientRect().height;
 		oldState.onclick = buttonClicked.onclick;
-						
+		
 		buttonClicked.style.position = "fixed"
 		buttonClicked.style.left = oldState["left"]; 
 		buttonClicked.style.top = oldState["top"];	
@@ -162,9 +162,8 @@ function openButton(buttonClicked)
 		//console.log( buttonPlaceHolder.getBoundingClientRect() );
 		
 		placeHolders[buttonPlaceHolder.id] = buttonPlaceHolder;
-				
-		parent.removeChild(buttonClicked);
-		greyOutBox.appendChild(buttonClicked);
+		
+		console.log(169)
 		
 		sizePopUpWidth( buttonClicked )
 		

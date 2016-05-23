@@ -34,22 +34,23 @@ body:hover
 	color:black;
 	text-align:center;
 		
-	transition: all .4s;
+	transition: all 4.0s;
 	
 	overflow-x:auto;
 	
-	transition: all .4s;
+	transition: all 4.0s;
 }
 
 #assetsSubSlider
 {
 	display:-webkit-flex;
+	flex-direction: colun;
 	
 	justify-content:space-around;
 	
 	-webkit-flex-wrap:wrap;
 	
-	transition: all .4s;
+	transition: all 4.0s;
 }
 
 .asset
@@ -64,13 +65,13 @@ body:hover
 	border-radius: 1.5em;
 	box-shadow: 0px 0px .5em #000000;
 	
-	display:-webkit-flex;
-	/*justify-content:center;*/
+	/*display:-webkit-flex;*/
+	justify-content:center;
 	align-items:center;
 	flex-wrap:wrap;
 	flex-direction:column;
 	
-	transition: all .4s .0s, width .4s .0s, height .4s .0s;
+	transition: all 4.0s .0s, width 4.0s .0s, height 4.0s .0s;
 }
 
 .asset.open
@@ -81,13 +82,13 @@ body:hover
 	top: 1em !important;
 	
 	justify-content:flex-start;
-	transition: all .4s, width .4s, height .4s;
+	transition: all 4.0s, width 4.0s, height 4.0s;
 }
 
 .asset > div
 {
 	
-	/*transition: all .4s, width .4s, height .4s;*/
+	/*transition: all 4.0s, width 4.0s, height 4.0s;*/
 }
 
 .asset.open > div.title
@@ -95,7 +96,7 @@ body:hover
 	text-align:center;
 	/*background:green;*/
 	margin-top: 1.8em;
-	transition: all .4s;
+	transition: all 4.0s;
 }
 
 /*
@@ -109,7 +110,7 @@ body:hover
 	
 	background:rgba(0,0,0,0);
 	
-	transition: all .4s;
+	transition: all 4.0s;
 }
 */
 
@@ -128,13 +129,13 @@ body:hover
 	background:rgba(0,0,0,.7);
 	z-index:-1;
 	
-	transition: all .4s;
+	transition: all 4.0s;
 }
 
 .buttonContent
 {
 	margin:3em;
-	transition: all .4s;
+	transition: all 4.0s;
 	display:block;
 }
 
@@ -152,14 +153,14 @@ body:hover
 	/*height:100%;*/
 	opacity: 1;
 	
-    transition: all .4s, height .4s .2s, opacity .4s .4s; /*the .2s is really nice with the .4*/
+    transition: all 4.0s, height 4.0s .2s, opacity 4.0s 4.0s; /*the .2s is really nice with the .4*/
 }
 .contentHolder.hidden
 {	
 	/*width:0em;*/
 	opacity: 0;
 	height:0em;
-    transition: all .4s, height .4s 0s, opacity .4s .4s;
+    transition: all 4.0s, height 4.0s 0s, opacity 4.0s 4.0s;
 }
 
 .placeHolder
@@ -179,7 +180,7 @@ body:hover
 	
 	z-index:3;
 	position:absolute;
-    transition: opacity .4s;
+    transition: opacity 4.0s;
 }
 #xIcon.hidden
 {
