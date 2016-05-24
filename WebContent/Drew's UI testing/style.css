@@ -21,7 +21,7 @@ body:hover
 	font-size:1em !important;
 	height: 0em;
 	width:100%;
-	background-color:grey;
+	background-color:#D2D2D2;
 	
 	margin:0em;
 	padding:0em;
@@ -39,6 +39,10 @@ body:hover
 	overflow-x:auto;
 	
 	transition: all .4s;
+	
+	display:-webkit-flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 #assetsSubSlider
@@ -51,19 +55,20 @@ body:hover
 	-webkit-flex-wrap:wrap;
 	
 	transition: all .4s;
+	width:90%;
 }
 
 .asset
 {
-	background:blue;
-	color:white;
+	background:#ADADAD;
+	color:black;
 	
-	height: 8em;
-	width: 15em;	
+	height: 16em;
+	width: 12em;	
 	margin: 8px; /*TODO change this to be set with em type units on page load; need this so the spacing works*/
 	
 	border-radius: 1.5em;
-	box-shadow: 0px 0px .5em #000000;
+	/*box-shadow: 0px 0px .5em #000000;*/
 	
 	justify-content:center;
 	
@@ -89,8 +94,14 @@ body:hover
 .asset.open > div.title
 {
 	text-align:center;
-	margin-top: 1.8em;
+	margin-top: 1em !important;
 	transition: all .4s;
+	font-size:3em;
+}
+
+.asset > div.title
+{
+	transition: font-size .4s;
 }
 
 #greyOutBox.hidden
@@ -163,6 +174,11 @@ body:hover
 {
 	opacity: 0;
     transition: all .0s;
+}
+
+#assetsTitle
+{
+	height:6em;
 }
 
 

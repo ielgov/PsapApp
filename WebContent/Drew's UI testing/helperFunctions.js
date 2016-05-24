@@ -36,3 +36,49 @@ function toggleClass(e, className)
 		e.classList.add(className);
 	}
 }
+
+var o = [
+	{
+		"x":0,
+		"y":67,
+	},
+	{
+		"x":67,
+		"y":67,
+	},
+	{
+		"x":67,
+		"y":0,
+	},
+]
+//alert( makeSVGImage(o, 100, 100) )
+
+function makeSVGImage(pointsArr, width, height)
+{
+	var dStr = "";
+	for(var i=0; i<pointsArr.length; i++)
+	{
+		dStr += i===0 ? "M" : " L";
+		dStr += ""+pointsArr[i].x + " " + pointsArr[i].y
+	}
+	return dStr;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

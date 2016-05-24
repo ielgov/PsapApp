@@ -9,15 +9,18 @@ window.onload = function(){
 		"link":{"text":"Click to go to IBM", "url": 'http://www.ibm.com/'}
 	}
 	
+	revealAssets();
+	
+	return; // this needs to be removed to go back to first thought
+	
 	addButtons(14, contentObj);
 	
-	revealAssets();
 		
 	assetsSlider.addEventListener("transitionend", function(e)
 	{
 		if( !assetsSlider.classList.contains("hidden") && assetsSlider === e.srcElement )
 		{
-			button2.click();
+			//button2.click();
 		}
 		
 	}, false)
