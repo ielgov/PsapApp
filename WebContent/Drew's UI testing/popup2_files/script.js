@@ -13,7 +13,7 @@ window.onload = function(){
 	
 	//return; // this needs to be removed to go back to first thought
 	
-	addButtons(14, contentObj);
+	//addButtons(14, contentObj);
 	
 		
 	assetsSlider.addEventListener("transitionend", function(e)
@@ -21,6 +21,7 @@ window.onload = function(){
 		if( !assetsSlider.classList.contains("hidden") && assetsSlider === e.srcElement )
 		{
 			//button2.click();
+			//assetsSlider.
 		}
 		
 	}, false)
@@ -102,11 +103,11 @@ function addButtons(numberOfButtons, contentObj) // TODO remove or change to use
 			var hr = document.createElement("hr");
 			hr.style.width = "90%";
 						
-			contentHolder.appendChild( hr.cloneNode() )
+			//contentHolder.appendChild( hr.cloneNode() )
 			contentHolder.appendChild(l)
-			contentHolder.appendChild( hr.cloneNode() )
+			//contentHolder.appendChild( hr.cloneNode() )
 			contentHolder.appendChild(p)
-			contentHolder.appendChild( hr )
+			//contentHolder.appendChild( hr )
 			contentHolder.appendChild(p2)
 			d.appendChild(contentHolder);
 			

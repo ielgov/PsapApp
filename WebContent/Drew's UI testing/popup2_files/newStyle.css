@@ -1,0 +1,75 @@
+.asset
+{
+		padding:.75em;
+		text-align:center;
+}
+
+.assetSmallerParent.hidden
+{
+	height:0px !important;
+	overflow:hidden;
+}
+
+.assetSmallererParent
+{
+	display:-webkit-flex;
+	flex-direction: row;
+	justify-content:space-around;
+	-webkit-flex-wrap:wrap;
+	
+	transition: all .4s;
+}
+
+.assetParent
+{
+	color:white;
+	text-align:left;
+}
+
+.title
+{
+	font-size:2em;
+	padding:.5em;
+}
+
+.assetsTitle
+{
+	color:black;
+}
+
+.assetTitle
+{
+}
+
+#first
+{
+	background:rgba(0,0,255,.5);
+}
+
+#second
+{
+	background:rgba(0,0,255,.0);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

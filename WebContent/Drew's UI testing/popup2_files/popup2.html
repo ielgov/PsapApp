@@ -1,0 +1,81 @@
+<HTML>
+	<head>
+		<script src="script.js"></script>
+		<script src="newScript.js"></script>
+		<script src="config.js"></script>
+		<script src="helperFunctions.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="newStyle.css">
+		
+		<style>
+			.newIdeaText.title
+			{
+				font-size:2.5em;
+				text-decoration:underline;
+			}
+			.newIdeaText
+			{
+				font-size:1.5em;
+				margin:.125em;
+			}
+			.newIdeaBody
+			{
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			.newIdeaContentHolder
+			{
+				margin-left:1em;
+				margin-right:1em;
+			}
+		</style>
+	</head>
+	<body onresize=" sizePopUpWidth( undefined, true) " >
+		<button onclick="revealAssets()" style="width:2em;height:2em;"></button>
+		<div id="assetsSlider" class="hidden" >
+				<div id="assetsTitle"><span style="color:grey">Showing</span> 18 <span style="color:grey">results for</span> xyz > abc > def</div>
+				<div>
+					<div id="first" class="assetParent">
+						<div class="title">Title of this part</div>
+						<div id="firstSmaller" class="assetSmallerParent">
+							<div id="firstSmallerer" class="assetSmallererParent">
+								<div id="button1" class="asset">1</div>
+								<div id="button2" class="asset">2</div>
+								<div id="button3" class="asset">3</div>
+								<div id="button4" class="asset">This is a really long title that I hope will show an unrealistic length that we will never reach for an asset title</div>
+								<div id="button5" class="asset">5</div>
+								<div id="button6" class="asset">6</div>
+								<div id="button7" class="asset">7</div>
+								<div id="button8" class="asset">8</div>
+								<div id="button9" class="asset">9</div>
+							</div>
+						</div>
+					</div>
+					<div id="second" class="assetParent">
+						<div class="title">Title of that part</div>
+						<div  id="secondSmaller" class="assetSmallerParent">
+							<div id="secondSmallerer" class="assetSmallererParent">
+								<div id="button1" class="asset">1</div>
+								<div id="button2" class="asset">2</div>
+								<div id="button3" class="asset">3</div>
+								<div id="button4" class="asset">4</div>
+								<div id="button5" class="asset">5</div>
+								<div id="button6" class="asset">6</div>
+								<div id="button7" class="asset">7</div>
+								<div id="button8" class="asset">8</div>
+								<div id="button9" class="asset">9</div>
+							</div>
+						</div>
+					</div>
+						
+					</div>
+				</div>
+				<!--end of new idea 2-->
+			<div id="assetsSubSlider">
+			</div>
+		</div>
+		<img id="xIcon" src="x.png" onclick="openButton()" class="hidden"></img>
+		<div id="greyOutBox" onclick="openButton()"></div>
+		<div id='divForFindingEMSize' style=" width:1em; position:absolute; left:-10000; right:-10000;"></div><!--if this is removed the page wont format correctly-->
+	</body>
+</HTML>
