@@ -68,34 +68,6 @@ body:hover
 	width:95%;
 }
 
-.asset
-{
-	background:#ADADAD;
-	color:black;
-	
-	height: 6em;
-	width: 12em;	
-	margin: 8px; /*TODO change this to be set with em type units on page load; need this so the spacing works*/
-	
-	border-radius: 1.5em;
-	/*box-shadow: 0px 0px .5em #000000;*/
-	
-	justify-content:center;
-	
-	transition: all .4s .0s, width .4s .0s, height .4s .0s;
-}
-
-.asset.open
-{
-	position:absolute;
-	
-	left: 1em !important;
-	top: 1em !important;
-	
-	justify-content:flex-start;
-	transition: all .4s, width .4s, height .4s;
-}
-
 .asset > div
 {
 	/*transition: all .4s, width .4s, height .4s;*/

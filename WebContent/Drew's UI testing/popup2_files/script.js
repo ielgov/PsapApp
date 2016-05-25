@@ -1,7 +1,7 @@
 window.onload = function(){
 	assetsSlider.style.height = "75%";
-	console.log(assetsSubSlider.getBoundingClientRect().height)
-	console.log(assetsSlider.height)
+	//console.log(assetsSubSlider.getBoundingClientRect().height)
+	//console.log(assetsSlider.height)
 	
 	var contentObj = {
 		"paragraph":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque imperdiet vestibulum magna nec faucibus. Vestibulum mollis non enim quis cursus. Morbi auctor sapien quis mattis blandit. Suspendisse accumsan rhoncus sapien, sit amet feugiat mi dapibus vitae. Nullam sit amet condimentum nibh, non maximus sem. Quisque aliquam, orci quis suscipit venenatis, elit justo ultricies massa, sed varius risus mauris at eros. Nam pharetra ante diam, eget bibendum ex sagittis eget.",
@@ -27,6 +27,7 @@ window.onload = function(){
 	}, false)
 	
 	resize();
+	buildPopUp( results );
 }
 
 var isBlue = true;//TODO remove
@@ -163,7 +164,7 @@ function addButtons(numberOfButtons, contentObj) // TODO remove or change to use
 //var oldState = {}; // TODO remove all occurences 
 var placeHolders = {};
 var lastClicked;
-function openButton(buttonClicked) // the order of doing thing in this function is very sensitive 
+function openButton_old(buttonClicked) // the order of doing thing in this function is very sensitive 
 {
 	buttonClicked = buttonClicked || lastClicked; // TODO this seems shakey 
 	
@@ -173,17 +174,22 @@ function openButton(buttonClicked) // the order of doing thing in this function 
 	
 	if( buttonClicked.classList.contains("open")) // fork for closing
 	{	
-		var placeHolder = placeHolders[ buttonClicked.id+"PlaceHolder" ].getBoundingClientRect();
+		var placeHolder = placeHolders[ buttonClicked.id+"PlaceHolder" ];
+		var placeHolderRect = placeHolder.getBoundingClientRect();
 		
-		buttonClicked.style.left = placeHolder.left - config.assetMargin;
-		buttonClicked.style.top = placeHolder.top - config.assetMargin;
+		buttonClicked.style.left = placeHolderRect.left - config.assetMargin;
+		buttonClicked.style.top = placeHolderRect.top - config.assetMargin;
 		
 		greyOutBox.classList.add("hidden");
 		
 		buttonClicked.classList.remove("open"); // this block is setting button back to where it was
-		buttonClicked.style.width = placeHolder.width;
-		buttonClicked.style.height = placeHolder.height;
+		buttonClicked.style.width = placeHolderRect.width;
+		buttonClicked.style.height = placeHolderRect.height;
 		buttonClicked.style.zIndex = "";
+		
+		console.log(placeHolder)
+		console.log(placeHolder.parentElement)
+		placeHolder.parentElement.removeChild( placeHolder )
 		
 		var needToShow = buttonClicked.getElementsByClassName("contentHolder"); // hides the content of the button
 		for(var k=0; k< needToShow.length; k++)
@@ -195,19 +201,12 @@ function openButton(buttonClicked) // the order of doing thing in this function 
 	}
 	else
 	{	
-		buttonClickedRect = buttonClicked.getBoundingClientRect()
 		var left = buttonClicked.getBoundingClientRect().left
 		var top = buttonClicked.getBoundingClientRect().top;
 		lastClicked = buttonClicked;
 		
 		greyOutBox.style.zIndex = 1;
 		greyOutBox.classList.remove("hidden")	
-		
-		//oldState.left = left - config.assetMargin;
-		//oldState.top = top - config.assetMargin;// THIS NUMBER BEING SUBTRACTED HAS TO BE THE SAME AS THE MARGIN VALUE IN THE CSS
-		//oldState["width"] = buttonClickedRect.width; //TODO remove
-		//oldState["height"] = buttonClickedRect.height; //TODO remove
-		//oldState.onclick = buttonClicked.onclick;
 		
 		buttonClicked.style.position = "fixed"
 		buttonClicked.style.left = left - config.assetMargin; // THIS NUMBER BEING SUBTRACTED HAS TO BE THE SAME AS THE MARGIN VALUE IN THE CSS
@@ -216,6 +215,7 @@ function openButton(buttonClicked) // the order of doing thing in this function 
 		buttonClicked.style.zIndex = 2;
 		
 		var buttonPlaceHolder = buttonClicked.cloneNode();
+		gph = buttonPlaceHolder; // TODO remove
 		buttonPlaceHolder.id = buttonPlaceHolder.id+"PlaceHolder";
 		buttonPlaceHolder.classList.add("placeHolder")
 		buttonPlaceHolder.style.boxShadow = "none";
@@ -249,8 +249,9 @@ function openButton(buttonClicked) // the order of doing thing in this function 
 	{
 		moveXFlag = moveXFlag || false;
 		
-		if( (buttonClicked == undefined) || (lastClicked !== undefined && !lastClicked.classList.contains("open")) )
+		if( (buttonClicked == undefined) ) //	|| (lastClicked !== undefined && !lastClicked.classList.contains("open")) )
 		{
+			console.log("not doing sizePopUpWidth");
 			return;
 		}
 		else if( buttonClicked == undefined )
@@ -293,7 +294,8 @@ function moveX(buttonClicked)
 
 function revealAssets()
 {
-	renameme(buttonA1, document.getElementsByClassName("assetSmallererParent"));
+	numberOfResults.innerHTML = assetsSlider.getElementsByClassName("asset").length;
+	sizeAssets(buttonThatNeedsToBeRemoved, document.getElementsByClassName("assetSmallererParent"));
 	toggleClass(assetsSlider, "hidden");
 }
 
@@ -321,8 +323,9 @@ function sizeElements()
 }
 
 // params: seedButton is the button to get the width off of
-function renameme(seedButton, containerArr) // sorry, this is really jank 
+function sizeAssets(seedButton, containerArr) // sorry, this is really jank 
 {
+	//console.log(seedButton);
 	for( var i=0; i<containerArr.length; i++ )
 	{
 		containerArr[i].style.marginLeft = 0;	
@@ -342,7 +345,7 @@ function renameme(seedButton, containerArr) // sorry, this is really jank
 
 function resize()
 {
-	renameme(buttonA1, document.getElementsByClassName("assetSmallererParent"));
+	sizeAssets(buttonThatNeedsToBeRemoved, document.getElementsByClassName("assetSmallererParent"));
 	sizePopUpWidth( undefined, true);
 	assetsSlider.style.width = window.innerWidth
 }

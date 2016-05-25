@@ -6,12 +6,32 @@
 	
 	display:-webkit-flex;
 	justify-content:center;
-	align-items:center;
+	/*align-items:center;*/
 	
 	width:12em;
 	
 	background: grey;
+	color:black;
 	
+	height: 6em;
+	width: 12em;	
+	margin: 8px; /*TODO change this to be set with em type units on page load; need this so the spacing works*/
+	border-radius: 1.5em;
+	
+	transition: all .4s .0s, width .4s .0s, height .4s .0s;
+}
+
+.asset.open
+{
+	transition: all .4s, width .4s, height .4s;
+}
+
+.asset.open > div.title
+{
+	text-align:center;
+	/*margin-top: 1em !important;*/
+	transition: all .4s;
+	font-size:2em;
 }
 
 .assetSmallerParent
@@ -37,7 +57,7 @@
 	transition: all .4s;
 }
 
-.title
+.assetParent > .title
 {
 	font-size:2em;
 	padding:.5em;
@@ -45,7 +65,7 @@
 
 #assetsTitle
 {
-	color:black;
+	color:grey;
 	margin: .75em;
 }
 
