@@ -25,6 +25,8 @@ window.onload = function(){
 		}
 		
 	}, false)
+	
+	resize();
 }
 
 var isBlue = true;//TODO remove
@@ -247,7 +249,7 @@ function openButton(buttonClicked) // the order of doing thing in this function 
 	{
 		moveXFlag = moveXFlag || false;
 		
-		if( buttonClicked == undefined && !lastClicked.classList.contains("open") )
+		if( (buttonClicked == undefined) || (lastClicked !== undefined && !lastClicked.classList.contains("open")) )
 		{
 			return;
 		}
@@ -291,6 +293,7 @@ function moveX(buttonClicked)
 
 function revealAssets()
 {
+	renameme(buttonA1, document.getElementsByClassName("assetSmallererParent"));
 	toggleClass(assetsSlider, "hidden");
 }
 
@@ -309,6 +312,39 @@ function toggleClass(e, className)
 	{
 		e.classList.add(className);
 	}
+}
+
+function sizeElements()
+{
+	//( button1.getBoundingClientRect.width() + config.assetMargin ) * 4;
+	
+}
+
+// params: seedButton is the button to get the width off of
+function renameme(seedButton, containerArr) // sorry, this is really jank 
+{
+	for( var i=0; i<containerArr.length; i++ )
+	{
+		containerArr[i].style.marginLeft = 0;	
+	}
+	
+	buttonWidth = seedButton.getBoundingClientRect().width + config.assetMargin*2;
+	numberElementsAcross = parseInt( window.innerWidth / buttonWidth );
+	expectedButtonsWidths = numberElementsAcross * buttonWidth;
+	marginLeft = ( window.innerWidth - expectedButtonsWidths ) / 2
+	
+	
+	for( var i=0; i<containerArr.length; i++ )
+	{
+		containerArr[i].style.marginLeft = marginLeft;	
+	}
+}
+
+function resize()
+{
+	renameme(buttonA1, document.getElementsByClassName("assetSmallererParent"));
+	sizePopUpWidth( undefined, true);
+	assetsSlider.style.width = window.innerWidth
 }
 
 

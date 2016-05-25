@@ -4,8 +4,10 @@
 		<script src="newScript.js"></script>
 		<script src="config.js"></script>
 		<script src="helperFunctions.js"></script>
+		<script src="buildPopUp.js"></script>
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<link rel="stylesheet" type="text/css" href="newStyle.css">
+		<link rel="stylesheet" type="text/css" href="css/fonts.css">
 		
 		<style>
 			.newIdeaText.title
@@ -30,40 +32,43 @@
 			}
 		</style>
 	</head>
-	<body onresize=" sizePopUpWidth( undefined, true) " >
+	<body class="helvLightFont" onresize="resize()" >
 		<button onclick="revealAssets()" style="width:2em;height:2em;"></button>
 		<div id="assetsSlider" class="hidden" >
-				<div id="assetsTitle"><span style="color:grey">Showing</span> 18 <span style="color:grey">results for</span> xyz > abc > def</div>
-				<div>
+				<div id="assetsTitle"><span style="color:grey">Showing</span> 18 <span style="color:grey">results</div>
+				<div id="assetsHolder">
 					<div id="first" class="assetParent">
-						<div class="title">Title of this part</div>
+						<div class="title">IOC for Emergency Management</div>
 						<div id="firstSmaller" class="assetSmallerParent">
 							<div id="firstSmallerer" class="assetSmallererParent">
-								<div id="button1" class="asset">1</div>
-								<div id="button2" class="asset">2</div>
-								<div id="button3" class="asset">3</div>
-								<div id="button4" class="asset">This is a really long title that I hope will show an unrealistic length that we will never reach for an asset title</div>
-								<div id="button5" class="asset">5</div>
-								<div id="button6" class="asset">6</div>
-								<div id="button7" class="asset">7</div>
-								<div id="button8" class="asset">8</div>
-								<div id="button9" class="asset">9</div>
+								<div id="buttonA1" onclick="openButton(this)" style="order:1;" class="asset">Incident and Emergency Management Solution Kit</div>
+								<div id="buttonA2" onclick="openButton(this)" style="order:2;" class="asset">External IOC for EM product web page</div>
+								<div id="buttonA3" onclick="openButton(this)" style="order:3;" class="asset">Emergency Management solution page within the IBM Analytics Government website</div>
+								<div id="buttonA4" onclick="openButton(this)" style="order:4;" class="asset">IBM Analytics Safer Planet web page (see Public Safety section)</div>
+								<div id="buttonA5" onclick="openButton(this)" style="order:5;" class="asset">June 11 2015 IOC for EM Safer Planet - Webcast</div>
+								<div id="buttonA6" onclick="openButton(this)" style="order:6;" class="asset">IBM Intelligent Operations Center for Emergency Management Video</div>
+								<div id="buttonA7" onclick="openButton(this)" style="order:7;" class="asset">Emergency Management Podcast with G Nestler with A Crowe</div>
 							</div>
 						</div>
 					</div>
 					<div id="second" class="assetParent">
-						<div class="title">Title of that part</div>
-						<div  id="secondSmaller" class="assetSmallerParent">
+						<div class="title">Intelligent Video Analytics (IVA)</div>
+						<div id="secondSmaller" class="assetSmallerParent">
 							<div id="secondSmallerer" class="assetSmallererParent">
-								<div id="button1" class="asset">1</div>
-								<div id="button2" class="asset">2</div>
-								<div id="button3" class="asset">3</div>
-								<div id="button4" class="asset">4</div>
-								<div id="button5" class="asset">5</div>
-								<div id="button6" class="asset">6</div>
-								<div id="button7" class="asset">7</div>
-								<div id="button8" class="asset">8</div>
-								<div id="button9" class="asset">9</div>
+								<div id="buttonB1" class="asset">IVA Solution Kit</div>
+								<div id="buttonB2" class="asset">External IVA Product Page</div>
+								<div id="buttonB3" class="asset">IVA Video Demo</div>
+							</div>
+						</div>
+					</div>
+					<div id="third" class="assetParent">
+						<div class="title">IOC4EM</div>
+						<div id="firstSmaller" class="assetSmallerParent">
+							<div id="thirdSmallerer" class="assetSmallererParent">
+								<div id="buttonC1" class="asset">1</div>
+								<div id="buttonC2" class="asset">2</div>
+								<div id="buttonC3" class="asset">3</div>
+								<div id="buttonC4" class="asset">This is a really long title that I hope will show an unrealistic length that we will never reach for an asset title</div>
 							</div>
 						</div>
 					</div>

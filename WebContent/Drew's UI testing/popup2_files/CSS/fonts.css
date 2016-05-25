@@ -1,0 +1,132 @@
+@font-face {
+    font-family: "people1";
+    src: url("../fonts/people1.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: "people2";
+    src: url("../fonts/people2.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: "lubalingraphstdbook";
+    src: url("../fonts/lubalin/lubalingraphstd-book-webfont.woff") format('woff');
+}
+
+@font-face {
+    font-family: "lubalingraphstddemi";
+    src: url("../fonts/lubalin/lubalingraphstd-demi-webfont.woff") format('woff');
+}
+
+@font-face {
+    font-family: "helveticaneuewebfont";
+    src: url("../fonts/helveticaneue-webfont.woff") format('woff');
+}
+
+@font-face {
+    font-family: "helveticaneuelightwebfont";
+    src: url("../fonts/helveticaneue-light-webfont.woff") format('woff');
+}
+
+@font-face 
+{
+   font-family: "modernpicwoff";
+   src: url("../fonts/modernpics-webfont.woff") format('woff');
+}
+
+@font-face {
+    font-family: "fontAwesome";
+    src: url("../fonts/fontawesome-webfont.woff2") format('woff2');
+}
+
+@font-face {
+    font-family: "raleway";
+    src: url("../fonts/raleway400.woff2") format('woff2');
+}
+
+.modernPic
+{
+	font-family:'modernpicwoff';	
+}
+
+.fontAwesome
+{
+	font-family:'fontAwesome';	
+}
+		
+.raleway
+{
+	font-family:'raleway';			
+}
+
+.helvFont
+{
+	font-family:'helveticaneuewebfont'; 
+	line-height: 6.5vw;
+}
+.helvFontSkinny
+{
+	font-family:'helveticaneuelightwebfont'; 
+	line-height: 6.7vw;
+}
+
+.helvLightFont
+{
+	font-family:'helveticaneuelightwebfont';
+}
+
+.lubaFont
+{
+	font-family:'lubalingraphstddemi';
+}
+.lubaSkinnyFont
+{
+	font-family:'lubalingraphstdbook';
+}
+.mediumFont
+{
+	font-size:5vw;	
+}
+
+.smallFont
+{
+	font-size:2.75vw;
+}
+
+.xsmallFont
+{
+	font-size:1.5vw;
+}
+
+.customerEngagementSolutionsFont
+{
+	font-family:'helveticaneuelightwebfont'; 
+	font-size:2.55vw;
+	line-height: 3vw;
+}
+
+.largeFont
+{
+	font-size:8vw;
+}
+
+@font-face 
+{
+    font-family: 'socicon';
+    src: url('../fonts/socicon-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.socicon
+{
+    font-family: 'socicon' !important;
+    font-size:10vw;
+    text-align:center;
+}
+
+.font-Helvetica-normal 
+{
+	font-family: 'Helvetica Neue','helveticaneuelightwebfont';
+	font-weight: normal;
+}
