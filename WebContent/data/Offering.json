@@ -2,37 +2,127 @@
 	"101": [
 		{
 		"CategoryId": "1001",
-		"Name": "Products",
+		"Name": "ILE-Products",
 		"Display": "Products"
 		}, 
 		{
 		"CategoryId": "1002",
-		"Name": "Services",
+		"Name": "ILE-Services",
 		"Display": "Services"
+		},
+		{
+		"CategoryId": "1003",
+		"Name": "ILE-Reference",
+		"Display": "References"
+		},
+		{
+		"CategoryId": "1004",
+		"Name": "ILE-Competition",
+		"Display": "Competition"
+		},
+		{
+		"CategoryId": "1005",
+		"Name": "ILE-WhitePapers",
+		"Display": "White Papers"
+		},
+		{
+		"CategoryId": "1006",
+		"Name": "ILE-Contacts",
+		"Display": "Contacts"
+		},
+		{
+		"CategoryId": "1007",
+		"Name": "ILE-ROI",
+		"Display": "Economic Value (ROI)"
+		},
+		{
+		"CategoryId": "1008",
+		"Name": "ILE-OTHERMaterial",
+		"Display": "Additional Material"
 		}
 	],
 	"102": [
 		{
 		"CategoryId": "1010",
-		"Name": "Products",
+		"Name": "IDRes-Products",
 		"Display": "Products"
 		}, 
 		{
 		"CategoryId": "1011",
-		"Name": "Services",
+		"Name": "IDRes-Services",
 		"Display": "Services"
+		},
+		{
+		"CategoryId": "1012",
+		"Name": "IDRes-Reference",
+		"Display": "References"
+		},
+		{
+		"CategoryId": "1013",
+		"Name": "IDRes-Competition",
+		"Display": "Competition"
+		},
+		{
+		"CategoryId": "1014",
+		"Name": "IDRes-WhitePapers",
+		"Display": "White Papers"
+		},
+		{
+		"CategoryId": "1015",
+		"Name": "IDRes-Contacts",
+		"Display": "Contacts"
+		},
+		{
+		"CategoryId": "1016",
+		"Name": "IDRes-ROI",
+		"Display": "Economic Value (ROI)"
+		},
+		{
+		"CategoryId": "1017",
+		"Name": "IDRes-OTHERMaterial",
+		"Display": "Additional Material"
 		}
 	],
 	"201": [
 		{
 		"CategoryId": "2001",
-		"Name": "Products",
+		"Name": "IOC4EM-Products",
 		"Display": "Products"
 		}, 
 		{
 		"CategoryId": "2002",
-		"Name": "Services",
+		"Name": "IOC4EM-Services",
 		"Display": "Services"
+		},
+		{
+		"CategoryId": "2003",
+		"Name": "IOC4EM-Reference",
+		"Display": "References"
+		},
+		{
+		"CategoryId": "2004",
+		"Name": "IOC4EM-Competition",
+		"Display": "Competition"
+		},
+		{
+		"CategoryId": "2005",
+		"Name": "IOC4EM-WhitePapers",
+		"Display": "White Papers"
+		},
+		{
+		"CategoryId": "2006",
+		"Name": "IOC4EM-Contacts",
+		"Display": "Contacts"
+		},
+		{
+		"CategoryId": "2007",
+		"Name": "IOC4EM-ROI",
+		"Display": "Economic Value (ROI)"
+		},
+		{
+		"CategoryId": "2008",
+		"Name": "IOC4EM-OTHERMaterial",
+		"Display": "Additional Material"
 		}
 	]
 }

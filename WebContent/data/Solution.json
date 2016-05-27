@@ -2,25 +2,80 @@
 	"01": [
 		{
 		"CategoryId": "101",
-		"Name": "Intelligent Analysis",
-		"Display": "EAI"
+		"Name": "ILE",
+		"Display": "Tactical Lead Generation"
 		}, 
 		{
 		"CategoryId": "102",
-		"Name": "Procative Policing",
-		"Display": "ILE"
+		"Name": "IDRes",
+		"Display": "Identity Resolution"
+		}, 
+		{
+		"CategoryId": "103",
+		"Name": "EIA",
+		"Display": "Intellgent Analysis"
+		}, 
+		{
+		"CategoryId": "104",
+		"Name": "SMA_WASMA",
+		"Display": "Social Media Analytics"
+		}, 
+		{
+		"CategoryId": "105",
+		"Name": "PredPolicingSPSS",
+		"Display": "Proactive Policing"
+		}, 
+		{
+		"CategoryId": "106",
+		"Name": "Dashboard",
+		"Display": "Reporting and Dashboard"
+		}, 
+		{
+		"CategoryId": "107",
+		"Name": "MobileFirstResponse",
+		"Display": "Officer Safety, Situation Awareness"
+		}, 
+		{
+		"CategoryId": "108",
+		"Name": "CaseMgr",
+		"Display": "Investigation Support"
 		}
 	],
 	"02": [
 		{
 		"CategoryId": "201",
-		"Name": "VCategoryIdeo Analytices",
-		"Display": "IVD"
+		"Name": "IOC4EM",
+		"Display": "Situation Awareness and Incident Response"
 		}, 
 		{
 		"CategoryId": "202",
-		"Name": "BodyWorn Camera",
-		"Display": "BWC"
+		"Name": "IOT",
+		"Display": "Body Worn Cameras and IOT"
+		}, 
+		{
+		"CategoryId": "204",
+		"Name": "Weather",
+		"Display": "Weather Analysis"
+		}, 
+		{
+		"CategoryId": "205",
+		"Name": "Citizens",
+		"Display": "Citizen and Community Engagement"
+		}, 
+		{
+		"CategoryId": "206",
+		"Name": "SMA",
+		"Display": "Social Media Analysis"
+		}, 
+		{
+		"CategoryId": "207",
+		"Name": "Cloud",
+		"Display": "Cloud and Deployment"
+		}, 
+		{
+		"CategoryId": "208",
+		"Name": "FirstResponse",
+		"Display": "Incident Responders"
 		}
 	]
 }

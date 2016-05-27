@@ -1,0 +1,194 @@
+/*
+Header = #2d4255
+Menu = #003647
+Cube highlight face 1 = #64f9ab
+Cube highlight face 2 = #fcdd49
+Cube highlight face 3 = #ff8039
+*/
+.display-none
+{
+	display: none;
+}
+
+.white-txt
+{
+	color: white;
+}
+
+.black-txt
+{
+	color: white;
+}
+
+.translateX100
+{
+	transform: translateX(100%);
+}
+.translateX-100
+{
+	transform: translateX(-100%);
+}
+.rotateZ90
+{
+	transform: rotateZ(90deg);
+}
+.rotateZ-90
+{
+	transform: rotateZ(-90deg);
+}
+
+/*CANVAS container*/
+#canvas-container
+{
+	height: 93vh;
+	z-index: 1;
+	position: relative;
+}
+
+#WebGL-output
+{
+	height: 100%;
+	z-index: 1;
+	position: relative;
+}
+
+#canvas-overlay
+{
+    position: absolute;
+    top: 15%;
+    left: 5%;
+    height: 55vh;
+    width: 50vh;
+    xborder: 1px solid black;
+    z-index: 5;
+}
+
+#canvas-overlay .image
+{
+	background-image: url(../images/sample-cropped.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	width: 100%;
+	height: 100%;
+    border: 1px solid rgba(0,0,0,0.7);
+    border-radius: 4px;
+}
+
+/*FOOTER*/
+#footer
+{
+	height: 7vh;
+	border-top: 1px solid rgba(255,255,255,0.5);
+	background-image: url(../images/footer.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	z-index: 1;
+}
+
+/*HEADER*/
+#header
+{
+	height: 7vh;
+	xborder-bottom: 1px solid rgba(255,255,255,0.5);
+	z-index: 1;
+	background-color: #30373d;
+}
+
+#header .ibm-logo
+{
+	background-image: url(../images/ibmlogo-white.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+    height: 3rem;
+    width: 6rem;
+    margin-left: 3rem;
+}
+
+#header .title
+{
+	font-size: 2.25rem;
+	text-align: center;
+	color: white;
+	margin-left: 2rem;
+}
+
+#header .user-profile-icon
+{
+	background-image: url(../images/icons/CircledUserMale.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	height:3rem;
+	width:3rem;
+	margin-right:1rem;
+}
+
+#header .user-image
+{
+	background-image: url(../images/Phil.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	border-radius: 50%;
+	border: 1px solid rgba(255,255,255,1);
+	height:4rem;
+	width:4rem;
+	margin-right:1rem;
+}
+
+#header .settings-icon
+{
+	background-image: url(../images/icons/SettingsFilled.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	height:3rem;
+	width:3rem;
+	margin-right:1rem;
+}
+
+#header .logout-icon
+{
+	background-image: url(../images/icons/CloseWindow.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	height:3rem;
+	width:3rem;
+	margin-right:1rem;
+}
+
+#header .menu-icon
+{
+	background-image: url(../images/icons/MenuFilled-white.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	height:3rem;
+	width:3rem;
+	margin-left:1rem;
+	transition: transform 0.3s ease;
+}
+
+
+/*Menu*/
+#menu
+{
+    position: absolute;
+    z-index: 10;
+    background-color: #2d4255;
+    transition: transform 0.3s ease;
+    height: 100%;
+    top: 0;
+    font-size: 2.25rem;
+    padding: 1rem;
+}
+
+#menu div
+{
+	margin-bottom: 1rem;
+	padding: 1rem;
+}

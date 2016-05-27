@@ -522,6 +522,14 @@ h3 {
   padding: 0;
 }
 
+h4 {
+  color: #198cbf;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "HelvNeueLightforIBM", Arial, sans-serif;
+  font-size: 132px;
+  font-weight: 500;
+  margin: 0 0 30px;
+  padding: 0;
+}
 p {
   color: #777677;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "HelvNeueLightforIBM", Arial, sans-serif;
@@ -1066,6 +1074,27 @@ input[type=password].error {
   }
 }
 
+.errStatus{
+	position: center;
+}
+.errStatus h3 {
+  color: #4a4a4a;
+  display: inline-block;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "HelvNeueLightforIBM", Arial, sans-serif;
+  height: 60px;
+  line-height: 36px;
+  margin-bottom: 10px;
+}
+
+.errStatus h2 {
+  color: #4a4a4a;
+  display: inline-block;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "HelvNeueLightforIBM", Arial, sans-serif;
+  height: 60px;
+  line-height: 36px;
+  margin-left: 30px;
+  margin-bottom: 10px;
+}
 .signin {
   position: relative;
 }
