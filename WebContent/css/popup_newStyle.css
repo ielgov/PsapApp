@@ -4,7 +4,7 @@
 	margin:16px;
 	text-align:center;
 	
-	display:-webkit-flex;
+	/*display:-webkit-flex;*/
 	justify-content:center;
 	/*align-items:center;*/
 	
@@ -119,6 +119,72 @@
 	display:-webkit-flex;
 	flex-direction: column;
 	align-items: center;
+}
+
+#xIcon
+{
+	width:2em;
+	height:2em;	
+	
+	opacity: 1;
+	
+	z-index:3;
+	position:absolute;
+    transition: opacity .4s;
+}
+#xIcon.hidden
+{
+	opacity: 0;
+    transition: all .0s;
+}
+
+.contentHolder
+{
+	overflow:hidden;
+	
+	opacity: 1;
+	
+    transition: all .4s, height .4s, opacity .4s; /*the .2s is really nice with the .4*/
+}
+.contentHolder.hidden
+{	
+	opacity: 0;
+	height:0em;
+    transition: all .4s, height .4s 0s, opacity .4s .4s;
+}
+
+#assetsTitle
+{
+	margin: 1em;
+}
+
+#assetsHolder
+{
+	overflow-x:auto;
+	width:100%;
+}
+
+#assetsHolder::-webkit-scrollbar { 
+    display: none; 
+}
+
+#greyOutBox.hidden
+{
+	background: rgba(0,0,0,0) !important;
+	z-index: -1 !important;
+}
+
+#greyOutBox
+{
+	width:100%; 
+	height:100%; 
+	position:absolute; 
+	top:0; 
+	left:0; 
+	background:rgba(0,0,0,.7);
+	z-index:-1;
+	
+	transition: all .4s;
 }
 
 

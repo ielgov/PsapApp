@@ -37,21 +37,22 @@ function toggleClass(e, className)
 	}
 }
 
-var o = [
+function toggleClass(e, className)
+{
+	if( (typeof e) == "number" || (typeof e) == "string" || (typeof e) == "function")
 	{
-		"x":0,
-		"y":67,
-	},
+		return;
+	}
+	
+	if(e.classList.contains(className))
 	{
-		"x":67,
-		"y":67,
-	},
+		e.classList.remove(className);
+	}
+	else
 	{
-		"x":67,
-		"y":0,
-	},
-]
-//alert( makeSVGImage(o, 100, 100) )
+		e.classList.add(className);
+	}
+}
 
 function makeSVGImage(pointsArr, width, height)
 {
@@ -62,6 +63,29 @@ function makeSVGImage(pointsArr, width, height)
 		dStr += ""+pointsArr[i].x + " " + pointsArr[i].y
 	}
 	return dStr;
+}
+
+function httpRequest(url, callback, method, async)
+{
+	async = async || false;
+	method = method || "GET";
+	
+	var xhttp = new XMLHttpRequest();
+	
+	xhttp.onreadystatechange = function() 
+	{
+		if (xhttp.readyState == 4 && xhttp.status == 200) 
+		{
+			//console.log( xhttp.responseText );
+			
+			if(callback !== undefined)
+			{
+				callback( xhttp.responseText );
+			}
+		}
+	};
+	xhttp.open(method, url, async);
+	xhttp.send();
 }
 
 

@@ -68,34 +68,6 @@ body:hover
 	width:95%;
 }
 
-.asset
-{
-	background:#ADADAD;
-	color:black;
-	
-	height: 6em;
-	width: 12em;	
-	margin: 8px; /*TODO change this to be set with em type units on page load; need this so the spacing works*/
-	
-	border-radius: 1.5em;
-	/*box-shadow: 0px 0px .5em #000000;*/
-	
-	justify-content:center;
-	
-	transition: all .4s .0s, width .4s .0s, height .4s .0s;
-}
-
-.asset.open
-{
-	position:absolute;
-	
-	left: 1em !important;
-	top: 1em !important;
-	
-	justify-content:flex-start;
-	transition: all .4s, width .4s, height .4s;
-}
-
 .asset > div
 {
 	/*transition: all .4s, width .4s, height .4s;*/
@@ -116,25 +88,6 @@ body:hover
 	margin-right:.75em;
 }
 
-#greyOutBox.hidden
-{
-	background: rgba(0,0,0,0) !important;
-	z-index: -1 !important;
-}
-
-#greyOutBox
-{
-	width:100%; 
-	height:100%; 
-	position:absolute; 
-	top:0; 
-	left:0; 
-	background:rgba(0,0,0,.7);
-	z-index:-1;
-	
-	transition: all .4s;
-}
-
 .buttonContent
 {
 	margin:3em;
@@ -147,21 +100,6 @@ body:hover
 	display:none;
 }
 
-.contentHolder
-{
-	overflow:hidden;
-	
-	opacity: 1;
-	
-    transition: all .4s, height .4s .2s, opacity .4s .4s; /*the .2s is really nice with the .4*/
-}
-.contentHolder.hidden
-{	
-	opacity: 0;
-	height:0em;
-    transition: all .4s, height .4s 0s, opacity .4s .4s;
-}
-
 .placeHolder
 {
 	position: static !important;
@@ -169,37 +107,6 @@ body:hover
 	transition: all 0s;
 	box-shadow:none;
 	background: rgba(0,0,0,0);
-}
-
-#xIcon
-{
-	width:2em;
-	height:2em;	
-	
-	opacity: 1;
-	
-	z-index:3;
-	position:absolute;
-    transition: opacity .4s;
-}
-#xIcon.hidden
-{
-	opacity: 0;
-    transition: all .0s;
-}
-
-#assetsTitle
-{
-	margin: 1em;
-}
-
-#assetsHolder
-{
-	overflow-x:auto;
-}
-
-#assetsHolder::-webkit-scrollbar { 
-    display: none; 
 }
 
 

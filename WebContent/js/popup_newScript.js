@@ -1,3 +1,20 @@
+function showPopUp(offeringId, parentId)
+{
+	
+	var url = "";
+	//url = "http://172.27.50.134:9080/PSAP/Assets?offeringId=2001&parentId=201"
+	url = "http://172.27.50.134:9080/PSAP/Assets?offeringId="+offeringId+"&parentId="+parentId+""
+	
+	httpRequest( url, callback );
+	
+	function callback( respText )
+	{
+		console.log("respText");
+		var results = JSON.parse( respText );
+		buildPopUp( results.result );
+	}
+}
+
 function toggleExpanded( e )
 {
 	console.log(e);
@@ -8,43 +25,52 @@ function toggleExpanded( e )
 var lastClicked;
 function openButton(buttonClicked)
 {
-	console.log("Welcome to the open button function")
-	console.log( buttonClicked );
-	gbc = buttonClicked;
-	
-	lastClicked = buttonClicked || lastClicked;
+	buttonClicked = buttonClicked || lastClicked;
 	
 	var buttonClickedBoundingRect = buttonClicked.getBoundingClientRect();
 	
 	if( buttonClicked.classList.contains("open") ) // need to hide
 	{
+		xIcon.classList.add("hidden")
+				
 		var placeHolder = document.getElementById( buttonClicked.id+"PlaceHolder" );
 		placeHolderBoundingRect = placeHolder.getBoundingClientRect()
 		
 		buttonClicked.style.left = placeHolderBoundingRect.left - config.assetMargin;
 		buttonClicked.style.top = placeHolderBoundingRect.top - config.assetMargin;
 		buttonClicked.style.zIndex = "";
+			
+		document.querySelector(".asset.open > .contentHolder").classList.add("hidden");
 		
 		buttonClicked.style.width = placeHolder.style.width;
 		buttonClicked.style.height = placeHolder.style.height;
 		buttonClicked.classList.remove("open");
 		buttonClicked.classList.add("closed");
+		buttonClicked.onclick = placeHolder.onclick;
 		
 		greyOutBox.style.zIndex = -1;		
-		greyOutBox.classList.add("hidden")
+		greyOutBox.classList.add("hidden");
+		
 		
 		buttonClicked.addEventListener("transitionend", function(e)
 		{
 			if( buttonClicked.classList.contains("closed") )
 			{
-				buttonClicked.style.position = "";		
-			}
-			
+				if( !placeHolder.classList.contains("removed") )
+				{
+					placeHolder.parentElement.removeChild( placeHolder );
+					placeHolder.classList.add("removed")
+					
+					buttonClicked.style.position = "";	
+				}					
+			}			
 		}, false)
 		
 	}
 	else // need to show	
 	{
+		lastClicked = buttonClicked
+		
 		// start of moving up so it can nicely transition to open
 		var placeHolder = buttonClicked.cloneNode();
 		placeHolder.style.background = "rgba(0,0,0,0)";
@@ -64,7 +90,12 @@ function openButton(buttonClicked)
 		buttonClicked.style.width = "90%";
 		buttonClicked.style.height = "90%";
 		buttonClicked.classList.add("open");
+		buttonClicked.classList.remove("closed");
 		// end of animating motion of div
+		
+		buttonClicked.getElementsByClassName( "contentHolder" )
+		
+		buttonClicked.onclick = ""
 		
 		greyOutBox.style.zIndex = 1;		
 		greyOutBox.classList.remove("hidden")
@@ -74,7 +105,8 @@ function openButton(buttonClicked)
 			if( buttonClicked.classList.contains("open") )
 			{
 				xIcon.classList.remove("hidden")
-				moveX(buttonClicked);			
+				moveX(buttonClicked);		
+				document.querySelector(".asset.open > .contentHolder").classList.remove("hidden");
 			}
 			
 		}, false)
