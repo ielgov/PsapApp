@@ -33,15 +33,40 @@ public class AuthenticationFilter implements Filter {
 		logger.info("Requested Resource::"+uri);
 		
 		HttpSession session = req.getSession(false);
-		/* Frame work to check for authentication
-		if(session == null && !(uri.endsWith("html") || uri.endsWith("Login") )){
-			logger.error("Unauthorized access request");
-			res.sendRedirect("/PSAP/login.html");
-		}else{
-			// pass the request along the filter chain
+		if (uri.endsWith("css") || uri.endsWith("fonts") || uri.endsWith("png") || 
+				uri.endsWith("js") || uri.endsWith("gif")){
 			chain.doFilter(request, response);
+		}else{
+			//Frame work to check for authentication
+			if(session == null && !(uri.endsWith("login.jsp") || uri.endsWith("Login"))){
+				logger.error("Unauthorized access request");
+				res.sendRedirect("/PSAP/login.jsp");
+			}else{
+				if (session == null){
+					logger.info("SESSION is NULL");
+					chain.doFilter(request, response);
+				}	
+				else{
+					logger.info("NOT NULL");
+					Object bsingned = session.getAttribute("signedIn");	
+					if (bsingned != null && ((Boolean)bsingned)){
+						logger.info("YES Signed IN");
+						// pass the request along the filter chain
+						chain.doFilter(request, response);
+					}else{
+						logger.info("NOT Signed IN");
+						if ( uri.endsWith("Login")){
+							chain.doFilter(request, response);
+						}else{
+							session.invalidate();
+							res.sendRedirect("/PSAP/login.jsp");
+						}	
+					}
+				}
+				
+			}
 		}
-		*/
+		/*
 		// Temporary Frame work to by-pass authentication
 		if(session == null ){
 			logger.error("Setting session and By-passing authentication");
@@ -49,10 +74,10 @@ public class AuthenticationFilter implements Filter {
 			// pass the request along the filter chain
 			chain.doFilter(request, response);
 		}else{
-			logger.error("By-passing authentication");
+			
 			chain.doFilter(request, response);
 		}
-		
+		*/
 		
 	}
 

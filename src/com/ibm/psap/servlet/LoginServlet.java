@@ -2,6 +2,7 @@ package com.ibm.psap.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.Principal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,12 +28,12 @@ public class LoginServlet extends HttpServlet {
 	static Logger logger = Logger.getLogger(LoginServlet.class);
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		HttpSession session;
 		boolean productionMode =(Boolean)getServletContext().getAttribute("productionMode");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String errorMsg = null;
-		
+		productionMode=true;
 		if (productionMode){
 		if(email == null || email.equals("")){
 			errorMsg ="User Email can't be null or empty";
@@ -42,25 +43,26 @@ public class LoginServlet extends HttpServlet {
 		}
 		
 		if(errorMsg != null){
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
-			PrintWriter out= response.getWriter();
-			out.println("<font color=red>"+errorMsg+"</font>");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+			request.setAttribute("loginMsg", errorMsg);
 			rd.include(request, response);
 		}else{
-		//authentication check
-		/*	
+		//authentication check		
 		try {
+			logger.info("Trying to login with user " +  email);
 			request.login(email, password);
+			session = request.getSession();
+			session.setAttribute("signedIn", true);
+			
         } catch(ServletException ex) {
-        	RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
-			PrintWriter out= response.getWriter();
-			errorMsg = "Login Failed with a ServletException.." + ex.getMessage();
+        	RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+			errorMsg = "Login failed. Please check your username/password.";
 			logger.error(errorMsg);
-			out.println("<font color=red>"+errorMsg+"</font>");
+			request.setAttribute("loginMsg", errorMsg);
 			rd.include(request, response);	
             return;
         }
-        */
+        
 		//authorization check
 		Connection con = (Connection) getServletContext().getAttribute("DBConnection");
 		PreparedStatement ps = null;
@@ -71,23 +73,20 @@ public class LoginServlet extends HttpServlet {
 			ps.setString(1, email);
 			rs = ps.executeQuery();
 			
-			if(rs != null){
-				rs.next();
+			if(rs.next()){
 				User user = new User(rs.getString("name"), rs.getString("email"), rs.getString("role"));
-				logger.info("User found with details="+user);
-				HttpSession session = request.getSession();
+				logger.info("User found with details="+user);	
 				session.setAttribute("User", user);
-				response.sendRedirect("home.html");
+				response.sendRedirect("index.html");
 			}else{
 				User user = new User("smith", email, "user");
 				logger.info("User is not an administartor "+user);
-				HttpSession session = request.getSession();
 				session.setAttribute("User", user);
-				response.sendRedirect("home.html");
+				response.sendRedirect("index.html");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			logger.error("Database problem");
+			logger.error("Database problem: " + e.getMessage());
 			throw new ServletException("DB problem.");
 		}finally{
 			try {
@@ -104,9 +103,9 @@ public class LoginServlet extends HttpServlet {
 			//stub mode
 			User user = new User(email, email, "user");
 			logger.info("Stub Mode");
-			HttpSession session = request.getSession();
+			session = request.getSession();
 			session.setAttribute("User", user);
-			response.sendRedirect("home.html");
+			response.sendRedirect("index.html");
 		}
 	}
 

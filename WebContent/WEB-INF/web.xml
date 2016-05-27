@@ -2,14 +2,14 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>PsapApp</display-name>
   <welcome-file-list>
-    <welcome-file>login.html</welcome-file>
+    <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
   <login-config id="LoginConfig_1">
     <auth-method>FORM</auth-method>
     <realm-name>Form-Based Authentication Area</realm-name>
     <form-login-config id="FormLoginConfig_1">
-      <form-login-page>/login.html</form-login-page>
-      <form-error-page>/loginerror.jsp</form-error-page>
+      <form-login-page>/PSAP/login.jsp</form-login-page>
+      <form-error-page>/PSAP/loginerror.jsp</form-error-page>
     </form-login-config>
   </login-config>
   <context-param>
@@ -25,12 +25,16 @@
     <param-value>/WEB-INF/log4j.xml</param-value>
   </context-param>
   <error-page>
-    <error-code>404</error-code>
-    <location>/AppErrorHandler</location>
+     <error-code>404</error-code>
+    <location>/error404.html</location>
+  </error-page>
+  <error-page>
+     <error-code>500</error-code>
+    <location>/error500.html</location>
   </error-page>
   <error-page>
     <exception-type>java.lang.Throwable</exception-type>
-    <location>/AppErrorHandler</location>
+    <location>/otherError.jsp</location>
   </error-page>
   <filter>
     <filter-name>AuthenticationFilter</filter-name>
@@ -40,4 +44,12 @@
     <filter-name>AuthenticationFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  <filter>
+    <filter-name>CORS</filter-name>
+    <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+</filter>
+<filter-mapping>
+    <filter-name>CORS</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
 </web-app>
