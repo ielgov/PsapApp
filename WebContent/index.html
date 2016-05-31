@@ -66,11 +66,11 @@
 	    </div> -->
 	    <div id="menu" class="helvLightFont translateX-100">
 	    	<div style="position: relative;height: 100%;">
-	    	<div id="sc1-button">Our Approach</div>
-	    	<div id="sc2-button">Our Services</div>
-	    	<div>Transformation</div>
-	    	<div>Settings</div>
-	    	<div id="sc5-button" style="position: absolute; bottom: 0;">LOG OUT</div>
+	    	<div class="menu-items" data-menuitem="approach">Our Approach</div>
+	    	<div class="menu-items" data-menuitem="services">Our Services</div>
+	    	<div class="menu-items" data-menuitem="transformation">Transformation</div>
+	    	<div class="menu-items" data-menuitem="settings">Settings</div>
+	    	<div class="menu-items" data-menuitem="logout" style="position: absolute; bottom: 0;">LOG OUT</div>
 	    	</div>
 	    </div>
     </div>
@@ -95,16 +95,19 @@
 	<script type="text/javascript" src="js/Threejs/rasterizeHTML.allinone.js"></script>
 	<!-- <script type="text/javascript" src="js/threex.domevent.object3d.js"></script> -->
 	
+	<script type="text/javascript" src="js/rasterizeTexture.js"></script>
 	<script type="text/javascript" src="js/menu.js"></script>
     <script type="text/javascript" src="js/accessdata.js"></script>
-    <script type="text/javascript" src="js/jsondata.js"></script>
-	<script type="text/javascript" src="js/cubeinteraction.js"></script>
-	<script type="text/javascript" src="js/colorfaces.js"></script>
+    <script type="text/javascript" src="js/jsondata.js"></script>	
+	<script type="text/javascript" src="js/movements.js"></script>
+	<script type="text/javascript" src="js/cubegeneration.js"></script>
+	
 	<!--make sure this is last-->
 	<script type="text/javascript" src="js/scene.js"></script>
 	
 	<script>
 		var onUserAction;
+		var webGLWidth, webGLHeight;
 		$( function(){
 			if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) 
 			{
@@ -115,11 +118,15 @@
 				onUserAction = "click";
 			}
 			
+			webGLWidth = $('#WebGL-output').innerWidth();
+			webGLHeight = $('#WebGL-output').innerHeight();
+			
 			/* document.body.ontouchmove = function(){
 				e.preventDefault();
 			}; */
 			
-			//getTexture();
+			menuClicked = "categories";
+			
 			initializeClicks();
 			
 			initializeScene();
