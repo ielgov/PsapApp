@@ -100,6 +100,7 @@ function getRESTRequest(restURL,usejson)
 function postRESTRequest(restURL,usejson)
 {
 	console.log("Function :: postRESTRequest, for URL = " + restURL);
+	/*
 	var useJSON = usejson || true;
 	var response;
 	
@@ -110,16 +111,8 @@ function postRESTRequest(restURL,usejson)
 	xhr.onload = function(){
 		if (xhr.status >=200 && xhr.status < 400)
 		{
-			if(useJSON)
-			{
-				response = JSON.parse(xhr.responseText);
-			}
-			else
-			{
-				response = xhr.responseText;
-			}
+			response = xhr.responseText;
 			console.log("Response - " + response);
-			
 			return response;
 		}
 	};
@@ -129,8 +122,10 @@ function postRESTRequest(restURL,usejson)
 	{
 		console.log("Error in connecting");
 	};
-
-	xhr.send();
+	
+	xhr.send(null);
+	*/
+	window.open(restURL, "_self");
 }
 
 
