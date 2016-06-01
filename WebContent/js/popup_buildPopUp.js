@@ -3,8 +3,6 @@ function buildPopUp( results )
 	
 	results = getGroups( results );
 	
-	console.log("Starting to build popup. Results is...");console.log(results);
-	
 	for(var k in results)
 	{
 		var assetParent = makeAssetParent()
@@ -26,14 +24,11 @@ function buildPopUp( results )
 		}
 		
 		//console.log( assets[i] );
-		gi = assets[i-1];
 		
 		var title = assets[i].getElementsByClassName("title")[0];
 		//console.log( title );
 		
 		marginTop = ( assets[i].getBoundingClientRect().height/2 - title.getBoundingClientRect().height ) ;
-		
-		console.log( "marginTop is "+marginTop );
 			
 		title.style.marginTop = marginTop;
 	}
@@ -88,13 +83,17 @@ function makeAssetSmallerParent(assets, id)
 		var contentHolder = document.createElement("div");
 		contentHolder.classList.add("contentHolder")
 		contentHolder.classList.add("hidden")
-		for( var l in assets[k] )
+
+		for( var l in assets[k] ) // TODO this should be moved to the makeAsset function
 		{
-			var div = makeDivWithData( assets[k], l )
-			contentHolder.appendChild( document.createElement("br") );
-			contentHolder.appendChild( div );
+			if( config.keyIsToBeShown(l) )
+			{
+				var div = makeDivWithData( assets[k], l )
+				contentHolder.appendChild( document.createElement("br") );
+				contentHolder.appendChild( div );
+			}
 		}
-		asset.appendChild( contentHolder );
+		asset.appendChild( contentHolder ); // TODO this should be moved to the makeAsset function
 	}
 	
 	assetSmallerParent.appendChild( assetSmallererParent );
@@ -129,12 +128,14 @@ function makeAssetSmallerParent(assets, id)
 		var div = document.createElement( "div" );
 		if( l === "URL")
 		{	
+			console.log("data is ")
+			console.log();
 			div.onclick = function(){ open_in_new_tab( data[l] ) };
-			div.innerHTML = l+": "+data[l];
+			div.innerHTML = l+": "+data[l] + " ("+data['ASSET_TYPE']+")";
 		}
 		else
 		{
-			div.innerHTML = l+": "+data[l];
+			div.innerHTML = data[l];
 			//div.classList.add("hidden");
 			
 		}
