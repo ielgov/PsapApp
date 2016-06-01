@@ -12,9 +12,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.ibm.psap.util.Constants;
-import com.ibm.psap.util.DBResultSetToJson;
-
 /**
  * Servlet implementation class Search
  */
@@ -47,7 +44,7 @@ public class Search extends HttpServlet {
 		logger.info("The requested type is Search");
 		logger.info("Serach for " +solutionID );
 		if (solutionID!=null){
-			String jsonString =null;
+
 			if (productionMode){
 				//extarct from the data set
 			}else{

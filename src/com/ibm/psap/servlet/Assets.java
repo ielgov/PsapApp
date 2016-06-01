@@ -12,9 +12,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.ibm.psap.util.Constants;
-import com.ibm.psap.util.DBResultSetToJson;
-
 /**
  * Servlet implementation class Assets
  */
@@ -43,7 +40,7 @@ public class Assets extends HttpServlet {
 		logger.info("The requested type is Asset");
 		logger.info("Serach for Asset with offeringid=" +offeridid + " and solutionid=" + parentId);
 		if (offeridid!= null && parentId!=null){
-			String jsonString =null;
+	
 			if (productionMode){
 				//extarct from the data set
 			}else{

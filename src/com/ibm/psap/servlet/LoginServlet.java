@@ -1,8 +1,7 @@
 package com.ibm.psap.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.security.Principal;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -79,8 +78,8 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("User", user);
 				response.sendRedirect("index.html");
 			}else{
-				User user = new User("smith", email, "user");
-				logger.info("User is not an administartor "+user);
+				User user = new User(email, email, "user");
+				logger.info("User is not a privileged "+user);
 				session.setAttribute("User", user);
 				response.sendRedirect("index.html");
 			}
