@@ -1,17 +1,20 @@
 function showPopUp(offeringId, parentId)
 {
+	var results; // TODO remove if you dont want caching 
 	
 	var url = "";
 	//url = "http://172.27.50.134:9080/PSAP/Assets?offeringId=2001&parentId=201"
 	url = "http://172.27.50.134:9080/PSAP/Assets?offeringId="+offeringId+"&parentId="+parentId+""
 	
-	httpRequest( url, callback );
+	try{
+		httpRequest( url, callback );
+	}catch(e){}
 	
 	function callback( respText )
 	{
-		console.log("respText");
-		var results = JSON.parse( respText );
+		results = JSON.parse( respText ); // TODO add var
 		buildPopUp( results.result );
+		localStorage.setItem("search_results", JSON.stringify(results) ); // TODO remove if you dont want caching
 	}
 }
 
@@ -26,7 +29,7 @@ var lastClicked;
 function openButton(buttonClicked)
 {
 	buttonClicked = buttonClicked || lastClicked;
-	
+ 
 	var buttonClickedBoundingRect = buttonClicked.getBoundingClientRect();
 	
 	if( buttonClicked.classList.contains("open") ) // need to hide
@@ -87,8 +90,8 @@ function openButton(buttonClicked)
 		// start of animating motion of div
 		buttonClicked.style.left = emToPx(1);
 		buttonClicked.style.top = emToPx(1);
-		buttonClicked.style.width = "90%";
-		buttonClicked.style.height = "90%";
+		buttonClicked.style.width = "85%";
+		buttonClicked.style.height = "85%";
 		buttonClicked.classList.add("open");
 		buttonClicked.classList.remove("closed");
 		// end of animating motion of div

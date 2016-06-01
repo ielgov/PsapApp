@@ -143,6 +143,7 @@
 	overflow:hidden;
 	
 	opacity: 1;
+	margin:2.5em;
 	
     transition: all .4s, height .4s, opacity .4s; /*the .2s is really nice with the .4*/
 }

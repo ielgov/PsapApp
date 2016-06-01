@@ -76,7 +76,7 @@ function httpRequest(url, callback, method, async)
 	{
 		if (xhttp.readyState == 4 && xhttp.status == 200) 
 		{
-			//console.log( xhttp.responseText );
+			console.log( JSON.parse(xhttp.responseText) );
 			
 			if(callback !== undefined)
 			{
@@ -85,7 +85,13 @@ function httpRequest(url, callback, method, async)
 		}
 	};
 	xhttp.open(method, url, async);
-	xhttp.send();
+	try{
+		xhttp.send();
+	}
+	catch(e){
+		console.log("***Using offline data");
+		callback( localStorage.getItem("search_results") )
+	}
 }
 
 

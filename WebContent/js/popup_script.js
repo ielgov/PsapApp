@@ -29,6 +29,7 @@ window.onload = function(){
 	resize();
 	//buildPopUp( results );
 	showPopUp(2001, 201);
+	document.querySelector("body").width = window.innerWidth;
 }
 	
 // This needs to stay
@@ -38,7 +39,6 @@ function sizePopUpWidth( buttonClicked, moveXFlag)
 	
 	if( (buttonClicked == undefined) ) //	|| (lastClicked !== undefined && !lastClicked.classList.contains("open")) )
 	{
-		console.log("not doing sizePopUpWidth");
 		return;
 	}
 	else if( buttonClicked == undefined )
