@@ -106,7 +106,7 @@
 	      				<h2>Exception Message: <% 
 	      				out.println(throwable.getMessage());
 	      				%></h2><BR>
-	      				<h2> If it happens again contact PSAP support team at <a href="mailto:gscgov@us.ibm.com"> IBM GSC </h2>
+	      				<h2> If it happens again contact PSAP support team at <a href="mailto:gscgov@us.ibm.com"> IBM GSC </a></h2>
 	      				<BR>
 	      				<a href="home.html">Home Page</a>
 	      			</div>
@@ -122,21 +122,3 @@
     	<!-- /footer -->
   	</body>
 </html>
-
-
-
-
-
-request.getAttribute("javax.servlet.error.exception");
-      Integer statusCode = (Integer)
-      request.getAttribute("javax.servlet.error.status_code");
-      String servletName = (String)
-      request.getAttribute("javax.servlet.error.servlet_name");
-      if (servletName == null){
-         servletName = "Unknown";
-      }
-      String requestUri = (String)
-      request.getAttribute("javax.servlet.error.request_uri");
-      if (requestUri == null){
-         requestUri = "Unknown";
-      }

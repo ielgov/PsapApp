@@ -14,6 +14,5 @@
 wrong case was used.</LI>
 <LI>The user-id or password does not exist, has expired, or has been disabled.</LI>
 </OL>
-</P>
 </body>
 </html>

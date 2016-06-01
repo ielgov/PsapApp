@@ -49,7 +49,6 @@ function getAssets(parentId, offeringId)
 	getRESTRequest(restURL,true);
 }
 
-
 //post logout action
 //http://172.27.50.134:9080/PSAP/Logout
 function postLogout()
@@ -57,9 +56,8 @@ function postLogout()
 	console.log("Function :: postLogout");
 	var rest = new Object();
 	var restURL = webServerIP+"/PSAP/Logout";
-	postRESTRequest(restURL,true);
+	window.open(restURL, "_self");
 }
-
 
 function getRESTRequest(restURL,usejson)
 {
@@ -97,48 +95,9 @@ function getRESTRequest(restURL,usejson)
 	xhr.send();
 }
 
-function postRESTRequest(restURL,usejson)
-{
-	console.log("Function :: postRESTRequest, for URL = " + restURL);
-	var useJSON = usejson || true;
-	var response;
-	
-	var xhr = new XMLHttpRequest(); //valid for current versions of IE, GC, FF
-	
-	xhr.open('POST', restURL, true);
-	
-	xhr.onload = function(){
-		if (xhr.status >=200 && xhr.status < 400)
-		{
-			if(useJSON)
-			{
-				response = JSON.parse(xhr.responseText);
-			}
-			else
-			{
-				response = xhr.responseText;
-			}
-			console.log("Response - " + response);
-			
-			return response;
-		}
-	};
-	
-	//request resulted in connection error - possibly no internet
-	xhr.onerror = function()
-	{
-		console.log("Error in connecting");
-	};
-
-	xhr.send();
-}
-
-
-
-
 function getData(obj)
 {
-	console.log("Function :: getData");
+	console.log("Function :: getData", obj);
 	var result;
 	var returnData;
 	if (obj.type == 'categories')
@@ -177,6 +136,11 @@ function getData(obj)
 			}.....
 			
 		*/
+		//debugger;
+		var categoryId = obj['getDataFor']['CategoryId'];
+		var display = obj['getDataFor']['Display'];
+		//result = getSolutions(obj.parentId);
+		console.log('getting solutions for',categoryId,display);
 		result = ccoemJSON;
 		if (result.hasOwnProperty('02'))
 		{
@@ -188,7 +152,22 @@ function getData(obj)
 	{
 		//Get all solutions for solution with ID
 		//What is solution ID
-		//getOfferings(parentId)
+		var categoryId = obj['getDataFor']['CategoryId'];
+		var display = obj['getDataFor']['Display'];
+		//result = getOfferings(parentId)
+		console.log('getting solutions for',categoryId,display);
+		result = offeringsJSON;
+		if (result.hasOwnProperty('101'))
+		{
+			var dataArray = result['101'];
+			returnData = dataArray;
+		}
+	}
+	else if (obj.type == 'assets')
+	{
+		//Get all assets under an offering of a solution
+		//What is solution ID and offerings ID
+		//getAssets(parentId, offeringId)
 	}
 	
 	return returnData;
