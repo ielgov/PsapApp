@@ -1,22 +1,25 @@
 .asset
 {
-	padding:.75rem;
+	padding:.75em;
 	margin:16px;
 	text-align:center;
 	
-	/*display:-webkit-flex;*/
-	justify-content:center;
-	/*align-itrems:center;*/
+	transform:translateZ(100px);
 	
-	width:12rem;
+	/*display:-webkit-flex;*/
+	/*display:flex;*/
+	justify-content:center;
+	/*align-items:center;*/
+	
+	width:12em;
 	
 	background: grey;
 	color:black;
 	
-	height: 6rem;
-	width: 12rem;	
-	margin: 8px; /*TODO change this to be set with rem type units on page load; need this so the spacing works*/
-	border-radius: 1.5rem;
+	height: 6em;
+	width: 12em;	
+	margin: 8px; /*TODO change this to be set with em type units on page load; need this so the spacing works*/
+	border-radius: 1.5em;
 	
 	transition: all .4s .0s, width .4s .0s, height .4s .0s;
 }
@@ -24,14 +27,15 @@
 .asset.open
 {
 	transition: all .4s, width .4s, height .4s;
+	z-index:10;
 }
 
 .asset.open > div.title
 {
 	text-align:center;
-	/*margin-top: 1rem !important;*/
+	/*margin-top: 1em !important;*/
 	transition: all .4s;
-	font-size:2rem;
+	font-size:2em;
 }
 
 .assetSmallerParent
@@ -49,24 +53,25 @@
 {
 	display:-webkit-flex;
 	display:flex;
-	-webkit-flex-wrap:wrap;
+	/*flex-direction: row;*/
+	/*justify-content:flex-start;*/
 	flex-wrap:wrap;
 	
-	/*margin-left:3rem;*/
+	/*margin-left:3em;*/
 	
 	transition: all .4s;
 }
 
 .assetParent > .title
 {
-	font-size:2rem;
-	padding:.5rem;
+	font-size:2em;
+	padding:.5em;
 }
 
 #assetsTitle
 {
 	color:grey;
-	margin: .75rem;
+	margin: .75em;
 }
 
 .assetParent:nth-child(odd)
@@ -86,31 +91,33 @@
 	/*color:white;*/
 	text-align:left;
 	/*width:100%;*/
-	padding-bottom:1rem;
+	padding-bottom:1em;
 	
 	display:-webkit-flex;
-	-webkit-flex-direction:column;
+	display:flex;
+	flex-direction:column;
 }
 
 #assetsSlider.hidden
 {
-	height: 0rem !important;
+	height: 0em !important;
 }
 
 #assetsSlider
 {
-	font-size:1rem !important;
-	height: 0rem;
+	z-index:10;
+	font-size:1em !important;
+	height: 0em;
 	width:100%;
 	background-color:#D2D2D2;
 	
-	margin:0rem;
-	padding:0rem;
-	border:0rem;
+	margin:0em;
+	padding:0em;
+	border:0em;
 	
 	position:absolute;
-	bottom:0rem;
-	left:0rem;
+	bottom:0em;
+	left:0em;
 	
 	color:black;
 	text-align:center;
@@ -122,18 +129,19 @@
 	transition: all .4s;
 	
 	display:-webkit-flex;
+	display:flex;
 	flex-direction: column;
-	align-itrems: center;
+	align-items: center;
 }
 
 #xIcon
 {
-	width:2rem;
-	height:2rem;	
+	width:2em;
+	height:2em;	
 	
 	opacity: 1;
 	
-	z-index:5;
+	z-index:10;
 	position:absolute;
     transition: opacity .4s;
 }
@@ -148,20 +156,20 @@
 	overflow:hidden;
 	
 	opacity: 1;
-	margin:2.5rem;
+	margin:2.5em;
 	
     transition: all .4s, height .4s, opacity .4s; /*the .2s is really nice with the .4*/
 }
 .contentHolder.hidden
 {	
 	opacity: 0;
-	height:0rem;
+	height:0em;
     transition: all .4s, height .4s 0s, opacity .4s .4s;
 }
 
 #assetsTitle
 {
-	margin: 1rem;
+	margin: 1em;
 }
 
 #assetsHolder
@@ -171,10 +179,7 @@
 }
 
 #assetsHolder::-webkit-scrollbar { 
-    display: none;
-}
-#assetsHolder::scrollbar { 
-    display: none;
+    display: none; 
 }
 
 #greyOutBox.hidden
@@ -191,9 +196,21 @@
 	top:0; 
 	left:0; 
 	background:rgba(0,0,0,.7);
-	z-index:-1;
+	z-index:1;
 	
 	transition: all .4s;
+}
+
+.linkIcon
+{
+	height:2.5em;
+}
+
+.finallyOpen
+{
+	/*left:20px;*/
+	/*top:20px;*/
+	z-index:10;
 }
 
 

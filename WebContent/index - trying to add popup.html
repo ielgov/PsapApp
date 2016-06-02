@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-	<script src="js/popup_script.js"></script>
-	<script src="js/popup_newScript.js"></script>
-	<script src="js/popup_config.js"></script>
-	<script src="js/popup_helperFunctions.js"></script>
-	<script src="js/popup_buildPopUp.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/popup_newStyle.css">
-	<link rel="stylesheet" type="text/css" href="css/fonts.css">
-		
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
@@ -33,6 +25,15 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+	
+	<!--start of Drew's headers-->
+		<script src="js/popup_script.js"></script>
+		<script src="js/popup_newScript.js"></script>
+		<script src="js/popup_config.js"></script>
+		<script src="js/popup_helperFunctions.js"></script>
+		<script src="js/popup_buildPopUp.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/popup_newStyle.css">
+	<!--end of Drew's headers-->
     
 	<STYLE>
 		* {
@@ -53,15 +54,6 @@
     
   </head>
   <body style="visibility: visible;height:100vh;width:100vw;" ontouchmove="event.preventDefault();">
-  
-	<img id="xIcon" src="images/x.png" onclick="openButton()" class="hidden"></img>
-	<div id="greyOutBox" class="hidden" onclick="openButton()"></div>
-	<div id='divForFindingEMSize' style=" width:1em; position:absolute; left:-10000; right:-10000;"></div><!--if this is removed the page wont format correctly-->
-	<div id="buttonForSizing" onclick="openButton(this)" style="order:1; position:fixed; left:3000;" class="asset offScreen"></div>
-	<div id="assetsSlider" class="hidden" >
-		<div id="assetsTitle">Showing <span id="numberOfResults" style="color:black">18</span> results</div>
-		<div id="assetsHolder"></div>
-	</div>
     
     <div id="Stats-output"></div>    
     <div id="header" class="helvLightFont display-flex flex-row flex-align-center flex-justify-space-between">
@@ -151,5 +143,29 @@
 		
 		window.addEventListener( 'resize', onWindowResize, false );
 	</script>
+	<!--start of Drew's elements-->
+		<button onclick="revealAssets()" style="width:2rem;height:2rem;"></button>
+		<div id="assetsSlider" class="hidden" >
+			<div id="assetsTitle">Showing <span id="numberOfResults" style="color:black">18</span> results</div>
+			<div id="assetsHolder"></div>
+		</div>
+		<img id="xIcon" src="images/x.png" onclick="openButton()" class="hidden"></img>
+		<!--<div id="greyOutBox" class="hidden" onclick="openButton()"></div>--> 
+		<div id='divForFindingEMSize' style=" width:1rem; position:absolute; left:-10000; right:-10000;"></div><!--if this is removed the page wont format correctly-->
+		<div id="buttonForSizing" onclick="openButton(this)" style="order:1; position:fixed; left:-300;" class="asset offScreen"></div>
+	<!--end of Drew's elements-->
+	
   </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

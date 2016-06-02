@@ -6,6 +6,7 @@ function open_in_new_tab(url)
 
 function pxToEm( px )
 {
+	//console.log("IN PX TO EM");
 	px += "";
 	px = px.split("px").join("");
 	px = parseFloat(px)
@@ -14,8 +15,9 @@ function pxToEm( px )
 	
 function emToPx( em )
 {
+	//console.log("IN EM TO PX");
 	em += "";
-	em = em.split("em").join("").split("rem").join(""); // TODO chnage to work with regex?
+	em = em.split("em").join(""); // TODO chnage to work with regex?
 	em = parseFloat(em)
 	return ( divForFindingEMSize.getBoundingClientRect().width/1 ) * em;
 }
