@@ -12,9 +12,6 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import com.ibm.psap.util.Constants;
-import com.ibm.psap.util.DBResultSetToJson;
-
 /**
  * Servlet implementation class Categories
  */
@@ -43,7 +40,7 @@ public class Categories extends HttpServlet {
 		boolean productionMode =(Boolean)getServletContext().getAttribute("productionMode");
 		logger.info("The requested type is "+categorytype);
 		if (categorytype!= null){
-			String jsonString = null;
+			
 			int switchValue = 0;
 			if(categorytype.equalsIgnoreCase("CATEGORY"))
 				switchValue = 1;

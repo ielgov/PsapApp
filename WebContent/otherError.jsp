@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1">
     <link rel="stylesheet" type="text/css" href="css/loginbundle.css">
-    <title>404 Page Not Found</title>
+    <title>PSAP Exception</title>
     <STYLE TYPE="text/css">
 		
 		.hidden {
