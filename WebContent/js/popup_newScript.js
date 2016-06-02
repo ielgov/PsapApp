@@ -1,10 +1,12 @@
 function showPopUp(offeringId, parentId)
 {
+	assetsSlider.style.height = "75%";
 	var results; // TODO remove if you dont want caching 
 	
 	var url = "";
-	//url = "http://172.27.50.134:9080/PSAP/Assets?offeringId=2001&parentId=201"
-	url = "http://172.27.50.134:9080/PSAP/Assets?offeringId="+offeringId+"&parentId="+parentId+""
+	//url = "http://172.27.50.135:9080/PSAP/Assets?offeringId=2001&parentId=201"
+	//url = "http://"+config.serverAddress+"/PSAP/Assets?offeringId=2001&parentId=201"
+	url = "http://"+config.serverAddress+"/PSAP/Assets?offeringId="+offeringId+"&parentId="+parentId+""
 	
 	try{
 		httpRequest( url, callback );
@@ -15,6 +17,7 @@ function showPopUp(offeringId, parentId)
 		results = JSON.parse( respText ); // TODO add var
 		buildPopUp( results.result );
 		localStorage.setItem("search_results", JSON.stringify(results) ); // TODO remove if you dont want caching
+		revealAssets();
 	}
 }
 
@@ -51,7 +54,7 @@ function openButton(buttonClicked)
 		buttonClicked.classList.add("closed");
 		buttonClicked.onclick = placeHolder.onclick;
 		
-		greyOutBox.style.zIndex = -1;		
+		//greyOutBox.style.zIndex = -2;		
 		greyOutBox.classList.add("hidden");
 		
 		
@@ -81,11 +84,15 @@ function openButton(buttonClicked)
 		placeHolder.onclick = buttonClicked.onclick
 		buttonClicked.parentElement.appendChild( placeHolder );
 		
+		console.log(87)
+		
 		buttonClicked.style.left = buttonClickedBoundingRect.left - config.assetMargin;
 		buttonClicked.style.top = buttonClickedBoundingRect.top - config.assetMargin;
-		buttonClicked.style.zIndex = 2;
+		buttonClicked.style.zIndex = 4;
 		buttonClicked.style.position = "fixed";
 		// end of moving up so it can nicely transition to open
+		
+		console.log(95)
 		
 		// start of animating motion of div
 		buttonClicked.style.left = emToPx(1);
@@ -100,13 +107,14 @@ function openButton(buttonClicked)
 		
 		buttonClicked.onclick = ""
 		
-		greyOutBox.style.zIndex = 1;		
-		greyOutBox.classList.remove("hidden")
+		//greyOutBox.style.zIndex = 3;		
+		//greyOutBox.classList.remove("hidden")
 		
 		buttonClicked.addEventListener("transitionend", function(e)
 		{
 			if( buttonClicked.classList.contains("open") )
 			{
+				console.log("moving xIcon")
 				xIcon.classList.remove("hidden")
 				moveX(buttonClicked);		
 				document.querySelector(".asset.open > .contentHolder").classList.remove("hidden");

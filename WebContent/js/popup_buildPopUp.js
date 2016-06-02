@@ -131,7 +131,8 @@ function makeAssetSmallerParent(assets, id)
 			console.log("data is ")
 			console.log();
 			div.onclick = function(){ open_in_new_tab( data[l] ) };
-			div.innerHTML = l+": "+data[l] + " ("+data['ASSET_TYPE']+")";
+			//div.innerHTML = l+": "+data[l]+"  ";
+			div.innerHTML += data['ASSET_TYPE']=="" ? "" : "<img style='height:3em;' src=images/icons/"+data['ASSET_TYPE']+".png></img>";
 		}
 		else
 		{

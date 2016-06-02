@@ -15,7 +15,7 @@ function pxToEm( px )
 function emToPx( em )
 {
 	em += "";
-	em = em.split("em").join(""); // TODO chnage to work with regex?
+	em = em.split("em").join("").split("rem").join(""); // TODO chnage to work with regex?
 	em = parseFloat(em)
 	return ( divForFindingEMSize.getBoundingClientRect().width/1 ) * em;
 }
