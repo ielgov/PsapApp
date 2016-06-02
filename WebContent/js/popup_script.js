@@ -1,22 +1,13 @@
 window.onload = function(){
 	assetsSlider.style.height = "75%";
-	//console.log(assetsSubSlider.getBoundingClientRect().height)
-	//console.log(assetsSlider.height)
 	
-	var contentObj = {
+	/*var contentObj = {
 		"paragraph":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque imperdiet vestibulum magna nec faucibus. Vestibulum mollis non enim quis cursus. Morbi auctor sapien quis mattis blandit. Suspendisse accumsan rhoncus sapien, sit amet feugiat mi dapibus vitae. Nullam sit amet condimentum nibh, non maximus sem. Quisque aliquam, orci quis suscipit venenatis, elit justo ultricies massa, sed varius risus mauris at eros. Nam pharetra ante diam, eget bibendum ex sagittis eget.",
 		"paragraph2":"Peter Piper picked a peck of pickled peppers. A peck of pickled peppers Peter Piper picked. If Peter Piper picked a peck of pickled peppers, Where's the peck of pickled peppers Peter Piper picked?<br><br>Denise sees the fleece, Denise sees the fleas. At least Denise could sneeze and feed and freeze the fleas.",
 		"link":{"text":"Click to go to IBM", "url": 'http://www.ibm.com/'}
-	}
-	
-	revealAssets();
-	
-	//return; // this needs to be removed to go back to first thought
-	
-	//addButtons(14, contentObj);
-	
+	}*/
 		
-	assetsSlider.addEventListener("transitionend", function(e)
+	/*assetsSlider.addEventListener("transitionend", function(e)
 	{
 		if( !assetsSlider.classList.contains("hidden") && assetsSlider === e.srcElement )
 		{
@@ -25,11 +16,9 @@ window.onload = function(){
 		}
 		
 	}, false)
+	*/
 	
-	resize();
-	//buildPopUp( results );
 	showPopUp(2001, 201);
-	document.querySelector("body").width = window.innerWidth;
 }
 
 function sizePopUpWidth( buttonClicked, moveXFlag)
@@ -82,11 +71,6 @@ function moveX(buttonClicked)
 	xIcon.style.top = top+"px";
 }
 
-function revealAssets()
-{
-	toggleClass(assetsSlider, "hidden");
-}
-
 function sizeElements()
 {
 	//( button1.getBoundingClientRect.width() + config.assetMargin ) * 4;
@@ -96,7 +80,7 @@ function sizeElements()
 // params: seedButton is the button to get the width off of
 function sizeAssets(seedButton, containerArr) // sorry, this is really jank 
 {
-	//console.log(seedButton);
+	console.log(seedButton);
 	for( var i=0; i<containerArr.length; i++ )
 	{
 		containerArr[i].style.marginLeft = 0+"px";	

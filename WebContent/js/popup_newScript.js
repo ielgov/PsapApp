@@ -1,5 +1,7 @@
 function showPopUp(offeringId, parentId)
 {
+	assetsHolder.innerHTML = "";
+	
 	var results; // TODO remove if you dont want caching 
 	
 	var url = "";
@@ -18,6 +20,14 @@ function showPopUp(offeringId, parentId)
 	}
 	numberOfResults.innerHTML = assetsSlider.getElementsByClassName("asset").length;
 	sizeAssets(buttonForSizing, document.getElementsByClassName("assetSmallererParent"));
+	
+	assetsSlider.classList.remove("hidden");
+	
+}
+
+function hidePopUp()
+{
+	assetsSlider.classList.add("hidden");
 }
 
 function toggleExpanded( e )
@@ -74,7 +84,7 @@ function openButton(buttonClicked)
 	}
 	else // need to show	
 	{
-		buttonClicked.classList.add("finallyOpen");
+		//buttonClicked.classList.add("finallyOpen");
 		console.log("look here at "+77)
 		
 		lastClicked = buttonClicked
@@ -109,7 +119,7 @@ function openButton(buttonClicked)
 		buttonClicked.classList.remove("closed");
 		// end of animating motion of div
 		
-		buttonClicked.getElementsByClassName( "contentHolder" )
+		//buttonClicked.getElementsByClassName( "contentHolder" )
 		
 		buttonClicked.onclick = ""
 		
@@ -126,7 +136,6 @@ function openButton(buttonClicked)
 			}
 			
 		}, false)
-		
 	}
 }
 

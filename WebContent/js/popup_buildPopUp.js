@@ -27,9 +27,9 @@ function buildPopUp( results )
 		var title = assets[i].getElementsByClassName("title")[0];
 		//console.log( title );
 		
-		marginTop = ( assets[i].getBoundingClientRect().height/2 - title.getBoundingClientRect().height ) ;
-			
-		title.style.marginTop = marginTop;
+		marginTop = ( assets[i].getBoundingClientRect().height/2 - title.getBoundingClientRect().height/2 ) -10 ; // with the 10 it looks nice
+					
+		title.style.marginTop = marginTop+"px";
 	}
 	
 	resize();

@@ -1,6 +1,6 @@
 .asset
 {
-	padding:.75em;
+	padding:.75rem;
 	margin:16px;
 	text-align:center;
 	
@@ -10,18 +10,19 @@
 	/*display:flex;*/
 	justify-content:center;
 	/*align-items:center;*/
-	
-	width:12em;
-	
+		
 	background: grey;
 	color:black;
 	
-	height: 6em;
-	width: 12em;	
-	margin: 8px; /*TODO change this to be set with em type units on page load; need this so the spacing works*/
-	border-radius: 1.5em;
+	height: 10.7rem; /*for some reason if this is above 10.7rem (119px) it will be hidden by the space above the slider*/
+	width: 24rem;
+	
+	margin: 8px; /*TODO change this to be set with rem type units on page load; need this so the spacing works*/
+	border-radius: 1.5rem;
 	
 	transition: all .4s .0s, width .4s .0s, height .4s .0s;
+	
+	font-size:2rem;
 }
 
 .asset.open
@@ -33,9 +34,9 @@
 .asset.open > div.title
 {
 	text-align:center;
-	/*margin-top: 1em !important;*/
+	/*margin-top: 1rem !important;*/
 	transition: all .4s;
-	font-size:2em;
+	font-size:2rem;
 }
 
 .assetSmallerParent
@@ -57,21 +58,21 @@
 	/*justify-content:flex-start;*/
 	flex-wrap:wrap;
 	
-	/*margin-left:3em;*/
+	/*margin-left:3rem;*/
 	
 	transition: all .4s;
 }
 
 .assetParent > .title
 {
-	font-size:2em;
-	padding:.5em;
+	font-size:2rem;
+	padding:.5rem;
 }
 
 #assetsTitle
 {
 	color:grey;
-	margin: .75em;
+	margin: .75rem;
 }
 
 .assetParent:nth-child(odd)
@@ -91,7 +92,7 @@
 	/*color:white;*/
 	text-align:left;
 	/*width:100%;*/
-	padding-bottom:1em;
+	padding-bottom:1rem;
 	
 	display:-webkit-flex;
 	display:flex;
@@ -100,24 +101,24 @@
 
 #assetsSlider.hidden
 {
-	height: 0em !important;
+	height: 0rem !important;
 }
 
 #assetsSlider
 {
 	z-index:10;
-	font-size:1em !important;
-	height: 0em;
+	font-size:1rem !important;
+	height: 0rem;
 	width:100%;
 	background-color:#D2D2D2;
 	
-	margin:0em;
-	padding:0em;
-	border:0em;
+	margin:0rem;
+	padding:0rem;
+	border:0rem;
 	
 	position:absolute;
-	bottom:0em;
-	left:0em;
+	bottom:0rem;
+	left:0rem;
 	
 	color:black;
 	text-align:center;
@@ -136,8 +137,8 @@
 
 #xIcon
 {
-	width:2em;
-	height:2em;	
+	width:2rem;
+	height:2rem;	
 	
 	opacity: 1;
 	
@@ -156,20 +157,20 @@
 	overflow:hidden;
 	
 	opacity: 1;
-	margin:2.5em;
+	margin:2.5rem;
 	
     transition: all .4s, height .4s, opacity .4s; /*the .2s is really nice with the .4*/
 }
 .contentHolder.hidden
 {	
 	opacity: 0;
-	height:0em;
+	height:0rem;
     transition: all .4s, height .4s 0s, opacity .4s .4s;
 }
 
 #assetsTitle
 {
-	margin: 1em;
+	margin: 1rem;
 }
 
 #assetsHolder
@@ -203,7 +204,7 @@
 
 .linkIcon
 {
-	height:2.5em;
+	height:2.5rem;
 }
 
 .finallyOpen
