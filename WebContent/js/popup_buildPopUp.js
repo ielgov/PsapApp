@@ -32,8 +32,8 @@ function buildPopUp( results )
 		title.style.marginTop = marginTop+"px";
 	}
 	
-	resize();
 	numberOfResults.innerHTML = assetsSlider.getElementsByClassName("asset").length;	
+	resize();
 }
 
 function getGroups( results )

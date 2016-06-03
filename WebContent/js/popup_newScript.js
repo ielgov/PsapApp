@@ -1,4 +1,4 @@
-function showPopUp(offeringId, parentId)
+function showPopUp(offeringId, parentId, useCache)
 {
 	assetsHolder.innerHTML = "";
 	
@@ -8,9 +8,17 @@ function showPopUp(offeringId, parentId)
 	//url = "http://172.27.50.134:9080/PSAP/Assets?offeringId=2001&parentId=201"
 	url = "http://172.27.50.135:9080/PSAP/Assets?offeringId="+offeringId+"&parentId="+parentId+""
 	
-	try{
-		httpRequest( url, callback );
-	}catch(e){}
+	if(!useCache)
+	{
+		try{
+			httpRequest( url, callback );
+		}catch(e){}
+	}
+	else
+	{
+		console.log("using cache");
+		callback( localStorage.getItem("search_results") );
+	}
 	
 	function callback( respText )
 	{
@@ -21,8 +29,7 @@ function showPopUp(offeringId, parentId)
 	numberOfResults.innerHTML = assetsSlider.getElementsByClassName("asset").length;
 	sizeAssets(buttonForSizing, document.getElementsByClassName("assetSmallererParent"));
 	
-	assetsSlider.classList.remove("hidden");
-	
+	assetsSlider.classList.remove("hidden");	
 }
 
 function hidePopUp()
@@ -106,15 +113,22 @@ function openButton(buttonClicked)
 		console.log("buttonClicked.style.left is "+buttonClicked.style.left) // TODO remove
 		console.log("buttonClicked.style.top is "+buttonClicked.style.top) // TODO remove
 		
-		buttonClicked.style.left = emToPx(1)+"px";
-		buttonClicked.style.top = emToPx(1)+"px";
-		
+		setButtonPosition( buttonClicked );
 		
 		console.log("buttonClicked.style.left is "+buttonClicked.style.left) // TODO remove
 		console.log("buttonClicked.style.top is "+buttonClicked.style.top) // TODO remove
 		
+		/*/ this is the toggle for auto sizing of the div
+		buttonClicked.style.width = "80vw";
+		buttonClicked.style.height = "auto";
+		
+		buttonClicked.style.width = buttonClicked.getBoundingClientRect().width;
+		buttonClicked.style.height = buttonClicked.getBoundingClientRect().height;
+		/*/
 		buttonClicked.style.width = "85%";
 		buttonClicked.style.height = "85%";
+		//*/
+		
 		buttonClicked.classList.add("open");
 		buttonClicked.classList.remove("closed");
 		// end of animating motion of div
@@ -136,6 +150,12 @@ function openButton(buttonClicked)
 			}
 			
 		}, false)
+	}
+	
+	function setButtonPosition( buttonClicked )
+	{
+		buttonClicked.style.left = emToPx(1)+"px"; // TODO change this so it is centered in the page
+		buttonClicked.style.top = emToPx(1)+"px";		
 	}
 }
 

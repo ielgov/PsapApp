@@ -53,7 +53,7 @@
 .assetSmallererParent
 {
 	display:-webkit-flex;
-	display:flex;
+	display:flex;.contentHolder
 	/*flex-direction: row;*/
 	/*justify-content:flex-start;*/
 	flex-wrap:wrap;
@@ -72,7 +72,12 @@
 #assetsTitle
 {
 	color:grey;
-	margin: .75rem;
+	margin: 1rem;
+	width:100%;
+	
+	display:-webkit-flex;
+	display:flex;	
+	justify-content: space-around;
 }
 
 .assetParent:nth-child(odd)
@@ -168,11 +173,6 @@
     transition: all .4s, height .4s 0s, opacity .4s .4s;
 }
 
-#assetsTitle
-{
-	margin: 1rem;
-}
-
 #assetsHolder
 {
 	overflow-x:auto;
@@ -212,6 +212,13 @@
 	/*left:20px;*/
 	/*top:20px;*/
 	z-index:10;
+}
+
+.arrowDown
+{
+	margin-left:1rem;
+	margin-right:1rem;
+	font-size:3rem;
 }
 
 

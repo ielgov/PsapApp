@@ -1,30 +1,18 @@
 window.onload = function(){
 	assetsSlider.style.height = "75%";
-	
-	/*var contentObj = {
-		"paragraph":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque imperdiet vestibulum magna nec faucibus. Vestibulum mollis non enim quis cursus. Morbi auctor sapien quis mattis blandit. Suspendisse accumsan rhoncus sapien, sit amet feugiat mi dapibus vitae. Nullam sit amet condimentum nibh, non maximus sem. Quisque aliquam, orci quis suscipit venenatis, elit justo ultricies massa, sed varius risus mauris at eros. Nam pharetra ante diam, eget bibendum ex sagittis eget.",
-		"paragraph2":"Peter Piper picked a peck of pickled peppers. A peck of pickled peppers Peter Piper picked. If Peter Piper picked a peck of pickled peppers, Where's the peck of pickled peppers Peter Piper picked?<br><br>Denise sees the fleece, Denise sees the fleas. At least Denise could sneeze and feed and freeze the fleas.",
-		"link":{"text":"Click to go to IBM", "url": 'http://www.ibm.com/'}
-	}*/
-		
-	/*assetsSlider.addEventListener("transitionend", function(e)
-	{
-		if( !assetsSlider.classList.contains("hidden") && assetsSlider === e.srcElement )
-		{
-			//button2.click();
-			//assetsSlider.
-		}
-		
-	}, false)
-	*/
-	
-	showPopUp(2001, 201);
+	//showPopUp(2001, 201);
 }
 
-function sizePopUpWidth( buttonClicked, moveXFlag)
-{
+function sizePopUpWidth( buttonClicked, moveXFlag )
+{	
 	console.log("look here on line 37")
 	moveXFlag = moveXFlag || false;
+	
+	if(moveXFlag)
+	{
+		console.log("moving x");
+		moveX(buttonClicked);
+	}else{alert("not sizing")};
 	
 	if( (buttonClicked == undefined) ) //	|| (lastClicked !== undefined && !lastClicked.classList.contains("open")) )
 	{
@@ -39,18 +27,16 @@ function sizePopUpWidth( buttonClicked, moveXFlag)
 	
 	console.log("buttonClicked.style.width is "+buttonClicked.style.width)
 	console.log("buttonClicked.style.height is "+buttonClicked.style.height)
-	
-	if(moveXFlag)
-	{
-		console.log("moving x");
-		moveX(buttonClicked);
-	}
 }
 
 
 // This needs to stay
 function moveX(buttonClicked)
 {
+	buttonClicked = buttonClicked || document.querySelector(".asset.open");
+	
+	console.log(buttonClicked);
+	
 	var boundingRect = buttonClicked.getBoundingClientRect()
 	
 	var left = boundingRect.left + boundingRect.width;
@@ -105,6 +91,7 @@ function resize()
 	sizeAssets(buttonForSizing, document.getElementsByClassName("assetSmallererParent"));
 	sizePopUpWidth( undefined, true );
 	assetsSlider.style.width = window.innerWidth
+	resizeX();
 }
 
 
