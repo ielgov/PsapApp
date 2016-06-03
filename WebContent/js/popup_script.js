@@ -12,7 +12,8 @@ function sizePopUpWidth( buttonClicked, moveXFlag )
 	{
 		console.log("moving x");
 		moveX(buttonClicked);
-	}else{alert("not sizing")};
+	}
+	//else{console.log("not sizing")};
 	
 	if( (buttonClicked == undefined) ) //	|| (lastClicked !== undefined && !lastClicked.classList.contains("open")) )
 	{

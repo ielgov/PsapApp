@@ -221,6 +221,18 @@
 	font-size:3rem;
 }
 
+#triangle
+{
+	position:fixed;
+	z-index:10;
+	opacity:1;
+}
+
+#triangle.hidden
+{
+	opacity:0;
+}
+
 
 
 

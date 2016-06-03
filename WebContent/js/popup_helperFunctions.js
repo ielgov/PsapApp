@@ -56,20 +56,9 @@ function toggleClass(e, className)
 	}
 }
 
-function makeSVGImage(pointsArr, width, height)
+function httpRequest(url, callback, method)
 {
-	var dStr = "";
-	for(var i=0; i<pointsArr.length; i++)
-	{
-		dStr += i===0 ? "M" : " L";
-		dStr += ""+pointsArr[i].x + " " + pointsArr[i].y
-	}
-	return dStr;
-}
-
-function httpRequest(url, callback, method, async)
-{
-	async = async || false;
+	async = false;
 	method = method || "GET";
 	
 	var xhttp = new XMLHttpRequest();
@@ -95,6 +84,34 @@ function httpRequest(url, callback, method, async)
 		callback( localStorage.getItem("search_results") )
 	}
 }
+
+var pointsObj = [
+	{"x":0, "y":0},
+	{"x":10, "y":0},
+	{"x":20, "y":0},
+	{"x":10, "y":20}
+]
+
+		function makeSVGImage(pointsArr, width, height)
+		{
+			var dStr = "";
+			for(var i=0; i<pointsArr.length; i++)
+			{
+				dStr += i===0 ? "M" : " L";
+				
+				if( pointsArr[i].x <= 1 ) // this is so you can use relitive fractions to the size of the points
+				{
+					pointsArr[i].x *= width;
+				}				
+				if( pointsArr[i].y <= 1 ) // this is so you can use relitive fractions to the size of the points
+				{
+					pointsArr[i].y *= height;
+				}
+				
+				dStr += pointsArr[i].x + " " + pointsArr[i].y; 
+			}
+			return dStr;
+		}
 
 
 
