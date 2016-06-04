@@ -32,8 +32,6 @@ public class LoginServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String errorMsg = null;
-		productionMode=true;
-		if (productionMode){
 		if(email == null || email.equals("")){
 			errorMsg ="User Email can't be null or empty";
 		}
@@ -52,7 +50,6 @@ public class LoginServlet extends HttpServlet {
 			request.login(email, password);
 			session = request.getSession();
 			session.setAttribute("signedIn", true);
-			
         } catch(ServletException ex) {
         	RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
 			errorMsg = "Login failed. Please check your username/password.";
@@ -78,10 +75,11 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("User", user);
 				response.sendRedirect("index.html");
 			}else{
-				User user = new User(email, email, "user");
-				logger.info("User is not a privileged "+user);
-				session.setAttribute("User", user);
-				response.sendRedirect("index.html");
+				logger.info("User is not a privileged "+email);
+				if (session != null){
+					session.invalidate();
+				}
+				response.sendRedirect("accessdenied.html");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -97,15 +95,7 @@ public class LoginServlet extends HttpServlet {
 			
 		}
 		}
-		}
-		else{
-			//stub mode
-			User user = new User(email, email, "user");
-			logger.info("Stub Mode");
-			session = request.getSession();
-			session.setAttribute("User", user);
-			response.sendRedirect("index.html");
-		}
+	
 	}
 
 }

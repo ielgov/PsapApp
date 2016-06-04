@@ -1,50 +1,124 @@
 {
 	"101": {
-		"1001": 
-		[
-			{
-				"CategoryId": "10001",
-				"Name": "ref1"
+		"1001": [{
+				"AssetId": "10001",
+				"Name": "Asset1",
+				"Display": "Asset1",
+				"ASSETACTION": "URL",
+				"ASSET_TYPE": "PDF",
+				"URL": "",
+				"DESC_DISPLAY": "",
+				"ASSETGROUP": "GROUP1"
 			}, {
-				"CategoryId": "10002",
-				"Name": "ref2"
+				"AssetId": "10002",
+				"Name": "Asset1",
+				"Display": "Asset1",
+				"ASSETACTION": "URL",
+				"ASSET_TYPE": "PPT",
+				"URL": "",
+				"DESC_DISPLAY": "",
+				"ASSETGROUP": "GROUP1"
 			}
 
 		],
-		"1002": 
-		[
-			{
-				"CategoryId": "10101",
-				"Name": "ref1"
+		"1002": [{
+				"AssetId": "10101",
+				"Name": "Asset1",
+				"Display": "Asset1",
+				"ASSETACTION": "URL",
+				"ASSET_TYPE": "PDF",
+				"URL": "",
+				"DESC_DISPLAY": "",
+				"ASSETGROUP": "GROUP1"
+
 			}, {
-				"CategoryId": "10102",
-				"Name": "ref2"
+				"AssetId": "10102",
+				"Name": "Asset2",
+				"Display": "",
+				"ASSETACTION": "URL",
+				"ASSET_TYPE": "DOCx",
+				"URL": "",
+				"DESC_DISPLAY": "",
+				"ASSETGROUP": "GROUP2"
+
 			}
 
 		]
 	},
 	"201": {
-		"1001": 
-		[
-			{
-				"CategoryId": "20001",
-				"Name": "ref1"
-			}, {
-				"CategoryId": "20002",
-				"Name": "ref2"
-			}
+		"2001": [{
+			"AssetId": "20001",
+			"Name": "IOC4EMOverview",
+			"Display": "IOC for Emergency Mgmt Overview",
+			"ASSETACTION": "Blurb",
+			"ASSET_TYPE": "",
+			"URL": "http://www-03.ibm.com/software/products/en/ioc-emergency-management",
+			"DESC_DISPLAY": "IBM Intelligent Operations Center for Emergency Management is an incident and emergency management solution for daily operations and crisis situations that integrates, correlates and analyzes operational information to create a dynamic, geospatial, common operating picture and analytic-based insights that speed decision making and time-to-action.",
+			"ASSETGROUP": "IOC4EM"
 
-		],
-		"1002": 
-		[
-			{
-				"CategoryId": "20101",
-				"Name": "ref1"
+		}, {
+			"AssetId": "20002",
+			"Name": "IOC for Emergency Mgmt Brocure internal",
+			"Display": "IOC for Emergency Mgmt internal brocure",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "PDF",
+			"URL": "http://w3.ibm.com/sales/ssi/cgi-bin/ssialias?subtype=BR&infotype=PM&htmlfid=PUB03004USEN&attachment=PUB03004USEN.PDF ",
+			"DESC_DISPLAY": "",
+			"ASSETGROUP": "IOC4EM"
+
+		}, {
+			"AssetId": "20003",
+			"Name": "IOC for Emergency Mgmt Brocure external",
+			"Display": "IOC for Emergency Mgmt Brocure external",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "PDF",
+			"URL": "http://www.ibm.com/common/ssi/cgi-bin/ssialias?subtype=BR&infotype=PM&htmlfid=PUB03004USEN&attachment=PUB03004USEN.PDF",
+			"DESC_DISPLAY": "",
+			"ASSETGROUP": "IOC4EM"
+
+		}, {
+			"AssetId": "20004",
+			"Name": "Intelligent Video Analytics Overview",
+			"Display": "Intelligent Video Analytics Overview",
+			"ASSETACTION": "BLURB",
+			"ASSET_TYPE": "PDF",
+			"URL": "http://www-03.ibm.com/software/products/en/intelligent-video-analytics",
+			"DESC_DISPLAY": "IBM® Intelligent Video Analytics identifies events, attributes or patterns of behavior through video analysis of monitored environments.This video analysis software monitors video streams in near real-time,automatically generates alerts,and facilitates forensic analysis of historical data to identify specific incidents, trends and patterns. It enables users to organize, analyze and share the insight gained from data to make smarter decisions and promotes enhanced coordination within or across organizations or agencies.",
+			"ASSETGROUP": "IVA"
+
+		}, {
+			"AssetId": "20005",
+			"Name": "Intelligent Video Analytics Product Details (internal)",
+			"Display": "Intelligent Video Analytics ",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "website",
+			"URL": "http://www-03.ibm.com/software/products/en/intelligent-video-analytics",
+			"DESC_DISPLAY": "",
+			"ASSETGROUP": "IVA"
+
+		}],
+		"2002": [{
+				"AssetId": "20101",
+				"Name": "Asset4",
+				"Display": "Asset4",
+				"ASSETACTION": "URL",
+				"ASSET_TYPE": "PDF",
+				"URL": "",
+				"DESC_DISPLAY": "",
+				"ASSETGROUP": "GROUP1"
+
 			}, {
-				"CategoryId": "20102",
-				"Name": "ref2"
+				"AssetId": "20102",
+				"Name": "Asset5",
+				"Display": "Asset5",
+				"ASSETACTION": "URL",
+				"ASSET_TYPE": "XLS",
+				"URL": "",
+				"DESC_DISPLAY": "",
+				"ASSETGROUP": "GROUP2"
+
 			}
 
 		]
-	},
+	}
 }

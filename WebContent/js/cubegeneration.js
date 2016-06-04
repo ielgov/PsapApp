@@ -398,10 +398,11 @@ function RubiksCube(options)
 			var dynamicTexture	= new THREEx.DynamicTexture(512,512);
 			dynamicTexture.texture.anisotropy = renderer.getMaxAnisotropy();
 			dynamicTexture.clear('white');
-			
+		
 			if (cubie.$materialList.hasOwnProperty(i))
 			{
 				var dataObj = cubie.$materialList[i];
+				
 				dynamicTexture.drawTextCooked({
 					text		: dataObj['Display'],//faceText['Name'],//
 					lineHeight	: ref.textureLineHeight,
@@ -409,6 +410,8 @@ function RubiksCube(options)
 					align		: ref.textureAlignText,
 					font		: ref.textureFont
 				});
+				
+				
 				var faceMeshMat = new THREE.MeshLambertMaterial({color: cubie['color-face'+i], map: dynamicTexture.texture});
 				faceMeshMat.$data = dataObj;
 				materials.push(faceMeshMat);

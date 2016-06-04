@@ -40,7 +40,13 @@ public class AuthenticationFilter implements Filter {
 			//Frame work to check for authentication
 			if(session == null && !(uri.endsWith("login.jsp") || uri.endsWith("Login"))){
 				logger.error("Unauthorized access request");
-				res.sendRedirect("/PSAP/login.jsp");
+				if (uri.endsWith("accessdenied.html")){
+					//directing to access dined page
+					chain.doFilter(request, response);
+				}
+				else{
+					res.sendRedirect("/PSAP/login.jsp");
+				}	
 			}else{
 				if (session == null){
 					logger.info("SESSION is NULL");

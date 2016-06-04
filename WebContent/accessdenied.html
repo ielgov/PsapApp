@@ -55,20 +55,14 @@
     </div>			
     <div id="container">
     </div>
+    <a href="/PSAP/index.html">Home</a>
      <script type="text/javascript" src="js/Threejs/jquery.min.js"></script>
      <script src="js/Threejs/Three.js"></script>
      <script type="text/javascript" src="js/Threejs/threex.dynamictexture.js"></script>
      <script src="js/config.js"></script>
-     <script src="js/logout_main.js"></script>
+     <script src="js/accessdenied_main.js"></script>
 	
 	<script>
-		var animationStep = 0;
-		var nextlocation = config.weburl;
-		var redirectTimeout = 3;
-		var endTimeout;
-		var animationInterval;
-		var timeoutInterval;
-		var iFramesLoaded;
 		
 		var onUserAction;
 		var webGLWidth, webGLHeight;
@@ -83,64 +77,6 @@
 			}
 			
 		});
-		//logout specific code
-	
-		function loadscript()
-		{
-			var i;
-		
-			iFramesLoaded = new Array(6);
-			for(i=0;i<6;i++) {
-			  iFramesLoaded[i] = false;
-			}
-			endTimeout = setTimeout(doEndAnimation, 2000); // waiting at maxiumum 20 seconds
-			setTimeout(doAnimationAndCheck, 100); // quick update of the message
-			animationInterval = setInterval(doAnimationAndCheck, 750);
-		}
-		
-		function doEndAnimation()
-		{
-			animationStep = 5;
-			clearInterval(animationInterval);
-			updateTimeoutField();
-			timeoutInterval = setInterval(updateTimeoutField, 1000);
-		}
-		
-		function updateTimeoutField()
-		{
-			if (redirectTimeout==0) {
-				window.location = nextlocation;
-				clearInterval(timeoutInterval);
-			}
-			if (redirectTimeout>0) {
-				redirectTimeout--;
-			}
-		}
-		function loadedIFrame(iFrameNumber)
-		{
-			iFramesLoaded[iFrameNumber] = true;
-		}
-		function doAnimationAndCheck()
-		{		 
-		  if (allIframesLoaded()) {
-			clearTimeout(endTimeout);
-			doEndAnimation();
-		  }
-		}
-		function allIframesLoaded() 
-		{
-		  var i;
-		  for(i=0; i<6; i++) {
-			if (iFramesLoaded[i]==false) {
-				return false;
-			}
-		  }
-		  return true;
-		}
-		
-		loadscript();		     
-    
-		///////
 	</script>
   </body>
 </html>
