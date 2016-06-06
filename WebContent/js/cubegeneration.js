@@ -6,20 +6,20 @@ var GAP_BETWEEN_CUBES = 0.2;
 var breadCrumsPos = {
 		'categories':{
 			'screen':{
-				'X':0.95,//0.03
+				'X':0.03,//0.95
 				'Y':0.1,//0.1
 				}
 			},
 		'solutions':{
 			'screen':{
-				'X':0.95,//0.15
-				'Y':0.35,//0.1
+				'X':0.15,//0.95
+				'Y':0.1,//0.35
 				}
 		},
 		'offerings':{
 			'screen':{
-				'X':0.95,//0.27
-				'Y':0.6,//0.1
+				'X':0.27,//0.95
+				'Y':0.1,//0.6
 				}
 		}
 };
@@ -194,14 +194,14 @@ function RubiksCube(options)
 		var min = 0;
 		var max = ref.dimensions - 1;
 		console.log('min = ' + min + ' | max = ' + max);
-		
-		var color_px = "black", color_nx = "black", color_py = "black", color_ny = "black", color_pz = "black", color_nz = "black";
+		var foreColor = 0x5e5e5e;
+		var color_px = foreColor, color_nx = foreColor, color_py = foreColor, color_ny = foreColor, color_pz = foreColor, color_nz = foreColor;
 		var colorMaterials = [];
 	    var colorNames = [];
-		
+		var backGroundColor = 0xf2f1eb;//0xa5a8ab
 	    if(x == max) 
 		{
-	        color_px = 0xa5a8ab;//yellow
+	        color_px = backGroundColor;//yellow
 	        colorMaterials.push(0);
 	        colorNames.push('yellow');
 	        if (ref.faces.hasOwnProperty('face0') == false)
@@ -212,7 +212,7 @@ function RubiksCube(options)
 
 	    if(x == 0) 
 	    {
-	        color_nx = 0xa5a8ab;//white
+	        color_nx = backGroundColor;//white
 	        colorMaterials.push(1);
 	        colorNames.push('white');
 	        if (ref.faces.hasOwnProperty('face1')==false)
@@ -223,7 +223,7 @@ function RubiksCube(options)
 	    
 	    if(y == max) 
 	    {
-	        color_py = 0xa5a8ab;//blue
+	        color_py = backGroundColor;//blue
 	        colorMaterials.push(2);
 	        colorNames.push('blue');
 	        if (ref.faces.hasOwnProperty('face2')==false)
@@ -234,7 +234,7 @@ function RubiksCube(options)
 
 	    if(y == 0) 
 	    {
-	        color_ny = 0xa5a8ab;//orange
+	        color_ny = backGroundColor;//orange
 	        colorMaterials.push(3);
 	        colorNames.push('orange');
 	        if (ref.faces.hasOwnProperty('face3')==false)
@@ -245,7 +245,7 @@ function RubiksCube(options)
 
 	    if(z == max) 
 	    {
-	        color_nz = 0xa5a8ab;//green
+	        color_nz = backGroundColor;//green
 	        colorMaterials.push(4);
 	        colorNames.push('green');
 	        if (ref.faces.hasOwnProperty('face4')==false)
@@ -256,7 +256,7 @@ function RubiksCube(options)
 
 	    if(z == 0) 
 	    {
-	        color_pz = 0xa5a8ab;//red
+	        color_pz = backGroundColor;//red
 	        colorMaterials.push(5);
 	        colorNames.push('red');
 	        if (ref.faces.hasOwnProperty('face5')==false)
@@ -527,7 +527,7 @@ function RubiksCube(options)
 			}
 			else
 			{
-				var faceMeshMat = new THREE.MeshLambertMaterial({color: 0x000000, vertexColors: THREE.FaceColors});
+				var faceMeshMat = new THREE.MeshLambertMaterial({color: 0x5e5e5e, vertexColors: THREE.FaceColors});
 				materials.push(faceMeshMat);
 			}
 		}

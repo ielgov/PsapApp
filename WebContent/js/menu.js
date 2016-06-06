@@ -2,12 +2,18 @@ function openMenu()
 {
 	document.querySelector('#menu').classList.remove('translateX-100');
 	document.querySelector('#menu-button').classList.add('rotateZ-90');
+	document.querySelector('#main-container').classList.add('translateX12');
+	document.querySelector('#menu-button').classList.add('menu-turquoise');
+	document.querySelector('#menu-button').classList.remove('menu-white');
 }
 
 function closeMenu()
 {
 	document.querySelector('#menu').classList.add('translateX-100');
 	document.querySelector('#menu-button').classList.remove('rotateZ-90');
+	document.querySelector('#main-container').classList.remove('translateX12');
+	document.querySelector('#menu-button').classList.add('menu-white');
+	document.querySelector('#menu-button').classList.remove('menu-turquoise');
 }
 
 var menuClicked = undefined;
