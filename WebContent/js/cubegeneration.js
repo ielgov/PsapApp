@@ -45,6 +45,7 @@ function setCubeData(nextLevelDataObj, currRubiksType)
 	{
 		//Draw rubiks cube for 'solutions' under this category
 		appData['solutions']['getDataFor'] = nextLevelDataObj;
+		appData['solutions']['parentId'] = nextLevelDataObj['CategoryId'];
 		var returnedData = getData(appData['solutions']);
 		var cubeData = appData['solutions'];
 		cubeData['data'] = returnedData;
@@ -54,6 +55,7 @@ function setCubeData(nextLevelDataObj, currRubiksType)
 	{
 		//Draw rubiks cube for 'offerings' under this solution
 		appData['offerings']['getDataFor'] = nextLevelDataObj;
+		appData['offerings']['parentId'] = nextLevelDataObj['CategoryId'];
 		var returnedData = getData(appData['offerings']);
 		var cubeData = appData['offerings'];
 		cubeData['data'] = returnedData;
