@@ -19,29 +19,29 @@ function getCategories(parentId)
 //extract all solutions for a category
 //http://172.27.50.134:9080/PSAP/Categories?type=SOLUTION&parentId=01
 //category 'ILP' has ID '01'
-function getSolutions(parentId)
+function getSolutions(parentId, func)
 {
 	console.log("Function :: getSolutions, for parentId - " + parentId);
 	var rest = new Object();
 	var restURL = webServerIP+"/PSAP/Categories?type=SOLUTION&parentId=" + parentId;
-	getRESTRequest(restURL,true);
+	getRESTRequest(restURL,true,func);
 }
 
 //extract all offerings for a solution
 //http://172.27.50.134:9080/PSAP/Categories?type=OFFERING&parentId=101
 //solutions 'EAI' has ID '101'
-function getOfferings(parentId)
+function getOfferings(parentId, func)
 {
 	console.log("Function :: getOfferings, for parentId - " + parentId);
 	var rest = new Object();
 	var restURL = webServerIP+"/PSAP/Categories?type=OFFERING&parentId=" + parentId;
-	getRESTRequest(restURL,true);
+	getRESTRequest(restURL,true,func);
 }
 
 //extract all assets under an offering of a solution
 //http://172.27.50.134:9080/PSAP/Assets?offeringId=1001&parentId=101
 //solutions “EAI” which carries the ID “101” and offerings “Products” which carries an ID “1001”
-function getAssets(parentId, offeringId)
+function getAssets(parentId, offeringId,func)
 {
 	console.log("Function :: getAssets, for parentId =  " + parentId + " and for offeringId = " + offeringId);
 	var rest = new Object();
@@ -49,7 +49,7 @@ function getAssets(parentId, offeringId)
 	getRESTRequest(restURL,true);
 }
 
-function getRESTRequest(restURL,usejson)
+function getRESTRequest(restURL,usejson,func)
 {
 	console.log("Function :: getRESTRequest, for URL = " + restURL);
 	var useJSON = usejson || true;
@@ -62,7 +62,7 @@ function getRESTRequest(restURL,usejson)
 	xhr.onload = function(){
 		if (xhr.status >=200 && xhr.status < 400)
 		{
-			debugger;
+			//debugger;
 			if(useJSON)
 			{
 				response = JSON.parse(xhr.responseText);
@@ -73,7 +73,10 @@ function getRESTRequest(restURL,usejson)
 			}
 			console.log("Response - " + response);
 			
-			return response;
+			//return response;
+			
+			if (func)
+				func(response);
 		}
 	};
 	
@@ -86,7 +89,7 @@ function getRESTRequest(restURL,usejson)
 	xhr.send();
 }
 
-function getData(obj)
+function getData(obj,func)
 {
 	console.log("Function :: getData", obj);
 	var result;
@@ -130,9 +133,9 @@ function getData(obj)
 		//debugger;
 		var categoryId = obj['getDataFor']['CategoryId'];
 		var display = obj['getDataFor']['Display'];
-		result = getSolutions(obj.parentId);
-		console.log('getting solutions for',categoryId,display);
-		returnData = result['result'];
+		getSolutions(obj.parentId, func);
+		//console.log('getting solutions for',categoryId,display);
+		//returnData = result['result'];
 		
 		/*for (var i=0; i<result.length;i++)
 		{
@@ -175,5 +178,5 @@ function getData(obj)
 		//getAssets(parentId, offeringId)
 	}
 	
-	return returnData;
+	//return returnData;
 }
