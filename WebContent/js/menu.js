@@ -10,6 +10,15 @@ function closeMenu()
 	document.querySelector('#menu-button').classList.remove('rotateZ-90');
 }
 
+//post logout action
+//http://172.27.50.134:9080/PSAP/Logout
+function postLogout()
+{
+	console.log("Function :: postLogout");
+	var restURL = webServerIP+"/PSAP/Logout";
+	window.open(restURL, "_self");
+}
+
 var menuClicked = undefined;
 var initScene = false;
 function initializeClicks()

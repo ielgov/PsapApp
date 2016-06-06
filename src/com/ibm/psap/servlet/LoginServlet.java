@@ -28,7 +28,6 @@ public class LoginServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session;
-		boolean productionMode =(Boolean)getServletContext().getAttribute("productionMode");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String errorMsg = null;

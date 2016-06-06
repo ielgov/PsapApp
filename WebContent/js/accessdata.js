@@ -49,15 +49,7 @@ function getAssets(parentId, offeringId)
 	getRESTRequest(restURL,true);
 }
 
-//post logout action
-//http://172.27.50.134:9080/PSAP/Logout
-function postLogout()
-{
-	console.log("Function :: postLogout");
-	var rest = new Object();
-	var restURL = webServerIP+"/PSAP/Logout";
-	window.open(restURL, "_self");
-}
+
 
 function getRESTRequest(restURL,usejson)
 {

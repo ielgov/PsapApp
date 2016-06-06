@@ -13,11 +13,11 @@
     </form-login-config>
   </login-config>
   <context-param>
-  	<param-name>productionMode</param-name>
+    <param-name>productionMode</param-name>
     <param-value>false</param-value>
   </context-param>
   <context-param>
-  	<param-name>dbSource</param-name>
+    <param-name>dbSource</param-name>
     <param-value>PSAPDB</param-value>
   </context-param>
   <context-param>
@@ -25,16 +25,16 @@
     <param-value>/WEB-INF/log4j.xml</param-value>
   </context-param>
   <error-page>
-     <error-code>404</error-code>
+    <error-code>404</error-code>
     <location>/error404.html</location>
   </error-page>
   <error-page>
-     <error-code>500</error-code>
+    <error-code>500</error-code>
     <location>/error500.html</location>
   </error-page>
   <error-page>
     <exception-type>java.lang.Throwable</exception-type>
-    <location>/otherError.jsp</location>
+    <location>/AppErrorHandler</location>
   </error-page>
   <filter>
     <filter-name>AuthenticationFilter</filter-name>
@@ -47,9 +47,9 @@
   <filter>
     <filter-name>CORS</filter-name>
     <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
-</filter>
-<filter-mapping>
+  </filter>
+  <filter-mapping>
     <filter-name>CORS</filter-name>
     <url-pattern>/*</url-pattern>
-</filter-mapping>
+  </filter-mapping>
 </web-app>

@@ -1,105 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1">
-    <link rel="stylesheet" type="text/css" href="css/loginbundle.css">
-    <title>500 Internal server error</title>
-    <STYLE TYPE="text/css">
-		
-		.hidden {
-			font-weight:bold;
-			position:absolute;
-			left:-10000px;
-			top:auto;
-			width:1px;
-			height:1px;
-			overflow:hidden;
-		}
-		
-		.visible {
-			font-weight:bold;
-			position:static; 
-			width:auto; 
-			height:auto;
-		}
-		</STYLE>
-		
-    <SCRIPT type="text/javascript">
-            
-    	function setInputBox(){
-    		var mql = window.matchMedia("screen and (max-width: 768px)")
-    		
-    		//var mql = "screen and (max-device-width: 480px)";
-    		console.log("mql - "+mql);
-    		if (mql.matches){ // if media query matches
-    	  		console.log("Mobile detected.")
-    			document.getElementById("desktop").removeAttribute("name");
-                return "mobile";
-    	 	}
-    	 	else{
-    	  		console.log("Desktop detected");
-    	  		document.getElementById("mobile").removeAttribute("name"); 
-    	  		return "desktop";
-    	 	}
-    	}
-
-            function windowStart() {
-                displayError();
-                setInputBox();
-            }
-            
-            function displayError(){
-                var errorDiv = document.getElementById('errorDiv');
-                var errorStr="";
-                
-                if (errorStr != "") {
-                    console.log("Error String - "+errorStr);
-                    if(errorStr.indexOf("HPDIA0200W")!=-1){
-                    errorDiv.innerHTML = "<p class=\"error\">Your <span class=\"normal\">w3</span>id or password was entered incorrectly.<\/p>";
-                    }
-                    else{
-                    errorDiv.innerHTML = "<p class=\"error\">Authentication to <span class=\"normal\">w3</span>id is currently unavailable. Please try again later or contact the system administrator.<\/p>";
-                    }
-                    errorDiv.className = "errorMessage visible";
-                    
-                }      
-            }
-            
-            window.onload = windowStart;
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     
-            
-    </SCRIPT>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>PSAP INTERNAL ERROR</title>
+    
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+	<link href="css/font-awesome.css" rel="stylesheet" type="text/css" />
+	<link href="css/fonts.css" rel="stylesheet" type="text/css" />
+	<link href="css/flex.css" rel="stylesheet" type="text/css" />
+	<link href="css/sizes.css" rel="stylesheet" type="text/css" />
+	<link href="css/landingpage.css" rel="stylesheet" type="text/css" />
+
+    <!-- Bootstrap -->
+    <!-- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+	<STYLE>
+		* {
+		   	cursor: default;
+		}		
+		body 
+		{
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			overflow: hidden;    
+			background: radial-gradient(circle at center, #FFFFFF 0%,#B5B5B5 200%);
+			background-image: url(images/background/WORLDMAPDOTCS-1-1920x1080.png),url(images/background/PSSbg-1920x1080.png);
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: center;		
+		}
+	</STYLE>
+    
   </head>
-	<body>
-  		<div class="wrapper">
-	    	<!-- header -->
-	      	<div id="header">
-	        	<div class="inner">
-	            	<div id="logo"></div>
-	          	</div>
-	      	</div>
-	      	<!-- /header -->
-	      
-			<div class="inner">
-	  			<div class="container">
-	    			<div align="center" id="errStatus">
-	      				<h4>500</h4>
-	      				<h3>Internal App Error</h3><BR>
-	      				<h2>Please report this error to PSAP support
-	      				<BR> team at <a href="mailto:gscgov@us.ibm.com">IBM GSC</a>
-	      				</h2>
-	      			</div>
-				</div>
-			</div>
-    	</div>
-    	<!-- footer -->
-    	<div id="footer">
-      		<div class="inner">
-        		<div id="logo"></div>
-      		</div>
-    	</div>
-    	<!-- /footer -->
-  	</body>
+  <body style="visibility: visible;height:100vh;width:100vw;">
+    
+    <div id="Stats-output"></div>    
+    <div id="header" class="helvLightFont display-flex flex-row flex-align-center flex-justify-space-between">
+    	<div class="display-flex flex-align-center">
+			<div class="ibm-logo"></div>
+			<div class="title">Public Safety Solutions</div>
+		</div>    	
+    </div>			
+    <div id="container">
+    </div>
+    
+     <script type="text/javascript" src="js/Threejs/jquery.min.js"></script>
+     <script src="js/Threejs/Three.js"></script>
+     <script src="js/Threejs/Projector.js"></script>
+     <script type="text/javascript" src="js/Threejs/threex.dynamictexture.js"></script>
+     <script src="js/config.js"></script>
+     <script src="js/error500_main.js"></script>
+	
+	<script>
+		
+		var onUserAction;
+		var webGLWidth, webGLHeight;
+		$( function(){
+			if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) 
+			{
+				onUserAction = "touchstart";
+			}
+			else
+			{
+				onUserAction = "click";
+			}
+			
+		});
+	</script>
+  </body>
 </html>

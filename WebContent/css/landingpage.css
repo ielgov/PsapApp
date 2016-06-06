@@ -173,6 +173,17 @@ Cube highlight face 3 = #ff8039
 	transition: transform 0.3s ease;
 }
 
+#header .home-icon
+{
+	background-image: url(../images/home.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	height:3rem;
+	width:3rem;
+	margin-left:1rem;
+	transition: transform 0.3s ease;
+}
 
 /*Menu*/
 #menu

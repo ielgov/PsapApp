@@ -1,4 +1,4 @@
-var scene, camera, renderer;
+var scene, camera, renderer, projector;
 
 var WIDTH  = window.innerWidth;
 var HEIGHT = window.innerHeight;
@@ -34,16 +34,24 @@ function initCube() {
 	dynamicTexture.context.font	= "bolder 38px Verdana";
 	// update the text
 	dynamicTexture.clear('cyan');
-	dynamicTexture.drawText("To Access PSAP Portal", undefined, 100, 'red');
+	dynamicTexture.drawText("Internal App Error", undefined, 100, 'red');
 	dynamicTexture.context.font	= "bolder 30px Verdana";
-	dynamicTexture.drawText("Contact Dr. Gary Nestler", undefined, 220, 'red');
-	dynamicTexture.drawText("Email: gary@us.ibm.com", undefined, 360, 'red');
+	dynamicTexture.drawText("Report this error", undefined, 220, 'red');
+	dynamicTexture.drawText("to PSAP support team", undefined, 280, 'red');
+	dynamicTexture.drawText("At gscgov@us.ibm.com", undefined, 420, 'red');
 	var material	= new THREE.MeshBasicMaterial({
 		map	: dynamicTexture.texture
 	})
 	
 	cube = new THREE.Mesh(geometry,	material);
+	cube.userData = {
+            URL: "/PSAP/index.html"
+    };
+	
+	projector = new THREE.Projector();
     scene.add(cube);
+ 
+    document.addEventListener('mousedown', onDocumentMouseDown, false);
 }
 
 function rotateCube() {
@@ -58,6 +66,19 @@ function render() {
     renderer.render(scene, camera);
 }
 
+function onDocumentMouseDown(event) {
+    event.preventDefault();
+    var vector = new THREE.Vector3((event.clientX / window.innerWidth) * 2 -
+        1, -(event.clientY / window.innerHeight) * 2 + 1, 0.5);
+    vector.unproject(camera);
+    //projector.unproject(vector, camera);
+    var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position)
+        .normalize());
+    var intersects = raycaster.intersectObject(cube);
+    if (intersects.length > 0) {
+        window.open(intersects[0].object.userData.URL, "_self");
+    }
+}
 
 init();
 render();

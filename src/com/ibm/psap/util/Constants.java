@@ -16,7 +16,8 @@ public final class Constants {
     public static final String CATEGORY_TABLE = "PUBSAFETY.CATEGORY";
     public static final String REL_CATEGORY_TABLE = "PUBSAFETY.CATEGORY_RELATIONSHIP";
     public static final String USER_TABLE = "PUBSAFETY.USER";
-    public static final String GET_AllCategories = "SELECT * FROM " + CATEGORY_TABLE + " WHERE \"TYPE\"='CATEGORY'";
-    public static final String GET_AllSolutionForCategory = "SELECT * FROM " + CATEGORY_TABLE + " WHERE \"TYPE\"='SOLUTION'" + " AND \"ID\"=(SELECT CHILD_ID FROM )";
     public static final String GET_UserRole = "SELECT \"Name\", \"Email\", \"Role\"  FROM " + USER_TABLE +" WHERE \"Email\"= ?";
+    public static final String SET_UserRole = "UPDATE  " + USER_TABLE + " SET \"Name\" = ?, \"Role\" = ?  WHERE \"Email\"= ?";
+    public static final String INSERT_User = "INSERT INTO " + USER_TABLE + " VALUES (?,?,?)";
+    public static final String DELETE_User = "DELETE FROM " + USER_TABLE + " WHERE \"Email\"= ?";
 }
