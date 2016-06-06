@@ -62,6 +62,7 @@ function getRESTRequest(restURL,usejson)
 	xhr.onload = function(){
 		if (xhr.status >=200 && xhr.status < 400)
 		{
+			debugger;
 			if(useJSON)
 			{
 				response = JSON.parse(xhr.responseText);
@@ -129,14 +130,24 @@ function getData(obj)
 		//debugger;
 		var categoryId = obj['getDataFor']['CategoryId'];
 		var display = obj['getDataFor']['Display'];
-		//result = getSolutions(obj.parentId);
+		result = getSolutions(obj.parentId);
 		console.log('getting solutions for',categoryId,display);
-		result = ccoemJSON;
-		if (result.hasOwnProperty('02'))
+		returnData = result['result'];
+		
+		/*for (var i=0; i<result.length;i++)
+		{
+			var RES = result[i];
+			if (RES.hasOwnProperty(obj.parentId))
+			{
+				
+			}
+		}*/
+		
+		/*if (result.hasOwnProperty('02'))
 		{
 			var dataArray = result['02'];
 			returnData = dataArray;
-		}
+		}*/
 	}
 	else if (obj.type == 'offerings')
 	{
@@ -144,14 +155,18 @@ function getData(obj)
 		//What is solution ID
 		var categoryId = obj['getDataFor']['CategoryId'];
 		var display = obj['getDataFor']['Display'];
-		//result = getOfferings(parentId)
+		//result = getOfferings(parentId);
+		result = getOfferings(obj.parentId);
+		returnData = result['result'];
 		console.log('getting solutions for',categoryId,display);
-		result = offeringsJSON;
-		if (result.hasOwnProperty('101'))
+		
+		//result = offeringsJSON;
+		
+		/*if (result.hasOwnProperty('101'))
 		{
 			var dataArray = result['101'];
 			returnData = dataArray;
-		}
+		}*/
 	}
 	else if (obj.type == 'assets')
 	{
