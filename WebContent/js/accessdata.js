@@ -52,41 +52,54 @@ function getAssets(parentId, offeringId,func)
 function getRESTRequest(restURL,usejson,func)
 {
 	console.log("Function :: getRESTRequest, for URL = " + restURL);
-	var useJSON = usejson || true;
-	var response;
 	
-	var xhr = new XMLHttpRequest(); //valid for current versions of IE, GC, FF
-	
-	xhr.open('GET', restURL, true);
-	
-	xhr.onload = function(){
-		if (xhr.status >=200 && xhr.status < 400)
-		{
-			//debugger;
-			if(useJSON)
-			{
-				response = JSON.parse(xhr.responseText);
-			}
-			else
-			{
-				response = xhr.responseText;
-			}
-			console.log("Response - " + response);
-			
-			//return response;
-			
-			if (func)
-				func(response);
-		}
-	};
-	
-	//request resulted in connection error - possibly no internet
-	xhr.onerror = function()
+	if (DEVELOPMENT)
 	{
-		console.log("Error in connecting");
-	};
+		console.warn("DEVELOPMENT environment");
+		if (func)
+			func("DEVELOPMENT");
+		return;
+	}
+	else
+	{
+		console.warn("NOT DEVELOPMENT");
+		var useJSON = usejson || true;
+		var response;
+		
+		var xhr = new XMLHttpRequest(); //valid for current versions of IE, GC, FF
+		
+		xhr.open('GET', restURL, true);
+		
+		xhr.onload = function(){
+			if (xhr.status >=200 && xhr.status < 400)
+			{
+				//debugger;
+				if(useJSON)
+				{
+					response = JSON.parse(xhr.responseText);
+				}
+				else
+				{
+					response = xhr.responseText;
+				}
+				console.log("Response - " + response);
+				
+				//return response;
+				
+				if (func)
+					func(response);
+			}
+		};
+		
+		//request resulted in connection error - possibly no internet
+		xhr.onerror = function()
+		{
+			console.log("Error in connecting");
+		};
 
-	xhr.send();
+		xhr.send();
+	}
+	
 }
 
 function getData(obj,func)

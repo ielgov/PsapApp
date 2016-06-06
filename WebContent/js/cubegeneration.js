@@ -1,5 +1,6 @@
 var CUBE_SIZE = 3;
 var GAP_BETWEEN_CUBES = 0.2;
+var selectionColor = 0xb2ccce;//0xdaeff2;//0xff0000
 
 //Object containing 2d screen coordinate positions for breadcrums
 //Idea being the breadcrums will be positioned in the 3d world/scene corresponding to top(Y) left(X) window position
@@ -47,11 +48,21 @@ function setCubeData(nextLevelDataObj, currRubiksType)
 		appData['solutions']['getDataFor'] = nextLevelDataObj;
 		appData['solutions']['parentId'] = nextLevelDataObj['CategoryId'];
 		getData(appData['solutions'], function(response){
-			console.log('callback for solutions',response);
-			var returnData = response['result'];
-			var cubeData = appData['solutions'];
-			cubeData['data'] = returnData;
-			drawRubiksCube(cubeData,nextLevelDataObj);
+			if (DEVELOPMENT)
+			{
+				var returnData = solutionJSON['02'];
+				var cubeData = appData['solutions'];
+				cubeData['data'] = returnData;
+				drawRubiksCube(cubeData,nextLevelDataObj);
+			}
+			else
+			{
+				console.log('callback for solutions',response);
+				var returnData = response['result'];
+				var cubeData = appData['solutions'];
+				cubeData['data'] = returnData;
+				drawRubiksCube(cubeData,nextLevelDataObj);
+			}			
 		});		
 	}
 	else if (currRubiksType == 'solutions')
@@ -60,11 +71,22 @@ function setCubeData(nextLevelDataObj, currRubiksType)
 		appData['offerings']['getDataFor'] = nextLevelDataObj;
 		appData['offerings']['parentId'] = nextLevelDataObj['CategoryId'];
 		getData(appData['offerings'], function(response){
-			console.log('callback for offerings',response);
-			var returnData = response['result'];
-			var cubeData = appData['offerings'];
-			cubeData['data'] = returnData;
-			drawRubiksCube(cubeData,nextLevelDataObj);
+			if (DEVELOPMENT)
+			{
+				var returnData = offeringsJSON['101'];
+				var cubeData = appData['offerings'];
+				cubeData['data'] = returnData;
+				drawRubiksCube(cubeData,nextLevelDataObj);
+			}
+			else
+			{
+				console.log('callback for offerings',response);
+				var returnData = response['result'];
+				var cubeData = appData['offerings'];
+				cubeData['data'] = returnData;
+				drawRubiksCube(cubeData,nextLevelDataObj);
+			}
+			
 		});
 		
 	}
@@ -153,6 +175,9 @@ function RubiksCube(options)
 	this.textureAlignText = 'center';
 	this.textureFont = "bold "+(0.2*512)+"px Helvetica";//Arial
 	
+	this.innerFaceColor = 0x5e5e5e;//black
+	this.backGroundColor = 0xf2f1eb;//0xa5a8ab
+	
 	this.init = function(){
 		if (this.dimensions == 2)
 			this.maxNumOfSols = 4;
@@ -203,14 +228,14 @@ function RubiksCube(options)
 		var min = 0;
 		var max = ref.dimensions - 1;
 		console.log('min = ' + min + ' | max = ' + max);
-		var foreColor = 0x5e5e5e;
-		var color_px = foreColor, color_nx = foreColor, color_py = foreColor, color_ny = foreColor, color_pz = foreColor, color_nz = foreColor;
+		
+		var color_px = ref.innerFaceColor, color_nx = ref.innerFaceColor, color_py = ref.innerFaceColor, color_ny = ref.innerFaceColor, color_pz = ref.innerFaceColor, color_nz = ref.innerFaceColor;
 		var colorMaterials = [];
 	    var colorNames = [];
-		var backGroundColor = 0xf2f1eb;//0xa5a8ab
+		
 	    if(x == max) 
 		{
-	        color_px = backGroundColor;//yellow
+	        color_px = ref.backGroundColor;//yellow
 	        colorMaterials.push(0);
 	        colorNames.push('yellow');
 	        if (ref.faces.hasOwnProperty('face0') == false)
@@ -221,7 +246,7 @@ function RubiksCube(options)
 
 	    if(x == 0) 
 	    {
-	        color_nx = backGroundColor;//white
+	        color_nx = ref.backGroundColor;//white
 	        colorMaterials.push(1);
 	        colorNames.push('white');
 	        if (ref.faces.hasOwnProperty('face1')==false)
@@ -232,7 +257,7 @@ function RubiksCube(options)
 	    
 	    if(y == max) 
 	    {
-	        color_py = backGroundColor;//blue
+	        color_py = ref.backGroundColor;//blue
 	        colorMaterials.push(2);
 	        colorNames.push('blue');
 	        if (ref.faces.hasOwnProperty('face2')==false)
@@ -243,7 +268,7 @@ function RubiksCube(options)
 
 	    if(y == 0) 
 	    {
-	        color_ny = backGroundColor;//orange
+	        color_ny = ref.backGroundColor;//orange
 	        colorMaterials.push(3);
 	        colorNames.push('orange');
 	        if (ref.faces.hasOwnProperty('face3')==false)
@@ -254,7 +279,7 @@ function RubiksCube(options)
 
 	    if(z == max) 
 	    {
-	        color_nz = backGroundColor;//green
+	        color_nz = ref.backGroundColor;//green
 	        colorMaterials.push(4);
 	        colorNames.push('green');
 	        if (ref.faces.hasOwnProperty('face4')==false)
@@ -265,7 +290,7 @@ function RubiksCube(options)
 
 	    if(z == 0) 
 	    {
-	        color_pz = backGroundColor;//red
+	        color_pz = ref.backGroundColor;//red
 	        colorMaterials.push(5);
 	        colorNames.push('red');
 	        if (ref.faces.hasOwnProperty('face5')==false)
@@ -536,7 +561,7 @@ function RubiksCube(options)
 			}
 			else
 			{
-				var faceMeshMat = new THREE.MeshLambertMaterial({color: 0x5e5e5e, vertexColors: THREE.FaceColors});
+				var faceMeshMat = new THREE.MeshLambertMaterial({color: ref.innerFaceColor, vertexColors: THREE.FaceColors});
 				materials.push(faceMeshMat);
 			}
 		}
@@ -686,70 +711,76 @@ function colorThisFace(intersectObj)
 	var materialIndex = intersectObj.face.materialIndex;
 	var cubieMesh = intersectObj.object;
 	
-	console.log('cubenum = ' + cubieMesh.$cubie.$cubenum + ' | materialIndex = ' + materialIndex + ' | faceIndex = ' + faceIndex);
+	console.log('cubenum = ' + cubieMesh.$cubie.$cubenum + ' | materialIndex = ' + materialIndex + ' | faceIndex = ' + faceIndex + ' | type of cubie = ' + cubieMesh.$cubie.type);
 	
-	//check whether the clicked cubie is part of the rubiks cube or part of the bread crum cubies
-	var isBreadCrum = false;
-	var breadCrumType = undefined;
-	for (key in breadCrumsPos)
+	if (cubieMesh.$cubie.type == 'center')
 	{
-		var obj = breadCrumsPos[key];
-		if (obj.hasOwnProperty('cubieMesh'))
-		{
-			var breadCrumMesh = obj['cubieMesh'];
-			if (cubieMesh['uuid'] == breadCrumMesh['uuid'])
-			{
-				console.log('part of the bread crum for type',key);
-				isBreadCrum = true;
-				breadCrumType = key;
-				break;
-			}
-		}
-	}
-	
-	if (!isBreadCrum)
-	{
-		//Check to make sure that none of the INNER face (face with no text) gets clicked
-		if (cubieMesh.$cubie.$materialList.hasOwnProperty(materialIndex))
-		{
-			cubieMesh.material.materials[materialIndex].color.setHex(0xff0000);
-			cubieMesh.geometry.colorsNeedUpdate = true;
-			cubieMesh.$materialClicked = materialIndex;
-			cubieMesh.$materialFaceName = faceNames[materialIndex.toString()]['facename'];
-			cubieMesh.$rotationaxis = faceNames[materialIndex.toString()]['rotationaxis'];
-			
-			//Generate next level Rubiks cube
-			var nextLevelDataOBj = cubieMesh.$cubie.$materialList[materialIndex];
-			console.warn('nextLevelDataOBj for breadcrum',nextLevelDataOBj);
-			
-			var nextStep = function(){
-				console.log('next function');
-				setCubeData(nextLevelDataOBj, cubieMesh.$cubie.$rubiksCubeType);
-			};
-			
-			moveCubieToTop(cubieMesh, nextStep);
-		}
-		else
-		{
-			console.log('clicked face does not have text/data');
-		}
+		console.log('center cube clicked');
+		activeRubiksCube.allowRotation = true;
 	}
 	else
 	{
-		breadCrumsCubies = $.grep( breadCrumsCubies ,
-                function(o,i) { return o['uuid'] === cubieMesh['uuid']; },
-                true);
-		
-		if (activeRubiksCube.rubiksCubeType != cubieMesh.$cubie.$rubiksCubeType)
+		//check whether the clicked cubie is part of the rubiks cube or part of the bread crum cubies
+		var isBreadCrum = false;
+		var breadCrumType = undefined;
+		for (key in breadCrumsPos)
 		{
-			hideRubiksCube(activeRubiksCube.group,-25,nextStep);
-		}	
+			var obj = breadCrumsPos[key];
+			if (obj.hasOwnProperty('cubieMesh'))
+			{
+				var breadCrumMesh = obj['cubieMesh'];
+				if (cubieMesh['uuid'] == breadCrumMesh['uuid'])
+				{
+					console.log('part of the bread crum for type',key);
+					isBreadCrum = true;
+					breadCrumType = key;
+					break;
+				}
+			}
+		}
 		
-		reversalBreadCrum(breadCrumsPos[breadCrumType])
-	}
-	
-	
-		
+		if (!isBreadCrum)
+		{
+			//Check to make sure that none of the INNER face (face with no text) gets clicked
+			if (cubieMesh.$cubie.$materialList.hasOwnProperty(materialIndex))
+			{
+				cubieMesh.material.materials[materialIndex].color.setHex(selectionColor);
+				cubieMesh.geometry.colorsNeedUpdate = true;
+				cubieMesh.$materialClicked = materialIndex;
+				cubieMesh.$materialFaceName = faceNames[materialIndex.toString()]['facename'];
+				cubieMesh.$rotationaxis = faceNames[materialIndex.toString()]['rotationaxis'];
+				
+				//Generate next level Rubiks cube
+				var nextLevelDataOBj = cubieMesh.$cubie.$materialList[materialIndex];
+				console.warn('nextLevelDataOBj for breadcrum',nextLevelDataOBj);
+				
+				var nextStep = function(){
+					console.log('next function');
+					setCubeData(nextLevelDataOBj, cubieMesh.$cubie.$rubiksCubeType);
+				};
+				
+				moveCubieToTop(cubieMesh, nextStep);
+			}
+			else
+			{
+				console.log('clicked face does not have text/data');
+				activeRubiksCube.allowRotation = true;
+			}
+		}
+		else
+		{
+			breadCrumsCubies = $.grep( breadCrumsCubies ,
+	                function(o,i) { return o['uuid'] === cubieMesh['uuid']; },
+	                true);
+			
+			if (activeRubiksCube.rubiksCubeType != cubieMesh.$cubie.$rubiksCubeType)
+			{
+				hideRubiksCube(activeRubiksCube.group,-25,nextStep);
+			}	
+			
+			reversalBreadCrum(breadCrumsPos[breadCrumType])
+		}		
+	}		
 }
 
 
@@ -758,16 +789,30 @@ function moveCubieToTop(cubieMesh, nextStep)
 {
 	console.log("Function :: moveCubieToTop");
 	
+	//move cubieMesh to top left spot
+	var currRubiksType = cubieMesh.$cubie.$rubiksCubeType;
+	console.log('currRubiksType',currRubiksType);
+	
+	var cubie3dPos = get3dCood(breadCrumsPos[currRubiksType]['screen'].X,breadCrumsPos[currRubiksType]['screen'].Y);
+	console.log('cubie3dPos',cubie3dPos);
+	breadCrumsPos[currRubiksType]['world3d'] = cubie3dPos;
+	breadCrumsPos[currRubiksType]['cubieMesh'] = cubieMesh;
+	
+	//debugger;
 	//Parent must be RC.group object
 	var parent = cubieMesh.parent;
 	parent.updateMatrixWorld();
 	var parentVector = new THREE.Vector3();
 	parent.position.copy(parentVector);
 	
+	breadCrumsPos[currRubiksType]['cubieMeshParentPosition'] = parentVector;
+	
 	//GEt world coordinate position of the cubieMesh
+	breadCrumsPos[currRubiksType]['cubieMeshOriginalPosition'] = cubieMesh.position.clone();
 	var vector = new THREE.Vector3();
 	vector.setFromMatrixPosition( cubieMesh.matrixWorld );
 	cubieMesh.position.copy(vector);
+	breadCrumsPos[currRubiksType]['cubieMeshOriginalVector'] = vector;//cubieMesh.position;//
 	
 	THREE.SceneUtils.detach( cubieMesh, parent, scene );
 	
@@ -775,19 +820,7 @@ function moveCubieToTop(cubieMesh, nextStep)
 	//This will remove cubieMesh from its original parent group (RC.group) and add it to the world scene
 	//window.scene.add(cubieMesh);
 	window.CM = cubieMesh;
-	
-	//move cubieMesh to top left spot
-	var currRubiksType = cubieMesh.$cubie.$rubiksCubeType;
-	console.log('currRubiksType',currRubiksType);
-	
-	var cubie3dPos = get3dCood(breadCrumsPos[currRubiksType]['screen'].X,breadCrumsPos[currRubiksType]['screen'].Y);
-	
-	breadCrumsPos[currRubiksType]['cubieMeshParentPosition'] = parentVector;
-	breadCrumsPos[currRubiksType]['world3d'] = cubie3dPos;
-	breadCrumsPos[currRubiksType]['cubieMesh'] = cubieMesh;
-	breadCrumsPos[currRubiksType]['cubieMeshOriginalVector'] = vector;//cubieMesh.position;//
-	console.log('cubie3dPos',cubie3dPos);
-	
+		
 	//moveObject(cubieMesh,-10,8,-15,3000);
 	moveObject(cubieMesh,cubie3dPos.x,cubie3dPos.y,-3,3000, function(){
 		breadCrumsCubies.push(cubieMesh);
@@ -813,18 +846,20 @@ function reversalBreadCrum(breadCrumsObj)
 				
 		if (catCM.cubieMesh)
 		{
-			moveObject(catCM.cubieMesh,catCM.cubieMeshOriginalVector.x,catCM.cubieMeshOriginalVector.y,catCM.cubieMeshOriginalVector.z,2000);
+			moveObject(catCM.cubieMesh,catCM.cubieMeshOriginalVector.x,catCM.cubieMeshOriginalVector.y,catCM.cubieMeshOriginalVector.z,2000,function(){
+			});
 			
 			var originalParentGroup = catCM.cubieMesh.$cubie.originalParent;
 			moveObject(originalParentGroup,catCM.cubieMeshParentPosition.x,catCM.cubieMeshParentPosition.y,catCM.cubieMeshParentPosition.z,3000, function(){
 				THREE.SceneUtils.attach(catCM.cubieMesh, scene, catCM.cubieMesh.$cubie.originalParent);
-				
+				catCM.cubieMesh.position.set(catCM['cubieMeshOriginalPosition'].x,catCM['cubieMeshOriginalPosition'].y,catCM['cubieMeshOriginalPosition'].z);
 				var materialIndex = catCM.cubieMesh.$materialClicked;
 				var color = catCM.cubieMesh.$cubie['color-face'+materialIndex];
 				catCM.cubieMesh.material.materials[materialIndex].color.setHex(color);
 				catCM.cubieMesh.geometry.colorsNeedUpdate = true;
 				catCM.cubieMesh.$materialClicked = undefined;
 				
+				delete catCM['cubieMeshOriginalPosition'];
 				delete catCM['cubieMesh'];
 				delete catCM['cubieMeshOriginalVector'];
 				delete catCM['cubieMeshParentPosition'];

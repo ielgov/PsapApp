@@ -1,6 +1,6 @@
 var lastCubie,lastPosition={};
 var mouseMoved = false;
-var mouseSelectX, mouseSelectY;
+var mouseSelectX =0, mouseSelectY=0;
 var currentPosition = {};
 var movedCount = 0;
 
@@ -24,9 +24,9 @@ function onDocumentMouseDown( event )
 	
 	//mouseSelectX = event.clientX;
 	//mouseSelectY = event.clientY;
-	
-	mouseSelectX = event.clientX - $('#WebGL-output').position().left;
-	mouseSelectY = event.clientY - $('#WebGL-output').position().top;
+	//debugger;
+	mouseSelectX = event.clientX - 0;
+	mouseSelectY = event.clientY - $('#WebGL-output').parent()[0].offsetTop;
 	
 	lastPosition.x = mouseSelectX;
 	lastPosition.y = mouseSelectY;
@@ -46,8 +46,8 @@ function onDocumentMouseMove( event )
 	//mouseSelectX = event.clientX;
 	//mouseSelectY = event.clientY;
 	
-	mouseSelectX = event.clientX - $('#WebGL-output').position().left;
-	mouseSelectY = event.clientY - $('#WebGL-output').position().top;
+	mouseSelectX = event.clientX - 0;
+	mouseSelectY = event.clientY - $('#WebGL-output').parent()[0].offsetTop;
 }
 
 
@@ -61,8 +61,8 @@ function onDocumentMouseUp( event )
 	//currentPosition.x = event.clientX;
 	//currentPosition.y = event.clientY;
 	
-	currentPosition.x = event.clientX - $('#WebGL-output').position().left;
-	currentPosition.y = event.clientY - $('#WebGL-output').position().top;
+	currentPosition.x = event.clientX - 0;
+	currentPosition.y = event.clientY -  $('#WebGL-output').parent()[0].offsetTop;
 	
 	movedX = Math.abs(currentPosition.x - lastPosition.x);
 	movedY = Math.abs(currentPosition.y - lastPosition.y);
@@ -131,8 +131,8 @@ function onDocumentTouchStart( event )
 		currentPosition.x = event.touches[ 0 ].pageX;
 		currentPosition.y = event.touches[ 0 ].pageY;
 		
-		mouseSelectX = event.touches[ 0 ].pageX - $('#WebGL-output').position().left;
-		mouseSelectY = event.touches[ 0 ].pageY - $('#WebGL-output').position().top;
+		mouseSelectX = event.touches[ 0 ].pageX - 0;
+		mouseSelectY = event.touches[ 0 ].pageY - $('#WebGL-output').parent()[0].offsetTop;
 		
 		lastPosition.x = mouseSelectX;
 		lastPosition.y = mouseSelectY;
@@ -156,8 +156,8 @@ function onDocumentTouchMove( event )
         
         mouseMoved = true;
     	movedCount++;
-        mouseSelectX = event.touches[ 0 ].pageX - $('#WebGL-output').position().left;
-    	mouseSelectY = event.touches[ 0 ].pageY - $('#WebGL-output').position().top;
+        mouseSelectX = event.touches[ 0 ].pageX - 0;
+    	mouseSelectY = event.touches[ 0 ].pageY - - $('#WebGL-output').parent()[0].offsetTop;
     	
     	currentPosition.x = mouseSelectX;
 		currentPosition.y = mouseSelectY;
