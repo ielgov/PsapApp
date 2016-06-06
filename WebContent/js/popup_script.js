@@ -36,6 +36,11 @@ function moveX(buttonClicked)
 {
 	buttonClicked = buttonClicked || document.querySelector(".asset.open");
 	
+	if(buttonClicked == undefined)
+	{
+		return;
+	}
+	
 	console.log(buttonClicked);
 	
 	var boundingRect = buttonClicked.getBoundingClientRect()
@@ -92,7 +97,7 @@ function resize()
 	sizeAssets(buttonForSizing, document.getElementsByClassName("assetSmallererParent"));
 	sizePopUpWidth( undefined, true );
 	assetsSlider.style.width = window.innerWidth
-	resizeX();
+	//resizeX();
 }
 
 

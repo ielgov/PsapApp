@@ -37,3 +37,34 @@ function moveObject(object,X,Y,Z,T,func,EASE)
 		}
 	});
 }
+
+function hideRubiksCube(object,y,func)
+{
+	console.log("Function :: hideRubiksCube");
+	
+	moveObject(object,0,y,0,1500,func);
+}
+
+function showRubiksCube(object,func)
+{
+	console.log("Function :: showRubiksCube");
+	moveObject(object,0,0,0,1500,func);
+}
+
+function resetRubiksCube()
+{
+	if (activeRubiksCube && activeRubiksCube.group)
+	{
+		activeRubiksCube.allowRotation = false;
+		var arc = activeRubiksCube.group;
+		var tween = new TWEEN.Tween(arc.rotation).to({x:0,y:0}, 3000).easing(TWEEN.Easing.Linear.None);
+		tween.onUpdate(function(){
+			
+		});
+		tween.delay(1000);tween.onComplete(function(){
+			finalRotationY=0;
+			arc.rotation.set(0,0,0);
+		});
+		tween.start();
+	}
+}

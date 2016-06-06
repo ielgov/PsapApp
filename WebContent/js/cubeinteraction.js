@@ -1,16 +1,13 @@
+var lastCubie,lastPosition={};
+var mouseMoved = false;
 var mouseSelectX, mouseSelectY;
-var INTERSECTED;
+var currentPosition = {};
+var movedCount = 0;
 
-var baseColor=new THREE.Color( 0x44dd66 );
-var highlightedColor=new THREE.Color( 0xddaa00 );
-var selectedColor=new THREE.Color( 0x4466dd );
-
-var EE;
-function onDocumentMouseDown( event ) 
+function onDocumentMouseDown( event )
 {
-	EE = event;
 	console.log("Function :: onDocumentMouseDown");
-	event.preventDefault();
+	event.preventDefault();	
 	
 	document.querySelector("#WebGL-output").addEventListener( 'mousemove', onDocumentMouseMove, false );
 	document.querySelector("#WebGL-output").addEventListener( 'mouseup', onDocumentMouseUp, false );
@@ -22,24 +19,37 @@ function onDocumentMouseDown( event )
 	mouseYOnMouseDown = event.clientY - windowHalfY;
 	targetRotationOnMouseDownY = targetRotationY;
 	
+	//lastPosition.x = event.clientX;
+	//lastPosition.y = event.clientY;
+	
+	//mouseSelectX = event.clientX;
+	//mouseSelectY = event.clientY;
+	
 	mouseSelectX = event.clientX - $('#WebGL-output').position().left;
 	mouseSelectY = event.clientY - $('#WebGL-output').position().top;
-	//checkSelected();
 	
+	lastPosition.x = mouseSelectX;
+	lastPosition.y = mouseSelectY;
 }
 
 function onDocumentMouseMove( event ) 
 {
 	console.log("Function :: onDocumentMouseMove");
+	mouseMoved = true;
+	movedCount++;
 	mouseX = event.clientX - windowHalfX;
 	mouseY = event.clientY - windowHalfY;	
 	
 	targetRotationY = targetRotationOnMouseDownY + (mouseY - mouseYOnMouseDown) * 0.02;
 	targetRotationX = targetRotationOnMouseDownX + (mouseX - mouseXOnMouseDown) * 0.02;
+		
+	//mouseSelectX = event.clientX;
+	//mouseSelectY = event.clientY;
 	
 	mouseSelectX = event.clientX - $('#WebGL-output').position().left;
 	mouseSelectY = event.clientY - $('#WebGL-output').position().top;
 }
+
 
 function onDocumentMouseUp( event ) 
 {
@@ -47,6 +57,51 @@ function onDocumentMouseUp( event )
 	document.querySelector("#WebGL-output").removeEventListener( 'mousemove', onDocumentMouseMove, false );
 	document.querySelector("#WebGL-output").removeEventListener( 'mouseup', onDocumentMouseUp, false );
 	document.querySelector("#WebGL-output").removeEventListener( 'mouseout', onDocumentMouseOut, false );
+	
+	//currentPosition.x = event.clientX;
+	//currentPosition.y = event.clientY;
+	
+	currentPosition.x = event.clientX - $('#WebGL-output').position().left;
+	currentPosition.y = event.clientY - $('#WebGL-output').position().top;
+	
+	movedX = Math.abs(currentPosition.x - lastPosition.x);
+	movedY = Math.abs(currentPosition.y - lastPosition.y);
+	console.log('movedX',movedX);
+	console.log('movedY',movedY);
+	console.log('mouseMoved',mouseMoved);
+	console.log('movedCount',movedCount);
+	
+	if (movedX === 0 && movedY === 0)
+	{
+		console.log('CLICK!!!');
+		//...........Stop all rotations and mouse events when the objects are moving
+		
+		if(activeRubiksCube)
+		{
+			activeRubiksCube.allowRotation = false;
+			//activeRubiksCube.removeAllCubieClicks();
+			//onCubieMouseDown(lastCubieEvent, lastCubieClicked);
+			if (checkSelected(currentPosition.x,currentPosition.y))
+			{
+				
+			}
+			else
+			{
+				activeRubiksCube.allowRotation = true;
+			}
+		}
+		else
+		{
+			console.log("no active rubiks cube");
+		}		
+	}
+	else
+	{
+		console.log("No click!!!");
+	}
+		
+	mouseMoved = false;
+	movedCount = 0;
 }
 
 function onDocumentMouseOut( event ) 
@@ -55,11 +110,14 @@ function onDocumentMouseOut( event )
 	document.querySelector("#WebGL-output").removeEventListener( 'mousemove', onDocumentMouseMove, false );
 	document.querySelector("#WebGL-output").removeEventListener( 'mouseup', onDocumentMouseUp, false );
 	document.querySelector("#WebGL-output").removeEventListener( 'mouseout', onDocumentMouseOut, false );
+	
+	mouseMoved=false;
 }
 
 function onDocumentTouchStart( event ) 
 {
 	console.log("Function :: onDocumentTouchStart");
+	console.log('event touches = '+event.touches.length);
     if ( event.touches.length == 1 ) 
     {
 		event.preventDefault();
@@ -69,239 +127,181 @@ function onDocumentTouchStart( event )
 		
 		mouseYOnMouseDown = event.touches[ 0 ].pageY - windowHalfY;
 		targetRotationOnMouseDownY = targetRotationY;
+				
+		currentPosition.x = event.touches[ 0 ].pageX;
+		currentPosition.y = event.touches[ 0 ].pageY;
+		
+		mouseSelectX = event.touches[ 0 ].pageX - $('#WebGL-output').position().left;
+		mouseSelectY = event.touches[ 0 ].pageY - $('#WebGL-output').position().top;
+		
+		lastPosition.x = mouseSelectX;
+		lastPosition.y = mouseSelectY;
     }
 }
 
 function onDocumentTouchMove( event ) 
 {
-	console.log("Function :: onDocumentTouchMove");
+	console.log('Function :: onDocumentTouchMove');
+	console.log('event touches = '+event.touches.length);
+    if ( event.touches.length == 1 ) 
+    {
 
-	if ( event.touches.length == 1 ) 
-	{	
-		event.preventDefault();
-		
-		mouseX = event.touches[ 0 ].pageX - windowHalfX;
-		targetRotationX = targetRotationOnMouseDownX + ( mouseX - mouseXOnMouseDown ) * 0.05;//0.05
-		
-		mouseY = event.touches[ 0 ].pageY - windowHalfY;
-		targetRotationY = targetRotationOnMouseDownY + (mouseY - mouseYOnMouseDown) * 0.05;//0.05	
-	}
+        event.preventDefault();
+
+        mouseX = event.touches[ 0 ].pageX - windowHalfX;
+        targetRotationX = targetRotationOnMouseDownX + ( mouseX - mouseXOnMouseDown ) * 0.05;//0.05
+        
+        mouseY = event.touches[ 0 ].pageY - windowHalfY;
+        targetRotationY = targetRotationOnMouseDownY + (mouseY - mouseYOnMouseDown) * 0.05;//0.05
+        
+        mouseMoved = true;
+    	movedCount++;
+        mouseSelectX = event.touches[ 0 ].pageX - $('#WebGL-output').position().left;
+    	mouseSelectY = event.touches[ 0 ].pageY - $('#WebGL-output').position().top;
+    	
+    	currentPosition.x = mouseSelectX;
+		currentPosition.y = mouseSelectY;
+    		
+    }
 
 }
 
+function onDocumentTouchEnd( event )
+{
+	console.log('Function :: onDocumentTouchEnd');
+	console.log('event touches = '+event.touches.length);
+	
+	//if ( event.touches.length == 1 )
+	{
+		event.preventDefault();
+		
+		movedX = Math.abs(currentPosition.x - lastPosition.x);
+		movedY = Math.abs(currentPosition.y - lastPosition.y);
+		console.log('movedX',movedX);
+		console.log('movedY',movedY);
+		console.log('mouseMoved',mouseMoved);
+		console.log('movedCount',movedCount);
+				
+		if (movedX === 0 && movedY === 0 && !mouseMoved)
+		{
+			console.log('CLICK!!!');
+			//...........Stop all rotations and mouse events when the objects are moving
+			
+			if(activeRubiksCube)
+			{
+				activeRubiksCube.allowRotation = false;
+				//activeRubiksCube.removeAllCubieClicks();
+				//onCubieMouseDown(lastCubieEvent, lastCubieClicked);
+				if (checkSelected(currentPosition.x,currentPosition.y))
+				{
+					
+				}
+				else
+				{
+					activeRubiksCube.allowRotation = true;
+				}
+			}
+			else
+			{
+				console.log("no active rubiks cube");
+			}		
+		}
+		else
+		{
+			console.log("No click!!!");
+		}
+			
+		mouseMoved = false;
+		movedCount = 0;
+	}
+	
+}
 
-function checkSelected()
+function checkSelected(currX,currY)
 {
 	console.log("Function :: checkSelected");
-	console.log("mouseSelectX = " + mouseSelectX + " || mouseSelectX = " + mouseSelectY);
+	console.log("currX = " + currX + " || currY = " + currY);
+	
 	var projector = new THREE.Projector();
-	
-	var x = (mouseSelectX / webGLWidth) * 2 - 1;
-	var y = -(mouseSelectY / webGLHeight) * 2 + 1;
+	var x = (currX / webGLWidth) * 2 - 1;
+	var y = -(currY / webGLHeight) * 2 + 1;
 	var vector = new THREE.Vector3(x,y,0.5);
+	vector.unproject(camera);
 	
-	projector.unprojectVector(vector, camera);
+	var checkCubiesClick = [];
+	checkCubiesClick = activeRubiksCube.allDrawnCubies.slice();
+	if (breadCrumsCubies.length > 0)
+	{
+		checkCubiesClick = checkCubiesClick.concat(breadCrumsCubies);
+	}
 	
 	var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
-	// create an array containing all objects in the scene with which the ray intersects
-	window.intersects = raycaster.intersectObjects(allCubes);
+	//intersects = raycaster.intersectObjects(activeRubiksCube.allDrawnCubies);
+	intersects = raycaster.intersectObjects(checkCubiesClick);
 	
 	if (intersects.length > 0)
 	{
 		console.log("Intersected cubes");
-		/*intersects[0].object.material.transparent = true;
-		if (intersects[0].object.material.opacity === 0.5)
-		{
-			intersects[0].object.material.opacity = 1;
-		}
-		else
-		{
-			intersects[0].object.material.opacity = 0.5;
-		}*/
+		console.log("Hit @ ",intersects[0].point);
 		
-		console.log("Hit @ " + toString( intersects[0].point ) );
-		// change the color of the closest face.
-		var randomRed = 0.8 * Math.random();
-		//intersects[ 0 ].face.color.setRGB( randomR + 0.2, 0, 0 ); 
+		colorThisFace(intersects[0]);
+		/*
+		var materialINDEX = intersects[0].face.materialIndex;
+		//intersects[0].face.color.setHex( 0xff0000 );
+		var material = intersects[0].object.material;
+		material.materials[materialINDEX].color.setHex(0xff0000);
 		
+		intersects[0].object.geometry.colorsNeedUpdate = true;
+		*/
+		/*
 		var geom = intersects[ 0 ].object.geometry;
 		for ( var i = 0; i < geom.faces.length; i ++ ) 
 		{
 		    //geom.faces[ i ].color.setHex( Math.random() * 0xffffff );
 			//geom.faces[i].color.setRGB(randomRed, 0, 0);
-			geom.faces[i].color.setHex(0xff00ff);
+			//geom.faces[i].color.setHex(0xff0000);
 		}
 		
-		intersects[ 0 ].object.geometry.colorsNeedUpdate = true;
+		var geometry = intersects[ 0 ].object.geometry;		
+		 var hex = Math.random() * 0xffffff;
+
+         if(intersects[0].face.normal.x==0 && intersects[0].face.normal.y==0 &&intersects[0].face.normal.z==-1){
+             intersects[0].face.color.setHex(hex);
+             geometry.faces[intersects[0].face.materialIndex].color.setHex(hex);
+             console.log(intersects[0].face);
+         }
+         if(intersects[0].face.normal.x==0 && intersects[0].face.normal.y==0 &&intersects[0].face.normal.z==1){
+             intersects[0].face.color.setHex(hex);
+             geometry.faces[intersects[0].face.materialIndex].color.setHex(hex);
+             console.log(intersects[0].face);
+         }
+         if(intersects[0].face.normal.x==1 && intersects[0].face.normal.y==0 &&intersects[0].face.normal.z==0){
+             intersects[0].face.color.setHex(hex);
+             geometry.faces[intersects[0].face.materialIndex].color.setHex(hex);
+             console.log(intersects[0].face);
+         }
+         if(intersects[0].face.normal.x==0 && intersects[0].face.normal.y==-1 &&intersects[0].face.normal.z==0){
+             intersects[0].face.color.setHex(hex);
+             geometry.faces[intersects[0].face.materialIndex].color.setHex(hex);
+             console.log(intersects[0].face);
+         }
+         if(intersects[0].face.normal.x==-1 && intersects[0].face.normal.y==0 &&intersects[0].face.normal.z==0){
+             intersects[0].face.color.setHex(hex);
+             geometry.faces[intersects[0].face.materialIndex].color.setHex(hex);
+             console.log(intersects[0].face);
+         }
+         if(intersects[0].face.normal.x==0 && intersects[0].face.normal.y==1 &&intersects[0].face.normal.z==0){
+             intersects[0].face.color.setHex(hex);
+             geometry.faces[intersects[0].face.materialIndex].color.setHex(hex);
+             console.log(intersects[0].face);
+         }
+		*/	
+		
+		return true;
 	}
 	else
 	{
 		console.log("nothing intersected");
+		return false;
 	}	
-}
-
-function checkHighlight()
-{
-	console.log("Function :: checkHighlight");
-	console.log("mouseSelectX = " + mouseSelectX + " || mouseSelectX = " + mouseSelectY);
-	var projector = new THREE.Projector();
-	
-	var x = (mouseSelectX / webGLWidth) * 2 - 1;
-	var y = -(mouseSelectY / webGLHeight) * 2 + 1;
-	var vector = new THREE.Vector3(x,y,0.5);
-	
-	projector.unprojectVector(vector, camera);
-	
-	var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
-	window.intersects = raycaster.intersectObjects(allCubes);
-	
-	// if there is one (or more) intersections
-	if ( intersects.length > 0 )
-	{	// case if mouse is not currently over an object
-		if(INTERSECTED==null){
-			INTERSECTED = intersects[ 0 ];
-			INTERSECTED.face.color = highlightedColor;
-		}
-		else{	// if thse mouse is over an object
-			INTERSECTED.face.color= baseColor;
-			INTERSECTED.object.geometry.colorsNeedUpdate=true;
-			INTERSECTED = intersects[ 0 ];
-			INTERSECTED.face.color = highlightedColor;			
-		}
-		// upsdate mouseSphere coordinates and update colors
-		mouseSphereCoords = [INTERSECTED.point.x,INTERSECTED.point.y,INTERSECTED.point.z];
-		INTERSECTED.object.geometry.colorsNeedUpdate=true;
-		
-	} 
-	else // there are no intersections
-	{
-		// restore previous intersection object (if it exists) to its original color
-		if ( INTERSECTED ){
-			INTERSECTED.face.color = baseColor;
-			INTERSECTED.object.geometry.colorsNeedUpdate=true;
-		}
-		// remove previous intersection object reference
-		//     by setting current intersection object to "nothing"
-		
-		INTERSECTED = null;
-		mouseSphereCoords = null;
-		
-		
-	}
-}
-
-function checkMouseSphere()
-{
-	// if the coordinates exist, make the sphere visible
-	if(mouseSphereCoords != null){
-		console.log(mouseSphereCoords[0].toString()+","+mouseSphereCoords[1].toString()+","+mouseSphereCoords[2].toString());
-		mouseSphere[0].position.set(mouseSphereCoords[0],mouseSphereCoords[1],mouseSphereCoords[2]);
-		mouseSphere[0].visible = true;
-	}
-	else{ // otherwise hide the sphere
-		mouseSphere[0].visible = false;
-	}
-}
-
-
-
-//Mouse events On CUBES
-
-function onCubeMouseDown(e, cube)
-{
-	console.log("Function :: onCubeMouseDown");
-	//disableCameraControl();
-
-    //Maybe add move check in here
-    //if(true || !isMoving) {
-/*      clickVector = cube.rubikPosition.clone();
-      
-      var centroid = e.intersect.face.centroid.clone();
-      centroid.applyMatrix4(cube.matrixWorld);
-
-      //Which face (of the overall cube) did we click on?
-      if(nearlyEqual(Math.abs(centroid.x), maxExtent))
-        clickFace = 'x';
-      else if(nearlyEqual(Math.abs(centroid.y), maxExtent))
-        clickFace = 'y';
-      else if(nearlyEqual(Math.abs(centroid.z), maxExtent))
-        clickFace = 'z'; */  
-    //}
-      
-      //console.log("Clicked on face - " + clickFace);
-	
-	var faceIntersect = e.intersect;//...which is equal to window.intersects = raycaster.intersectObjects(allCubes);intersects[0]
-	console.log("Hit @ " + toString( faceIntersect.point ) );
-	// change the color of the closest face.
-	var randomRed = 0.8 * Math.random();
-	//intersects[ 0 ].face.color.setRGB( randomR + 0.2, 0, 0 ); 
-	
-	var geom = faceIntersect.object.geometry;	
-	window.materialINDEX = faceIntersect.face.materialIndex;
-	/*for ( var i = 0; i < geom.faces.length; i ++ ) 
-	{
-	    //geom.faces[ i ].color.setHex( Math.random() * 0xffffff );
-		//geom.faces[i].color.setRGB(randomRed, 0, 0);
-		
-		//Use this for changing color of individual FACEs
-		geom.faces[i].color.setHex(0xff00ff);
-	}*/
-	
-	//Use this for changing color of indivial MATERIALs
-	var material = faceIntersect.object.material;
-	var materialColors = faceIntersect.object.$colorMaterials;
-	/*for ( var i = 0; i < material.materials.length; i ++ ) 
-	{
-	    
-		material.materials[i].color.setHex(0xff0000);
-	}*/
-	for ( var i = 0; i < materialColors.length; i ++ ) 
-	{	    
-		material.materials[materialColors[i]].color.setHex(0xff0000);
-	}
-	
-	faceIntersect.object.geometry.colorsNeedUpdate = true;	
-}
-
-function onCubeMouseUp(e, cube)
-{
-	console.log("Function :: onCubeMouseUp");	
-}
-
-function onCubeMouseOut(e, cube)
-{
-	console.log("Function :: onCubeMouseOut");	
-}
-function toString(v) { return "[ " + v.x + ", " + v.y + ", " + v.z + " ]"; }
-
-function DV(T, value)
-{
-	return (T == undefined) ? value : T;
-}
-function moveObject(object,X,Y,Z,T,EASE)
-{
-	T = DV(T);
-	X = DV(X,0);
-	Y = DV(Y,0);
-	Z = DV(Z,0);
-	EASE = DV(EASE, TWEEN.Easing.Linear.None);//TWEEN.Easing.Elastic.InOut
-		
-	//var sourceQuat = object.position;
-	//var relativeQuat = new THREE.Quaternion();
-	//relativeQuat.setFromEuler(new THREE.Vector3(X,Y,Z));
-		
-	//this.anim = new TWEEN.Tween(this.param).to({t: 1.0}, time ).easing( EASING );
-	//var tween = new TWEEN.Tween(sourceQuat).to(relativeQuat, T).easing(EASE);
-	
-	var sourceVector = object.position;
-	var targetVector = new THREE.Vector3(X,Y,Z);
-	var tween = new TWEEN.Tween(sourceVector).to(targetVector, T).easing(EASE);
-	tween.onUpdate(function(){
-		object.position.x = sourceVector.x;
-		object.position.y = sourceVector.y;
-		object.position.z = sourceVector.z;
-	});
-	tween.delay(1000);
-	//tween.easing(TWEEN.Easing.Elastic.InOut);
-	tween.start();
 }

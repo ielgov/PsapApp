@@ -1,21 +1,25 @@
 var config={};
-
-config.weburl = "http://172.27.50.135:9080/PSAP";
-
+config.weburl = "http://172.27.50.135:9080";
 config.allowRandomLinks = !true; // TODO remove
 
-config.animationTime = 400; // number of ms to wait for open and close animation to finish
+config.assetMargin = 8; // THIS NUMBER BEING SUBTRACTED HAS TO BE THE SAME AS THE MARGIN VALUE IN THE CSS
 
-config.popupWidth = 90; // window percent to take up for popup // this is needed so it can stay in em and be animated
-config.popupHeight = 90; // window percent to take up for popup
+config.popupWidth = 95; // window percent to take up for popup; this is needed so it can stay in em and be animated
+config.popupHeight = 92; // window percent to take up for popup
 
-function pxToEm( px )
+config.keysToShow = [
+	"DESC_DISPLAY",
+	"URL"
+]
+
+config.keyIsToBeShown =  function( key )
 {
-	return ( 1/divForFindingEMSize.getBoundingClientRect().width ) * px;
+	for( var k in config.keysToShow)
+	{
+		if( config.keysToShow[k] === key )
+		{
+			return true
+		}
+	}
+	return false;
 }
-	
-function emToPx( em )
-{
-	return ( divForFindingEMSize.getBoundingClientRect().width/1 ) * em;
-}
-

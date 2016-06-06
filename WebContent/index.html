@@ -10,7 +10,7 @@
     <title>PSAP 3D</title>
     
     <link href="css/style.css" rel="stylesheet" type="text/css" />
-	<link href="css/font-awesome.css" rel="stylesheet" type="text/css" />
+	<!-- <link href="css/font-awesome.css" rel="stylesheet" type="text/css" /> -->
 	<link href="css/fonts.css" rel="stylesheet" type="text/css" />
 	<link href="css/flex.css" rel="stylesheet" type="text/css" />
 	<link href="css/sizes.css" rel="stylesheet" type="text/css" />
@@ -29,7 +29,7 @@
 	<!--start of Drew's headers-->
 		<script src="js/popup_script.js"></script>
 		<script src="js/popup_newScript.js"></script>
-		<script src="js/popup_config.js"></script>
+		<script src="js/config.js"></script>
 		<script src="js/popup_helperFunctions.js"></script>
 		<script src="js/popup_buildPopUp.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/popup_newStyle.css">
@@ -39,6 +39,38 @@
 		* {
 		   	cursor: default;
 		}		
+		
+  		@font-face {
+		    font-family: "modernpicwoff";
+		    src: url("fonts/modernpics-webfont.woff") format('woff');
+		}
+  		
+		.modernPic
+		{
+			font-family:'modernpicwoff';
+			
+		}
+		
+		@font-face {
+		    font-family: "fontAwesome";
+		    src: url("fonts/fontawesome-webfont.woff2") format('woff2');
+		}
+  		
+		.fontAwesome
+		{
+			font-family:'fontAwesome';	
+		}
+		
+		@font-face {
+		    font-family: "raleway";
+		    src: url("fonts/raleway400.woff2") format('woff2');
+		}
+  		
+		.raleway
+		{
+			font-family:'raleway';			
+		}
+		
 		body 
 		{
 			-webkit-user-select: none;
@@ -75,6 +107,7 @@
 	    </div> -->
 	    <div id="menu" class="helvLightFont translateX-100">
 	    	<div style="position: relative;height: 100%;">
+	    	<div class="menu-items highlight-menu-item" data-menuitem="solutions">Our Solution</div>
 	    	<div class="menu-items" data-menuitem="approach">Our Approach</div>
 	    	<div class="menu-items" data-menuitem="services">Our Services</div>
 	    	<div class="menu-items" data-menuitem="transformation">Transformation</div>
@@ -83,7 +116,7 @@
 	    	</div>
 	    </div>
     </div>
-    <canvas id="textureCanvas"></canvas>
+    <!-- <canvas id="textureCanvas"></canvas> -->
     <!-- <div id="footer"></div> -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -91,25 +124,29 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <!-- <script src="js/bootstrap.min.js"></script> -->
     
-    <script type="text/javascript" src="js/Threejs/jquery.min.js"></script>
-	<script type="text/javascript" src="js/Threejs/Three.js"></script>
+     <script type="text/javascript" src="js/Threejs/jquery.min.js"></script>
+	<!-- <script type="text/javascript" src="js/Threejs/Three-r71.js"></script> -->
+	<script type="text/javascript" src="js/Threejs/three.js"></script>
 	<script type="text/javascript" src="js/Threejs/OrbitControls.js"></script>
 	<script type="text/javascript" src="js/Threejs/stats.min.js"></script>
 	<script type="text/javascript" src="js/Threejs/Detector.js"></script>
 	<script type="text/javascript" src="js/Threejs/dat.gui.min.js"></script>
 	<script type="text/javascript" src="js/Threejs/Tween.js"></script>
 	<script type="text/javascript" src="js/Threejs/Projector.js"></script>
+	
 	<script type="text/javascript" src="js/Threejs/threex.dynamictexture.js"></script>
-	<script type="text/javascript" src="js/Threejs/threex.domevents.js"></script>
-	<script type="text/javascript" src="js/Threejs/rasterizeHTML.allinone.js"></script>
+	
+	<!-- <script type="text/javascript" src="js/Threejs/threex.domevents.js"></script> -->
 	<!-- <script type="text/javascript" src="js/threex.domevent.object3d.js"></script> -->
 	
-	<script type="text/javascript" src="js/rasterizeTexture.js"></script>
+	<!-- <script type="text/javascript" src="js/Threejs/rasterizeHTML.allinone.js"></script> -->
+	<!-- <script type="text/javascript" src="js/rasterizeTexture.js"></script> -->
 	<script type="text/javascript" src="js/menu.js"></script>
     <script type="text/javascript" src="js/accessdata.js"></script>
     <script type="text/javascript" src="js/jsondata.js"></script>	
 	<script type="text/javascript" src="js/movements.js"></script>
 	<script type="text/javascript" src="js/cubegeneration.js"></script>
+	<script type="text/javascript" src="js/cubeinteraction.js"></script>
 	
 	<!--make sure this is last-->
 	<script type="text/javascript" src="js/scene.js"></script>
@@ -143,35 +180,23 @@
 		
 		window.addEventListener( 'resize', onWindowResize, false );
 	</script>
-	<!--start of Drew's elements-->
-		<button id="thisShouldBeRemoved" onclick="showPopUp(2001, 201)" style="z-index:5; position:fixed; left:100px; top:100px;">Click to reveal assets with showPopUp(2001, 201)</button>
-		<button id="thisShouldBeRemovedToo" onclick="hidePopUp()" style="z-index:5; position:fixed; left:100px; top:125px;">Click to hide assets with hidePopUp()</button>
-		<div id="assetsSlider" class="hidden">
+
+	<button id="thisShouldBeRemoved" onclick="showPopUp(2001, 201)" style="z-index:5; position:fixed; left:100px; top:100px;">Click to reveal assets with showPopUp(2001, 201)</button>
+	<button id="thisShouldBeRemovedToo" onclick="hidePopUp()" style="z-index:5; position:fixed; left:100px; top:125px;">Click to hide assets with hidePopUp()</button>
+	<div id="assetsSlider" class="hidden">
 			<div id="assetsTitle"><span onclick="hidePopUp()">Showing <span id="numberOfResults" style="color:black">18</span> results</span></div>
 			<div id="assetsHolder"></div>
-		</div>
-		<img id="xIcon" src="images/x.png" onclick="openButton()" class="hidden"></img>
-		<!--<div id="greyOutBox" class="hidden" onclick="openButton()"></div>--> 
-		<div id='divForFindingEMSize' style=" width:1rem; position:absolute; left:-10000; right:-10000;"></div><!--if this is removed the page wont format correctly-->
-		<div id="buttonForSizing" onclick="openButton(this)" style="order:1; position:fixed; left:-300;" class="asset offScreen"></div>
-		<div id="triangle" onclick="hidePopUp()">
-			<svg width="50px" height="50px">
-				<path d="M0 0 L5 0 L10 0 L5 10" fill="black" id="pathHC"/>
-			</svg>
-		</div>
-	<!--end of Drew's elements-->
+	</div>
+	<img id="xIcon" src="images/x.png" onclick="openButton()" class="hidden"></img>
+	<!--<div id="greyOutBox" class="hidden" onclick="openButton()"></div>--> 
+	<div id='divForFindingEMSize' style=" width:1rem; position:absolute; left:-10000; right:-10000;"></div><!--if this is removed the page wont format correctly-->
+	<div id="buttonForSizing" onclick="openButton(this)" style="order:1; position:fixed; left:-300;" class="asset offScreen"></div>
+	<div id="triangle" onclick="hidePopUp()">
+		<svg width="50px" height="50px">
+			<path d="M0 0 L5 0 L10 0 L5 10" fill="black" id="pathHC"/>
+		</svg>
+	</div>
+	
 	
   </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-

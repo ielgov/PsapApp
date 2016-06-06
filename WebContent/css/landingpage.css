@@ -48,6 +48,7 @@ Cube highlight face 3 = #ff8039
 #WebGL-output
 {
 	height: 100%;
+	width: 100%;
 	z-index: 1;
 	position: relative;
 }
@@ -185,6 +186,7 @@ Cube highlight face 3 = #ff8039
 	transition: transform 0.3s ease;
 }
 
+
 /*Menu*/
 #menu
 {
@@ -202,4 +204,9 @@ Cube highlight face 3 = #ff8039
 {
 	margin-bottom: 1rem;
 	padding: 1rem;
+}
+
+#menu div .highlight-menu-item
+{
+	background-color: gray;
 }

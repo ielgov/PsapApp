@@ -4,6 +4,25 @@ var debug = true;
 var domEvents;
 var orbitControl;
 var worldGroups = {};
+
+//var domEvents;
+
+var targetRotationX = 0;
+var targetRotationOnMouseDownX = 0;
+
+var targetRotationY = 0;
+var targetRotationOnMouseDownY = 0;
+
+var mouseX = 0;
+var mouseXOnMouseDown = 0;
+
+var mouseY = 0;
+var mouseYOnMouseDown = 0;
+
+var finalRotationY;
+
+var cameraCube = undefined;
+
 function initializeScene()
 {
 	console.log("Function :: initializeScene");
@@ -18,8 +37,10 @@ function initializeScene()
     renderer.setClearColor(0x000000,0);
     //renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setSize( webGLWidth, webGLHeight );
-    renderer.shadowMapEnabled = true;
-    renderer.shadowMapType = THREE.PCFSoftShadowMap;
+    //renderer.shadowMapEnabled = true;
+    renderer.shadowMap.enabled= true;
+    //renderer.shadowMapType = THREE.PCFSoftShadowMap;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     
     // add the output of the renderer to the html element
     $("#WebGL-output").append(renderer.domElement);
@@ -36,20 +57,19 @@ function initializeScene()
     scene.add(camera);
     camera.lookAt(scene.position);
     
+    //THREE.Object3D._threexDomEvent.camera(camera);
+    //domEvents = new THREEx.DomEvents(camera, renderer.domElement)
     
-    orbitControl = new THREE.OrbitControls(camera, renderer.domElement);
-    enableCameraControl();
+    //orbitControl = new THREE.OrbitControls(camera, renderer.domElement);
+    //enableCameraControl();
     //disableCameraControl();
     
-    setSpotLight(20,20,20,spotLightShowLines);
-    setSpotLight(-20,20,20,spotLightShowLines);
-    setSpotLight(20,20,-20,spotLightShowLines);
+    setSpotLight(50,20,20,spotLightShowLines);
+    setSpotLight(-40,20,20,spotLightShowLines);
+    setSpotLight(50,20,-20,spotLightShowLines);
     setSpotLight(-20,20,-20,spotLightShowLines);
     setSpotLight(10,-20,10,spotLightShowLines);
-    
-    //THREE.Object3D._threexDomEvent.camera(camera);
-    domEvents = new THREEx.DomEvents(camera, renderer.domElement)
-    
+        
     //addGroundPlane();
     
     var sphereGeom= new THREE.SphereGeometry(0.25,0.25,0.25);
@@ -57,7 +77,7 @@ function initializeScene()
 	scene.add(sphere);
     
 	
-	cameraCube = new THREE.Mesh( new THREE.BoxGeometry( 3, 3, 3 ), new THREE.MeshBasicMaterial({ color: 0xFF00FF } ) );
+	//cameraCube = new THREE.Mesh( new THREE.BoxGeometry( 3, 3, 3 ), new THREE.MeshBasicMaterial({ color: 0xFF00FF } ) );
 	//cameraCube.position.set( -14, 7, -22);
 	//camera.add(cameraCube);
 	
@@ -75,9 +95,13 @@ function initializeScene()
     //render();
 	animate();
 	
+	//Create 'categories' rubiks cube in this called function 
 	initialCubeSetup();
 	
 	document.querySelector("#WebGL-output").addEventListener( 'mousedown', onDocumentMouseDown, false );
+	document.querySelector("#WebGL-output").addEventListener( 'touchstart', onDocumentTouchStart, false );
+	document.querySelector("#WebGL-output").addEventListener( 'touchmove', onDocumentTouchMove, false );
+	document.querySelector("#WebGL-output").addEventListener( 'touchend', onDocumentTouchEnd, false );
 }
 
 
@@ -85,11 +109,36 @@ function initializeScene()
 //RENDER Loop
 
 var step = 0;
+var allowRotation = false;
 function render() 
 {
     
     // render using requestAnimationFrame
     //requestAnimationFrame(render);
+	
+	//activeRubiksCube
+	if (activeRubiksCube && activeRubiksCube.group)
+	{
+		if (activeRubiksCube.allowRotation)
+		{
+			//horizontal rotation   
+			activeRubiksCube.group.rotation.y += ( targetRotationX - activeRubiksCube.group.rotation.y ) * 0.05;//0.1//0.25
+			//vertical rotation 
+			finalRotationY = (targetRotationY - activeRubiksCube.group.rotation.x);
+			if (activeRubiksCube.group.rotation.x <= 1 && activeRubiksCube.group.rotation.x >= -1) 
+			{	
+				activeRubiksCube.group.rotation.x += finalRotationY * 0.1;
+			}
+			if (activeRubiksCube.group.rotation.x > 0.5) 
+			{	
+				activeRubiksCube.group.rotation.x = 0.5;
+			}
+			else if (activeRubiksCube.group.rotation.x < -0.5) 
+			{	
+				activeRubiksCube.group.rotation.x = -0.5;
+			}
+		}		
+	}
     renderer.render(scene, camera);
 }
 
@@ -121,8 +170,18 @@ function onWindowResize()
 	camera.aspect = webGLWidth / webGLHeight;
 	camera.updateProjectionMatrix();
 	
+	var DPR = (window.devicePixelRatio) ? window.devicePixelRatio : 1;  
+	
+	//renderer.render( scene, camera );
+	//renderer.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
+	//renderer.setPixelRatio(window.devicePixelRatio);
+	//renderer.setViewport( 0, 0, webGLWidth*DPR, webGLHeight*DPR );
+	
 	//renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.setSize( webGLWidth, webGLHeight );
+	
+	
+	
 }
 
 function setSpotLight(X,Y,Z,spotLightShowLines)
@@ -135,14 +194,19 @@ function setSpotLight(X,Y,Z,spotLightShowLines)
     var spotLight = new THREE.SpotLight(0xA1A1A1,2);
     //spotLight.position.set(-10, 15, 0);
     spotLight.position.set(X,Y,Z);
-    spotLight.angle = 0.5;
+    spotLight.angle = 0.75;
     spotLight.distance = 70;
     spotLight.exponent = 1;
     spotLight.target.position.set( 0, 0, 0 );
     spotLight.castShadow = true;
-    spotLight.shadowDarkness = 0.5;
-    spotLight.shadowCameraVisible = spotLightShowLines;
+    //spotLight.shadowDarkness = 0.5;
+    //spotLight.shadowCameraVisible = spotLightShowLines;
     scene.add(spotLight);
+    if (spotLightShowLines)
+    {
+    	var helper = new THREE.CameraHelper( spotLight.shadow.camera );
+        scene.add( helper );
+    }    
     //scene.add(new THREE.PointLightHelper(spotLight, 1));
 }
 
@@ -208,6 +272,7 @@ function toScreenXY(position, camera, jqdiv)
 }*/
 
 //getXY(cameraCube)
+//This function returns screen coordinates for passed 3d world coordinates/position
 function getXY(obj3d)
 {
 	var widthHalf = webGLWidth / 2, heightHalf = webGLHeight / 2;
@@ -224,10 +289,14 @@ function getXY(obj3d)
 	console.log('vector',vector);
 }
 
-function get3dCood(X,Y)
+//This function returns 3d world coordinates/position for passed screen coordinates (X,Y)
+function get3dCood(xx,yy)
 {
+	var X = webGLWidth * xx;
+	var Y = webGLHeight * yy;
+	
 	var vector = new THREE.Vector3();
-
+	
 	/*vector.set(
 	    ( event.clientX / window.innerWidth ) * 2 - 1,
 	    - ( event.clientY / window.innerHeight ) * 2 + 1,
@@ -250,9 +319,8 @@ function get3dCood(X,Y)
 }
 
 //moveObject(CM,-17.64,7.16,0,3000);
-function onDocumentMouseDown(event)
+function onDocumentMouseDownGetCoord(event)
 {
-	
 	mouseSelectX = event.clientX - $('#canvas-container').position().left;
 	mouseSelectY = event.clientY - $('#canvas-container').position().top;
 	console.log('mouseSelectX',mouseSelectX);

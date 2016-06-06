@@ -10,15 +10,6 @@ function closeMenu()
 	document.querySelector('#menu-button').classList.remove('rotateZ-90');
 }
 
-//post logout action
-//http://172.27.50.134:9080/PSAP/Logout
-function postLogout()
-{
-	console.log("Function :: postLogout");
-	var restURL = webServerIP+"/PSAP/Logout";
-	window.open(restURL, "_self");
-}
-
 var menuClicked = undefined;
 var initScene = false;
 function initializeClicks()
@@ -40,8 +31,13 @@ function initializeClicks()
 	$('.menu-items').bind(onUserAction, function(e){
 		e.preventDefault();
 		console.log("menu-items",onUserAction);
+		var current = $('#menu').find("[data-menuitem='" + menuClicked + "']");
+		//current.removeClass('highlight-menu-item');
+		
 		menuClicked = $(this).data('menuitem');
+		//$(this).addClass('highlight-menu-item');
 		console.log('menuitem', menuClicked);
+		
 		if (!initScene)
 		{
 			initScene = true;
@@ -60,7 +56,16 @@ function initializeClicks()
 		else if (menuClicked == 'transformation')
 			reversalBreadCrum(breadCrumsPos['offerings'])
 		else if (menuClicked == 'logout')
-			postLogout();
+				postLogout();	
 	});
 	
+		
+}
+
+
+function postLogout()
+{
+	console.log("Function :: postLogout");
+	var restURL = config.weburl+"/PSAP/Logout";
+	window.open(restURL, "_self");
 }

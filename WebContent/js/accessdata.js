@@ -4,7 +4,7 @@ A Solution contains one to many offerings.
 A Solution has one to many parent (Category)
 */
 
-var webServerIP = 'http://172.27.50.135:9080';
+var webServerIP = config.weburl;
 
 //extract all categories available
 //http://172.27.50.134:9080/PSAP/Categories?type=CATEGORY&parentId=0
@@ -48,8 +48,6 @@ function getAssets(parentId, offeringId)
 	var restURL = webServerIP+"/PSAP/Assets?offeringId=" + offeringId + "&parentId=" + parentId;
 	getRESTRequest(restURL,true);
 }
-
-
 
 function getRESTRequest(restURL,usejson)
 {

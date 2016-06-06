@@ -5,8 +5,7 @@ function showPopUp(offeringId, parentId, useCache)
 	var results; // TODO remove if you dont want caching 
 	
 	var url = "";
-	//url = "http://172.27.50.134:9080/PSAP/Assets?offeringId=2001&parentId=201"
-	url = "http://172.27.50.135:9080/PSAP/Assets?offeringId="+offeringId+"&parentId="+parentId+""
+	url = config.weburl + "/PSAP/Assets?offeringId="+offeringId+"&parentId="+parentId+""
 	
 	if(!useCache)
 	{
