@@ -160,9 +160,9 @@ function getData(obj,func)
 		var categoryId = obj['getDataFor']['CategoryId'];
 		var display = obj['getDataFor']['Display'];
 		//result = getOfferings(parentId);
-		result = getOfferings(obj.parentId);
-		returnData = result['result'];
-		console.log('getting solutions for',categoryId,display);
+		getSolutions(obj.parentId, func);
+		/*returnData = result['result'];
+		console.log('getting solutions for',categoryId,display);*/
 		
 		//result = offeringsJSON;
 		

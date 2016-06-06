@@ -50,7 +50,7 @@ function setCubeData(nextLevelDataObj, currRubiksType)
 			console.log('callback for solutions',response);
 			var returnData = response['result'];
 			var cubeData = appData['solutions'];
-			cubeData['data'] = returnedData;
+			cubeData['data'] = returnData;
 			drawRubiksCube(cubeData,nextLevelDataObj);
 		});		
 	}
@@ -63,7 +63,7 @@ function setCubeData(nextLevelDataObj, currRubiksType)
 			console.log('callback for offerings',response);
 			var returnData = response['result'];
 			var cubeData = appData['offerings'];
-			cubeData['data'] = returnedData;
+			cubeData['data'] = returnData;
 			drawRubiksCube(cubeData,nextLevelDataObj);
 		});
 		
