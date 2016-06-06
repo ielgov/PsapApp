@@ -160,7 +160,7 @@ function getData(obj,func)
 		var categoryId = obj['getDataFor']['CategoryId'];
 		var display = obj['getDataFor']['Display'];
 		//result = getOfferings(parentId);
-		getSolutions(obj.parentId, func);
+		getOfferings(obj.parentId, func);
 		/*returnData = result['result'];
 		console.log('getting solutions for',categoryId,display);*/
 		
