@@ -105,6 +105,7 @@ function getData(obj,func)
 		{
 			var categoriesArray = result.categories;
 			returnData = categoriesArray;
+			return returnData;
 		}
 	}
 	else if (obj.type == 'solutions')
