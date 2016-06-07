@@ -2,6 +2,24 @@ var CUBE_SIZE = 3;
 var GAP_BETWEEN_CUBES = 0.2;
 var selectionColor = 0xff0000;//0xb2ccce;//0xdaeff2;//0xff0000
 
+var startingPositions = {
+		'categories':{
+			'x':0,
+			'y':0,
+			'z':25
+		},
+		'solutions':{
+			'x':0,
+			'y':25,
+			'z':0
+		},
+		'offerings':{
+			'x':0,
+			'y':25,
+			'z':0
+		},
+};
+
 //Object containing 2d screen coordinate positions for breadcrums
 //Idea being the breadcrums will be positioned in the 3d world/scene corresponding to top(Y) left(X) window position
 var breadCrumsPos = {
@@ -140,9 +158,23 @@ function drawRubiksCube(cubeData,parentData)
 		setTimeout(function(){
 				RC.drawCubies();			
 				//RC.drawCubiesNew();
-				RC.allowRotation = true;
+				RC.allowRotation = false;
 				activeRubiksCube = RC;
-				showRubiksCube(RC.group);
+				showRubiksCube(RC.group, function(){
+					console.log('showRubiksCube callback');
+					var tween = new TWEEN.Tween(activeRubiksCube.group.rotation).to({x:degToRad(25),y:degToRad(-45)}, 500).easing(TWEEN.Easing.Linear.None);
+					/*tween.onUpdate(function(){
+						grpObject.rotation.x = x;
+						grpObject.rotation.y = y;
+						grpObject.rotation.z = z;
+					});*/
+					tween.start();
+					tween.onComplete(function(){
+						console.log("tween onComplete");
+						activeRubiksCube.group.rotation.set(degToRad(25),degToRad(-45),0);
+						activeRubiksCube.allowRotation = false;
+					});
+				});
 			},250);
 		}
 	else
@@ -198,7 +230,14 @@ function RubiksCube(options)
 			this.maxNumOfSols = 8;
 		this.group = new THREE.Group();
 		scene.add(this.group);
-		this.group.position.set(0,25,0);
+		if (startingPositions[this.rubiksCubeType])
+		{
+			this.group.position.set(startingPositions[this.rubiksCubeType].x,startingPositions[this.rubiksCubeType].y,startingPositions[this.rubiksCubeType].z);
+		}
+		else
+		{
+			this.group.position.set(0,25,0);
+		}
 		worldGroups[this.rubiksCubeType] = this.group;
 		breadCrumsPos[this.rubiksCubeType]['RC'] = this;
 		this.findCubiePosition();		

@@ -13,6 +13,11 @@ function onDocumentMouseDown( event )
 	document.querySelector("#WebGL-output").addEventListener( 'mouseup', onDocumentMouseUp, false );
 	document.querySelector("#WebGL-output").addEventListener( 'mouseout', onDocumentMouseOut, false );
 	
+	if (activeRubiksCube && activeRubiksCube.group)
+	{
+		activeRubiksCube.allowRotation = true;
+	}		
+	
 	mouseXOnMouseDown = event.clientX - windowHalfX;
 	targetRotationOnMouseDownX = targetRotationX;
 	
@@ -121,6 +126,11 @@ function onDocumentTouchStart( event )
     if ( event.touches.length == 1 ) 
     {
 		event.preventDefault();
+		
+		if (activeRubiksCube && activeRubiksCube.group)
+		{
+			activeRubiksCube.allowRotation = true;
+		}
 		
 		mouseXOnMouseDown = event.touches[ 0 ].pageX - windowHalfX;
 		targetRotationOnMouseDownX = targetRotationX;

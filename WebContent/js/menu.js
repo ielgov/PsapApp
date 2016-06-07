@@ -57,14 +57,18 @@ function initializeClicks()
 			
 		}
 		
+		/*
 		if (menuClicked == 'approach')
 			reversalBreadCrum(breadCrumsPos['categories'])
 		else if (menuClicked == 'services')
 			reversalBreadCrum(breadCrumsPos['solutions'])
 		else if (menuClicked == 'transformation')
 			reversalBreadCrum(breadCrumsPos['offerings'])
-		else if (menuClicked == 'logout')
-				postLogout();	
+		*/
+		
+		if (menuClicked == 'logout')
+			postLogout();
+			
 	});
 	
 		
