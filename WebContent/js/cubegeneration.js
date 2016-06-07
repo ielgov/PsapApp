@@ -8,19 +8,19 @@ var breadCrumsPos = {
 		'categories':{
 			'screen':{
 				'X':0.03,//0.95
-				'Y':0.1,//0.1
+				'Y':0.07,//0.1
 				}
 			},
 		'solutions':{
 			'screen':{
-				'X':0.15,//0.95
-				'Y':0.1,//0.35
+				'X':0.2,//0.95
+				'Y':0.07,//0.35
 				}
 		},
 		'offerings':{
 			'screen':{
-				'X':0.27,//0.95
-				'Y':0.1,//0.6
+				'X':0.37,//0.95
+				'Y':0.07,//0.6
 				}
 		}
 };
@@ -827,7 +827,9 @@ function moveCubieToTop(cubieMesh, nextStep)
 	window.CM = cubieMesh;
 	
 	var rotationDetails = getRotation(cubieMesh);
+	cubieMesh.rotationDetails = rotationDetails;
 	cubieMesh.lookAt(camera.position);
+	cubieMesh.rotation.set(0,0,0);
 	cubieMesh.rotateOnAxis(rotationDetails['rotationAxis'],rotationDetails['rotationAngle']);
 	//moveObject(cubieMesh,-10,8,-15,3000);
 	
