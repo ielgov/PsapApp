@@ -34,7 +34,7 @@ function onDocumentMouseDown( event )
 
 function onDocumentMouseMove( event ) 
 {
-	console.log("Function :: onDocumentMouseMove");
+	//console.log("Function :: onDocumentMouseMove");
 	mouseMoved = true;
 	movedCount++;
 	mouseX = event.clientX - windowHalfX;
@@ -66,10 +66,10 @@ function onDocumentMouseUp( event )
 	
 	var movedX = Math.abs(currentPosition.x - lastPosition.x);
 	var movedY = Math.abs(currentPosition.y - lastPosition.y);
-	console.log('movedX',movedX);
-	console.log('movedY',movedY);
-	console.log('mouseMoved',mouseMoved);
-	console.log('movedCount',movedCount);
+	//console.log('movedX',movedX);
+	//console.log('movedY',movedY);
+	//console.log('mouseMoved',mouseMoved);
+	//console.log('movedCount',movedCount);
 	
 	if (movedX === 0 && movedY === 0)
 	{
@@ -117,7 +117,7 @@ function onDocumentMouseOut( event )
 function onDocumentTouchStart( event ) 
 {
 	console.log("Function :: onDocumentTouchStart");
-	console.log('event touches = '+event.touches.length);
+	//console.log('event touches = '+event.touches.length);
     if ( event.touches.length == 1 ) 
     {
 		event.preventDefault();
@@ -142,7 +142,7 @@ function onDocumentTouchStart( event )
 function onDocumentTouchMove( event ) 
 {
 	console.log('Function :: onDocumentTouchMove');
-	console.log('event touches = '+event.touches.length);
+	//console.log('event touches = '+event.touches.length);
     if ( event.touches.length == 1 ) 
     {
 
@@ -167,7 +167,7 @@ function onDocumentTouchMove( event )
 function onDocumentTouchEnd( event )
 {
 	console.log('Function :: onDocumentTouchEnd');
-	console.log('event touches = '+event.touches.length);
+	//console.log('event touches = '+event.touches.length);
 	
 	//if ( event.touches.length == 1 )
 	{
@@ -178,10 +178,10 @@ function onDocumentTouchEnd( event )
 		
 		var movedX = Math.abs(currentPosition.x - lastPosition.x);
 		var movedY = Math.abs(currentPosition.y - lastPosition.y);
-		console.log('movedX',movedX);
-		console.log('movedY',movedY);
-		console.log('mouseMoved',mouseMoved);
-		console.log('movedCount',movedCount);
+		//console.log('movedX',movedX);
+		//console.log('movedY',movedY);
+		//console.log('mouseMoved',mouseMoved);
+		//console.log('movedCount',movedCount);
 				
 		if (movedX === 0 && movedY === 0 && !mouseMoved)
 		{
@@ -221,7 +221,7 @@ function onDocumentTouchEnd( event )
 function checkSelected(currX,currY)
 {
 	console.log("Function :: checkSelected");
-	console.log("currX = " + currX + " || currY = " + currY);
+	//console.log("currX = " + currX + " || currY = " + currY);
 	
 	var projector = new THREE.Projector();
 	var x = (currX / webGLWidth) * 2 - 1;
@@ -242,8 +242,8 @@ function checkSelected(currX,currY)
 	
 	if (intersects.length > 0)
 	{
-		console.log("Intersected cubes");
-		console.log("Hit @ ",intersects[0].point);
+		console.log("Intersected cube face",intersects[0]);
+		//console.log("Hit @ ",intersects[0].point);
 		
 		colorThisFace(intersects[0]);
 		/*

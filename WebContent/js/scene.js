@@ -314,7 +314,7 @@ function get3dCood(xx,yy)
 	var distance = - camera.position.z / dir.z;
 
 	var pos = camera.position.clone().add( dir.multiplyScalar( distance ) );
-	console.log('pos',pos);
+	//console.log('pos',pos);
 	return pos;
 }
 

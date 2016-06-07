@@ -26,11 +26,11 @@ function moveObject(object,X,Y,Z,T,func,EASE)
 		object.position.y = sourceVector.y;
 		object.position.z = sourceVector.z;
 	});
-	tween.delay(1000);
+	//tween.delay(1000);
 	//tween.easing(TWEEN.Easing.Elastic.InOut);
 	tween.start();
 	tween.onComplete(function(){
-		console.log("tween onComplete");
+		//console.log("tween onComplete");
 		if (func)
 		{
 			func();
@@ -41,14 +41,13 @@ function moveObject(object,X,Y,Z,T,func,EASE)
 function hideRubiksCube(object,y,func)
 {
 	console.log("Function :: hideRubiksCube");
-	
-	moveObject(object,0,y,0,1500,func);
+	moveObject(object,0,y,0,1000,func);
 }
 
 function showRubiksCube(object,func)
 {
 	console.log("Function :: showRubiksCube");
-	moveObject(object,0,0,0,1500,func);
+	moveObject(object,0,0,0,1000,func);
 }
 
 function resetRubiksCube()
@@ -57,7 +56,7 @@ function resetRubiksCube()
 	{
 		activeRubiksCube.allowRotation = false;
 		var arc = activeRubiksCube.group;
-		var tween = new TWEEN.Tween(arc.rotation).to({x:0,y:0}, 3000).easing(TWEEN.Easing.Linear.None);
+		var tween = new TWEEN.Tween(arc.rotation).to({x:0,y:0}, 1000).easing(TWEEN.Easing.Linear.None);
 		tween.onUpdate(function(){
 			
 		});
