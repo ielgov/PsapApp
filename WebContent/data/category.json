@@ -8,7 +8,7 @@
 	{
 		"CategoryId": "02",
 		"Name": "CCOEM",
-		"Display": "Command Control, Ops, and Emegency Mgmt"
+		"Display": "Command Control, Operations, and Emegency Management"
 	}, 
 	{
 		"CategoryId": "03",
@@ -18,7 +18,7 @@
 	{
 		"CategoryId": "04",
 		"Name": "Security",
-		"Display": "Video, Physical, and Cyber Security"
+		"Display": "Video, Physical, Cyber Security and Surveillance"
 	}
 	]
 }
