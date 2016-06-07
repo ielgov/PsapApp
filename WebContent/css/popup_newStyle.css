@@ -53,7 +53,7 @@
 .assetSmallererParent
 {
 	display:-webkit-flex;
-	display:flex;.contentHolder
+	display:flex;.contentHolder;
 	/*flex-direction: row;*/
 	/*justify-content:flex-start;*/
 	flex-wrap:wrap;
