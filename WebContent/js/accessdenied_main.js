@@ -37,7 +37,7 @@ function initCube() {
 	dynamicTexture.drawText("To Access PSAP Portal", undefined, 100, 'red');
 	dynamicTexture.context.font	= "bolder 30px Verdana";
 	dynamicTexture.drawText("Contact Dr. Gary Nestler", undefined, 220, 'red');
-	dynamicTexture.drawText("Email: gary@us.ibm.com", undefined, 360, 'red');
+	dynamicTexture.drawText("Email: gsnestler@us.ibm.com", undefined, 360, 'red');
 	var material	= new THREE.MeshBasicMaterial({
 		map	: dynamicTexture.texture
 	})
