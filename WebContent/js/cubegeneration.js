@@ -924,14 +924,69 @@ function processBreadCrum(cubieMesh,breadCrumType)
 	if (activeRubiksCube.rubiksCubeType != cubieMesh.$cubie.$rubiksCubeType)
 	{
 		hideRubiksCube(activeRubiksCube.group,-25);
-	}	
+	}
+	
+	var solutionsVisible = false, offeringsVisible = false;
+	
+	if (breadCrumsPos['solutions'].hasOwnProperty('cubieMesh'))
+		solutionsVisible = true;
+	
+	if (breadCrumsPos['offerings'].hasOwnProperty('cubieMesh'))
+		offeringsVisible = true;
+	
+	if (breadCrumType == 'categories')
+	{
+		if (solutionsVisible)
+		{
+			console.log('get rid of solutions breadcrum');
+			
+			breadCrumsCubies = $.grep( breadCrumsCubies ,
+			        function(o,i) { return o['uuid'] === breadCrumsPos['solutions']['cubieMesh']['uuid']; },
+			        true);
+			reversalBreadCrum(breadCrumsPos['solutions'],0);
+			breadCrumsPos['solutions'].RC.group.position.set(0,-25,0);
+			hideRubiksCube(breadCrumsPos['solutions'].RC.group,-25);
+		}	
+		
+		if (offeringsVisible)
+		{
+			console.log('get rid of offerings breadcrum');
+			assetsSlider.classList.add("hidden");
+			breadCrumsCubies = $.grep( breadCrumsCubies ,
+			        function(o,i) { return o['uuid'] === breadCrumsPos['offerings']['cubieMesh']['uuid']; },
+			        true);
+			reversalBreadCrum(breadCrumsPos['offerings'],0);
+			breadCrumsPos['offerings'].RC.group.position.set(0,-25,0);
+			hideRubiksCube(breadCrumsPos['offerings'].RC.group,-25);
+		}		
+	}
+	else if (breadCrumType == 'solutions')
+	{
+		if (offeringsVisible)
+		{
+			console.log('get rid of offerings breadcrum');
+			assetsSlider.classList.add("hidden");
+			breadCrumsCubies = $.grep( breadCrumsCubies ,
+			        function(o,i) { return o['uuid'] === breadCrumsPos['offerings']['cubieMesh']['uuid']; },
+			        true);
+			reversalBreadCrum(breadCrumsPos['offerings'],0);
+			breadCrumsPos['offerings'].RC.group.position.set(0,-25,0);
+			hideRubiksCube(breadCrumsPos['offerings'].RC.group,-25);
+		}
+	}
+	
 	if (breadCrumType == 'offerings')
 	{
 		console.log('HIDE POPup');
 		assetsSlider.classList.add("hidden");
 	}
-	reversalBreadCrum(breadCrumsPos[breadCrumType]);
+	
+	reversalBreadCrum(breadCrumsPos[breadCrumType],1000);
+	
 }
+
+//reversalBreadCrum(breadCrumsPos['solutions'],0)
+//breadCrumsPos['solutions'].RC.group.position.set(0,-25,0);
 
 //Move the selected the cubie to its breadcrum position and hides the rubiks cube
 function moveCubieToTop(cubieMesh, nextStep)
@@ -990,7 +1045,7 @@ function moveCubieToTop(cubieMesh, nextStep)
 
 //reversalBreadCrum(breadCrumsPos['categories'])
 //This function brings the selected breadcrum cubie back to its rubiks cube position
-function reversalBreadCrum(breadCrumsObj)
+function reversalBreadCrum(breadCrumsObj, animationDuration)
 {
 	console.log('Function :: reversalBreadCrum');
 	
@@ -1000,11 +1055,11 @@ function reversalBreadCrum(breadCrumsObj)
 				
 		if (catCM.cubieMesh)
 		{
-			moveObject(catCM.cubieMesh,catCM.cubieMeshOriginalVector.x,catCM.cubieMeshOriginalVector.y,catCM.cubieMeshOriginalVector.z,1000,function(){
+			moveObject(catCM.cubieMesh,catCM.cubieMeshOriginalVector.x,catCM.cubieMeshOriginalVector.y,catCM.cubieMeshOriginalVector.z,animationDuration,function(){
 			});
 			
 			var originalParentGroup = catCM.cubieMesh.$cubie.originalParent;
-			moveObject(originalParentGroup,catCM.cubieMeshParentPosition.x,catCM.cubieMeshParentPosition.y,catCM.cubieMeshParentPosition.z,1000, function(){
+			moveObject(originalParentGroup,catCM.cubieMeshParentPosition.x,catCM.cubieMeshParentPosition.y,catCM.cubieMeshParentPosition.z,animationDuration, function(){
 				THREE.SceneUtils.attach(catCM.cubieMesh, scene, catCM.cubieMesh.$cubie.originalParent);
 				catCM.cubieMesh.position.set(catCM['cubieMeshOriginalPosition'].x,catCM['cubieMeshOriginalPosition'].y,catCM['cubieMeshOriginalPosition'].z);
 				catCM.cubieMesh.rotation.set(0,0,0);
