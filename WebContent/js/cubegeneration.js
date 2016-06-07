@@ -1,6 +1,6 @@
 var CUBE_SIZE = 3;
 var GAP_BETWEEN_CUBES = 0.2;
-var selectionColor = 0xb2ccce;//0xdaeff2;//0xff0000
+var selectionColor = 0xff0000;//0xb2ccce;//0xdaeff2;//0xff0000
 
 //Object containing 2d screen coordinate positions for breadcrums
 //Idea being the breadcrums will be positioned in the 3d world/scene corresponding to top(Y) left(X) window position
@@ -769,20 +769,25 @@ function colorThisFace(intersectObj)
 		}
 		else
 		{
-			breadCrumsCubies = $.grep( breadCrumsCubies ,
-	                function(o,i) { return o['uuid'] === cubieMesh['uuid']; },
-	                true);
-			
-			if (activeRubiksCube.rubiksCubeType != cubieMesh.$cubie.$rubiksCubeType)
-			{
-				hideRubiksCube(activeRubiksCube.group,-25,nextStep);
-			}	
-			
-			reversalBreadCrum(breadCrumsPos[breadCrumType])
+			processBreadCrum(cubieMesh,breadCrumType);
 		}		
 	}		
 }
 
+function processBreadCrum(cubieMesh,breadCrumType)
+{
+	console.log("Function :: processBreadCrum");
+	breadCrumsCubies = $.grep( breadCrumsCubies ,
+            function(o,i) { return o['uuid'] === cubieMesh['uuid']; },
+            true);
+	
+	if (activeRubiksCube.rubiksCubeType != cubieMesh.$cubie.$rubiksCubeType)
+	{
+		hideRubiksCube(activeRubiksCube.group,-25);
+	}	
+	
+	reversalBreadCrum(breadCrumsPos[breadCrumType]);
+}
 
 //Move the selected the cubie to its breadcrum position and hides the rubiks cube
 function moveCubieToTop(cubieMesh, nextStep)
@@ -820,12 +825,15 @@ function moveCubieToTop(cubieMesh, nextStep)
 	//This will remove cubieMesh from its original parent group (RC.group) and add it to the world scene
 	//window.scene.add(cubieMesh);
 	window.CM = cubieMesh;
-		
+	
+	var rotationDetails = getRotation(cubieMesh);
+	cubieMesh.lookAt(camera.position);
+	cubieMesh.rotateOnAxis(rotationDetails['rotationAxis'],rotationDetails['rotationAngle']);
 	//moveObject(cubieMesh,-10,8,-15,3000);
+	
 	moveObject(cubieMesh,cubie3dPos.x,cubie3dPos.y,-3,3000, function(){
 		breadCrumsCubies.push(cubieMesh);
 	});
-	//startBreadcrum(cubieMesh,cubie3dPos.x,cubie3dPos.y,-3);
 	
 	//move the parent group along z or disappear
 	//moveObject(parent,0,0,-15,3000,nextStep);
@@ -853,6 +861,7 @@ function reversalBreadCrum(breadCrumsObj)
 			moveObject(originalParentGroup,catCM.cubieMeshParentPosition.x,catCM.cubieMeshParentPosition.y,catCM.cubieMeshParentPosition.z,3000, function(){
 				THREE.SceneUtils.attach(catCM.cubieMesh, scene, catCM.cubieMesh.$cubie.originalParent);
 				catCM.cubieMesh.position.set(catCM['cubieMeshOriginalPosition'].x,catCM['cubieMeshOriginalPosition'].y,catCM['cubieMeshOriginalPosition'].z);
+				catCM.cubieMesh.rotation.set(0,0,0);
 				var materialIndex = catCM.cubieMesh.$materialClicked;
 				var color = catCM.cubieMesh.$cubie['color-face'+materialIndex];
 				catCM.cubieMesh.material.materials[materialIndex].color.setHex(color);
@@ -884,24 +893,24 @@ function reversalBreadCrum(breadCrumsObj)
 	}	
 }
 
-function startBreadcrum(cubieMesh,X,Y,Z)
+function getRotation(cubieMesh)
 {
 	//CM.position.set(0,0,10);CM.lookAt(camera.position);moveObject(CM,18,8,-3,3000);CM.rotateOnAxis(new THREE.Vector3(0,1,0),degToRad(-90));
 	
 	//move the cubie in front of the camera
-	setTimeout(function(){
+	/*setTimeout(function(){
 		cubieMesh.position.set(0,0,10);
-	},2000);
+	},2000);*/
 	
 	//make the cubie to look at the camera
-	setTimeout(function(){cubieMesh.lookAt(camera.position);}, 3000);
+	/*setTimeout(function(){cubieMesh.lookAt(camera.position);}, 3000);*/
 	
 	//apply rotation to bring the clicked face in front
 	//CM.rotateOnAxis(new THREE.Vector3(0,1,0),degToRad(-90));
 	
 	
-	window.rotationAngle = undefined;
-	window.rotationAxis = undefined;
+	var rotationAngle = undefined;
+	var rotationAxis = undefined;
 	switch(cubieMesh.$materialFaceName){
 		
 	case 'right':
@@ -944,15 +953,16 @@ function startBreadcrum(cubieMesh,X,Y,Z)
 	
 	}
 	
-	setTimeout(function(){
+	/*setTimeout(function(){
 		cubieMesh.rotateOnAxis(rotationAxis,rotationAngle);
-	},4000);
+	},4000);*/
 	
 	//finally move the bread crum to its location
-	setTimeout(function(){
+	/*setTimeout(function(){
 		moveObject(cubieMesh,X,Y,Z,3000);
-	},5000);
+	},5000);*/
 	
+	return {'rotationAxis':rotationAxis,'rotationAngle':rotationAngle};
 }
 
 function computeLookat(intersectObj)

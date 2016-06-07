@@ -222,7 +222,7 @@ Cube highlight face 3 = #ff8039
     background-color: #2d4255;
     transition: transform 0.3s ease;
     height: 100vh;
-    width: 12vw;
+    /* width: 12vw; */
     top: 0;
     font-size: 2.25rem;
     padding: 1rem;

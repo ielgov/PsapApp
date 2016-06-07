@@ -64,8 +64,8 @@ function onDocumentMouseUp( event )
 	currentPosition.x = event.clientX - 0;
 	currentPosition.y = event.clientY -  $('#WebGL-output').parent()[0].offsetTop;
 	
-	movedX = Math.abs(currentPosition.x - lastPosition.x);
-	movedY = Math.abs(currentPosition.y - lastPosition.y);
+	var movedX = Math.abs(currentPosition.x - lastPosition.x);
+	var movedY = Math.abs(currentPosition.y - lastPosition.y);
 	console.log('movedX',movedX);
 	console.log('movedY',movedY);
 	console.log('mouseMoved',mouseMoved);
@@ -128,8 +128,8 @@ function onDocumentTouchStart( event )
 		mouseYOnMouseDown = event.touches[ 0 ].pageY - windowHalfY;
 		targetRotationOnMouseDownY = targetRotationY;
 				
-		currentPosition.x = event.touches[ 0 ].pageX;
-		currentPosition.y = event.touches[ 0 ].pageY;
+		/*currentPosition.x = event.touches[ 0 ].pageX;
+		currentPosition.y = event.touches[ 0 ].pageY;*/
 		
 		mouseSelectX = event.touches[ 0 ].pageX - 0;
 		mouseSelectY = event.touches[ 0 ].pageY - $('#WebGL-output').parent()[0].offsetTop;
@@ -159,8 +159,6 @@ function onDocumentTouchMove( event )
         mouseSelectX = event.touches[ 0 ].pageX - 0;
     	mouseSelectY = event.touches[ 0 ].pageY - - $('#WebGL-output').parent()[0].offsetTop;
     	
-    	currentPosition.x = mouseSelectX;
-		currentPosition.y = mouseSelectY;
     		
     }
 
@@ -175,8 +173,11 @@ function onDocumentTouchEnd( event )
 	{
 		event.preventDefault();
 		
-		movedX = Math.abs(currentPosition.x - lastPosition.x);
-		movedY = Math.abs(currentPosition.y - lastPosition.y);
+		currentPosition.x = mouseSelectX;
+		currentPosition.y = mouseSelectY;
+		
+		var movedX = Math.abs(currentPosition.x - lastPosition.x);
+		var movedY = Math.abs(currentPosition.y - lastPosition.y);
 		console.log('movedX',movedX);
 		console.log('movedY',movedY);
 		console.log('mouseMoved',mouseMoved);
