@@ -139,12 +139,12 @@ Cube highlight face 3 = #ff8039
 
 #header .user-image
 {
-	background-image: url(../images/Phil.png);
+	background-image: url(../images/icons/CircledUserMale-white.png);
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-position: center;
 	border-radius: 50%;
-	border: 1px solid rgba(255,255,255,1);
+	/* border: 1px solid rgba(255,255,255,1); */
 	height:4rem;
 	width:4rem;
 	margin-right:1rem;
@@ -222,7 +222,7 @@ Cube highlight face 3 = #ff8039
     background-color: #2d4255;
     transition: transform 0.3s ease;
     height: 100vh;
-    width: 12vw;
+    /* width: 12vw; */
     top: 0;
     font-size: 2.25rem;
     padding: 1rem;

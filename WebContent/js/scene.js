@@ -1,6 +1,6 @@
 var camera, scene, renderer, spotLight;
 var spotLightShowLines = false;
-var debug = true;
+var debug = false;
 var domEvents;
 var orbitControl;
 var worldGroups = {};
@@ -71,12 +71,7 @@ function initializeScene()
     setSpotLight(10,-20,10,spotLightShowLines);
         
     //addGroundPlane();
-    
-    var sphereGeom= new THREE.SphereGeometry(0.25,0.25,0.25);
-	var sphere= new THREE.Mesh(sphereGeom, new THREE.MeshBasicMaterial({ color: 0x2266dd }));
-	scene.add(sphere);
-    
-	
+    	
 	//cameraCube = new THREE.Mesh( new THREE.BoxGeometry( 3, 3, 3 ), new THREE.MeshBasicMaterial({ color: 0xFF00FF } ) );
 	//cameraCube.position.set( -14, 7, -22);
 	//camera.add(cameraCube);
@@ -88,6 +83,9 @@ function initializeScene()
 	if(debug) 
     {
         scene.add(new THREE.AxisHelper( 40 ));
+        var sphereGeom= new THREE.SphereGeometry(0.25,0.25,0.25);
+    	var sphere= new THREE.Mesh(sphereGeom, new THREE.MeshBasicMaterial({ color: 0x2266dd }));
+    	scene.add(sphere);
     }
 	
     onWindowResize();
@@ -314,7 +312,7 @@ function get3dCood(xx,yy)
 	var distance = - camera.position.z / dir.z;
 
 	var pos = camera.position.clone().add( dir.multiplyScalar( distance ) );
-	console.log('pos',pos);
+	//console.log('pos',pos);
 	return pos;
 }
 
