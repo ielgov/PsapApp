@@ -139,7 +139,7 @@ function makeAssetSmallerParent(assets, id)
 				{
 					var img = document.createElement("img")
 					img.classList.add("linkIcon");
-					img.src = "http://172.27.50.135:9080/PSAP/images/icons/" + data['ASSET_TYPE'].toUpperCase() + ".png"
+					img.src = config.weburl + "/PSAP/images/icons/" + data['ASSET_TYPE'].toUpperCase() + ".png"
 					div.appendChild(img);				
 				}
 				catch(e)

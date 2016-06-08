@@ -33,6 +33,7 @@ public class AppContextListener implements ServletContextListener {
     	//Get the App mode
     	String mode = ctx.getInitParameter("productionMode");
     	ctx.setAttribute("productionMode", Boolean.parseBoolean(mode));
+    	
     	//initialize DB Connection
     	String dbSource = ctx.getInitParameter("dbSource");
     
