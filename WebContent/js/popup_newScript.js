@@ -34,6 +34,7 @@ function showPopUp(offeringId, parentId, useCache)
 function hidePopUp()
 {
 	assetsSlider.classList.add("hidden");
+	processBreadCrum(breadCrumsPos['offerings']['cubieMesh'],'offerings');
 }
 
 function toggleExpanded( e )

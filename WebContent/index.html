@@ -87,33 +87,37 @@
   </head>
   <body style="visibility: visible;height:100vh;width:100vw;" ontouchmove="event.preventDefault();" onresize="resize()" ><!--the resize is needed to fit elements on page size change. It is in popup_script.js-->
     
-    <div id="Stats-output"></div>    
-    <div id="header" class="helvLightFont display-flex flex-row flex-align-center flex-justify-space-between">
-    	<div class="display-flex flex-align-center">
-			<div id="menu-button" class="menu-icon"></div>
-			<div class="ibm-logo"></div>
-			<div class="title">Public Safety Solutions</div>
-		</div>    	
-    	<div class="display-flex flex-justify-end flex-align-center">
-    		<!-- <div class="user-profile-icon"></div><div class="settings-icon"></div><div class="logout-icon"></div> -->
-    		<div class="white-txt" style="margin-right:2rem;font-size:1.5rem;">Welcome Howard!</div>
-    		<div class="user-image"></div>
+    <div id="Stats-output"></div>
+	<div id="menu" class="helvLightFont translateX-100">
+    	<div style="position: relative;height: 100%;">
+    	<div class="menu-items highlight-menu-item" data-menuitem="solutions">Our Solution</div>
+    	<div class="menu-items" data-menuitem="approach">Our Approach</div>
+    	<div class="menu-items" data-menuitem="services">Our Services</div>
+    	<div class="menu-items" data-menuitem="transformation">Transformation</div>
+    	<div class="menu-items" data-menuitem="settings">Settings</div>
+    	<div class="menu-items" data-menuitem="logout" style="position: absolute; bottom: 0;">LOG OUT</div>
     	</div>
-    </div>
-    <div id="canvas-container">
-    	<div id="WebGL-output"></div>
-	    <!-- <div id="canvas-overlay" class="xdisplay-none">
-	    	<div class="image"></div>
-	    </div> -->
-	    <div id="menu" class="helvLightFont translateX-100">
-	    	<div style="position: relative;height: 100%;">
-	    	<div class="menu-items highlight-menu-item" data-menuitem="solutions">Our Solution</div>
-	    	<div class="menu-items" data-menuitem="approach">Our Approach</div>
-	    	<div class="menu-items" data-menuitem="services">Our Services</div>
-	    	<div class="menu-items" data-menuitem="transformation">Transformation</div>
-	    	<div class="menu-items" data-menuitem="settings">Settings</div>
-	    	<div class="menu-items" data-menuitem="logout" style="position: absolute; bottom: 0;">LOG OUT</div>
+    </div>    
+	
+    <div id="main-container">
+    	<div id="header" class="helvLightFont display-flex flex-row flex-align-center flex-justify-space-between">
+	    	<div class="display-flex flex-align-center">
+				<div id="menu-button" class="menu-icon menu-white"></div>
+				<div class="ibm-logo"></div>
+				<div class="title">Public Safety</div>
+			</div>    	
+	    	<div class="display-flex flex-justify-end flex-align-center">
+	    		<!-- <div class="user-profile-icon"></div><div class="settings-icon"></div><div class="logout-icon"></div> -->
+	    		<div id="emailId" class="white-txt" style="margin-right:2rem;font-size:1.5rem;"></div>
+	    		<div class="user-image"></div>
 	    	</div>
+	    </div>
+	    <div id="canvas-container">
+	    	<div id="WebGL-output"></div>
+		    <!-- <div id="canvas-overlay" class="xdisplay-none">
+		    	<div class="image"></div>
+		    </div> -->
+		    
 	    </div>
     </div>
     <!-- <canvas id="textureCanvas"></canvas> -->
@@ -154,6 +158,7 @@
 	<script>
 		var onUserAction;
 		var webGLWidth, webGLHeight;
+		var DEVELOPMENT = undefined;
 		$( function(){
 			if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) 
 			{
@@ -173,7 +178,11 @@
 			
 			menuClicked = "categories";
 			
+			DEVELOPMENT = false;
+			
 			initializeClicks();
+			
+			getUserDetails();
 			
 			initializeScene();
 		});
@@ -181,8 +190,8 @@
 		window.addEventListener( 'resize', onWindowResize, false );
 	</script>
 
-	<button id="thisShouldBeRemoved" onclick="showPopUp(2001, 201)" style="z-index:5; position:fixed; left:100px; top:100px;">Click to reveal assets with showPopUp(2001, 201)</button>
-	<button id="thisShouldBeRemovedToo" onclick="hidePopUp()" style="z-index:5; position:fixed; left:100px; top:125px;">Click to hide assets with hidePopUp()</button>
+	<!-- <button id="thisShouldBeRemoved" onclick="showPopUp(2001, 201)" style="z-index:5; position:fixed; left:100px; top:100px;">Click to reveal assets with showPopUp(2001, 201)</button>
+	<button id="thisShouldBeRemovedToo" onclick="hidePopUp()" style="z-index:5; position:fixed; left:100px; top:125px;">Click to hide assets with hidePopUp()</button> -->
 	<div id="assetsSlider" class="hidden">
 			<div id="assetsTitle"><span onclick="hidePopUp()">Showing <span id="numberOfResults" style="color:black">18</span> results</span></div>
 			<div id="assetsHolder"></div>

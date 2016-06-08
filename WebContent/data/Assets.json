@@ -1,124 +1,765 @@
 {
-	"101": {
-		"1001": [{
-				"AssetId": "10001",
-				"Name": "Asset1",
-				"Display": "Asset1",
+	"107": {
+		"1020": [{
+			"AssetId": "10001",
+			"Name": "10001",
+			"Display": "IBM i2 Enterprise Insight Analysis Sales Guide",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "PDF",
+			"URL": "http://w3-03.ibm.com/software/spcn/content/Y251661W52948H68.html",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "w3",
+			"ASSETGROUP": "Enterprise Insight Analysis"
+		}, {
+			"AssetId": "10002",
+			"Name": "10002",
+			"Display": "Demo Dojo Landing Page",
+			"ASSETACTION": "Blurb",
+			"ASSET_TYPE": "URL",
+			"URL": "https://w3-connections.ibm.com/wikis/home?lang=en-us#!/wiki/W2b020d764657_41b8_8e6c_d06e0f783dad/page/EIA%20Demo%20Dojo%20Landing%20Page",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "IBM Connections",
+			"ASSETGROUP": "Enterprise Insight Analysis"
+		}, {
+			"AssetId": "10003",
+			"Name": "10003",
+			"Display": "IBM Watson Content Analytics",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "URL",
+			"URL": "https://www.google.com/search?q=IBM+Watson+Content+Analytics&ie=utf-8&oe=utf-8",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "EXTERNAL",
+			"ASSETGROUP": "IBM Watson"
+		}, {
+			"AssetId": "10004",
+			"Name": "10004",
+			"Display": "SPSS",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "URL",
+			"URL": "http://www.ibm.com/analytics/us/en/technology/predictive-analytics/",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "SPSS"
+		}, {
+			"AssetId": "10005",
+			"Name": "10005",
+			"Display": "InfoSphere Streams",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "URL",
+			"URL": "http://www-03.ibm.com/software/products/en/ibm-streams",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "InfoSphere Streams"
+		}, {
+			"AssetId": "10006",
+			"Name": "10006",
+			"Display": "IBM Watson Engagement Advisor",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "URL",
+			"URL": "http://www.ibm.com/smarterplanet/us/en/ibmwatson/engagement_advisor.html",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "IBM Watson"
+		}],
+		"1022": [{
+				"AssetId": "10007",
+				"Name": "10007",
+				"Display": "IBM Cognitive Threat Prediction and Prevention Enablement",
 				"ASSETACTION": "URL",
-				"ASSET_TYPE": "PDF",
-				"URL": "",
+				"ASSET_TYPE": "URL",
+				"URL": "http://w3.tap.ibm.com/medialibrary/media_view?id=373118",
 				"DESC_DISPLAY": "",
-				"ASSETGROUP": "GROUP1"
-			}, {
-				"AssetId": "10002",
-				"Name": "Asset1",
-				"Display": "Asset1",
-				"ASSETACTION": "URL",
-				"ASSET_TYPE": "PPT",
-				"URL": "",
-				"DESC_DISPLAY": "",
-				"ASSETGROUP": "GROUP1"
+				"SOURCE_TYPE": "w3",
+				"ASSETGROUP": "Value Proposition"
+
 			}
 
 		],
-		"1002": [{
-				"AssetId": "10101",
-				"Name": "Asset1",
-				"Display": "Asset1",
+		"1025": [{
+
+				"AssetId": "10008",
+				"Name": "10008",
+				"Display": "IBM Watson Content Analytics Redbook",
 				"ASSETACTION": "URL",
 				"ASSET_TYPE": "PDF",
-				"URL": "",
+				"URL": "http://www.redbooks.ibm.com/abstracts/sg247877.html?Open",
 				"DESC_DISPLAY": "",
-				"ASSETGROUP": "GROUP1"
+				"SOURCE_TYPE": "ibm.com",
+				"ASSETGROUP": "Redbooks"
+
+			}
+
+		],
+		"1024": [{
+
+				"AssetId": "10009",
+				"Name": "10009",
+				"Display": "Gary Nestler, Public Safety Segment Leader, IBM Global Industry",
+				"ASSETACTION": "BLURB",
+				"ASSET_TYPE": "EMAIL",
+				"URL": "https://faces.tap.ibm.com/bluepages/profile.html?email=gsnestler@us.ibm.com",
+				"DESC_DISPLAY": "Gary Nestler: Global Public Safety Segment Leader, IBM Sales & Distribution, Public Sector Global Staff ",
+				"SOURCE_TYPE": "Bluepages",
+				"ASSETGROUP": "Contacts"
 
 			}, {
-				"AssetId": "10102",
-				"Name": "Asset2",
-				"Display": "",
-				"ASSETACTION": "URL",
-				"ASSET_TYPE": "DOCx",
-				"URL": "",
-				"DESC_DISPLAY": "",
-				"ASSETGROUP": "GROUP2"
+				"AssetId": "10010",
+				"Name": "10010",
+				"Display": "Richard Budal, Cognitive Sales  Team, IBM S&D",
+				"ASSETACTION": "BLURB",
+				"ASSET_TYPE": "EMAIL",
+				"URL": "https://faces.tap.ibm.com/bluepages/profile.html?email=rbudel@us.ibm.com",
+				"DESC_DISPLAY": "Richard Budal, Cognitive Sales  Team, IBM S&D",
+				"SOURCE_TYPE": "Bluepages",
+				"ASSETGROUP": "Contacts"
+
+			}, {
+				"AssetId": "10011",
+				"Name": "10011",
+				"Display": "Bill Josko, GBS",
+				"ASSETACTION": "BLURB",
+				"ASSET_TYPE": "EMAIL",
+				"URL": "https://faces.tap.ibm.com/bluepages/profile.html?email=wjjosko@us.ibm.com",
+				"DESC_DISPLAY": "Bill Josko, AD&I Client Solution Executive (CSE) for State & Local Government & Education, GBS",
+				"SOURCE_TYPE": "Bluepages",
+				"ASSETGROUP": "Contacts"
+
+			}, {
+				"AssetId": "10012",
+				"Name": "10012",
+				"Display": "Nick Holmes, GBS CoC",
+				"ASSETACTION": "BLURB",
+				"ASSET_TYPE": "EMAIL",
+				"URL": "https://faces.tap.ibm.com/bluepages/profile.html?email=nicholas.holmes@us.ibm.com",
+				"DESC_DISPLAY": "Nick Holmes, Associate Partner -Government CoC - Defense Lead, GBS CoC",
+				"SOURCE_TYPE": "Bluepages",
+				"ASSETGROUP": "Contacts"
+
+			}, {
+				"AssetId": "10013",
+				"Name": "10013",
+				"Display": "John Sarubbi, IBM Marketing, Government Industry",
+				"ASSETACTION": "BLURB",
+				"ASSET_TYPE": "EMAIL",
+				"URL": "https://faces.tap.ibm.com/bluepages/profile.html?email=sarubbi@us.ibm.com",
+				"DESC_DISPLAY": "John Sarubbi, Portfolio Marketing Leader - Government Industry and Cities in a Cognitive Era - Global Marketing ",
+				"SOURCE_TYPE": "Bluepages",
+				"ASSETGROUP": "Contacts"
+
+			}, {
+				"AssetId": "10014",
+				"Name": "10014",
+				"Display": "Steve Russo, Product Exec, Safer Planet",
+				"ASSETACTION": "BLURB",
+				"ASSET_TYPE": "EMAIL",
+				"URL": "https://faces.tap.ibm.com/bluepages/profile.html?email=russo1@us.ibm.com",
+				"DESC_DISPLAY": "Steve Russo, Director Public Safety, Law Enforcement Solutions - IBM Safer Planet",
+				"SOURCE_TYPE": "Bluepages",
+				"ASSETGROUP": "Contacts"
 
 			}
 
 		]
 	},
+	"103": {
+		"1014": [{
+
+			"AssetId": "11007",
+			"Name": "11007",
+			"Display": "Gary Nestler, Public Safety Segment Leader, IBM Global Industry",
+			"ASSETACTION": "BLURB",
+			"ASSET_TYPE": "EMAIL",
+			"URL": "https://faces.tap.ibm.com/bluepages/profile.html?email=gsnestler@us.ibm.com",
+			"DESC_DISPLAY": "Gary Nestler: Global Public Safety Segment Leader, IBM Sales & Distribution, Public Sector Global Staff ",
+			"SOURCE_TYPE": "Bluepages",
+			"ASSETGROUP": "Contacts"
+		}, {
+			"AssetId": "11008",
+			"Name": "11008",
+			"Display": "Richard Budal, Cognitive Sales  Team, IBM S&D",
+			"ASSETACTION": "BLURB",
+			"ASSET_TYPE": "EMAIL",
+			"URL": "https://faces.tap.ibm.com/bluepages/profile.html?email=rbudel@us.ibm.com",
+			"DESC_DISPLAY": "Richard Budal, Cognitive Sales  Team, IBM S&D",
+			"SOURCE_TYPE": "Bluepages",
+			"ASSETGROUP": "Contacts"
+
+		}, {
+			"AssetId": "11009",
+			"Name": "11009",
+			"Display": "Bill Josko, GBS",
+			"ASSETACTION": "BLURB",
+			"ASSET_TYPE": "EMAIL",
+			"URL": "https://faces.tap.ibm.com/bluepages/profile.html?email=wjjosko@us.ibm.com",
+			"DESC_DISPLAY": "Bill Josko, AD&I Client Solution Executive (CSE) for State & Local Government & Education, GBS",
+			"SOURCE_TYPE": "Bluepages",
+			"ASSETGROUP": "Contacts"
+
+		}, {
+			"AssetId": "11010",
+			"Name": "11010",
+			"Display": "Nick Holmes, GBS CoC",
+			"ASSETACTION": "BLURB",
+			"ASSET_TYPE": "EMAIL",
+			"URL": "https://faces.tap.ibm.com/bluepages/profile.html?email=nicholas.holmes@us.ibm.com",
+			"DESC_DISPLAY": "Nick Holmes, Associate Partner -Government CoC - Defense Lead, GBS CoC",
+			"SOURCE_TYPE": "Bluepages",
+			"ASSETGROUP": "Contacts"
+
+		}, {
+			"AssetId": "11011",
+			"Name": "11011",
+			"Display": "John Sarubbi, IBM Marketing, Government Industry",
+			"ASSETACTION": "BLURB",
+			"ASSET_TYPE": "EMAIL",
+			"URL": "https://faces.tap.ibm.com/bluepages/profile.html?email=sarubbi@us.ibm.com",
+			"DESC_DISPLAY": "John Sarubbi, Portfolio Marketing Leader - Government Industry and Cities in a Cognitive Era - Global Marketing ",
+			"SOURCE_TYPE": "Bluepages",
+			"ASSETGROUP": "Contacts"
+
+		}, {
+			"AssetId": "11012",
+			"Name": "11012",
+			"Display": "Steve Russo, Product Exec, Safer Planet ",
+			"ASSETACTION": "BLURB",
+			"ASSET_TYPE": "EMAIL",
+			"URL": "https://faces.tap.ibm.com/bluepages/profile.html?email=russo1@us.ibm.com",
+			"DESC_DISPLAY": "Steve Russo, Director Public Safety, Law Enforcement Solutions - IBM Safer Planet ",
+			"SOURCE_TYPE": "Bluepages",
+			"ASSETGROUP": "Contacts"
+		}],
+		"1010": [{
+
+				"AssetId": "10000",
+				"Name": "10000",
+				"Display": "IBM Intelligent Video Analytics",
+				"ASSETACTION": "URL",
+				"ASSET_TYPE": "URL",
+				"URL": "http://www-03.ibm.com/software/products/en/intelligent-video-analytics",
+				"DESC_DISPLAY": "",
+				"SOURCE_TYPE": "ibm.com",
+				"ASSETGROUP": "IBM Intelligent Video Analytics"
+
+			}, {
+
+				"AssetId": "10001",
+				"Name": "10001",
+				"Display": "Intelligent Operations Center",
+				"ASSETACTION": "URL",
+				"ASSET_TYPE": "URL",
+				"URL": "http://www-03.ibm.com/software/products/en/intelligent-operations-center",
+				"DESC_DISPLAY": "",
+				"SOURCE_TYPE": "ibm.com",
+				"ASSETGROUP": "IBM Intelligent Operations Center"
+
+			}, {
+
+				"AssetId": "10002",
+				"Name": "10002",
+				"Display": "IBM Intelligent Video Analytics Overview (Video)",
+				"ASSETACTION": "URL",
+				"ASSET_TYPE": "URL",
+				"URL": "https://www.youtube.com/watch?v=fUKpGLk9Ml8",
+				"DESC_DISPLAY": "",
+				"SOURCE_TYPE": "External",
+				"ASSETGROUP": "IBM Intelligent Video Analytics"
+
+			}
+
+		],
+		"1011": [{
+
+				"AssetId": "10003",
+				"Name": "10003",
+				"Display": "EIA: Operation Nighthawk",
+				"ASSETACTION": "URL",
+				"ASSET_TYPE": "PDF",
+				"URL": "http://www-01.ibm.com/common/ssi/cgi-bin/ssialias?subtype=AB&infotype=PM&htmlfid=SWC14131USEN&attachment=SWC14131USEN.PDF",
+				"DESC_DISPLAY": "",
+				"SOURCE_TYPE": "ibm.com",
+				"ASSETGROUP": "References"
+
+			}
+
+		],
+		"1012": [{
+
+				"AssetId": "10004",
+				"Name": "10004",
+				"Display": "IBM Analytics Threat Prediction & Prevention Enablement",
+				"ASSETACTION": "URL",
+				"ASSET_TYPE": "PPT",
+				"URL": "http://w3.tap.ibm.com/medialibrary/media_view?id=328645",
+				"DESC_DISPLAY": "",
+				"SOURCE_TYPE": "w3",
+				"ASSETGROUP": "Value Proposition"
+
+			}, {
+
+				"AssetId": "10005",
+				"Name": "10005",
+				"Display": "IBM Analytics Threat Prediction & Prevention Customer Value",
+				"ASSETACTION": "URL",
+				"ASSET_TYPE": "PPT",
+				"URL": "http://w3.tap.ibm.com/medialibrary/media_view?id=198007",
+				"DESC_DISPLAY": "",
+				"SOURCE_TYPE": "w3",
+				"ASSETGROUP": "Value Proposition"
+
+			}
+
+		],
+		"1015": [{
+
+				"AssetId": "10006",
+				"Name": "10006",
+				"Display": "Analyst Research: Improve safety and traffic management",
+				"ASSETACTION": "URL",
+				"ASSET_TYPE": "URL",
+				"URL": "https://www-01.ibm.com/marketing/iwm/iwm/web/signup.do?source=swg-smartercom_medium&S_PKG=ov19395&S_TACT=101K83XW&dynform=4886&lang=en_US",
+				"DESC_DISPLAY": "",
+				"SOURCE_TYPE": "ibm.com",
+				"ASSETGROUP": "Whitepapers"
+
+			}
+
+		]
+
+
+	},
 	"201": {
 		"2001": [{
 			"AssetId": "20001",
 			"Name": "IOC4EMOverview",
-			"Display": "IOC for Emergency Mgmt Overview",
+			"Display": "Intelligent Operations Center for Emergency Management Overview",
 			"ASSETACTION": "Blurb",
-			"ASSET_TYPE": "",
+			"ASSET_TYPE": "URL",
 			"URL": "http://www-03.ibm.com/software/products/en/ioc-emergency-management",
-			"DESC_DISPLAY": "IBM Intelligent Operations Center for Emergency Management is an incident and emergency management solution for daily operations and crisis situations that integrates, correlates and analyzes operational information to create a dynamic, geospatial, common operating picture and analytic-based insights that speed decision making and time-to-action.",
-			"ASSETGROUP": "IOC4EM"
+			"DESC_DISPLAY": "IBM Intelligent Operations Center for Emergency Management is an incident and emergency management solution for daily operations and crisis situations that integrates, correlates and analyzes operational information to create a dynamic, geospatial, common operating picture and analytic - based insights that speed decision making and time - to - action.",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "Intelligent Operations Center for Emergency Management"
 
 		}, {
 			"AssetId": "20002",
-			"Name": "IOC for Emergency Mgmt Brocure internal",
-			"Display": "IOC for Emergency Mgmt internal brocure",
+			"Name": "Intelligent Operations Center for Emergency Management Brochure (internal)",
+			"Display": "Intelligent Operations Center for Emergency Management Solution Brochure (internal)",
 			"ASSETACTION": "URL",
 			"ASSET_TYPE": "PDF",
-			"URL": "http://w3.ibm.com/sales/ssi/cgi-bin/ssialias?subtype=BR&infotype=PM&htmlfid=PUB03004USEN&attachment=PUB03004USEN.PDF ",
+			"URL": "http://w3.ibm.com/sales/ssi/cgi-bin/ssialias?subtype=BR&infotype=PM&htmlfid=PUB03004USEN&attachment=PUB03004USEN.PDF",
 			"DESC_DISPLAY": "",
-			"ASSETGROUP": "IOC4EM"
+			"SOURCE_TYPE": "w3",
+			"ASSETGROUP": "Intelligent Operations Center for Emergency Management"
 
 		}, {
 			"AssetId": "20003",
-			"Name": "IOC for Emergency Mgmt Brocure external",
-			"Display": "IOC for Emergency Mgmt Brocure external",
+			"Name": "Intelligent Operations Center for Emergency Management (external)",
+			"Display": "Intelligent Operations Center for Emergency Management Solution Brochure (external)",
 			"ASSETACTION": "URL",
 			"ASSET_TYPE": "PDF",
 			"URL": "http://www.ibm.com/common/ssi/cgi-bin/ssialias?subtype=BR&infotype=PM&htmlfid=PUB03004USEN&attachment=PUB03004USEN.PDF",
 			"DESC_DISPLAY": "",
-			"ASSETGROUP": "IOC4EM"
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "Intelligent Operations Center for Emergency Management"
 
 		}, {
 			"AssetId": "20004",
+			"Name": "(w3) Incident and Emergency Management Solution Kit",
+			"Display": "(w3) Incident and Emergency Management Solution Kit",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "URL",
+			"URL": "http://w3-03.ibm.com/software/spcn/content/X834832V86486A51.html",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "w3",
+			"ASSETGROUP": "Intelligent Operations Center for Emergency Management"
+
+		}, {
+			"AssetId": "20005",
+			"Name": "Emergency Management Solution - IBM Analytics",
+			"Display": "Emergency Management Solution - IBM Analytics",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "URL",
+			"URL": "http://www.ibm.com/common/ssi/cgi-bin/ssialias?subtype=BR&infotype=PM&htmlfid=PUB03004USEN&attachment=PUB03004USEN.PDF",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "Intelligent Operations Center for Emergency Management"
+
+		}, {
+			"AssetId": "20006",
+			"Name": "IBM Analytics Safer Planet - Public Safety",
+			"Display": "IBM Analytics Safer Planet - Public Safety",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "URL",
+			"URL": "http://www.ibm.com/analytics/us/en/safer-planet/",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "Intelligent Operations Center for Emergency Management"
+
+		}, {
+			"AssetId": "20011",
 			"Name": "Intelligent Video Analytics Overview",
 			"Display": "Intelligent Video Analytics Overview",
 			"ASSETACTION": "BLURB",
 			"ASSET_TYPE": "PDF",
 			"URL": "http://www-03.ibm.com/software/products/en/intelligent-video-analytics",
-			"DESC_DISPLAY": "IBM® Intelligent Video Analytics identifies events, attributes or patterns of behavior through video analysis of monitored environments.This video analysis software monitors video streams in near real-time,automatically generates alerts,and facilitates forensic analysis of historical data to identify specific incidents, trends and patterns. It enables users to organize, analyze and share the insight gained from data to make smarter decisions and promotes enhanced coordination within or across organizations or agencies.",
-			"ASSETGROUP": "IVA"
+			"DESC_DISPLAY": "IBM® Intelligent Video Analytics identifies events, attributes or patterns of behavior through video analysis of monitored environments.This video analysis software monitors video streams in near real - time, automatically generates alerts, and facilitates forensic analysis of historical data to identify specific incidents, trends and patterns.It enables users to organize, analyze and share the insight gained from data to make smarter decisions and promotes enhanced coordination within or across organizations or agencies.",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "Intelligent Video Analytics"
 
 		}, {
-			"AssetId": "20005",
-			"Name": "Intelligent Video Analytics Product Details (internal)",
-			"Display": "Intelligent Video Analytics ",
+			"AssetId": "20012",
+			"Name": "Intelligent Video Analytics Product Details",
+			"Display": "Intelligent Video Analytics Product Details",
 			"ASSETACTION": "URL",
-			"ASSET_TYPE": "website",
+			"ASSET_TYPE": "URL",
 			"URL": "http://www-03.ibm.com/software/products/en/intelligent-video-analytics",
 			"DESC_DISPLAY": "",
-			"ASSETGROUP": "IVA"
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "Intelligent Video Analytics"
+
+		}, {
+			"AssetId": "20013",
+			"Name": "Intelligent Operations Center Overview",
+			"Display": "Intelligent Operations Center Overview",
+			"ASSETACTION": "BLURB",
+			"ASSET_TYPE": "PDF",
+			"URL": "http://www-03.ibm.com/software/products/en/intelligent-operations-center",
+			"DESC_DISPLAY": "IBM Intelligent Operations Center helps government leaders manage complex city environments, incidents and emergencies with a city solution that delivers operational insights.It offers integrated data visualization, near real - time collaboration and deep analytics to help city agencies enhance the ongoing efficiency of city operations, plan for growth and coordinate and manage response efforts.  IBM Intelligent Operations Center provides integrated maps, online dashboards, customizable reports, multiple analytic algorithms,  interactive standard operating procedures and other tools for improved city operations and incident or emergency response.",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "Intelligent Operations Center"
+		}, {
+			"AssetId": "20014",
+			"Name": "Intelligent Operations Center Product Details",
+			"Display": "Intelligent Operations Center Product Details",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "URL",
+			"URL": "http://www-03.ibm.com/software/products/en/intelligent-operations-center",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "Intelligent Operations Center"
 
 		}],
-		"2002": [{
-				"AssetId": "20101",
-				"Name": "Asset4",
-				"Display": "Asset4",
-				"ASSETACTION": "URL",
-				"ASSET_TYPE": "PDF",
-				"URL": "",
-				"DESC_DISPLAY": "",
-				"ASSETGROUP": "GROUP1"
+		"2005": [{
+
+				"AssetId": "20033",
+				"Name": "20033",
+				"Display": "Gary Nestler, Public Safety Segment Leader, IBM Global Industry",
+				"ASSETACTION": "BLURB",
+				"ASSET_TYPE": "EMAIL",
+				"URL": "https://faces.tap.ibm.com/bluepages/profile.html?email=gsnestler@us.ibm.com",
+				"DESC_DISPLAY": "Gary Nestler: Global Public Safety Segment Leader, IBM Sales & Distribution,Public Sector Global Staff ",
+				"SOURCE_TYPE": "Bluepages",
+				"ASSETGROUP": "Contacts"
 
 			}, {
-				"AssetId": "20102",
-				"Name": "Asset5",
-				"Display": "Asset5",
-				"ASSETACTION": "URL",
-				"ASSET_TYPE": "XLS",
-				"URL": "",
-				"DESC_DISPLAY": "",
-				"ASSETGROUP": "GROUP2"
+				"AssetId": "20034",
+				"Name": "20034",
+				"Display": "Richard Budal, Cognitive Sales  Team, IBM S&D",
+				"ASSETACTION": "BLURB",
+				"ASSET_TYPE": "EMAIL",
+				"URL": "https://faces.tap.ibm.com/bluepages/profile.html?email=rbudel@us.ibm.com",
+				"DESC_DISPLAY": "Richard Budal, Cognitive Sales  Team, IBM S&D",
+				"SOURCE_TYPE": "Bluepages",
+				"ASSETGROUP": "Contacts"
+
+			}, {
+				"AssetId": "20035",
+				"Name": "20035",
+				"Display": "Bill Josko, GBS",
+				"ASSETACTION": "BLURB",
+				"ASSET_TYPE": "EMAIL",
+				"URL": "https://faces.tap.ibm.com/bluepages/profile.html?email=wjjosko@us.ibm.com",
+				"DESC_DISPLAY": "Bill Josko, AD&I Client Solution Executive (CSE) for State & Local Government & Education, GBS",
+				"SOURCE_TYPE": "Bluepages",
+				"ASSETGROUP": "Contacts"
+
+			}, {
+				"AssetId": "20036",
+				"Name": "20036",
+				"Display": "Nick Holmes, GBS CoC",
+				"ASSETACTION": "BLURB",
+				"ASSET_TYPE": "EMAIL",
+				"URL": "https://faces.tap.ibm.com/bluepages/profile.html?email=nicholas.holmes@us.ibm.com",
+				"DESC_DISPLAY": "Nick Holmes, Associate Partner -Government CoC - Defense Lead, GBS CoC",
+				"SOURCE_TYPE": "Bluepages",
+				"ASSETGROUP": "Contacts"
+
+			}, {
+				"AssetId": "20037",
+				"Name": "20037",
+				"Display": "John Sarubbi, IBM Marketing, Government Industry",
+				"ASSETACTION": "BLURB",
+				"ASSET_TYPE": "EMAIL",
+				"URL": "https://faces.tap.ibm.com/bluepages/profile.html?email=sarubbi@us.ibm.com",
+				"DESC_DISPLAY": "John Sarubbi, Portfolio Marketing Leader - Government Industry and Cities in a Cognitive Era - Global Marketing ",
+				"SOURCE_TYPE": "Bluepages",
+				"ASSETGROUP": "Contacts"
+
+			}, {
+				"AssetId": "20038",
+				"Name": "20038",
+				"Display": "Steve Russo, Product Exec,Safer Planet",
+				"ASSETACTION": "BLURB",
+				"ASSET_TYPE": "EMAIL",
+				"URL": "https://faces.tap.ibm.com/bluepages/profile.html?email=russo1@us.ibm.com",
+				"DESC_DISPLAY": "Steve Russo, Director Public Safety, Law Enforcement Solutions - IBM Safer Planet ",
+				"SOURCE_TYPE": "Bluepages",
+				"ASSETGROUP": "Contacts"
 
 			}
 
-		]
+		],
+		"2007": [{
+
+				"AssetId": "20007",
+				"Name": "20007",
+				"Display": "Emergency Management Webcast",
+				"ASSETACTION": "URL",
+				"ASSET_TYPE": "VIDEO",
+				"URL": "http://w3.tap.ibm.com/medialibrary/media_view?id=322429",
+				"DESC_DISPLAY": "",
+				"SOURCE_TYPE": "w3",
+				"ASSETGROUP": "Intelligent Operations Center for Emergency Management"
+
+
+			}, {
+				"AssetId": "20008",
+				"Name": "20008",
+				"Display": "Emergency Management Overview Video",
+				"ASSETACTION": "URL",
+				"ASSET_TYPE": "VIDEO",
+				"URL": "https://www.youtube.com/watch?v=vz5CrGxLXzM&index=1&list=PL7FnN5oi7Ez-dxxisGwFmqt0w4NCLKeau",
+				"DESC_DISPLAY": "",
+				"SOURCE_TYPE": "EXTERNAL",
+				"ASSETGROUP": "Intelligent Operations Center for Emergency Management"
+
+			}, {
+				"AssetId": "20009",
+				"Name": "20009",
+				"Display": "PODCAST: Emergency management and analytics at work",
+				"ASSETACTION": "URL",
+				"ASSET_TYPE": "VIDEO",
+				"URL": "http://www.ibmbigdatahub.com/podcast/ibm-public-sector-talks-2-emergency-management-and-analytics-work",
+				"DESC_DISPLAY": "",
+				"SOURCE_TYPE": "ibm.com",
+				"ASSETGROUP": "Intelligent Operations Center for Emergency Management"
+
+			}, {
+				"AssetId": "20010",
+				"Name": "20010",
+				"Display": "Global Solution Center Live (or Recorded) Emergency Management Demo",
+				"ASSETACTION": "URL",
+				"ASSET_TYPE": "URL",
+				"URL": "https://w3-connections.ibm.com/wikis/home?lang=en-us#!/wiki/W65bb553b1c9c_4742_82aa_8d4390834d2b/page/IBM%20Emergency%20Management%20Center%20%26%20IOC%20for%20Emergency%20Management",
+				"DESC_DISPLAY": "",
+				"SOURCE_TYPE": "IBM Connections",
+				"ASSETGROUP": "Intelligent Operations Center for Emergency Management"
+
+			}, {
+				"AssetId": "20015",
+				"Name": "20015",
+				"Display": "Video:  IBM Intelligent Video Analytics",
+				"ASSETACTION": "URL",
+				"ASSET_TYPE": "Video",
+				"URL": "https://www.youtube.com/watch?v=fUKpGLk9Ml8",
+				"DESC_DISPLAY": "",
+				"SOURCE_TYPE": "External",
+				"ASSETGROUP": "Intelligent Video Analytics"
+
+			}
+
+		],
+		"2002": [{
+
+			"AssetId": "20016",
+			"Name": "20016",
+			"Display": "Partnerworld: IBM Intelligent Operations Center for Emergency Management",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "URL",
+			"URL": "http://w3.tap.ibm.com/medialibrary/media_view?id=322429",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "References and Press Releases"
+
+
+		}, {
+			"AssetId": "20017",
+			"Name": "20017",
+			"Display": "IBM Safer Cities Summit (Video)",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "VIDEO",
+			"URL": "http://www.ibmbigdatahub.com/video/take-proactive-approach-emergency-management-analytics",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "References and Press Releases"
+
+		}, {
+			"AssetId": "20018",
+			"Name": "20018",
+			"Display": "Press Release: City Of Davao Smarter City",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "URL",
+			"URL": "http://www-03.ibm.com/press/us/en/pressrelease/38152.wss",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "References and Press Releases"
+
+		}, {
+			"AssetId": "20019",
+			"Name": "20019",
+			"Display": "Time Magazine:  IBM Disaster Prediction",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "URL",
+			"URL": "http://time.com/3927087/ibm-weather/",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "External",
+			"ASSETGROUP": "References and Press Releases"
+
+		}, {
+			"AssetId": "20020",
+			"Name": "20020",
+			"Display": "Emergency Management for the 21st Century (Infographic)",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "PDF",
+			"URL": "http://www-01.ibm.com/common/ssi/cgi-bin/ssialias?infotype=SA&subtype=ST&htmlfid=LBJ12347USEN",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "References and Press Releases"
+
+		}],
+		"2006": [{
+			"AssetId": "20021",
+			"Name": "20021",
+			"Display": "Solution Brief: IBM Intelligent Video Analytics",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "PDF",
+			"URL": "http://www.ibm.com/common/ssi/cgi-bin/ssialias?subtype=SP&infotype=PM&appname=SNDE_LB_VL_USEN&htmlfid=LBS03027USEN&attachment=LBS03027USEN.PDF",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "White Papers and publication "
+
+		}, {
+			"AssetId": "20022",
+			"Name": "20022",
+			"Display": "Analyst Research: Improve safety and traffic management",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "URL",
+			"URL": "https://www-01.ibm.com/marketing/iwm/iwm/web/signup.do?source=swg-smartercom_medium&S_PKG=ov19395&S_TACT=101K83XW&dynform=4886&lang=en_US",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "White Papers and publications"
+
+		}, {
+			"AssetId": "20023",
+			"Name": "20023",
+			"Display": "IBM Intelligent Operations Center for Emergency Management - Analytics White Paper",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "PDF",
+			"URL": "http://www-01.ibm.com/common/ssi/cgi-bin/ssialias?subtype=BR&infotype=PM&htmlfid=PUB03004USEN&attachment=PUB03004USEN.PDF",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "White Papers and publications"
+
+		}],
+		"2008": [{
+			"AssetId": "20024",
+			"Name": "20024",
+			"Display": "IBM Analytics:  Safer Planet",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "URL",
+			"URL": "http://www.ibm.com/analytics/us/en/safer-planet/",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "Additional Material"
+
+		}, {
+			"AssetId": "20025",
+			"Name": "20025",
+			"Display": "IBM Analytics: Government",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "URL",
+			"URL": "http://www.ibm.com/analytics/us/en/industry/government/index.html",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "Additional Material"
+
+		}, {
+			"AssetId": "20026",
+			"Name": "20026",
+			"Display": "Blog: Improved crisis preparedness with smarter emergency response planning",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "URL",
+			"URL": "http://www.ibmbigdatahub.com/blog/improved-crisis-preparedness-smarter-emergency-response-planning",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "Additional Material"
+
+		}, {
+			"AssetId": "20027",
+			"Name": "20027",
+			"Display": "Blog: The past, present and future of emergency management",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "URL",
+			"URL": "http://www.ibmbigdatahub.com/blog/past-present-and-future-emergency-management",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "Additional Material"
+
+		}, {
+			"AssetId": "20028",
+			"Name": "20028",
+			"Display": "Blog: Anticipate, collaborate, mitigate: Information age threat management",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "URL",
+			"URL": "http://www.ibmbigdatahub.com/blog/anticipate-collaborate-mitigate-information-age-threat-management",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "Additional Material"
+
+		}, {
+			"AssetId": "20029",
+			"Name": "20029",
+			"Display": "Smarter Cities Growth Community",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "URL",
+			"URL": "https://w3-connections.ibm.com/communities/service/html/communitystart?communityUuid=7a418bab-8b8f-4e11-8ca5-f5757558ce57 ",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "IBM Community",
+			"ASSETGROUP": "Additional Material"
+
+		}, {
+			"AssetId": "20030",
+			"Name": "20030",
+			"Display": "Red Guide: IBM Public Safety Solutions for a Safer Planet",
+			"ASSETACTION": "URL",
+			"ASSET_TYPE": "PDF",
+			"URL": "http://www.redbooks.ibm.com/abstracts/redp5229.html",
+			"DESC_DISPLAY": "",
+			"SOURCE_TYPE": "ibm.com",
+			"ASSETGROUP": "Additional Material"
+
+		}],
+		"2004": [{
+			"AssetId": "20031",
+			"Name": "20031",
+			"Display": "Deployment and Solution Consulting Services",
+			"ASSETACTION": "Blurb",
+			"ASSET_TYPE": "Description only",
+			"URL": "",
+			"DESC_DISPLAY": "Deployment and Solution consulting services are available via different IBM organizations .For e.g. GBS. Minimum deployment models may also be available as templates.",
+			"SOURCE_TYPE": "",
+			"ASSETGROUP": "Additional Material"
+
+		}, {
+			"AssetId": "20032",
+			"Name": "20032",
+			"Display": "Subject Matter Expertise",
+			"ASSETACTION": "Blurb",
+			"ASSET_TYPE": "Description only",
+			"URL": "",
+			"DESC_DISPLAY": "IBM has subject matter experts who can engage with the client to analyze their existing processes and systems to provide solutions on improving existing operations and systems. Deployment models may also be available as templates. ",
+			"SOURCE_TYPE": "",
+			"ASSETGROUP": "Additional Material"
+
+		}]
 	}
 }

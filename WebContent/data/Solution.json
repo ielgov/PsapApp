@@ -12,28 +12,28 @@
 		}, 
 		{
 		"CategoryId": "103",
-		"Name": "EIA",
-		"Display": "Intellgent Analysis"
+		"Name": "ProPolice",
+		"Display": "Proactive Policing"
 		}, 
 		{
 		"CategoryId": "104",
 		"Name": "SMA_WASMA",
-		"Display": "Social Media Analytics"
+		"Display": "Social Media Analysis"
+		}, 
+		{
+		"CategoryId": "107",
+		"Name": "CogThreat",
+		"Display": "Cognitive Threat Prediction & Prevention"
 		}, 
 		{
 		"CategoryId": "105",
-		"Name": "PredPolicingSPSS",
-		"Display": "Proactive Policing"
-		}, 
-		{
-		"CategoryId": "106",
 		"Name": "Dashboard",
 		"Display": "Reporting and Dashboard"
 		}, 
 		{
-		"CategoryId": "107",
-		"Name": "MobileFirstResponse",
-		"Display": "Officer Safety, Situation Awareness"
+		"CategoryId": "106",
+		"Name": "Officer Safety",
+		"Display": "Officer Safety and Situation Awareness"
 		}, 
 		{
 		"CategoryId": "108",
@@ -45,7 +45,7 @@
 		{
 		"CategoryId": "201",
 		"Name": "IOC4EM",
-		"Display": "Situation Awareness and Incident Response"
+		"Display": "Situational Awareness and Incident Response"
 		}, 
 		{
 		"CategoryId": "202",
@@ -53,24 +53,29 @@
 		"Display": "Body Worn Cameras and IOT"
 		}, 
 		{
-		"CategoryId": "204",
+		"CategoryId": "207",
+		"Name": "Resiliancy",
+		"Display": "Resiliency Assessments"
+		},
+		{
+		"CategoryId": "206",
 		"Name": "Weather",
 		"Display": "Weather Analysis"
 		}, 
 		{
-		"CategoryId": "205",
+		"CategoryId": "203",
 		"Name": "Citizens",
 		"Display": "Citizen and Community Engagement"
 		}, 
 		{
-		"CategoryId": "206",
+		"CategoryId": "204",
 		"Name": "SMA",
 		"Display": "Social Media Analysis"
 		}, 
 		{
-		"CategoryId": "207",
+		"CategoryId": "205",
 		"Name": "Cloud",
-		"Display": "Cloud and Deployment"
+		"Display": "Cloud Services and Deployment"
 		}, 
 		{
 		"CategoryId": "208",

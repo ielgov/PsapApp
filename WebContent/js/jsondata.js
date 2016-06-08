@@ -35,7 +35,7 @@ var categoryJSON = {
 		           	{
 		           		"CategoryId": "02",
 		           		"Name": "CCOEM",
-		           		"Display": "Command Control, Ops, and Emegency Mgmt"
+		           		"Display": "Command and Control, Operations, and Emergency Management"
 		           	}, 
 		           	{
 		           		"CategoryId": "03",
@@ -45,134 +45,90 @@ var categoryJSON = {
 		           	{
 		           		"CategoryId": "04",
 		           		"Name": "Security",
-		           		"Display": "Video, Physical, and Cyber Security"
+		           		"Display": "Video, Physical, Cyber Security and Surveillance"
 		           	}
 		           	]
 		           };
 
-var ccoemJSON = {"02": 
-					[
-               			{
-               			"CategoryId": "201",
-               			"Name": "IOC4EM",
-               			"Display": "Situation Awareness and Incident Response"
-               			}, 
-               			{
-               			"CategoryId": "202",
-               			"Name": "IOT",
-               			"Display": "Body Worn Cameras and IOT"
-               			},
-               			{
-               			"CategoryId": "203",
-               			"Name": "Resiliancy",
-               			"Display": "Resiliancy Assessments"
-               			},
-               			{
-               			"CategoryId": "204",
-               			"Name": "Weather",
-               			"Display": "Weather Analysis"
-               			}, 
-               			{
-               			"CategoryId": "205",
-               			"Name": "Citizens",
-               			"Display": "Citizen and Community Engagement"
-               			}, 
-               			{
-               			"CategoryId": "206",
-               			"Name": "SMA",
-               			"Display": "Social Media Analysis"
-               			}, 
-               			{
-               			"CategoryId": "207",
-               			"Name": "Cloud",
-               			"Display": "Cloud and Deployment"
-               			}, 
-               			{
-               			"CategoryId": "208",
-               			"Name": "FirstResponse",
-               			"Display": "Incident Responders"
-               			}
-               		]
-				};
 
 var solutionJSON = {
 		"01": [
 				{
 				"CategoryId": "101",
 				"Name": "ILE",
-				"Display": "Tactical Lead Generation"
+				"Display": "1Tactical Lead Generation"
 				}, 
 				{
 				"CategoryId": "102",
 				"Name": "IDRes",
-				"Display": "Identity Resolution"
+				"Display": "1Identity Resolution"
 				}, 
 				{
 				"CategoryId": "103",
 				"Name": "EIA",
-				"Display": "Intellgent Analysis"
+				"Display": "1Intellgent Analysis"
 				}, 
 				{
 				"CategoryId": "104",
 				"Name": "SMA_WASMA",
-				"Display": "Social Media Analytics"
+				"Display": "1Social Media Analytics"
 				}, 
 				{
 				"CategoryId": "105",
 				"Name": "PredPolicingSPSS",
-				"Display": "Proactive Policing"
+				"Display": "1Proactive Policing"
 				}, 
 				{
 				"CategoryId": "106",
 				"Name": "Dashboard",
-				"Display": "Reporting and Dashboard"
+				"Display": "1Reporting and Dashboard"
 				}, 
 				{
 				"CategoryId": "107",
 				"Name": "MobileFirstResponse",
-				"Display": "Officer Safety, Situation Awareness"
+				"Display": "1Officer Safety, Situation Awareness"
 				}, 
 				{
 				"CategoryId": "108",
 				"Name": "CaseMgr",
-				"Display": "Investigation Support"
+				"Display": "1Investigation Support"
 				}
 			],
 			"02": [
 				{
 				"CategoryId": "201",
 				"Name": "IOC4EM",
-				"Display": "Situation Awareness and Incident Response"
+				"Display": "2Situation Awareness and Incident Response"
 				}, 
 				{
 				"CategoryId": "202",
 				"Name": "IOT",
-				"Display": "Body Worn Cameras and IOT"
+				"Display": "2Body Worn Cameras and IOT"
 				}, 
 				{
 				"CategoryId": "204",
 				"Name": "Weather",
-				"Display": "Weather Analysis"
+				"Display": "2Weather Analysis"
 				}, 
 				{
 				"CategoryId": "205",
 				"Name": "Citizens",
-				"Display": "Citizen and Community Engagement"
+				"Display": "2Citizen and Community Engagement"
 				}, 
 				{
 				"CategoryId": "206",
 				"Name": "SMA",
-				"Display": "Social Media Analysis"
+				"Display": "2Social Media Analysis"
 				}, 
 				{
 				"CategoryId": "207",
 				"Name": "Cloud",
-				"Display": "Cloud and Deployment"
+				"Display": "2Cloud and Deployment"
 				}, 
 				{
 				"CategoryId": "208",
 				"Name": "FirstResponse",
-				"Display": "Incident Responders"
+				"Display": "2Incident Responders"
 				}
 			]
 		};
@@ -182,85 +138,85 @@ var offeringsJSON = {
 				{
 				"CategoryId": "1001",
 				"Name": "ILE-Products",
-				"Display": "Products"
+				"Display": "1Products"
 				}, 
 				{
 				"CategoryId": "1002",
 				"Name": "ILE-Services",
-				"Display": "Services"
+				"Display": "1Services"
 				},
 				{
 				"CategoryId": "1003",
 				"Name": "ILE-Reference",
-				"Display": "References"
+				"Display": "1References"
 				},
 				{
 				"CategoryId": "1004",
 				"Name": "ILE-Competition",
-				"Display": "Competition"
+				"Display": "1Competition"
 				},
 				{
 				"CategoryId": "1005",
 				"Name": "ILE-WhitePapers",
-				"Display": "White Papers"
+				"Display": "1White Papers"
 				},
 				{
 				"CategoryId": "1006",
 				"Name": "ILE-Contacts",
-				"Display": "Contacts"
+				"Display": "1Contacts"
 				},
 				{
 				"CategoryId": "1007",
 				"Name": "ILE-ROI",
-				"Display": "Economic Value (ROI)"
+				"Display": "1Economic Value (ROI)"
 				},
 				{
 				"CategoryId": "1008",
 				"Name": "ILE-OTHERMaterial",
-				"Display": "Additional Material"
+				"Display": "1Additional Material"
 				}
 			],
 			"102": [
 					{
 					"CategoryId": "1010",
 					"Name": "IDRes-Products",
-					"Display": "Products"
+					"Display": "2Products"
 					}, 
 					{
 					"CategoryId": "1011",
 					"Name": "IDRes-Services",
-					"Display": "Services"
+					"Display": "2Services"
 					},
 					{
 					"CategoryId": "1012",
 					"Name": "IDRes-Reference",
-					"Display": "References"
+					"Display": "2References"
 					},
 					{
 					"CategoryId": "1013",
 					"Name": "IDRes-Competition",
-					"Display": "Competition"
+					"Display": "2Competition"
 					},
 					{
 					"CategoryId": "1014",
 					"Name": "IDRes-WhitePapers",
-					"Display": "White Papers"
+					"Display": "2White Papers"
 					},
 					{
 					"CategoryId": "1015",
 					"Name": "IDRes-Contacts",
-					"Display": "Contacts"
+					"Display": "2Contacts"
 					},
 					{
 					"CategoryId": "1016",
 					"Name": "IDRes-ROI",
-					"Display": "Economic Value (ROI)"
+					"Display": "2Economic Value (ROI)"
 					},
-					{
+					/*{
 					"CategoryId": "1017",
 					"Name": "IDRes-OTHERMaterial",
 					"Display": "Additional Material"
-					}
+					}*/
 				],
 				"201": [
 						{

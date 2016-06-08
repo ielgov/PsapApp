@@ -124,6 +124,7 @@ function makeAssetSmallerParent(assets, id)
 	
 	function makeDivWithData(data, l)
 	{
+		
 		var div = document.createElement( "div" );
 		if( l === "URL")
 		{	
@@ -132,8 +133,25 @@ function makeAssetSmallerParent(assets, id)
 			div.onclick = function(){ open_in_new_tab( data[l] ) };
 			//div.innerHTML = l+": "+data[l] + " ("+data['ASSET_TYPE']+")";
 			
-			var html = data['ASSET_TYPE']=="" ? "" : "<img class='linkIcon' src='images/icons/"+data['ASSET_TYPE']+".png'></img>";			
-			div.innerHTML += html
+			if( data['ASSET_TYPE'] != "description only" )
+			{				
+				try
+				{
+					var img = document.createElement("img")
+					img.classList.add("linkIcon");
+					img.src = config.weburl + "/PSAP/images/icons/" + data['ASSET_TYPE'].toUpperCase() + ".png"
+					div.appendChild(img);				
+				}
+				catch(e)
+				{
+					var innerDiv = document.createElement("div")
+					innerDiv.innerHTML += data['ASSET_TYPE']					
+				}	
+			}
+			else
+			{
+				
+			}
 		}
 		else
 		{

@@ -12,10 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 
 import com.ibm.psap.util.Constants;
+import com.ibm.psap.util.User;
 
 /**
  * Servlet implementation class UsrList
@@ -37,48 +40,26 @@ public class UsrList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		String fname = request.getParameter("field1");
-		String lname = request.getParameter("field2");
-		String email = request.getParameter("field3");
-		String role = request.getParameter("field4");
-		int action = 0; //1-submit,2-search, 3-delete
-		if (request.getParameter("search") != null) {
-		    // serach Form is submitted.
-			action = 2;
-		} else if (request.getParameter("submit") != null){
-		    // update/insert is not submitted.
-			action = 1;
-		}else{
-			//delete
-			action = 3;
-		}
-		logger.info("The Action is " + action);
-		String Msg = null;
-		
-		try {
-			switch(action){
-			case 1:
-				Msg = CheckAndUpdateUserList(fname, lname, email, role);
-				break;
-			case 2:
-				Msg = serachUserList( email );
-				break;
-			case 3:
-				Msg = deleteUserList( email );
-				break;
-			default:
-				break;
-			}
-			if (Msg != null){
-				request.setAttribute("Msg", Msg);	
-			}	
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/userlistform.jsp");
-			rd.include(request, response);	
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			throw new ServletException(e.getMessage());
+		String action = request.getParameter("type");
+		if (action !=null && action.equalsIgnoreCase("getSignedUser")){
+			logger.info("Retreving user information");
+			HttpSession session = request.getSession();
+			if (session != null){
+			    try {
+			    	User userobj  = (User) session.getAttribute("User");
+					JSONObject obj = new JSONObject();
+				    obj.put("name",  userobj.getName());
+				    obj.put("email", userobj.getEmail());
+				    obj.put("role",  userobj.getRole());
+				    logger.info("Returning the response to request type getUserInfo");
+				    logger.info("Response to request is "+obj.toString());
+				    response.setContentType("application/json");
+				    response.getWriter().write(obj.toString());
+			    } catch (Exception e) {
+					// TODO Auto-generated catch block
+				    throw new IOException(e.getMessage());
+			    }
+			}   
 		}
 	}
 
@@ -87,7 +68,50 @@ public class UsrList extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		// TODO Auto-generated method stub
+				//response.getWriter().append("Served at: ").append(request.getContextPath());
+				String fname = request.getParameter("field1");
+				String lname = request.getParameter("field2");
+				String email = request.getParameter("field3");
+				String role = request.getParameter("field4");
+				int action = 0; //1-submit,2-search, 3-delete
+				if (request.getParameter("search") != null) {
+				    // serach Form is submitted.
+					action = 2;
+				} else if (request.getParameter("submit") != null){
+				    // update/insert is not submitted.
+					action = 1;
+				}else{
+					//delete
+					action = 3;
+				}
+				logger.info("The Action is " + action);
+				String Msg = null;
+				
+				try {
+					switch(action){
+					case 1:
+						Msg = CheckAndUpdateUserList(fname, lname, email, role);
+						break;
+					case 2:
+						Msg = serachUserList( email );
+						break;
+					case 3:
+						Msg = deleteUserList( email );
+						break;
+					default:
+						break;
+					}
+					if (Msg != null){
+						request.setAttribute("Msg", Msg);	
+					}	
+					RequestDispatcher rd = getServletContext().getRequestDispatcher("/userlistform.jsp");
+					rd.include(request, response);	
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					throw new ServletException(e.getMessage());
+				}
+
 	}
 	
 	public String CheckAndUpdateUserList(String firstname, String lastname, String email, String role) throws Exception{

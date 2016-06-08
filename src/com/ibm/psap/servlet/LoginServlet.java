@@ -31,6 +31,9 @@ public class LoginServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String errorMsg = null;
+		
+		
+		
 		if(email == null || email.equals("")){
 			errorMsg ="User Email can't be null or empty";
 		}

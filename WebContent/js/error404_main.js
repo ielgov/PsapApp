@@ -37,7 +37,7 @@ function initCube() {
 	dynamicTexture.drawText("Page Not Found", undefined, 100, 'red');
 	dynamicTexture.context.font	= "bolder 30px Verdana";
 	dynamicTexture.drawText("Page you are looking for", undefined, 220, 'red');
-	dynamicTexture.drawText("does not exits", undefined, 280, 'red');
+	dynamicTexture.drawText("does not exist", undefined, 280, 'red');
 	dynamicTexture.drawText("CLICK me to go back Home", undefined, 420, 'red');
 	var material	= new THREE.MeshBasicMaterial({
 		map	: dynamicTexture.texture
