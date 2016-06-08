@@ -1,7 +1,10 @@
 var CUBE_SIZE = 3;
 var GAP_BETWEEN_CUBES = 0.2;
 var selectionColor = 0xff0000;//0xb2ccce;//0xdaeff2;//0xff0000
-
+var testCounterSol = 0;
+var testCounterOff = 0;
+var testDataSol=undefined;
+var testDataOff=undefined;
 var startingPositions = {
 		'categories':{
 			'x':0,
@@ -68,8 +71,18 @@ function setCubeData(nextLevelDataObj, currRubiksType)
 		getData(appData['solutions'], function(response){
 			if (DEVELOPMENT)
 			{
-				var returnData = solutionJSON['02'];
+				var returnData=undefined;
+				if (testCounterSol%2 == 0)
+				{
+					returnData = solutionJSON['01'];
+				}
+				else
+				{
+					returnData = solutionJSON['02'];
+				}
+				testCounterSol++;
 				var cubeData = appData['solutions'];
+				testDataSol = returnData;
 				cubeData['data'] = returnData;
 				drawRubiksCube(cubeData,nextLevelDataObj);
 			}
@@ -99,8 +112,18 @@ function setCubeData(nextLevelDataObj, currRubiksType)
 		getData(appData['offerings'], function(response){
 			if (DEVELOPMENT)
 			{
-				var returnData = offeringsJSON['101'];
+				var returnData=undefined;
+				if (testCounterOff%2 == 0)
+				{
+					returnData = offeringsJSON['101'];
+				}
+				else
+				{
+					returnData = offeringsJSON['102'];
+				}
+				testCounterOff++;
 				var cubeData = appData['offerings'];
+				testDataOff = returnData;
 				cubeData['data'] = returnData;
 				drawRubiksCube(cubeData,nextLevelDataObj);
 			}
@@ -170,7 +193,7 @@ function drawRubiksCube(cubeData,parentData)
 					});*/
 					tween.start();
 					tween.onComplete(function(){
-						console.log("tween onComplete");
+						//console.log("tween onComplete");
 						activeRubiksCube.group.rotation.set(degToRad(25),degToRad(-45),0);
 						activeRubiksCube.allowRotation = false;
 					});
@@ -184,7 +207,10 @@ function drawRubiksCube(cubeData,parentData)
 		activeRubiksCube.allowRotation = true;
 		showRubiksCube(activeRubiksCube.group);
 		activeRubiksCube.parentData = parentData;
-		activeRubiksCube.setCenterCubieData();
+		//activeRubiksCube.assignDataToFaces();
+		//activeRubiksCube.setCenterCubieData();
+		activeRubiksCube.cubeData = cubeData['data'];
+		activeRubiksCube.refreshCubeFaces();
 	}
 	
 }
@@ -222,6 +248,7 @@ function RubiksCube(options)
 	
 	this.innerFaceColor = 0x5e5e5e;//black
 	this.backGroundColor = 0xf2f1eb;//0xa5a8ab
+	this.centerCubeFaceColor = 0x0077be;
 	
 	this.init = function(){
 		if (this.dimensions == 2)
@@ -438,7 +465,7 @@ function RubiksCube(options)
 						}
 						else
 						{							
-							//console.log('faceMaxNumOfSols is ' + faceMaxNumOfSols + ', which has reached its limit...so being next face data assignment');
+							//console.log('faceMaxNumOfSols is ' + faceMaxNumOfSols + ', which has reached its limit...so begin next face data assignment');
 							faceMaxNumOfSols = 0;
 							cubeDataCount++;
 							break;
@@ -447,7 +474,7 @@ function RubiksCube(options)
 					}
 					else if (cubeDataCount >= cubeData.length)
 					{
-						//console.log('cubeDataCount is ' + cubeDataCount + ', which has reached its limit...so being next face data assignment');
+						//console.log('cubeDataCount is ' + cubeDataCount + ', which has reached its limit...so begin next face data assignment');
 						cubeDataCount = 0;
 						break;
 					}
@@ -475,9 +502,65 @@ function RubiksCube(options)
 			cubeDataCount = 0;
 		}
 	};
+		
+	this.assignDataToCubieFace = function(cubie, facenum, faceData){
+		var materialIndex = facenum.slice(-1);
+		faceData['parentData'] = ref.parentData;
+		cubie.$materialList[materialIndex] = faceData;
+		//console.log(cubie.$cubenum + ' assigned data = ' + faceData['Display'] + ' | for material index = ' + materialIndex);
+	};
+	
+	this.refreshCubeFaces = function(){
+		console.log("Function :: refreshCubeFaces");
+		//console.log('rubiks cube data',ref.cubeData);
+		
+		for (var c=0;c<ref.allDrawnCubies.length;c++)
+		{
+			var thismesh = ref.allDrawnCubies[c];
+			thismesh.$cubie.$materialList = {};
+		}
+		
+		ref.assignDataToFaces();
+		//Update dynamic texture material for all cubies
+		for (var cubenum in ref.allCubies)
+		{
+			var cubie = ref.allCubies[cubenum];
+			for (var i=0; i<6; i++)
+			{				
+				if (cubie.$materialList.hasOwnProperty(i))
+				{
+					var dynamicTexture = new THREEx.DynamicTexture(512,512);
+					dynamicTexture.texture.anisotropy = renderer.getMaxAnisotropy();
+					dynamicTexture.clear('white');
+					
+					var dataObj = cubie.$materialList[i];
+					
+					dynamicTexture = ref.getFaceData(dataObj, dynamicTexture);
+					
+					var faceColor = cubie['color-face'+i];
+					
+					if (cubie.type == 'center')
+						faceColor = ref.centerCubeFaceColor;
+					
+					var faceMeshMat = new THREE.MeshLambertMaterial({color: faceColor, vertexColors: THREE.FaceColors, map: dynamicTexture.texture});
+					faceMeshMat.$data = dataObj;
+					
+					//cubie.materials[i].map = dynamicTexture.texture;
+					cubie.materials[i] = faceMeshMat;
+					cubie.materials[i].needsUpdate = true;
+				}
+				else
+				{
+					var faceMeshMat = new THREE.MeshLambertMaterial({color: ref.innerFaceColor, vertexColors: THREE.FaceColors});
+					cubie.materials[i] = faceMeshMat;
+					cubie.materials[i].needsUpdate = true;
+				}
+			}
+		}
+	};
 	
 	this.setCenterCubieData = function(){
-		//console.log('center cubie',ref.parentData);
+		//console.log('setCenterCubieData :: center cubie',ref.parentData);
 		var dataObj = {};
 		if (ref.parentData)
 		{
@@ -504,63 +587,14 @@ function RubiksCube(options)
 				dynamicTexture.texture.anisotropy = renderer.getMaxAnisotropy();
 				dynamicTexture.clear('white');
 				
-				var str = dataObj['Display'];
-				var indices = [];
-				for(var j=0; j<str.length;j++) 
-				{
-				    if (str[j] === " ") indices.push(j);
-				}
-				
-				if (indices.length > 4 && indices.length <=5)
-				{
-					var str1 = str.substring(0,indices[1]);var str2 = str.substring(indices[1],indices[3]);var str3 = str.substring(indices[3],str.length);
-					dynamicTexture.drawText(str1,undefined,150,ref.textureFillStyle,ref.textureFont);
-					dynamicTexture.drawText(str2,undefined,250,ref.textureFillStyle,ref.textureFont);
-					dynamicTexture.drawText(str3,undefined,350,ref.textureFillStyle,ref.textureFont);
-					console.log(str1,str2,str3);
-				}
-				else if (indices.length > 2 && indices.length <= 4)
-				{
-					var str1 = str.substring(0,indices[1]);var str2 = str.substring(indices[1],str.length);					
-					dynamicTexture.drawText(str1,undefined,150,ref.textureFillStyle,ref.textureFont);
-					dynamicTexture.drawText(str2,undefined,250,ref.textureFillStyle,ref.textureFont);
-					console.log(str1,str2);
-				}
-				else if (indices.length == 2)
-				{
-					var str1 = str.substring(0,indices[1]);var str2 = str.substring(indices[1],str.length);
-					dynamicTexture.drawText(str1,undefined,150,ref.textureFillStyle,ref.textureFont);
-					dynamicTexture.drawText(str2,undefined,250,ref.textureFillStyle,ref.textureFont);
-					console.log(str1,str2);
-				}
-				else if (indices.length == 1)
-				{
-					var str1 = str.substring(0,indices[0]);var str2 = str.substring(indices[0],str.length);
-					dynamicTexture.drawText(str1,undefined,150,ref.textureFillStyle,ref.textureFont);
-					dynamicTexture.drawText(str2,undefined,250,ref.textureFillStyle,ref.textureFont);
-					console.log(str1,str2);
-				}
-				else if (indices.length == 0 ||  str.length == 1)
-				{
-					var str1 = str;
-					dynamicTexture.drawText(str1,undefined,150,ref.textureFillStyle,ref.textureFont);
-					console.log(str1);
-				}
-				
+				dynamicTexture = ref.getFaceData(dataObj, dynamicTexture);
+								
 				cubie.materials[materialIndex].map = dynamicTexture.texture;
 				cubie.materials[materialIndex].needsUpdate = true;
 				
 			}
 		}		
 		
-	};
-	
-	
-	this.assignDataToCubieFace = function(cubie, facenum, faceData){
-		var materialIndex = facenum.slice(-1);
-		faceData['parentData'] = ref.parentData;
-		cubie.$materialList[materialIndex] = faceData;
-		//console.log(cubie.$cubenum + ' assigned data = ' + faceData['Display'] + ' | for material index = ' + materialIndex);
 	};
 	
 	this.drawCubiesNew = function(){
@@ -639,63 +673,13 @@ function RubiksCube(options)
 				
 				ref.textureFont = "55px Verdana";
 				
-				var str = dataObj['Display'];
-				var indices = [];
-				for(var j=0; j<str.length;j++) 
-				{
-				    if (str[j] === " ") indices.push(j);
-				}
-				//console.log('str',str);
-				//console.log('indices',indices);
-				//debugger;
-				if (indices.length > 4 && indices.length <=5)
-				{
-					//console.log('length > 4 && <=5');
-					var str1 = str.substring(0,indices[1]);
-					var str2 = str.substring(indices[1],indices[3]);
-					var str3 = str.substring(indices[3],str.length);
-					
-					dynamicTexture.drawText(str1,undefined,150,ref.textureFillStyle,ref.textureFont);
-					dynamicTexture.drawText(str2,undefined,250,ref.textureFillStyle,ref.textureFont);
-					dynamicTexture.drawText(str3,undefined,350,ref.textureFillStyle,ref.textureFont);
-					
-					//console.log('str1',str1);console.log('str2',str2);console.log('str3',str3);
-				}
-				else if (indices.length > 2 && indices.length <= 4)
-				{
-					//console.log('length > 2 && <=4');
-					var str1 = str.substring(0,indices[1]);
-					var str2 = str.substring(indices[1],str.length);
-					
-					dynamicTexture.drawText(str1,undefined,150,ref.textureFillStyle,ref.textureFont);
-					dynamicTexture.drawText(str2,undefined,250,ref.textureFillStyle,ref.textureFont);
-					//console.log('str1',str1);console.log('str2',str2);
-				}
-				else if (indices.length == 2)
-				{
-					//console.log('length = 2');
-					var str1 = str.substring(0,indices[1]);
-					var str2 = str.substring(indices[1],str.length);
-					dynamicTexture.drawText(str1,undefined,150,ref.textureFillStyle,ref.textureFont);
-					dynamicTexture.drawText(str2,undefined,250,ref.textureFillStyle,ref.textureFont);
-					//console.log('str1',str1);console.log('str2',str2);
-				}
-				else if (indices.length == 1)
-				{
-					//console.log('length = 1');
-					var str1 = str.substring(0,indices[0]);
-					var str2 = str.substring(indices[0],str.length);
-					dynamicTexture.drawText(str1,undefined,150,ref.textureFillStyle,ref.textureFont);
-					dynamicTexture.drawText(str2,undefined,250,ref.textureFillStyle,ref.textureFont);
-					//console.log('str1',str1);
-				}
-				else if (indices.length == 0 ||  str.length == 1)
-				{
-					var str1 = str;
-					dynamicTexture.drawText(str1,undefined,150,ref.textureFillStyle,ref.textureFont);
-				}				
+				dynamicTexture = ref.getFaceData(dataObj, dynamicTexture);
 				
-				var faceMeshMat = new THREE.MeshLambertMaterial({color: cubie['color-face'+i], vertexColors: THREE.FaceColors, map: dynamicTexture.texture});
+				var faceColor = cubie['color-face'+i];
+				if (cubie.type == 'center')
+					faceColor = ref.centerCubeFaceColor;
+				
+				var faceMeshMat = new THREE.MeshLambertMaterial({color: faceColor, vertexColors: THREE.FaceColors, map: dynamicTexture.texture});
 				faceMeshMat.$data = dataObj;
 				materials.push(faceMeshMat);
 			}
@@ -707,6 +691,66 @@ function RubiksCube(options)
 		}
 		
 		return materials;
+	};
+	
+	this.getFaceData = function(dataObj, dynamicTexture){
+		//console.log("Function :: getFaceData");
+		var str = dataObj['Display'];
+		var indices = [];
+		for(var j=0; j<str.length;j++) 
+		{
+		    if (str[j] === " ") indices.push(j);
+		}
+		//console.log('str',str);
+		//console.log('indices',indices);
+		//debugger;
+		if (indices.length > 4 && indices.length <=5)
+		{
+			//console.log('length > 4 && <=5');
+			var str1 = str.substring(0,indices[1]);
+			var str2 = str.substring(indices[1],indices[3]);
+			var str3 = str.substring(indices[3],str.length);
+			
+			dynamicTexture.drawText(str1,undefined,150,ref.textureFillStyle,ref.textureFont);
+			dynamicTexture.drawText(str2,undefined,250,ref.textureFillStyle,ref.textureFont);
+			dynamicTexture.drawText(str3,undefined,350,ref.textureFillStyle,ref.textureFont);
+			
+			//console.log('str1',str1);console.log('str2',str2);console.log('str3',str3);
+		}
+		else if (indices.length > 2 && indices.length <= 4)
+		{
+			//console.log('length > 2 && <=4');
+			var str1 = str.substring(0,indices[1]);
+			var str2 = str.substring(indices[1],str.length);
+			
+			dynamicTexture.drawText(str1,undefined,150,ref.textureFillStyle,ref.textureFont);
+			dynamicTexture.drawText(str2,undefined,250,ref.textureFillStyle,ref.textureFont);
+			//console.log('str1',str1);console.log('str2',str2);
+		}
+		else if (indices.length == 2)
+		{
+			//console.log('length = 2');
+			var str1 = str.substring(0,indices[1]);
+			var str2 = str.substring(indices[1],str.length);
+			dynamicTexture.drawText(str1,undefined,150,ref.textureFillStyle,ref.textureFont);
+			dynamicTexture.drawText(str2,undefined,250,ref.textureFillStyle,ref.textureFont);
+			//console.log('str1',str1);console.log('str2',str2);
+		}
+		else if (indices.length == 1)
+		{
+			//console.log('length = 1');
+			var str1 = str.substring(0,indices[0]);
+			var str2 = str.substring(indices[0],str.length);
+			dynamicTexture.drawText(str1,undefined,150,ref.textureFillStyle,ref.textureFont);
+			dynamicTexture.drawText(str2,undefined,250,ref.textureFillStyle,ref.textureFont);
+			//console.log('str1',str1);
+		}
+		else if (indices.length == 0 ||  str.length == 1)
+		{
+			var str1 = str;
+			dynamicTexture.drawText(str1,undefined,150,ref.textureFillStyle,ref.textureFont);
+		}				
+		return dynamicTexture;
 	};
 	
 	this.generateDynamicCanvas = function(cubie){
@@ -860,7 +904,7 @@ function colorThisFace(intersectObj)
 	}
 	else
 	{
-		//check whether the clicked cubie is part of the rubiks cube or part of the bread crum cubies
+		//check whether the clicked cubie is part of the rubiks cube OR part of the bread crum cubies
 		var isBreadCrum = false;
 		var breadCrumType = undefined;
 		for (key in breadCrumsPos)
@@ -879,6 +923,7 @@ function colorThisFace(intersectObj)
 			}
 		}
 		
+		//Cube face was clicked
 		if (!isBreadCrum)
 		{
 			//Check to make sure that none of the INNER face (face with no text) gets clicked
@@ -909,6 +954,7 @@ function colorThisFace(intersectObj)
 		}
 		else
 		{
+			//BreadCrum was clicked
 			processBreadCrum(cubieMesh,breadCrumType);
 		}		
 	}		
