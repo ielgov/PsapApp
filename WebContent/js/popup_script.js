@@ -3,7 +3,7 @@ window.onload = function(){
 	//showPopUp(2001, 201);
 }
 
-function sizePopOutWidth( buttonClicked, moveXFlag )
+function sizePopUpWidth( buttonClicked, moveXFlag )
 {	
 	console.log("look here on line 37")
 	moveXFlag = moveXFlag || false;
@@ -84,36 +84,18 @@ function sizeAssets(seedButton, containerArr) // sorry, this is really jank
 	expectedButtonsWidths = numberElementsAcross * buttonWidth;
 	margin = ( window.innerWidth - expectedButtonsWidths ) / 4
 	
-	console.log("numberElementsAcross is "+numberElementsAcross)		
 	
-	var spaceForButtons = 0;	
-	spaceForButtons  += seedButton.getBoundingClientRect().width * numberElementsAcross;
-	spaceForButtons  += 2 * margin * numberElementsAcross;
-	console.log("spaceForButtons is "+spaceForButtons)
-	
-	/*/ here I am trying to get the sizing with large number of assets down
-	document.querySelectorAll(".assetParent > *").forEach(function(value, key, map){
-		value.style.width = spaceForButtons+"px";
-	})
-	//*/
-	
-	//(spaceForButtons+"px")
-		
 	for( var i=0; i<containerArr.length; i++ )
 	{
 		containerArr[i].style.marginLeft = margin+"px";	
-		containerArr[i].style.marginRight = margin+"px";
-
-		console.log( containerArr[i] );
-		
+		containerArr[i].style.marginRight = margin+"px";	
 	}
-	
 }
 
 function resize()
 {
 	sizeAssets(buttonForSizing, document.getElementsByClassName("assetSmallererParent"));
-	sizePopOutWidth( undefined, true );
+	sizePopUpWidth( undefined, true );
 	assetsSlider.style.width = window.innerWidth
 	//resizeX();
 }
