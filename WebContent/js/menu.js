@@ -81,3 +81,31 @@ function postLogout()
 	var restURL = config.weburl+"/PSAP/Logout";
 	window.open(restURL, "_self");
 }
+
+
+function getUserDetails()
+{
+	console.log("Function :: getSignedUser");
+	var restURL = webServerIP+"/PSAP/UsrList?type=getSignedUser";
+	getRESTRequest(restURL,true,function(response){
+		if (response == "DEVELOPMENT")
+		{
+			var email = "developer@us.ibm.com";
+			console.log("development emailId",email);
+			document.querySelector('#emailId').innerHTML = email;
+		}
+		else if (response == "ERROR")
+		{
+			var email = "abc@us.ibm.com";
+			console.log("error emailId",email);
+			document.querySelector('#emailId').innerHTML = email;
+		}
+		else
+		{
+			console.log('get user RESPONSE',response);
+			var email = response['email'];
+			console.log("response emailId",email);
+			document.querySelector('#emailId').innerHTML = email;
+		}
+	});
+}
