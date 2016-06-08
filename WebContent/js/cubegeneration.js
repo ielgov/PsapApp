@@ -2,7 +2,7 @@ var cubielabelarray = [];
 var cubielabelpos = [100,200,300,400,500];
 var CUBE_SIZE = 3;
 var GAP_BETWEEN_CUBES = 0.2;
-var selectionColor = 0xff0000;//0xb2ccce;//0xdaeff2;//0xff0000
+var selectionColor = 0x008abf;//0x003f89;//0x00b2ef;//0xff0000;//0xb2ccce;//0xdaeff2;
 var testCounterSol = 0;
 var testCounterOff = 0;
 var testDataSol=undefined;
@@ -30,20 +30,20 @@ var startingPositions = {
 var breadCrumsPos = {
 		'categories':{
 			'screen':{
-				'X':0.03,//0.95
-				'Y':0.07,//0.1
+				'X':0.03,//0.03,//0.95
+				'Y':0.05,//0.1
 				}
 			},
 		'solutions':{
 			'screen':{
-				'X':0.2,//0.95
-				'Y':0.07,//0.35
+				'X':0.18,//0.95
+				'Y':0.05,//0.07,//0.35
 				}
 		},
 		'offerings':{
 			'screen':{
-				'X':0.37,//0.95
-				'Y':0.07,//0.6
+				'X':0.33,//0.37,//0.95
+				'Y':0.05//0.07,//0.6
 				}
 		}
 };
@@ -250,7 +250,7 @@ function RubiksCube(options)
 	
 	this.innerFaceColor = 0x5e5e5e;//black
 	this.backGroundColor = 0xf2f1eb;//0xa5a8ab
-	this.centerCubeFaceColor = 0x0077be;
+	this.centerCubeFaceColor = 0x00649d;//0x0077be;
 	
 	this.init = function(){
 		if (this.dimensions == 2)
@@ -905,28 +905,62 @@ var faceNames = {
 var faceNames = {
 		'0':{
 			'facename':'right',
-			'rotationaxis':'y'
+			'rotationaxis':'y',
+			'scaleaxis':'z',
 		},
 		'1':{
 			'facename':'left',
-			'rotationaxis':'y'
+			'rotationaxis':'y',
+			'scaleaxis':'z',
 		},
 		'2':{
 			'facename':'top',
-			'rotationaxis':'x'
+			'rotationaxis':'x',
+			'scaleaxis':'y',
 		},
 		'3':{
 			'facename':'bottom',
-			'rotationaxis':'x'
+			'rotationaxis':'x',
+			'scaleaxis':'y',
 		},
 		'4':{
 			'facename':'front',
-			'rotationaxis':'y'
+			'rotationaxis':'y',
+			'scaleaxis':'z',
 		},
 		'5':{
 			'facename':'back',
-			'rotationaxis':'y'
+			'rotationaxis':'y',
+			'scaleaxis':'z',
 		}
+}
+
+function scaleBreadCrum(mesh,scaleFactor,axis,duration)
+{
+	console.log("Function :: scaleBreadCrum");
+	var targetScale = {};
+	if (axis == 'z')
+	{
+		targetScale = {x:1,y:1,z:scaleFactor};
+	}
+	else if (axis == 'x')
+	{
+		targetScale = {x:scaleFactor,y:1,z:1};
+	}
+	else if (axis == 'y')
+	{
+		targetScale = {x:1,y:scaleFactor,z:1};
+	}
+	var tween = new TWEEN.Tween(mesh.scale).to(targetScale, duration).easing(TWEEN.Easing.Linear.None);
+	/*tween.onUpdate(function(){
+		grpObject.rotation.x = x;
+		grpObject.rotation.y = y;
+		grpObject.rotation.z = z;
+	});*/
+	tween.start();
+	tween.onComplete(function(){
+		
+	});
 }
 
 var breadCrumsCubies = [];
@@ -1122,6 +1156,7 @@ function moveCubieToTop(cubieMesh, nextStep)
 	cubieMesh.rotateOnAxis(rotationDetails['rotationAxis'],rotationDetails['rotationAngle']);
 	//moveObject(cubieMesh,-10,8,-15,3000);
 	
+	scaleBreadCrum(cubieMesh,0.2,rotationDetails['scaleAxis'],750);
 	moveObject(cubieMesh,cubie3dPos.x,cubie3dPos.y,-3,1000, function(){
 		breadCrumsCubies.push(cubieMesh);
 	});
@@ -1145,6 +1180,7 @@ function reversalBreadCrum(breadCrumsObj, animationDuration)
 				
 		if (catCM.cubieMesh)
 		{
+			scaleBreadCrum(catCM.cubieMesh,1,catCM.cubieMesh.rotationDetails['scaleAxis'],750);
 			moveObject(catCM.cubieMesh,catCM.cubieMeshOriginalVector.x,catCM.cubieMeshOriginalVector.y,catCM.cubieMeshOriginalVector.z,animationDuration,function(){
 			});
 			
@@ -1153,6 +1189,7 @@ function reversalBreadCrum(breadCrumsObj, animationDuration)
 				THREE.SceneUtils.attach(catCM.cubieMesh, scene, catCM.cubieMesh.$cubie.originalParent);
 				catCM.cubieMesh.position.set(catCM['cubieMeshOriginalPosition'].x,catCM['cubieMeshOriginalPosition'].y,catCM['cubieMeshOriginalPosition'].z);
 				catCM.cubieMesh.rotation.set(0,0,0);
+				catCM.cubieMesh.scale.set(1,1,1);
 				var materialIndex = catCM.cubieMesh.$materialClicked;
 				var color = catCM.cubieMesh.$cubie['color-face'+materialIndex];
 				catCM.cubieMesh.material.materials[materialIndex].color.setHex(color);
@@ -1208,36 +1245,42 @@ function getRotation(cubieMesh)
 		//console.log('right');
 		rotationAngle = degToRad(-90);
 		rotationAxis = new THREE.Vector3(0,1,0);
+		scaleAxis = 'x';
 		break;
 	
 	case 'left':
 		//console.log('left');
 		rotationAngle = degToRad(90);
 		rotationAxis = new THREE.Vector3(0,1,0);
+		scaleAxis = 'x';
 		break;
 	
 	case 'top':
 		//console.log('top');
 		rotationAngle = degToRad(90);
 		rotationAxis = new THREE.Vector3(1,0,0);
+		scaleAxis = 'y';
 		break;
 	
 	case 'bottom':
 		//console.log('bottom');
 		rotationAngle = degToRad(-90);
 		rotationAxis = new THREE.Vector3(1,0,0);
+		scaleAxis = 'y';
 		break;
 	
 	case 'front':
 		//console.log('front');
 		rotationAngle = degToRad(0);
 		rotationAxis = new THREE.Vector3(0,1,0);
+		scaleAxis = 'z';
 		break;
 	
 	case 'back':
 		//console.log('back');
 		rotationAngle = degToRad(180);
 		rotationAxis = new THREE.Vector3(0,1,0);
+		scaleAxis = 'z';
 		break;
 	
 	default: break;
@@ -1253,7 +1296,7 @@ function getRotation(cubieMesh)
 		moveObject(cubieMesh,X,Y,Z,3000);
 	},5000);*/
 	
-	return {'rotationAxis':rotationAxis,'rotationAngle':rotationAngle};
+	return {'rotationAxis':rotationAxis,'rotationAngle':rotationAngle,'scaleAxis':scaleAxis};
 }
 
 function computeLookat(intersectObj)

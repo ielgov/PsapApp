@@ -69,6 +69,7 @@ function initializeScene()
     setSpotLight(50,20,-20,spotLightShowLines);
     setSpotLight(-20,20,-20,spotLightShowLines);
     setSpotLight(10,-20,10,spotLightShowLines);
+    setSpotLight(-20,5,50,spotLightShowLines);
         
     //addGroundPlane();
     	
