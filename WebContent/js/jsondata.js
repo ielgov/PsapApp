@@ -35,7 +35,7 @@ var categoryJSON = {
 		           	{
 		           		"CategoryId": "02",
 		           		"Name": "CCOEM",
-		           		"Display": "Command Control, Operations, and Emergency Management"
+		           		"Display": "Command and Control, Operations, and Emergency Management"
 		           	}, 
 		           	{
 		           		"CategoryId": "03",

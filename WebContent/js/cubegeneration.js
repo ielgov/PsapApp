@@ -704,7 +704,19 @@ function RubiksCube(options)
 		//console.log('str',str);
 		//console.log('indices',indices);
 		//debugger;
-		if (indices.length > 4 && indices.length <=5)
+		if (indices.length > 5 && indices.length <=7)
+		{
+			var str1 = str.substring(0,indices[1]);
+			var str2 = str.substring(indices[1],indices[3]);
+			var str3 = str.substring(indices[3],indices[5]);
+			var str4 = str.substring(indices[5],str.length);
+			
+			dynamicTexture.drawText(str1,undefined,150,ref.textureFillStyle,ref.textureFont);
+			dynamicTexture.drawText(str2,undefined,250,ref.textureFillStyle,ref.textureFont);
+			dynamicTexture.drawText(str3,undefined,350,ref.textureFillStyle,ref.textureFont);
+			dynamicTexture.drawText(str4,undefined,450,ref.textureFillStyle,ref.textureFont);
+		}
+		else if (indices.length > 4 && indices.length <=5)
 		{
 			//console.log('length > 4 && <=5');
 			var str1 = str.substring(0,indices[1]);
