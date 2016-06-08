@@ -1,3 +1,5 @@
+var cubielabelarray = [];
+var cubielabelpos = [100,200,300,400,500];
 var CUBE_SIZE = 3;
 var GAP_BETWEEN_CUBES = 0.2;
 var selectionColor = 0xff0000;//0xb2ccce;//0xdaeff2;//0xff0000
@@ -696,6 +698,35 @@ function RubiksCube(options)
 	this.getFaceData = function(dataObj, dynamicTexture){
 		//console.log("Function :: getFaceData");
 		var str = dataObj['Display'];
+		cubielabelarray = [];
+		stringDivider(str,16,"");
+		var arrylen = cubielabelarray.length;
+		var labelstartpos = 0;
+		switch(arrylen){
+			case 1:
+				labelstartpos = 1;
+				break;
+			case 2:
+				labelstartpos = 1;
+				break;
+			case 3:
+				labelstartpos = 1;
+				break;
+			case 4:
+				labelstartpos = 0;
+				break;
+			case 5:
+				labelstartpos = 0;
+				break;
+			default: //in case no caharacters or more than 5 lines 
+				return;
+		}
+		for ( var i=0; i < arrylen; i++){
+			dynamicTexture.drawText(cubielabelarray[i],undefined,cubielabelpos[i + labelstartpos],ref.textureFillStyle,ref.textureFont);
+		}
+		//console.log (cubielabelarray);
+		return dynamicTexture;
+		/*
 		var indices = [];
 		for(var j=0; j<str.length;j++) 
 		{
@@ -763,6 +794,7 @@ function RubiksCube(options)
 			dynamicTexture.drawText(str1,undefined,150,ref.textureFillStyle,ref.textureFont);
 		}				
 		return dynamicTexture;
+		*/
 	};
 	
 	this.generateDynamicCanvas = function(cubie){
@@ -1290,4 +1322,22 @@ function isArrayFull( arr )
     }
   }
   return true;
+}
+
+
+function stringDivider(str, width, spaceReplacer) {
+    
+    if (str.length>width) {
+        var p=width
+        for (;p>0 && str[p]!=' ';p--) {
+        }
+        if (p>0) {
+            var left = str.substring(0, p);
+            var right = str.substring(p+1);
+            cubielabelarray.push(left);
+            return left + spaceReplacer + stringDivider(right, width, spaceReplacer);
+        }
+    }
+    cubielabelarray.push(str);
+    return str;
 }

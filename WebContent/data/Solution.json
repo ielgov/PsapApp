@@ -45,7 +45,7 @@
 		{
 		"CategoryId": "201",
 		"Name": "IOC4EM",
-		"Display": "Situation Awareness and Incident Response"
+		"Display": "Situational Awareness and Incident Response"
 		}, 
 		{
 		"CategoryId": "202",
@@ -55,7 +55,7 @@
 		{
 		"CategoryId": "207",
 		"Name": "Resiliancy",
-		"Display": "Resiliancy Assessments"
+		"Display": "Resiliency Assessments"
 		},
 		{
 		"CategoryId": "206",
@@ -75,7 +75,7 @@
 		{
 		"CategoryId": "205",
 		"Name": "Cloud",
-		"Display": "Cloud and Deployment"
+		"Display": "Cloud Services and Deployment"
 		}, 
 		{
 		"CategoryId": "208",
