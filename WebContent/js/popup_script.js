@@ -112,7 +112,7 @@ function sizeAssets(seedButton, containerArr) // sorry, this is really jank
 
 function resize()
 {
-	sizeAssets(buttonForSizing, document.getElementsByClassName("assetSmallererParent"));
+	//sizeAssets(buttonForSizing, document.getElementsByClassName("assetSmallererParent"));
 	sizePopOutWidth( undefined, true );
 	assetsSlider.style.width = window.innerWidth
 	//resizeX();

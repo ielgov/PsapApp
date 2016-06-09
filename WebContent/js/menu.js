@@ -86,7 +86,7 @@ function postLogout()
 function getUserDetails()
 {
 	console.log("Function :: getSignedUser");
-	var restURL = webServerIP+"/PSAP/UsrList?type=getSignedUser";
+	var restURL = config.weburl+"/PSAP/UsrList?type=getSignedUser";
 	var email = "abc@us.ibm.com";
 	console.log("sample emailId",email);
 	document.querySelector('#emailId').innerHTML = email;

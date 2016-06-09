@@ -158,7 +158,12 @@
 	<script type="text/javascript" src="js/movements.js"></script>
 	<script type="text/javascript" src="js/cubegeneration.js"></script>
 	<script type="text/javascript" src="js/cubeinteraction.js"></script>
+<<<<<<< HEAD
 	<!-- 
+=======
+	<script type="text/javascript" src="js/errorcube.js"></script>
+	
+>>>>>>> origin/master
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/bootstrap-session-timeout.js"></script>
 	 -->
@@ -199,12 +204,18 @@
 		
 		
 		window.addEventListener( 'resize', onWindowResize, false );
+		window.addEventListener( 'load', function(){ slideArrowUp(); }, false );
+		//window.addEventListener( 'load', function(){ showPopUp(2001, 201); }, false ); // TODO REMOVE!
 	</script>
 
 	<!-- <button id="thisShouldBeRemoved" onclick="showPopUp(2001, 201)" style="z-index:5; position:fixed; left:100px; top:100px;">Click to reveal assets with showPopUp(2001, 201)</button>
 	<button id="thisShouldBeRemovedToo" onclick="hidePopUp()" style="z-index:5; position:fixed; left:100px; top:125px;">Click to hide assets with hidePopUp()</button> -->
 	<div id="assetsSlider" class="hidden">
-			<div id="assetsTitle"><span onclick="hidePopUp()">Showing <span id="numberOfResults" style="color:black">18</span> results</span></div>
+			<svg id="slideUpCloseArrow" onclick="hidePopUp()">
+				<line style="stroke:#525659; stroke-width:1px" />
+				<line style="stroke:#525659; stroke-width:1px" />
+			</svg>
+			<div id="assetsTitle"><span onclick="hidePopUp()">Showing <span id="numberOfResults" style="color:black">18</span> results for <span id="resultsName">RESULT NAME HERE</span></span></div>
 			<div id="assetsHolder"></div>
 	</div>
 	<img id="xIcon" src="images/x.png" onclick="openButton()" class="hidden"></img>
