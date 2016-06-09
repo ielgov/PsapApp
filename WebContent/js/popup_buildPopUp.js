@@ -129,10 +129,11 @@ function makeAssetSmallerParent(assets, id)
 		var div = document.createElement( "div" );
 		if( l === "URL")
 		{	
-			console.log();
+			//console.log("data is " + JSON.stringify( data ))
 			div.onclick = function(){ open_in_new_tab( data[l] ) };
 			//div.innerHTML = l+": "+data[l] + " ("+data['ASSET_TYPE']+")";
 			
+			if( data['ASSET_TYPE'].toUpperCase() != "DESCRIPTION ONLY" )
 			{				
 				try
 				{
