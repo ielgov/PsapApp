@@ -17,7 +17,7 @@
 	<link href="css/landingpage.css" rel="stylesheet" type="text/css" />
 
     <!-- Bootstrap -->
-    <!-- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -159,6 +159,8 @@
 	<script type="text/javascript" src="js/cubegeneration.js"></script>
 	<script type="text/javascript" src="js/cubeinteraction.js"></script>
 	
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-session-timeout.js"></script>
 	<!--make sure this is last-->
 	<script type="text/javascript" src="js/scene.js"></script>
 	
@@ -194,6 +196,13 @@
 			initializeScene();
 		});
 		
+		$.sessionTimeout({
+        keepAliveUrl: 'http://172.27.50.134:9080/PSAP/index.html',
+        logoutUrl: 'http://172.27.50.134:9080/PSAP/logoutlink.html',
+        redirUrl: 'http://172.27.50.134:9080/PSAP/login.jsp',
+        warnAfter: 280000,
+        redirAfter: 290000
+       });
 		window.addEventListener( 'resize', onWindowResize, false );
 	</script>
 
