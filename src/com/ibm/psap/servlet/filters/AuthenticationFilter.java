@@ -32,7 +32,7 @@ public class AuthenticationFilter implements Filter {
 		String uri = req.getRequestURI();
 		logger.info("Requested Resource::"+uri);
 		//Only for DEV environment to by-pass security for the APIs
-		if ( true){
+		if ( false){
 			if( ( uri.indexOf("/Categories")!= -1) || ( uri.indexOf("/Assets")!= -1) || 
 					( uri.indexOf("/UsrList")!= -1) || ( uri.endsWith("/userlistform.jsp") ) ){
 				logger.error("By-passing authentication");
