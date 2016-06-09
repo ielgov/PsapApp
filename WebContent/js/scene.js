@@ -4,6 +4,7 @@ var debug = false;
 var domEvents;
 var orbitControl;
 var worldGroups = {};
+var errorCubeSpeed = 0.003;
 
 //var domEvents;
 
@@ -94,6 +95,8 @@ function initializeScene()
     //render();
 	animate();
 	
+	initialErrorCubeSetup();
+	
 	//Create 'categories' rubiks cube in this called function 
 	initialCubeSetup();
 	
@@ -137,6 +140,14 @@ function render()
 				activeRubiksCube.group.rotation.x = -0.5;
 			}
 		}		
+	}
+	
+	if (errorCube)
+	{
+		if (errorCube.allowRotation)
+		{
+			errorCube.cube.rotation.y -= errorCubeSpeed;
+		}
 	}
     renderer.render(scene, camera);
 }
@@ -325,11 +336,4 @@ function onDocumentMouseDownGetCoord(event)
 	console.log('mouseSelectX',mouseSelectX);
 	console.log('mouseSelectY',mouseSelectY);
 	get3dCood(mouseSelectX,mouseSelectY);
-}
-
-function testSVG()
-{
-	cameraCube = new THREE.Mesh( new THREE.BoxGeometry( 3, 3, 3 ), new THREE.MeshLambertMaterial({ color: 0xFF00FF, transparent:true, map: THREE.ImageUtils.loadTexture("images/svg/rubiksCubeText_commandAndControl.svg") }));
-	cameraCube.position.set( -14, 7, -22);
-	camera.add(cameraCube);
 }
