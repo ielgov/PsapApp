@@ -6,7 +6,7 @@
 		<param name="File" value="c:/PSAP/logs/PsapApp.log"/>
 		<param name="Append"            value="true" />
 		<param name="ImmediateFlush"    value="true" />
-		<param name="MaxFileSize"       value="10MB" />
+		<param name="MaxFileSize"       value="20KB" />
 		<param name="MaxBackupIndex"    value="5" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%-4r [%t] %-5p %c %x - %m%n" />

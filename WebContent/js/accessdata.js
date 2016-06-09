@@ -107,8 +107,15 @@ function getRESTRequest(restURL,usejson,func)
 							func(response);
 					}					
 				}
+				else if (response.hasOwnProperty('email'))
+				{
+					console.log("Response Email id",response['email']);
+					if (func)
+						func(response);
+				}
 				else
 				{
+					console.log("Response - " + JSON.stringify(response));
 					if (response.indexOf('html'))
 					{
 						//window.location.href = "http://172.27.50.135:9080/PSAP/index.html";
