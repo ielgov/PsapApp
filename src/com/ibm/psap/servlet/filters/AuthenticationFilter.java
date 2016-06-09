@@ -38,11 +38,7 @@ public class AuthenticationFilter implements Filter {
 		APISecurity = filterConfig.getInitParameter("APISecurity");
 		logger.info("The APISecurity is set to : " +  APISecurity);
 		//Only for DEV environment to by-pass security for the APIs
-<<<<<<< HEAD
-		if ( false){
-=======
 		if ( APISecurity!= null &&  APISecurity.equalsIgnoreCase("false")){
->>>>>>> refs/remotes/origin/master
 			if( ( uri.indexOf("/Categories")!= -1) || ( uri.indexOf("/Assets")!= -1) || 
 					( uri.indexOf("/UsrList")!= -1) || ( uri.endsWith("/userlistform.jsp") ) ){
 				logger.error("By-passing authentication");
