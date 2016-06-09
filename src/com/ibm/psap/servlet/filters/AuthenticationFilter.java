@@ -19,20 +19,26 @@ import org.apache.log4j.Logger;
 public class AuthenticationFilter implements Filter {
 
 	private Logger logger = Logger.getLogger(AuthenticationFilter.class);
+	private FilterConfig filterConfig = null;
 	
 	public void init(FilterConfig fConfig) throws ServletException {
 		logger.info("AuthenticationFilter initialized");
+		this.filterConfig = fConfig;
 	}
 	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
+		String APISecurity = null;
 		
 		String uri = req.getRequestURI();
 		logger.info("Requested Resource::"+uri);
+		
+		APISecurity = filterConfig.getInitParameter("APISecurity");
+		logger.info("The APISecurity is set to : " +  APISecurity);
 		//Only for DEV environment to by-pass security for the APIs
-		if ( true){
+		if ( APISecurity!= null &&  APISecurity.equalsIgnoreCase("false")){
 			if( ( uri.indexOf("/Categories")!= -1) || ( uri.indexOf("/Assets")!= -1) || 
 					( uri.indexOf("/UsrList")!= -1) || ( uri.endsWith("/userlistform.jsp") ) ){
 				logger.error("By-passing authentication");
@@ -82,23 +88,13 @@ public class AuthenticationFilter implements Filter {
 				
 			}
 		}
-		/*
-		// Temporary Frame work to by-pass authentication
-		if(session == null ){
-			logger.error("Setting session and By-passing authentication");
-			session = req.getSession();
-			// pass the request along the filter chain
-			chain.doFilter(request, response);
-		}else{
-			
-			chain.doFilter(request, response);
-		}
-		*/
+		
 		
 	}
 
 	public void destroy() {
 		//close any resources here
 	}
-
+	
+	
 }
