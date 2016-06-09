@@ -110,7 +110,7 @@ function makeAssetSmallerParent(assets, id)
 		title.classList.add("title");
 		asset.appendChild( title )
 	
-		if( assetObj.ASSETACTION == "BLURB" ) // is meant to be a pop up
+		if( assetObj.ASSETACTION.toUpperCase() == "BLURB" ) // is meant to be a pop up
 		{
 			asset.onclick = function(){openButton(this)}
 		}
@@ -118,6 +118,7 @@ function makeAssetSmallerParent(assets, id)
 		{
 			asset.onclick = function(){open_in_new_tab(assetObj.URL)}
 		}
+		console.log("assetObj.ASSETACTION is "+assetObj.ASSETACTION)
 		
 		return asset;
 	}
@@ -128,12 +129,11 @@ function makeAssetSmallerParent(assets, id)
 		var div = document.createElement( "div" );
 		if( l === "URL")
 		{	
-			console.log("data is ")
-			console.log();
+			//console.log("data is " + JSON.stringify( data ))
 			div.onclick = function(){ open_in_new_tab( data[l] ) };
 			//div.innerHTML = l+": "+data[l] + " ("+data['ASSET_TYPE']+")";
 			
-			if( data['ASSET_TYPE'] != "description only" )
+			if( data['ASSET_TYPE'].toUpperCase() != "DESCRIPTION ONLY" )
 			{				
 				try
 				{

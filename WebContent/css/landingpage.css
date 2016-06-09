@@ -10,6 +10,34 @@ Cube highlight face 3 = #ff8039
 	display: none;
 }
 
+.positionRelative
+{
+	position: relative;
+}
+
+.positionAbsolute
+{
+	position: absolute;
+}
+
+.doCenter
+{
+    /* Firefox */
+    display:-moz-box;
+    -moz-box-pack:center;
+    -moz-box-align:center;
+
+    /* Safari and Chrome */
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+
+    /* W3C */
+    display:box;
+    box-pack:center;
+    box-align:center;
+}
+
 .white-txt
 {
 	color: white;
@@ -17,7 +45,17 @@ Cube highlight face 3 = #ff8039
 
 .black-txt
 {
-	color: white;
+	color: black;
+}
+
+.white-bg
+{
+	background-color: white;
+}
+
+.black-bg
+{
+	background-color: black;
 }
 
 .translateX12
@@ -170,6 +208,40 @@ Cube highlight face 3 = #ff8039
 	height:3rem;
 	width:3rem;
 	margin-right:1rem;
+}
+
+#header .search-box
+{
+	font-weight: bolder;
+    border-bottom: 1px solid rgba(255,255,255,0.5);
+    border-radius: 0px;
+    font-size: 1.5rem;
+}
+
+#header .search-icon
+{
+    background-image: url(../images/icons/Search-Filled-64-gray.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 1.75rem;
+    width: 1.75rem;
+    margin-left: 0.5rem;
+}
+
+#header .search-entry
+{
+	color: rgba(255,255,255,0.3);
+}
+
+#header .search-send
+{
+	background-image: url(../images/icons/Forward-64-gray.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 1.55rem;
+    width: 1.55rem;
 }
 
 .menu-turquoise

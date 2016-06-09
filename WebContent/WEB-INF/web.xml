@@ -54,5 +54,9 @@
   </filter-mapping>
   <session-config>
     <session-timeout>5</session-timeout>
+<<<<<<< HEAD
   </session-config>
+=======
+</session-config>
+>>>>>>> refs/remotes/origin/master
 </web-app>
