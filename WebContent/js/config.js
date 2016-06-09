@@ -1,5 +1,5 @@
 var config={};
-config.weburl = "http://172.27.50.135:9080";
+config.weburl = "http://172.27.50.134:9080";
 config.allowRandomLinks = !true; // TODO remove
 
 config.assetMargin = 8; // THIS NUMBER BEING SUBTRACTED HAS TO BE THE SAME AS THE MARGIN VALUE IN THE CSS
