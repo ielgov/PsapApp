@@ -155,7 +155,7 @@
 				%>
 			    </label></li>
 			    
-			    <li><label>Full Name <span class="required">*</span></label><input type="text" name="field1" class="field-divided" placeholder="First" />&nbsp;<input type="text" name="field2" class="field-divided" placeholder="Last" /></li>
+			    <li><label>Full Name </label><input type="text" name="field1" class="field-divided" placeholder="First" />&nbsp;<input type="text" name="field2" class="field-divided" placeholder="Last" /></li>
 			    <li>
 			        <label>Email <span class="required">*</span></label>
 			        <input type="email" name="field3" class="field-long" />
