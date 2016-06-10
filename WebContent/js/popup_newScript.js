@@ -1,4 +1,4 @@
-function showPopUp(offeringId, parentId, useCache)
+function showPopUp(offeringId, parentId, resultName)
 {
 	assetsHolder.innerHTML = "";
 	
@@ -9,17 +9,7 @@ function showPopUp(offeringId, parentId, useCache)
 	
 	//alert("url is *"+url+"*")
 	
-	if(!useCache)
-	{
-		try{
-			httpRequest( url, callback );
-		}catch(e){}
-	}
-	else
-	{
-		console.log("using cache");
-		callback( localStorage.getItem("search_results") );
-	}
+	httpRequest( url, callback );
 	
 	function callback( respText )
 	{
@@ -30,6 +20,10 @@ function showPopUp(offeringId, parentId, useCache)
 	numberOfResults.innerHTML = assetsSlider.getElementsByClassName("asset").length;
 	sizeAssets(buttonForSizing, document.getElementsByClassName("assetSmallererParent"));
 	
+	if(resultName !== undefined)
+	{		
+		document.querySelector("#resultsName").innerHTML = "for "+resultName;		
+	}
 	assetsSlider.classList.remove("hidden");
 	slideArrowDown();
 }

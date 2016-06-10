@@ -60,7 +60,7 @@ function toggleClass(e, className)
 
 function httpRequest(url, callback, method)
 {
-	async = false;
+	async = true;
 	method = method || "GET";
 	
 	var xhttp = new XMLHttpRequest();
