@@ -28,12 +28,14 @@ function showPopUp(offeringId, parentId, useCache)
 	numberOfResults.innerHTML = assetsSlider.getElementsByClassName("asset").length;
 	sizeAssets(buttonForSizing, document.getElementsByClassName("assetSmallererParent"));
 	
-	assetsSlider.classList.remove("hidden");	
+	assetsSlider.classList.remove("hidden");
+	slideArrowDown();
 }
 
 function hidePopUp()
 {
 	assetsSlider.classList.add("hidden");
+	slideArrowUp();
 	processBreadCrum(breadCrumsPos['offerings']['cubieMesh'],'offerings');
 }
 

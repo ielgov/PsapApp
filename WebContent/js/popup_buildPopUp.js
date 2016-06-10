@@ -5,9 +5,11 @@ function buildPopUp( results )
 	for(var k in results)
 	{
 		var assetParent = makeAssetParent()
+		var breakLine = document.createElement("hr");
 		var title = makeTitle( k );
 		var assetSmallerParent = makeAssetSmallerParent( results[k], undefined );
 		
+		assetParent.appendChild( breakLine );
 		assetParent.appendChild( title );
 		assetParent.appendChild( assetSmallerParent );
 		
@@ -161,6 +163,50 @@ function makeAssetSmallerParent(assets, id)
 		}
 		return div;
 	}
+}
+
+function slideArrowUp()
+{
+	var slideArrow = document.querySelector("#slideUpCloseArrow");
+	var slideArrowChildren = document.querySelectorAll("#slideUpCloseArrow > *");
+	var boundingRect = slideArrow.getBoundingClientRect();
+	
+	line1 = slideArrowChildren[0]
+	line1.setAttribute("x1", 0);
+	line1.setAttribute("y1", boundingRect.height);	
+	line1.setAttribute("x2", boundingRect.width/2);
+	line1.setAttribute("y2", 0);
+	
+	line2 = slideArrowChildren[1]
+	line2.setAttribute("x1", boundingRect.width/2);
+	line2.setAttribute("y1", 0);	
+	line2.setAttribute("x2", boundingRect.width);
+	line2.setAttribute("y2", boundingRect.height);
+	
+	slideArrow.appendChild(line1);
+	slideArrow.appendChild(line2);
+}
+
+function slideArrowDown()
+{
+	var slideArrow = document.querySelector("#slideUpCloseArrow");
+	var slideArrowChildren = document.querySelectorAll("#slideUpCloseArrow > *");
+	var boundingRect = slideArrow.getBoundingClientRect();
+	
+	line1 = slideArrowChildren[0]
+	line1.setAttribute("x1", 0);
+	line1.setAttribute("y1", 0);	
+	line1.setAttribute("x2", boundingRect.width/2);
+	line1.setAttribute("y2", boundingRect.height);
+	
+	line2 = slideArrowChildren[1]
+	line2.setAttribute("x1", boundingRect.width/2);
+	line2.setAttribute("y1", boundingRect.height);	
+	line2.setAttribute("x2", boundingRect.width);
+	line2.setAttribute("y2", 0);
+	
+	slideArrow.appendChild(line1);
+	slideArrow.appendChild(line2);
 }
 
 

@@ -1,7 +1,6 @@
 .asset
 {
 	padding:.75rem;
-	margin:16px;
 	text-align:center;
 	
 	transform:translateZ(100px);
@@ -11,18 +10,22 @@
 	justify-content:center;
 	/*align-items:center;*/
 		
-	background: grey;
+	background: white;
 	color:black;
 	
-	height: 10.7rem; /*for some reason if this is above 10.7rem (119px) it will be hidden by the space above the slider*/
-	width: 24rem;
+	height: 24rem; /*for some reason if this is above 10.7rem (119px) it will be hidden by the space above the slider*/
+	width: 16.5rem;
 	
-	margin: 8px; /*TODO change this to be set with rem type units on page load; need this so the spacing works*/
-	border-radius: 1.5rem;
+	margin-right:18px;
+	margin-bottom:18px;
+	/*border-radius: 1.5rem;*/
+	border-width: 2px;
+	border-color: #00b9de;
+	border-style: solid;
 	
 	transition: all .4s .0s, width .4s .0s, height .4s .0s;
 	
-	font-size:2rem;
+	font-size:1.8rem;
 }
 
 .asset.open
@@ -65,21 +68,30 @@
 
 .assetParent > .title
 {
-	font-size:2rem;
+	font-size:2.3rem;
 	padding:.5rem;
+	padding-left:0rem;
+	border:0rem;
 }
 
 #assetsTitle
 {
 	color:grey;
 	margin: 1rem;
-	width:100%;
+	/*width:100%;*/
+	font-size:1.45rem;
 	
-	display:-webkit-flex;
-	display:flex;	
-	justify-content: space-around;
+	/*display:-webkit-flex;*/
+	display:flex;
+	/*justify-content: space-around;*/
+	text-align:left;
+	
+	margin-left:3.28rem;
+	margin-bottom:1.64rem;
+	margin-top:1.64rem;
 }
 
+/*
 .assetParent:nth-child(odd)
 {
 	background:rgba(45,66,85,1);
@@ -90,6 +102,7 @@
 {
 	background:rgba(45,66,85,.1);
 }
+*/
 
 .assetParent
 {
@@ -98,10 +111,31 @@
 	text-align:left;
 	/*width:100%;*/
 	padding-bottom:1rem;
+	margin-left:3.28rem;
+	margin-right:3.28rem;
 	
 	display:-webkit-flex;
 	display:flex;
 	flex-direction:column;
+}
+
+.assetParent > *
+{
+	margin-bottom:1.64rem;	
+	/*margin-left:3.28rem;	
+	margin-right:3.28rem;*/
+}
+
+.assetParent > hr
+{
+	/*padding:1px;*/
+	/*margin:1.64rem;*/
+	/*border: 0px;*/
+	/*height: 1px;*/
+	border-color:rgba(0,0,0,0);
+	border-bottom-color:#525659;
+	width:100%;
+	
 }
 
 #assetsSlider.hidden
@@ -115,7 +149,7 @@
 	font-size:1rem !important;
 	height: 0rem;
 	width:100%;
-	background-color:#D2D2D2;
+	background-color:white;
 	
 	margin:0rem;
 	padding:0rem;
@@ -134,10 +168,15 @@
 	
 	transition: all .4s;
 	
-	display:-webkit-flex;
-	display:flex;
+	/*display:-webkit-flex;*/
+	/*display:flex;*/
 	flex-direction: column;
 	align-items: center;
+}
+
+#assetsSlider > *
+{
+	/*margin-bottom:1.64rem;*/
 }
 
 #xIcon
@@ -219,6 +258,15 @@
 	margin-left:1rem;
 	margin-right:1rem;
 	font-size:3rem;
+}
+
+#slideUpCloseArrow
+{
+	height:1rem;
+	width:4rem;
+	margin:1.64rem;
+	margin-bottom:0rem;
+	transition: all .4s .0s;
 }
 
 #triangle

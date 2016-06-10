@@ -1,4 +1,4 @@
-qsa = document.querySelectorAll;
+var runFromLocalStorage = window.location.href.indexOf("file://") >= 0;
 
 function open_in_new_tab(url)
 {
@@ -94,26 +94,26 @@ var pointsObj = [
 	{"x":10, "y":20}
 ]
 
-		function makeSVGImage(pointsArr, width, height)
+function makeSVGImage(pointsArr, width, height)
+{
+	var dStr = "";
+	for(var i=0; i<pointsArr.length; i++)
+	{
+		dStr += i===0 ? "M" : " L";
+		
+		if( pointsArr[i].x <= 1 ) // this is so you can use relitive fractions to the size of the points
 		{
-			var dStr = "";
-			for(var i=0; i<pointsArr.length; i++)
-			{
-				dStr += i===0 ? "M" : " L";
-				
-				if( pointsArr[i].x <= 1 ) // this is so you can use relitive fractions to the size of the points
-				{
-					pointsArr[i].x *= width;
-				}				
-				if( pointsArr[i].y <= 1 ) // this is so you can use relitive fractions to the size of the points
-				{
-					pointsArr[i].y *= height;
-				}
-				
-				dStr += pointsArr[i].x + " " + pointsArr[i].y; 
-			}
-			return dStr;
+			pointsArr[i].x *= width;
+		}				
+		if( pointsArr[i].y <= 1 ) // this is so you can use relitive fractions to the size of the points
+		{
+			pointsArr[i].y *= height;
 		}
+		
+		dStr += pointsArr[i].x + " " + pointsArr[i].y; 
+	}
+	return dStr;
+}
 
 
 

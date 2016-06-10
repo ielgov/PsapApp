@@ -110,7 +110,17 @@ public class Categories extends HttpServlet {
 			Responseobj.put("result", objArray);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
-			throw new IOException(e.getMessage());
+			//throw new IOException(e.getMessage());
+			//JSONObject not found...no result found
+			logger.info("No data found");
+			Responseobj =  new JSONObject();
+			JSONArray objArray =  new JSONArray();
+			try {
+				Responseobj.put("result", objArray);
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				throw new IOException (e1.getMessage());
+			}
 		}			
 		return Responseobj;
 	}

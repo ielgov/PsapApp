@@ -187,6 +187,7 @@ function drawRubiksCube(cubeData,parentData)
 				activeRubiksCube = RC;
 				showRubiksCube(RC.group, function(){
 					console.log('showRubiksCube callback');
+					activeRubiksCube.visible = true;
 					var tween = new TWEEN.Tween(activeRubiksCube.group.rotation).to({x:degToRad(25),y:degToRad(-45)}, 500).easing(TWEEN.Easing.Linear.None);
 					/*tween.onUpdate(function(){
 						grpObject.rotation.x = x;
@@ -207,7 +208,9 @@ function drawRubiksCube(cubeData,parentData)
 		console.warn('Rubiks Cube already drawn for',cubeData['type']);
 		activeRubiksCube = cubeData.RC;
 		activeRubiksCube.allowRotation = true;
-		showRubiksCube(activeRubiksCube.group);
+		showRubiksCube(activeRubiksCube.group, function(){
+			activeRubiksCube.visible = true;
+		});
 		activeRubiksCube.parentData = parentData;
 		//activeRubiksCube.assignDataToFaces();
 		//activeRubiksCube.setCenterCubieData();
@@ -242,6 +245,7 @@ function RubiksCube(options)
 	this.parentData = undefined;
 	this.maxNumOfSols = 0;
 	
+	this.visible = false;
 	
 	this.textureLineHeight = 0.2;
 	this.textureFillStyle = 'black';
@@ -1019,6 +1023,7 @@ function colorThisFace(intersectObj)
 				
 				var nextStep = function(){
 					console.log('next function');
+					activeRubiksCube.visible = false;
 					setCubeData(nextLevelDataOBj, cubieMesh.$cubie.$rubiksCubeType);
 				};
 				
@@ -1045,9 +1050,16 @@ function processBreadCrum(cubieMesh,breadCrumType)
             function(o,i) { return o['uuid'] === cubieMesh['uuid']; },
             true);
 	
+	if (errorCube.visible)
+	{
+		errorCube.hideErrorCube();
+	}
+	
 	if (activeRubiksCube.rubiksCubeType != cubieMesh.$cubie.$rubiksCubeType)
 	{
-		hideRubiksCube(activeRubiksCube.group,-25);
+		hideRubiksCube(activeRubiksCube.group,-25, function(){
+			activeRubiksCube.visible = false;
+		});
 	}
 	
 	var solutionsVisible = false, offeringsVisible = false;
@@ -1214,6 +1226,7 @@ function reversalBreadCrum(breadCrumsObj, animationDuration)
 				
 				activeRubiksCube = catCM.RC;
 				activeRubiksCube.allowRotation = true;
+				activeRubiksCube.visible = true;
 				//activeRubiksCube.addAllCubieClicks();
 			});
 			//debugger;
