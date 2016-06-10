@@ -7,6 +7,8 @@ config.weburl = "http://172.27.50.135:9080"; //DEV
 
 config.allowRandomLinks = !true; // TODO remove
 
+config.weburl = runFromLocalStorage == true ? "http://172.27.50.135:9080" : config.weburl ; // uses dev server if run from local file system
+
 config.allowRandomLinks = !true; // TODO remove
 
 config.assetMargin = 8; // THIS NUMBER BEING SUBTRACTED HAS TO BE THE SAME AS THE MARGIN VALUE IN THE CSS

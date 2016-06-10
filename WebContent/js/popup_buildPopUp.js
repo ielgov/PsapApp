@@ -78,7 +78,10 @@ function makeAssetSmallerParent(assets, id)
 	var i=0;
 	for(var k in assets)
 	{
-		var asset = makeAsset( assets[k], i++ );
+		var asset = makeAsset( assets[k], i );
+		
+		var columne = getColunmn( assetSmallererParent, i );
+		
 		assetSmallererParent.appendChild( asset );
 		
 		var contentHolder = document.createElement("div");
@@ -95,12 +98,18 @@ function makeAssetSmallerParent(assets, id)
 			}
 		}
 		asset.appendChild( contentHolder ); // TODO this should be moved to the makeAsset function
+		i++;
 	}
 	
 	assetSmallerParent.appendChild( assetSmallererParent );
 	return assetSmallerParent;
 	
 	//------------start of functions---------------------------
+	function getColunmn(  parent, elementNumber )
+	{
+		document.querySelector
+	}
+	
 	function makeAsset(assetObj, i)
 	{
 		var asset = document.createElement("div");
@@ -120,7 +129,7 @@ function makeAssetSmallerParent(assets, id)
 		{
 			asset.onclick = function(){open_in_new_tab(assetObj.URL)}
 		}
-		console.log("assetObj.ASSETACTION is "+assetObj.ASSETACTION)
+		//console.log("assetObj.ASSETACTION is "+assetObj.ASSETACTION)
 		
 		return asset;
 	}

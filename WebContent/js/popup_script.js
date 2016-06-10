@@ -72,19 +72,21 @@ function sizeElements()
 // params: seedButton is the button to get the width off of
 function sizeAssets(seedButton, containerArr) // sorry, this is really jank 
 {
-	console.log(seedButton);
+	//debugger;
+	//console.log(seedButton);
 	for( var i=0; i<containerArr.length; i++ )
 	{
 		containerArr[i].style.marginLeft = 0+"px";	
 		containerArr[i].style.marginRight = 0+"px";	
 	}
 	
-	buttonWidth = seedButton.getBoundingClientRect().width + config.assetMargin*2;
+	buttonWidth = seedButton.getBoundingClientRect().width + config.assetMargin;
 	numberElementsAcross = parseInt( window.innerWidth / buttonWidth );
 	expectedButtonsWidths = numberElementsAcross * buttonWidth;
 	margin = ( window.innerWidth - expectedButtonsWidths ) / 4
 	
 	console.log("numberElementsAcross is "+numberElementsAcross)		
+	console.log("buttonWidth is "+buttonWidth)		
 	
 	var spaceForButtons = 0;	
 	spaceForButtons  += seedButton.getBoundingClientRect().width * numberElementsAcross;
@@ -104,7 +106,7 @@ function sizeAssets(seedButton, containerArr) // sorry, this is really jank
 		containerArr[i].style.marginLeft = margin+"px";	
 		containerArr[i].style.marginRight = margin+"px";
 
-		console.log( containerArr[i] );
+		//console.log( containerArr[i] );
 		
 	}
 	
@@ -112,7 +114,7 @@ function sizeAssets(seedButton, containerArr) // sorry, this is really jank
 
 function resize()
 {
-	//sizeAssets(buttonForSizing, document.getElementsByClassName("assetSmallererParent"));
+	//sizeAssets(buttonForSizing, document.querySelectorAll(".assetSmallererParent"));
 	sizePopOutWidth( undefined, true );
 	assetsSlider.style.width = window.innerWidth
 	//resizeX();

@@ -65,11 +65,12 @@ function httpRequest(url, callback, method)
 	
 	var xhttp = new XMLHttpRequest();
 	
+	
 	xhttp.onreadystatechange = function() 
 	{
 		if (xhttp.readyState == 4 && xhttp.status == 200) 
 		{
-			console.log( JSON.parse(xhttp.responseText) );
+			//console.log( JSON.parse(xhttp.responseText) );
 			
 			if(callback !== undefined)
 			{
@@ -77,6 +78,7 @@ function httpRequest(url, callback, method)
 			}
 		}
 	};
+	console.log("requesting *"+url+"*");
 	xhttp.open(method, url, async);
 	try{
 		xhttp.send();

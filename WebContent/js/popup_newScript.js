@@ -7,6 +7,8 @@ function showPopUp(offeringId, parentId, useCache)
 	var url = "";
 	url = config.weburl + "/PSAP/Assets?offeringId="+offeringId+"&parentId="+parentId+""
 	
+	//alert("url is *"+url+"*")
+	
 	if(!useCache)
 	{
 		try{
