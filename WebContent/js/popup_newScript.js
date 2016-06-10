@@ -63,7 +63,7 @@ function openButton(buttonClicked)
 		placeHolderBoundingRect = placeHolder.getBoundingClientRect()
 		
 		buttonClicked.style.left = (placeHolderBoundingRect.left - config.assetMargin)+"px";
-		buttonClicked.style.top = (placeHolderBoundingRect.top - config.assetMargin)+"px";
+		buttonClicked.style.top = (placeHolderBoundingRect.top - config.assetMargin)+"px";;
 		//buttonClicked.style.zIndex = "";
 			
 		document.querySelector(".asset.open > .contentHolder").classList.add("hidden");
@@ -84,10 +84,13 @@ function openButton(buttonClicked)
 			{
 				if( !placeHolder.classList.contains("removed") )
 				{
+					placeHolder.parentElement.appendChild(buttonClicked);
+					
 					placeHolder.parentElement.removeChild( placeHolder );
-					placeHolder.classList.add("removed")
+					placeHolder.classList.add("removed")					
 					
 					buttonClicked.style.position = "";	
+					buttonClicked.style.zIndex = "";
 				}					
 			}			
 		}, false)
@@ -107,9 +110,11 @@ function openButton(buttonClicked)
 		placeHolder.onclick = buttonClicked.onclick
 		buttonClicked.parentElement.appendChild( placeHolder );
 		
+		document.querySelector("body").appendChild(buttonClicked);
+		
 		buttonClicked.style.left = (buttonClickedBoundingRect.left - config.assetMargin)+"px";
 		buttonClicked.style.top = (buttonClickedBoundingRect.top - config.assetMargin)+"px";
-		//buttonClicked.style.zIndex = 2;
+		buttonClicked.style.zIndex = 10;
 		buttonClicked.style.position = "fixed";
 		// end of moving up so it can nicely transition to open
 		
