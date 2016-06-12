@@ -83,6 +83,36 @@
 			background-position: center;		
 		}
 	</STYLE>
+	
+	<script id="vertex_shader" type="x-shader/x-vertex">
+		
+		varying vec2 vUv;
+			
+		void main()
+		{
+			vUv = uv;
+			vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+			gl_Position = projectionMatrix * mvPosition;
+		}
+			
+	</script>
+	
+	<script id="fragment_shader" type="x-shader/x-fragment">
+		
+		uniform vec3 color;
+		uniform sampler2D texture;
+
+		varying vec2 vUv;
+
+		void main() 
+		{
+
+	  		vec4 tColor = texture2D( texture, vUv );
+
+	    	gl_FragColor = vec4( mix( color, tColor.rgb, tColor.a ), 1.0 );
+
+		}
+	</script>
     
   </head>
   <body style="visibility: visible;height:100vh;width:100vw;" ontouchmove="event.preventDefault();" onresize="resize()" ><!--the resize is needed to fit elements on page size change. It is in popup_script.js-->
@@ -151,7 +181,7 @@
 	<!-- <script type="text/javascript" src="js/threex.domevent.object3d.js"></script> -->
 	
 	<!-- <script type="text/javascript" src="js/Threejs/rasterizeHTML.allinone.js"></script> -->
-	<!-- <script type="text/javascript" src="js/rasterizeTexture.js"></script> -->
+	<script type="text/javascript" src="js/rasterizeTexture.js"></script>
 	<script type="text/javascript" src="js/menu.js"></script>
     <script type="text/javascript" src="js/accessdata.js"></script>
     <script type="text/javascript" src="js/jsondata.js"></script>	
