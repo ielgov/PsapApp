@@ -41,7 +41,7 @@ function moveX(buttonClicked)
 		return;
 	}
 	
-	console.log(buttonClicked);
+	//console.log(buttonClicked);
 	
 	var boundingRect = buttonClicked.getBoundingClientRect()
 	

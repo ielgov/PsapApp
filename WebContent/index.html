@@ -156,6 +156,14 @@
 		    </div> -->
 		    
 	    </div>
+		<div id="assetsSlider" class="hidden">
+				<svg id="slideUpCloseArrow" onclick="hidePopUp()">
+					<line style="stroke:#525659; stroke-width:1px" />
+					<line style="stroke:#525659; stroke-width:1px" />
+				</svg>
+				<div id="assetsTitle"><span>Showing <span id="numberOfResults" style="color:black">00</span> results <span id="resultsName"></span></span></div>
+				<div id="assetsHolder"></div>
+		</div>
     </div>
     <!-- <canvas id="textureCanvas"></canvas> -->
     <!-- <div id="footer"></div> -->
@@ -237,17 +245,9 @@
 
 	<!-- <button id="thisShouldBeRemoved" onclick="showPopUp(2001, 201)" style="z-index:5; position:fixed; left:100px; top:100px;">Click to reveal assets with showPopUp(2001, 201)</button>
 	<button id="thisShouldBeRemovedToo" onclick="hidePopUp()" style="z-index:5; position:fixed; left:100px; top:125px;">Click to hide assets with hidePopUp()</button> -->
-	<div id="assetsSlider" class="hidden">
-			<svg id="slideUpCloseArrow" onclick="hidePopUp()">
-				<line style="stroke:#525659; stroke-width:1px" />
-				<line style="stroke:#525659; stroke-width:1px" />
-			</svg>
-			<div id="assetsTitle"><span>Showing <span id="numberOfResults" style="color:black">00</span> results <span id="resultsName"></span></span></div>
-			<div id="assetsHolder"></div>
-	</div>
-	<img id="xIcon" src="images/x.png" onclick="openButton()" class="hidden"></img>
-	<!--<div id="greyOutBox" class="hidden" onclick="openButton()"></div>--> 
+	<img id="xIcon" src="images/x.png" onclick="closeButton()" class="hidden"></img>
+	<!--<div id="greyOutBox" class="hidden" onclick="closeButton()"></div>--> 
 	<div id='divForFindingEMSize' style=" width:1rem; position:absolute; left:-10000; right:-10000;"></div><!--if this is removed the page wont format correctly-->
-	<div id="buttonForSizing" onclick="openButton(this)" style="order:1; position:fixed; left:-500px;" class="asset offScreen"></div>
+	<div id="buttonForSizing" style="order:1; position:fixed; left:-500px;" class="asset offScreen"></div>
   </body>
 </html>
