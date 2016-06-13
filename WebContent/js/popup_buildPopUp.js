@@ -80,7 +80,7 @@ function makeAssetSmallerParent(assets, id)
 	{
 		var asset = makeAsset( assets[k], i );
 		
-		var columne = getColunmn( assetSmallererParent, i );
+		var column = getColumn( assetSmallererParent, i );
 		
 		assetSmallererParent.appendChild( asset );
 		
@@ -105,7 +105,7 @@ function makeAssetSmallerParent(assets, id)
 	return assetSmallerParent;
 	
 	//------------start of functions---------------------------
-	function getColunmn(  parent, elementNumber )
+	function getColumn(  parent, elementNumber )
 	{
 		document.querySelector
 	}
