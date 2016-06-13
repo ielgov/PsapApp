@@ -83,10 +83,11 @@ function sizeAssets(seedButton, containerArr) // sorry, this is really jank
 		marginWidth = (parentWidth - ( buttonWidth*buttonCount ))/( marginCount )
 		
 		var assets = document.querySelectorAll(".asset")
-		assets.forEach(function(e){
-			e.style.marginLeft = marginWidth+"px";
-			e.style.marginRight = marginWidth+"px";
-		});		
+		for(var i=0; i<assets.length; i++)
+		{
+			assets[i].style.marginLeft = marginWidth+"px";
+			assets[i].style.marginRight = marginWidth+"px";
+		}
 	}
 }
 
