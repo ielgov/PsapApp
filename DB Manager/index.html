@@ -88,13 +88,14 @@
 		<div id="tabHolder">
 			<div id="optionsTab" name="options" onclick="clickTab(this)" class="tab selected">Options</div>
 			<div id="solutionsTab" name="solutions" onclick="clickTab(this)" class="tab">Solutions</div>
-			<div id="assetsTab" name="offerings" onclick="clickTab(this)" class="tab">Offerings</div>
+			<div id="offeringsTab" name="offerings" onclick="clickTab(this)" class="tab">Offerings</div>
 			<div id="assetsTab" name="assets" onclick="clickTab(this)" class="tab">Assets</div>
 		</div>
 		<div id="mainBody">
 			<div id="options" name="options" class="bodySection">
 				<span><input type="radio" name="optionsRadioButton" tab="optionsTab" value="category"><span onclick='this.parentElement.querySelector("input").click()'> Categories</span></span></br>
 				<span><input type="radio" name="optionsRadioButton" tab="solutionsTab" value="solution"><span onclick='this.parentElement.querySelector("input").click()'>  Solutions</span></span></br>
+				<span><input type="radio" name="optionsRadioButton" tab="offeringsTab" value="offering"><span onclick='this.parentElement.querySelector("input").click()'>  Offerings</span></span></br>
 				<span><input type="radio" name="optionsRadioButton" tab="assetsTab" value="assets"><span onclick='this.parentElement.querySelector("input").click()'>  Assets</span></span></br>
 				<button onclick="optionsContinue()">Continue</button>
 			</div>
