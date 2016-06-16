@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>PSAP Database Manager</title>
+	
+		<script src="script.js"></script>
+		
+		<script>
+			function onload()
+			{
+				assetsTab.click()
+				setUpAssets();
+			}
+			function setUpAssets() // TODO change this to be done with HTML not JS
+			{
+				var data = [];
+				
+				data.push({"name":"Asset ID", "type":"text"});
+				data.push({"name":"Display Name", "type":"text"});
+				data.push({"name":"Description", "type":"text"});
+				data.push({"name":"URL", "type":"text"});
+				data.push({"name":"Stalies - wut", "type":"dropdown"});
+				data.push({"name":"Submited By", "type":"text"});
+				data.push({"name":"Action Type", "type":"dropdown"});
+				data.push({"name":"Asset Type", "type":"dropdown"});
+				data.push({"name":"Source Type", "type":"dropdown"});
+				data.push({"name":"Grouping Text", "type":"text"});
+				
+				console.log(data.length)
+				
+				var bigDivs = [];
+				bigDivs.push( document.createElement("div") )
+				bigDivs.push( document.createElement("div") )
+				
+				for(var i=0; i<data.length; i++)
+				{
+					var isLeft = (data.length-1-i)/(data.length-1/2) > .5;
+					
+					var e = data[i];
+					var holderDiv = document.createElement("div");
+					
+					if(e.type=="text")
+					{
+						var name = document.createElement("span");
+						name.innerHTML = e.name;
+						
+						var input = document.createElement("input");
+						input.setAttribute("type", "text");
+						
+						holderDiv.appendChild(name);
+						holderDiv.appendChild(input);
+					}				
+					else if(e.type=="dropdown")
+					{
+						/*
+						<div>
+							Avaiable Solutions
+							<select>
+								<option>filler</option>
+							</select>
+						</div>
+						*/
+						
+						var name = document.createElement("span");
+						name.innerHTML = e.name;
+						
+						var select = document.createElement("select");
+						
+						var option = document.createElement("option");
+						option.innerHTML = "filler";
+						
+						select.appendChild(option);
+						
+						holderDiv.appendChild(name);						
+						holderDiv.appendChild(select);						
+					}
+					bigDivs[ isLeft ? 0 : 1 ].appendChild(holderDiv);
+				}
+				
+				assets.appendChild(bigDivs[0])
+				assets.appendChild(bigDivs[1])
+			}
+		</script>
+		
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body onload="onload()">
+		<div id="tabHolder">
+			<div id="optionsTab" name="options" onclick="clickTab(this)" class="tab selected">Options</div>
+			<div id="solutionsTab" name="solutions" onclick="clickTab(this)" class="tab">Solutions</div>
+			<div id="assetsTab" name="offerings" onclick="clickTab(this)" class="tab">Offerings</div>
+			<div id="assetsTab" name="assets" onclick="clickTab(this)" class="tab">Assets</div>
+		</div>
+		<div id="mainBody">
+			<div id="options" name="options" class="bodySection">
+				<span><input type="radio" name="optionsRadioButton" tab="optionsTab" value="category"><span onclick='this.parentElement.querySelector("input").click()'> Categories</span></span></br>
+				<span><input type="radio" name="optionsRadioButton" tab="solutionsTab" value="solution"><span onclick='this.parentElement.querySelector("input").click()'>  Solutions</span></span></br>
+				<span><input type="radio" name="optionsRadioButton" tab="assetsTab" value="assets"><span onclick='this.parentElement.querySelector("input").click()'>  Assets</span></span></br>
+				<button onclick="optionsContinue()">Continue</button>
+			</div>
+			<div id="solutions" name="solutions" class="hidden bodySection">
+				<div class="selections">
+					<div>
+						Categories Name
+						<select>
+							<option>filler</option>
+						</select>
+					</div>
+					<div>
+						Avaiable Solutions
+						<select>
+							<option>filler</option>
+						</select>
+					</div>
+				</div>
+				<hr>
+				<div class="actions">
+					<div class="actionsFields">
+						<span><span>
+							Solution Display Name
+							<input type="text" placeholder="Name"></input>
+						</span></span>
+						<span><span>
+							Solution Description
+							<input type="text" placeholder="Description"></input>
+						</span></span>
+					</div>
+					<div class="buttons">
+						<span><span>
+							<button>Add</button>
+							<button>Modify</button>
+							<button>Delete</button>
+						</span></span>
+					</div>
+				</div>
+			</div>
+			<div id="offerings" name="offerings" class="hidden bodySection">
+				<div class="selections">
+					<div>
+						Categories Name
+						<select>
+							<option>filler</option>
+						</select>
+					</div>
+					<div>
+						Categories Name
+						<select>
+							<option>filler</option>
+						</select>
+					</div>
+					<div>
+						Avaiable Offerings
+						<select>
+							<option>filler</option>
+						</select>
+					</div>
+				</div>
+				<hr>
+				<div class="actions">
+					<div class="actionsFields">
+						<span><span>
+							Offering Display Name
+							<input type="text" placeholder="Name"></input>
+						</span></span>
+						<span><span>
+							Offering Description
+							<input type="text" placeholder="Description"></input>
+						</span></span>
+					</div>
+					<div class="buttons">
+						<span><span>
+							<button>Add</button>
+							<button>Modify</button>
+							<button>Delete</button>
+						</span></span>
+					</div>
+				</div>
+			</div>
+			<div id="assets" name="assets" class="hidden bodySection">
+			</div>
+		</div>
+	</body>	
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
