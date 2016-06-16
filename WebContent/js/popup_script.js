@@ -41,7 +41,7 @@ function moveX(buttonClicked)
 		return;
 	}
 	
-	console.log(buttonClicked);
+	//console.log(buttonClicked);
 	
 	var boundingRect = buttonClicked.getBoundingClientRect()
 	
@@ -72,47 +72,28 @@ function sizeElements()
 // params: seedButton is the button to get the width off of
 function sizeAssets(seedButton, containerArr) // sorry, this is really jank 
 {
-	console.log(seedButton);
-	for( var i=0; i<containerArr.length; i++ )
+	if( containerArr.length !== 0 )
 	{
-		containerArr[i].style.marginLeft = 0+"px";	
-		containerArr[i].style.marginRight = 0+"px";	
-	}
+		var buttonWidth = seedButton.getBoundingClientRect().width;
+		var parentWidth = containerArr[0].getBoundingClientRect().width;
 	
-	buttonWidth = seedButton.getBoundingClientRect().width + config.assetMargin*2;
-	numberElementsAcross = parseInt( window.innerWidth / buttonWidth );
-	expectedButtonsWidths = numberElementsAcross * buttonWidth;
-	margin = ( window.innerWidth - expectedButtonsWidths ) / 4
+		var buttonCount = parseInt( parentWidth / buttonWidth );
+		var marginCount = buttonCount*2;
 	
-	console.log("numberElementsAcross is "+numberElementsAcross)		
-	
-	var spaceForButtons = 0;	
-	spaceForButtons  += seedButton.getBoundingClientRect().width * numberElementsAcross;
-	spaceForButtons  += 2 * margin * numberElementsAcross;
-	console.log("spaceForButtons is "+spaceForButtons)
-	
-	/*/ here I am trying to get the sizing with large number of assets down
-	document.querySelectorAll(".assetParent > *").forEach(function(value, key, map){
-		value.style.width = spaceForButtons+"px";
-	})
-	//*/
-	
-	//(spaceForButtons+"px")
+		marginWidth = (parentWidth - ( buttonWidth*buttonCount ))/( marginCount )
 		
-	for( var i=0; i<containerArr.length; i++ )
-	{
-		containerArr[i].style.marginLeft = margin+"px";	
-		containerArr[i].style.marginRight = margin+"px";
-
-		console.log( containerArr[i] );
-		
+		var assets = document.querySelectorAll(".asset")
+		for(var i=0; i<assets.length; i++)
+		{
+			assets[i].style.marginLeft = marginWidth+"px";
+			assets[i].style.marginRight = marginWidth+"px";
+		}
 	}
-	
 }
 
 function resize()
 {
-	//sizeAssets(buttonForSizing, document.getElementsByClassName("assetSmallererParent"));
+	sizeAssets(buttonForSizing, document.querySelectorAll(".assetSmallererParent"));
 	sizePopOutWidth( undefined, true );
 	assetsSlider.style.width = window.innerWidth
 	//resizeX();

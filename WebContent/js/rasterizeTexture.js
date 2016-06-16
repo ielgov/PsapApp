@@ -312,3 +312,90 @@ function testSVG()
 	cameraCube.position.set( -14, 7, -22);
 	camera.add(cameraCube);
 }
+
+function testPNG()
+{
+	console.log("Function :: testPNG");
+	
+	// cube geometry
+    var geometry = new THREE.BoxGeometry( 3, 3, 3 );
+    
+    //texture
+    //var texture = new THREE.Texture( generateTexture( ) ); // texture background is transparent    
+    //var texture = THREE.ImageUtils.loadTexture("images/svg/PNG/rubiksCubeText_videoPhysicalCyber.png"); 
+    //texture.needsUpdate = true; // important
+    
+    var loader = new THREE.TextureLoader();
+    var texture = loader.load("images/svg/PNG/rubiksCubeText_videoPhysicalCyber.png");
+    
+	// uniforms
+    var uniforms = {
+        color: { type: "c", value: new THREE.Color( 0xf2f1eb ) }, // material is "red"
+        texture: { type: "t", value: texture },
+    };
+	 // material
+    var material = new THREE.ShaderMaterial({
+        uniforms        : uniforms,
+        vertexShader    : document.getElementById( 'vertex_shader' ).textContent,
+        fragmentShader  : document.getElementById( 'fragment_shader' ).textContent
+    });
+    
+    // cube
+    pngmesh = new THREE.Mesh( geometry, material );
+    scene.add( pngmesh );
+    pngmesh.position.set(-12,0,0);
+    
+    //temp1.object.material.uniforms.color.value.setHex(0x0000ff);
+}
+
+function testPNGGroup()
+{
+	console.log("Function :: testPNGGroup");
+	// cube geometry
+    var geometry = new THREE.BoxGeometry( 5, 5, 5 );
+    var $materialList = {0:{'catId':'100'},1:{'catId':'101'},3:{'catId':'103'},5:{'catId':'105'}};
+    pngmaterials = [];
+    for (var i=0;i<6;i++)
+    {
+    	if ($materialList.hasOwnProperty(i))
+    	{
+    		console.log('i',i);
+    		var dataObj = $materialList[i];
+    		
+    		var loader = new THREE.TextureLoader();
+    		var texture = loader.load("images/svg/PNG/rubiksCubeText_videoPhysicalCyber.png");
+
+        	var uniforms = {
+    		        color: { type: "c", value: new THREE.Color( 0xf2f1eb ) },
+    		        texture: { type: "t", value: texture },
+    		    };
+        	 var material = new THREE.ShaderMaterial({
+    		        uniforms        : uniforms,
+    		        vertexShader    : document.getElementById( 'vertex_shader' ).textContent,
+    		        fragmentShader  : document.getElementById( 'fragment_shader' ).textContent
+    		    });
+        	 material.$data = dataObj; 
+        	 pngmaterials.push(material);
+    	}
+    	else
+    	{
+    		console.log('i',i);
+    		/*var faceMeshMat = new THREE.MeshLambertMaterial({color: 0x000000, vertexColors: THREE.FaceColors});
+    		pngmaterials.push(faceMeshMat);*/
+    		
+    		var uniforms = {
+    		        color: { type: "c", value: new THREE.Color( 0x000000 ) },
+    		    };
+        	 var material = new THREE.ShaderMaterial({
+    		        uniforms        : uniforms,
+    		        vertexShader    : document.getElementById( 'vertex_shader' ).textContent,
+    		        fragmentShader  : document.getElementById( 'fragment_shader' ).textContent
+    		    });
+        	 pngmaterials.push(material);
+    	}    	
+    }
+    var meshMaterial = new THREE.MeshFaceMaterial(pngmaterials);
+    pngGrp = new THREE.Mesh( geometry, meshMaterial );
+    scene.add( pngGrp );
+    pngGrp.position.set(-12,0,0);
+}

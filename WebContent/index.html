@@ -29,9 +29,9 @@
 	<!--start of Drew's headers-->
 		<script src="js/popup_script.js"></script>
 		<script src="js/popup_newScript.js"></script>
-		<script src="js/config.js"></script>
 		<script src="js/popup_helperFunctions.js"></script>
 		<script src="js/popup_buildPopUp.js"></script>
+		<script src="js/config.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/popup_newStyle.css">
 	<!--end of Drew's headers-->
     
@@ -83,6 +83,36 @@
 			background-position: center;		
 		}
 	</STYLE>
+	
+	<script id="vertex_shader" type="x-shader/x-vertex">
+		
+		varying vec2 vUv;
+			
+		void main()
+		{
+			vUv = uv;
+			vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+			gl_Position = projectionMatrix * mvPosition;
+		}
+			
+	</script>
+	
+	<script id="fragment_shader" type="x-shader/x-fragment">
+		
+		uniform vec3 color;
+		uniform sampler2D texture;
+
+		varying vec2 vUv;
+
+		void main() 
+		{
+
+	  		vec4 tColor = texture2D( texture, vUv );
+
+	    	gl_FragColor = vec4( mix( color, tColor.rgb, tColor.a ), 1.0 );
+
+		}
+	</script>
     
   </head>
   <body style="visibility: visible;height:100vh;width:100vw;" ontouchmove="event.preventDefault();" onresize="resize()" ><!--the resize is needed to fit elements on page size change. It is in popup_script.js-->
@@ -126,6 +156,14 @@
 		    </div> -->
 		    
 	    </div>
+		<div id="assetsSlider" class="hidden">
+				<svg id="slideUpCloseArrow" onclick="hidePopUp()">
+					<line style="stroke:#525659; stroke-width:1px" />
+					<line style="stroke:#525659; stroke-width:1px" />
+				</svg>
+				<div id="assetsTitle"><span>Showing <span id="numberOfResults" style="color:black">00</span> results <span id="resultsName"></span></span></div>
+				<div id="assetsHolder"></div>
+		</div>
     </div>
     <!-- <canvas id="textureCanvas"></canvas> -->
     <!-- <div id="footer"></div> -->
@@ -137,7 +175,7 @@
     
      <script type="text/javascript" src="js/Threejs/jquery.min.js"></script>
 	<!-- <script type="text/javascript" src="js/Threejs/Three-r71.js"></script> -->
-	<script type="text/javascript" src="js/Threejs/three.js"></script>
+	<script type="text/javascript" src="js/Threejs/Three.js"></script>
 	<script type="text/javascript" src="js/Threejs/OrbitControls.js"></script>
 	<script type="text/javascript" src="js/Threejs/stats.min.js"></script>
 	<script type="text/javascript" src="js/Threejs/Detector.js"></script>
@@ -151,7 +189,7 @@
 	<!-- <script type="text/javascript" src="js/threex.domevent.object3d.js"></script> -->
 	
 	<!-- <script type="text/javascript" src="js/Threejs/rasterizeHTML.allinone.js"></script> -->
-	<!-- <script type="text/javascript" src="js/rasterizeTexture.js"></script> -->
+	<script type="text/javascript" src="js/rasterizeTexture.js"></script>
 	<script type="text/javascript" src="js/menu.js"></script>
     <script type="text/javascript" src="js/accessdata.js"></script>
     <script type="text/javascript" src="js/jsondata.js"></script>	
@@ -207,24 +245,9 @@
 
 	<!-- <button id="thisShouldBeRemoved" onclick="showPopUp(2001, 201)" style="z-index:5; position:fixed; left:100px; top:100px;">Click to reveal assets with showPopUp(2001, 201)</button>
 	<button id="thisShouldBeRemovedToo" onclick="hidePopUp()" style="z-index:5; position:fixed; left:100px; top:125px;">Click to hide assets with hidePopUp()</button> -->
-	<div id="assetsSlider" class="hidden">
-			<svg id="slideUpCloseArrow" onclick="hidePopUp()">
-				<line style="stroke:#525659; stroke-width:1px" />
-				<line style="stroke:#525659; stroke-width:1px" />
-			</svg>
-			<div id="assetsTitle"><span onclick="hidePopUp()">Showing <span id="numberOfResults" style="color:black">18</span> results for <span id="resultsName">RESULT NAME HERE</span></span></div>
-			<div id="assetsHolder"></div>
-	</div>
-	<img id="xIcon" src="images/x.png" onclick="openButton()" class="hidden"></img>
-	<!--<div id="greyOutBox" class="hidden" onclick="openButton()"></div>--> 
+	<img id="xIcon" src="images/x.png" onclick="closeButton()" class="hidden"></img>
+	<!--<div id="greyOutBox" class="hidden" onclick="closeButton()"></div>--> 
 	<div id='divForFindingEMSize' style=" width:1rem; position:absolute; left:-10000; right:-10000;"></div><!--if this is removed the page wont format correctly-->
-	<div id="buttonForSizing" onclick="openButton(this)" style="order:1; position:fixed; left:-300;" class="asset offScreen"></div>
-	<div id="triangle" onclick="hidePopUp()">
-		<svg width="50px" height="50px">
-			<path d="M0 0 L5 0 L10 0 L5 10" fill="black" id="pathHC"/>
-		</svg>
-	</div>
-	
-	
+	<div id="buttonForSizing" style="order:1; position:fixed; left:-500px;" class="asset offScreen"></div>
   </body>
 </html>

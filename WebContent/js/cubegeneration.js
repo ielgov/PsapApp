@@ -160,7 +160,7 @@ function setCubeData(nextLevelDataObj, currRubiksType)
 		console.log('parentId',parentId);
 		console.log('display',display);
 		console.log('name',name);
-		showPopUp(offeringId, parentId);
+		showPopUp(offeringId, parentId, display);
 		//alert('offeringId - ' +offeringId+'display - '+display+', parentId - '+parentId);
 	}
 }
@@ -215,7 +215,15 @@ function drawRubiksCube(cubeData,parentData)
 		//activeRubiksCube.assignDataToFaces();
 		//activeRubiksCube.setCenterCubieData();
 		activeRubiksCube.cubeData = cubeData['data'];
-		activeRubiksCube.refreshCubeFaces();
+		//cubeData['usePNG'] = false;
+		if (activeRubiksCube.usePNG)
+		{
+			activeRubiksCube.refreshCubeFacesPNG();
+		}
+		else
+		{
+			activeRubiksCube.refreshCubeFaces();
+		}		
 	}
 	
 }
@@ -244,6 +252,8 @@ function RubiksCube(options)
 	this.cubeData = options.data;
 	this.parentData = undefined;
 	this.maxNumOfSols = 0;
+	
+	this.usePNG = options.usePNG || false;
 	
 	this.visible = false;
 	
@@ -308,7 +318,7 @@ function RubiksCube(options)
 	
 	//determine color for each face of the cubie
 	this.findCubieFaceColors = function(x,y,z,cubenum){
-		//console.log("Function :: findCubieFaceColors");
+		console.log("Function :: findCubieFaceColors");
 		var cubie = {};
 		var min = 0;
 		var max = ref.dimensions - 1;
@@ -428,7 +438,7 @@ function RubiksCube(options)
 	
 	//this function assigns data to the respective faces
 	this.assignDataToFaces = function(){
-		//console.log("Function :: assignDataToFaces");
+		console.log("Function :: assignDataToFaces");
 		var cubeData = ref.cubeData;
 		//console.log('cubeData length',cubeData.length);
 		
@@ -515,56 +525,7 @@ function RubiksCube(options)
 		cubie.$materialList[materialIndex] = faceData;
 		//console.log(cubie.$cubenum + ' assigned data = ' + faceData['Display'] + ' | for material index = ' + materialIndex);
 	};
-	
-	this.refreshCubeFaces = function(){
-		console.log("Function :: refreshCubeFaces");
-		//console.log('rubiks cube data',ref.cubeData);
-		
-		for (var c=0;c<ref.allDrawnCubies.length;c++)
-		{
-			var thismesh = ref.allDrawnCubies[c];
-			thismesh.$cubie.$materialList = {};
-		}
-		
-		ref.assignDataToFaces();
-		//Update dynamic texture material for all cubies
-		for (var cubenum in ref.allCubies)
-		{
-			var cubie = ref.allCubies[cubenum];
-			for (var i=0; i<6; i++)
-			{				
-				if (cubie.$materialList.hasOwnProperty(i))
-				{
-					var dynamicTexture = new THREEx.DynamicTexture(512,512);
-					dynamicTexture.texture.anisotropy = renderer.getMaxAnisotropy();
-					dynamicTexture.clear('white');
-					
-					var dataObj = cubie.$materialList[i];
-					
-					dynamicTexture = ref.getFaceData(dataObj, dynamicTexture);
-					
-					var faceColor = cubie['color-face'+i];
-					
-					if (cubie.type == 'center')
-						faceColor = ref.centerCubeFaceColor;
-					
-					var faceMeshMat = new THREE.MeshLambertMaterial({color: faceColor, vertexColors: THREE.FaceColors, map: dynamicTexture.texture});
-					faceMeshMat.$data = dataObj;
-					
-					//cubie.materials[i].map = dynamicTexture.texture;
-					cubie.materials[i] = faceMeshMat;
-					cubie.materials[i].needsUpdate = true;
-				}
-				else
-				{
-					var faceMeshMat = new THREE.MeshLambertMaterial({color: ref.innerFaceColor, vertexColors: THREE.FaceColors});
-					cubie.materials[i] = faceMeshMat;
-					cubie.materials[i].needsUpdate = true;
-				}
-			}
-		}
-	};
-	
+			
 	this.setCenterCubieData = function(){
 		//console.log('setCenterCubieData :: center cubie',ref.parentData);
 		var dataObj = {};
@@ -617,14 +578,16 @@ function RubiksCube(options)
 	
 	//this function draws the cubie/mesh-geometry
 	this.drawCubies = function(){
-		//console.log("Function :: drawCubies");
+		console.log("Function :: drawCubies");
 		for (var cubenum in ref.allCubies)
 		{
 			//console.log('cubenum',cubenum);
 			var cubie = ref.allCubies[cubenum];
 			//console.log('cubie',cubie);
-			
-			cubie['materials'] = ref.generateDynamicTextures(cubie);		
+			if (ref.usePNG)
+				cubie['materials'] = ref.generatePNGTextures(cubie);
+			else
+				cubie['materials'] = ref.generateDynamicTextures(cubie);		
 			
 			var geometry = new THREE.BoxGeometry( ref.cubeSize, ref.cubeSize, ref.cubeSize, 1, 1, 1);
 			var meshMaterial = new THREE.MeshFaceMaterial(cubie['materials']);						
@@ -638,6 +601,7 @@ function RubiksCube(options)
 			ref.group.add(cube);
 			
 			cube.$cubie = cubie;
+			cubie.usePNG = ref.usePNG;
 			ref.allDrawnCubies.push(cube);
 			
 			//set clicks
@@ -647,6 +611,7 @@ function RubiksCube(options)
 	
 	//this function generates texture for each face based upon its data
 	this.generateDynamicTextures = function(cubie){
+		console.log("Function :: generateDynamicTextures");
 		var materials = [];
 		
 		
@@ -697,6 +662,176 @@ function RubiksCube(options)
 		}
 		
 		return materials;
+	};
+	
+	this.refreshCubeFaces = function(){
+		console.log("Function :: refreshCubeFaces");
+		//console.log('rubiks cube data',ref.cubeData);
+		
+		for (var c=0;c<ref.allDrawnCubies.length;c++)
+		{
+			var thismesh = ref.allDrawnCubies[c];
+			thismesh.$cubie.$materialList = {};
+			var materials = thismesh.material.materials;
+			for (var j=0; j<6; j++)
+			{
+				materials[j].dispose();
+			}
+		}
+		
+		ref.assignDataToFaces();
+		//Update dynamic texture material for all cubies
+		for (var cubenum in ref.allCubies)
+		{
+			var cubie = ref.allCubies[cubenum];
+			for (var i=0; i<6; i++)
+			{				
+				if (cubie.$materialList.hasOwnProperty(i))
+				{
+					var dynamicTexture = new THREEx.DynamicTexture(512,512);
+					dynamicTexture.texture.anisotropy = renderer.getMaxAnisotropy();
+					dynamicTexture.clear('white');
+					
+					var dataObj = cubie.$materialList[i];
+					
+					dynamicTexture = ref.getFaceData(dataObj, dynamicTexture);
+					
+					var faceColor = cubie['color-face'+i];
+					
+					if (cubie.type == 'center')
+						faceColor = ref.centerCubeFaceColor;
+					
+					var faceMeshMat = new THREE.MeshLambertMaterial({color: faceColor, vertexColors: THREE.FaceColors, map: dynamicTexture.texture});
+					faceMeshMat.$data = dataObj;
+					
+					//cubie.materials[i].map = dynamicTexture.texture;
+					cubie.materials[i] = faceMeshMat;
+					cubie.materials[i].needsUpdate = true;
+				}
+				else
+				{
+					var faceMeshMat = new THREE.MeshLambertMaterial({color: ref.innerFaceColor, vertexColors: THREE.FaceColors});
+					cubie.materials[i] = faceMeshMat;
+					cubie.materials[i].needsUpdate = true;
+				}
+			}
+		}
+	};
+	
+	this.generatePNGTextures = function(cubie){
+		console.log("Function :: generatePNGTextures");
+		var materials = [];
+		var imagePath = 'images/'+cubie.$rubiksCubeType+'/';
+		
+		for (var i=0; i<6; i++)
+		{
+			if (cubie.$materialList.hasOwnProperty(i))
+			{
+				var dataObj = cubie.$materialList[i];
+				var imageName = imagePath + dataObj['CategoryId'] + '.png';
+				
+				var faceColor = cubie['color-face'+i];
+				if (cubie.type == 'center')
+					faceColor = ref.centerCubeFaceColor;
+				
+				var loader = new THREE.TextureLoader();
+	    		//var texture = loader.load("images/svg/PNG/rubiksCubeText_videoPhysicalCyber.png");
+	    		var texture = loader.load(imageName);
+	    						
+				var uniforms = {
+				        color: { type: "c", value: new THREE.Color( faceColor ) },
+				        texture: { type: "t", value: texture },
+				    };
+				 // material
+			    var material = new THREE.ShaderMaterial({
+			        uniforms        : uniforms,
+			        vertexShader    : document.getElementById( 'vertex_shader' ).textContent,
+			        fragmentShader  : document.getElementById( 'fragment_shader' ).textContent
+			    });
+			    material.$data = dataObj;
+			    
+			    materials.push(material);
+			}
+			else
+			{
+				var uniforms = {
+	    		        color: { type: "c", value: new THREE.Color( ref.innerFaceColor ) },
+	    		    };
+				var material = new THREE.ShaderMaterial({
+    		        uniforms        : uniforms,
+    		        vertexShader    : document.getElementById( 'vertex_shader' ).textContent,
+    		        fragmentShader  : document.getElementById( 'fragment_shader' ).textContent
+    		    });
+				materials.push(material);
+			}
+		}
+		//debugger;
+		return materials;
+	};
+	
+	this.refreshCubeFacesPNG = function(){
+		console.log("Function :: refreshCubeFacesPNG");
+		for (var c=0;c<ref.allDrawnCubies.length;c++)
+		{
+			var thismesh = ref.allDrawnCubies[c];
+			thismesh.$cubie.$materialList = {};
+			var materials = thismesh.material.materials;
+			for (var j=0; j<6; j++)
+			{
+				materials[j].dispose();
+			}
+		}
+		
+		ref.assignDataToFaces();
+		
+		for (var cubenum in ref.allCubies)
+		{
+			var cubie = ref.allCubies[cubenum];
+			var imagePath = 'images/'+cubie.$rubiksCubeType+'/';
+			
+			for (var i=0; i<6; i++)
+			{
+				if (cubie.$materialList.hasOwnProperty(i))
+				{
+					var dataObj = $materialList[i];
+					var imageName = imagePath + dataObj['CategoryId'] + '.png';
+					var faceColor = cubie['color-face'+i];
+					
+					if (cubie.type == 'center')
+						faceColor = ref.centerCubeFaceColor;
+					
+					var loader = new THREE.TextureLoader();
+		    		//var texture = loader.load("images/svg/PNG/rubiksCubeText_videoPhysicalCyber.png");
+		    		var texture = loader.load(imageName);
+					
+					var uniforms = {
+		    		        color: { type: "c", value: new THREE.Color( faceColor ) },
+		    		        texture: { type: "t", value: texture },
+		    		    };
+		        	 var material = new THREE.ShaderMaterial({
+		    		        uniforms        : uniforms,
+		    		        vertexShader    : document.getElementById( 'vertex_shader' ).textContent,
+		    		        fragmentShader  : document.getElementById( 'fragment_shader' ).textContent
+		    		    });
+		        	 material.$data = dataObj;
+		        	 cubie.materials[i] = material;
+		        	 cubie.materials[i].needsUpdate = true;
+				}
+				else
+				{
+					var uniforms = {
+		    		        color: { type: "c", value: new THREE.Color( ref.innerFaceColor ) },
+		    		    };
+					var material = new THREE.ShaderMaterial({
+					        uniforms        : uniforms,
+					        vertexShader    : document.getElementById( 'vertex_shader' ).textContent,
+					        fragmentShader  : document.getElementById( 'fragment_shader' ).textContent
+					});
+					cubie.materials[i] = material;
+					cubie.materials[i].needsUpdate = true;
+				}
+			}
+		}
 	};
 	
 	this.getFaceData = function(dataObj, dynamicTexture){
@@ -1011,8 +1146,15 @@ function colorThisFace(intersectObj)
 			//Check to make sure that none of the INNER face (face with no text) gets clicked
 			if (cubieMesh.$cubie.$materialList.hasOwnProperty(materialIndex))
 			{
-				cubieMesh.material.materials[materialIndex].color.setHex(selectionColor);
-				cubieMesh.geometry.colorsNeedUpdate = true;
+				if (cubieMesh.$cubie.usePNG)
+				{
+					cubieMesh.material.materials[materialIndex].uniforms.color.value.setHex(selectionColor);
+				}
+				else
+				{
+					cubieMesh.material.materials[materialIndex].color.setHex(selectionColor);
+					cubieMesh.geometry.colorsNeedUpdate = true;
+				}				
 				cubieMesh.$materialClicked = materialIndex;
 				cubieMesh.$materialFaceName = faceNames[materialIndex.toString()]['facename'];
 				cubieMesh.$rotationaxis = faceNames[materialIndex.toString()]['rotationaxis'];
@@ -1204,8 +1346,15 @@ function reversalBreadCrum(breadCrumsObj, animationDuration)
 				catCM.cubieMesh.scale.set(1,1,1);
 				var materialIndex = catCM.cubieMesh.$materialClicked;
 				var color = catCM.cubieMesh.$cubie['color-face'+materialIndex];
-				catCM.cubieMesh.material.materials[materialIndex].color.setHex(color);
-				catCM.cubieMesh.geometry.colorsNeedUpdate = true;
+				if (catCM.cubieMesh.$cubie.usePNG)
+				{
+					catCM.cubieMesh.material.materials[materialIndex].uniforms.color.value.setHex(color);
+				}
+				else
+				{
+					catCM.cubieMesh.material.materials[materialIndex].color.setHex(color);
+					catCM.cubieMesh.geometry.colorsNeedUpdate = true;
+				}				
 				catCM.cubieMesh.$materialClicked = undefined;
 				
 				delete catCM['cubieMeshOriginalPosition'];
