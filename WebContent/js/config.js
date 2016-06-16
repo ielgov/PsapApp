@@ -4,8 +4,7 @@ config.weburl = "http://9.19.48.23:9080"; //PROD_EXTERNAL
 //config.weburl = "http://172.27.50.134:9080"; //PROD INTERNAL
 //config.weburl = "http://172.27.50.155:9080"; //TEST
 
-
-config.allowRandomLinks = !true; // TODO remove
+config.weburl = runFromLocalStorage == true ? "http://172.27.50.135:9080" : config.weburl ; // uses dev server if run from local file system
 
 config.allowRandomLinks = !true; // TODO remove
 

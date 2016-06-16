@@ -6,6 +6,7 @@ var appData = {
 			'display':'categories',
 			'type':'categories',
 			'hascenter':false,
+			'usePNG':true,
 		},
 		'solutions':{
 			'id':'level-two',
@@ -14,6 +15,7 @@ var appData = {
 			'display':'solutions',
 			'type':'solutions',
 			'hascenter':true,
+			'usePNG':false,
 		},
 		'offerings':{
 			'id':'level-three',
@@ -22,6 +24,7 @@ var appData = {
 			'display':'offerings',
 			'type':'offerings',
 			'hascenter':true,
+			'usePNG':false,
 		},
 };
 
