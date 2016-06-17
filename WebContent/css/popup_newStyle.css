@@ -22,6 +22,8 @@
 	border-width: 2px;
 	border-color: #00b9de;
 	border-style: solid;
+
+	padding:.5rem;
 	
 	transition: all .4s .0s, width .4s .0s, height .4s .0s;
 	
@@ -189,6 +191,7 @@
 	z-index:11;
 	position:absolute;
     transition: opacity .4s;
+    transform: translateZ(100px);
 }
 #xIcon.hidden
 {

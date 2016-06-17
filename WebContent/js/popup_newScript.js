@@ -58,6 +58,7 @@ function openButton(buttonClicked)
 	var placeHolder = buttonClicked.cloneNode();
 	placeHolder.style.background = "rgba(0,0,0,0)";
 	placeHolder.id = buttonClicked.id+"PlaceHolder";
+	placeHolder.style.border = "0px";
 	placeHolder.onclick = buttonClicked.onclick
 	buttonClicked.parentElement.appendChild( placeHolder );
 	
@@ -105,6 +106,7 @@ function openButton(buttonClicked)
 		if( buttonClicked.classList.contains("open") )
 		{
 			xIcon.classList.remove("hidden")
+			//buttonClicked.parentElement.appendChild(xIcon);
 			moveX(buttonClicked);		
 			document.querySelector(".asset.open > .contentHolder").classList.remove("hidden");
 		}
