@@ -74,7 +74,7 @@ function sizeAssets(seedButton, containerArr) // sorry, this is really jank
 {
 	if( containerArr.length !== 0 )
 	{
-		var buttonWidth = seedButton.getBoundingClientRect().width;
+		var buttonWidth = seedButton.getBoundingClientRect().width + config.minTileMargin;
 		var parentWidth = containerArr[0].getBoundingClientRect().width;
 	
 		var buttonCount = parseInt( parentWidth / buttonWidth );
