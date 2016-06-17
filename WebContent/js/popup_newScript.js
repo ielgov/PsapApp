@@ -121,8 +121,9 @@ function closeButton()
 {
 	var openButtons = document.querySelectorAll(".asset.open")
 	
-	openButtons.forEach(function(buttonToClose)
+	for( var i=0; i<openButtons.length; i++)//.forEach(function(buttonToClose)
 	{
+		buttonToClose = openButtons[i];
 		xIcon.classList.add("hidden")
 			
 		var placeHolder = document.getElementById( buttonToClose.id+"PlaceHolder" );
@@ -160,7 +161,7 @@ function closeButton()
 				}					
 			}			
 		}, false)
-	})	
+	}
 }
 
 
