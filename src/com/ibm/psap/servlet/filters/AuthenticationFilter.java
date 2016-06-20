@@ -40,7 +40,8 @@ public class AuthenticationFilter implements Filter {
 		//Only for DEV environment to by-pass security for the APIs
 		if ( APISecurity!= null &&  APISecurity.equalsIgnoreCase("false")){
 			if( ( uri.indexOf("/Categories")!= -1) || ( uri.indexOf("/Assets")!= -1) || 
-					( uri.indexOf("/UsrList")!= -1) || ( uri.endsWith("/userlistform.jsp") ) ){
+					( uri.indexOf("/UsrList")!= -1) || ( uri.endsWith("/userlistform.jsp") ) || 
+					( uri.indexOf("/dbCategories")!= -1) || ( uri.indexOf("/dbAssets")!= -1)){
 				logger.error("By-passing authentication");
 				// pass the request along the filter chain
 				chain.doFilter(request, response);

@@ -13,11 +13,25 @@ public final class Constants {
 	public static final String SERACH_JSONSTR	= "{ 			\"solution\": {\"CategoryId\":\"101\", \"Name\": \"Intelligent Analysis\", \"DisplayName\":\"EAI\"}, 			\"Offerings\": [ 			{\"CategoryId\":\"1001\", \"Name\": \"Products\", \"DisplayName\":\" Products\"}, 			 {\"CategoryId\":\"1002\", \"Name\": \"Contact\", \"DisplayName\":\" Contact\"}, 			 {\"CategoryId\":\"1003\", \"Name\": \"Competition\", \"DisplayName\":\" Competition\"} 			] 			 			}";
     
 	
-    public static final String CATEGORY_TABLE = "PUBSAFETY.CATEGORY";
-    public static final String REL_CATEGORY_TABLE = "PUBSAFETY.CATEGORY_RELATIONSHIP";
-    public static final String USER_TABLE = "PUBSAFETY.USER";
+    public static final String CATEGORY_TABLE 		= "PUBSAFETY.CATEGORY";
+    public static final String CATEGORY_REL_TABLE 	= "PUBSAFETY.CAT_RELATION";
+    public static final String USER_TABLE 			= "PUBSAFETY.USER";
+
     public static final String GET_UserRole = "SELECT \"Name\", \"Email\", \"Role\"  FROM " + USER_TABLE +" WHERE \"Email\"= ?";
     public static final String SET_UserRole = "UPDATE  " + USER_TABLE + " SET \"Name\" = ?, \"Role\" = ?  WHERE \"Email\"= ?";
-    public static final String INSERT_User = "INSERT INTO " + USER_TABLE + " VALUES (?,?,?)";
-    public static final String DELETE_User = "DELETE FROM " + USER_TABLE + " WHERE \"Email\"= ?";
+    public static final String INSERT_User 	= "INSERT INTO " + USER_TABLE + " VALUES (?,?,?)";
+    public static final String DELETE_User 	= "DELETE FROM " + USER_TABLE + " WHERE \"Email\"= ?";
+
+    public static final String GET_CategoryRecord 		="SELECT PUBSAFETY.CAT_RELATION.PARENT_CATID, \"CatID\", \"CatDisplayName\", \"CatDesc\" FROM "+
+    													"PUBSAFETY.CATEGORY, PUBSAFETY.CAT_RELATION WHERE " +
+    													"PUBSAFETY.CAT_RELATION.PARENT_CATID = ? AND " +
+    													"\"CatID\" = PUBSAFETY.CAT_RELATION.CHILD_CATID";
+    public static final String Set_CategoryRecord 		= "{call INSERTCATEGORYITEM(?, ?, ?)}";
+    public static final String Modify_CategoryRecord 	= "UPDATE  " + CATEGORY_TABLE + " SET \"CatDisplayName\" = ?, \"CatDesc\" = ?  WHERE \"CatID\"= ?";
+    public static final String Delete_CategoryRecord 	= "{call DELETECATEGORYITEM(?)}";
+    
+    public static final String GET_AssetRecord 			= "SELECT \"AssetID\", PUBSAFETY.CATEGORY.\"CatDisplayName\" As Solution , CAT.\"CatDisplayName\" AS Offering, TB1.\"CatDisplayName\" AS Category, \"AssetDisplayName\", \"AssetDisplayDescription\",  URL, \"ActionType\", \"AssetType\", \"SourceType\", \"AssetGroupingText\",   \"SubmittedBy\", \"LastUpdatedDate\", \"Status\", \"AdminComments\"   FROM PUBSAFETY.ASSETS , PUBSAFETY.ASSET_CATEGORY_MEMBERSHIP, PUBSAFETY.CAT_RELATION,   PUBSAFETY.CATEGORY, PUBSAFETY.CATEGORY CAT, PUBSAFETY.CAT_RELATION TB,  PUBSAFETY.CATEGORY TB1 WHERE   PUBSAFETY.ASSETS.\"SubmittedBy\" = ? AND   \"AssetID\" = PUBSAFETY.ASSET_CATEGORY_MEMBERSHIP.ASSETID AND   PUBSAFETY.CAT_RELATION.CHILD_CATID = PUBSAFETY.ASSET_CATEGORY_MEMBERSHIP.CATID AND   PUBSAFETY.CATEGORY.\"CatID\" = PUBSAFETY.CAT_RELATION.PARENT_CATID AND   CAT.\"CatID\" = PUBSAFETY.CAT_RELATION.CHILD_CATID AND   TB.CHILD_CATID = PUBSAFETY.CAT_RELATION.PARENT_CATID AND TB1.\"CatID\" = TB.PARENT_CATID ORDER BY \"AssetID\""; 
+    public static final String Set_AssetRecord			="{call INSERTASSETITEM(?, ?, ?,?, ?, ?,?, ?, ?,?, ?)}";
+    public static final String Delete_AssetRecord 		="{call DELETEASSETITEM(?)}";
+    public static final String Modify_AssetRecord 		="{call UPDATEASSETITEM(?,?,?,?,?,?,?,?,?,?,?)}";
 }
