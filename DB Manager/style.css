@@ -146,7 +146,7 @@
 
 .actions > *  > *
 {
-	/*display:-webkit-flex;*/
+	display:-webkit-flex;
 	display:flex;
 	
 	flex-direction:row;

@@ -1,16 +1,23 @@
 function clickTab(e)
 {	
-	document.querySelectorAll(".tab.selected").forEach(function(e){
-		e.classList.remove("selected");
-	});
+	var removeSelected = document.querySelectorAll(".tab.selected");
+	for( var i=0; i<removeSelected.length; i++)
+	{
+		console.log(removeSelected[i]);
+		removeSelected[i].classList.remove("selected");
+	}
 	
-	document.querySelectorAll(".bodySection").forEach(function(e){
-		e.classList.add("hidden");
-	});
-	
-	document.getElementsByName(e.getAttribute("name")).forEach(function(e){
-		e.classList.remove("hidden");
-	});
+	var addHidden = document.querySelectorAll(".bodySection");
+	for( var i=0; i<addHidden.length; i++ )
+	{
+		addHidden[i].classList.add("hidden");
+	}
+
+	var removeHidden = document.getElementsByName(e.getAttribute("name"));
+	for( var i=0; i<removeHidden.length; i++ )
+	{
+		removeHidden[i].classList.remove("hidden");
+	}
 	
 	e.classList.add("selected");
 }
