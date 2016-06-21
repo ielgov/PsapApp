@@ -101,16 +101,11 @@
 		
 		uniform vec3 color;
 		uniform sampler2D texture;
-
 		varying vec2 vUv;
-
 		void main() 
 		{
-
 	  		vec4 tColor = texture2D( texture, vUv );
-
 	    	gl_FragColor = vec4( mix( color, tColor.rgb, tColor.a ), 1.0 );
-
 		}
 	</script>
     
@@ -175,7 +170,7 @@
     
      <script type="text/javascript" src="js/Threejs/jquery.min.js"></script>
 	<!-- <script type="text/javascript" src="js/Threejs/Three-r71.js"></script> -->
-	<script type="text/javascript" src="js/Threejs/three.js"></script>
+	<script type="text/javascript" src="js/Threejs/Three.js"></script>
 	<script type="text/javascript" src="js/Threejs/OrbitControls.js"></script>
 	<script type="text/javascript" src="js/Threejs/stats.min.js"></script>
 	<script type="text/javascript" src="js/Threejs/Detector.js"></script>
