@@ -80,6 +80,8 @@
 {
 	display:-webkit-flex;
 	display:flex;
+	
+	margin:.5rem;
 }	
 
 .selections
@@ -88,6 +90,8 @@
 	display:flex;
 	flex-direction:row;
 	justify-content:space-around;
+	
+	flex-wrap:wrap;
 }
 
 #tabHolder
@@ -126,6 +130,7 @@
 #solutions > *, #offerings > *
 {
 	margin:1rem;
+	
 }
 
 .actions > *

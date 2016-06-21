@@ -3,12 +3,14 @@
 	<head>
 		<title>PSAP Database Manager</title>
 	
+		<script src="config.js"></script>
 		<script src="script.js"></script>
+		<script src="helperFunctions.js"></script>
 		
 		<script>
 			function onload()
 			{
-				assetsTab.click()
+				solutionsTab.click()
 				setUpAssets();
 			}
 			function setUpAssets() // TODO change this to be done with HTML not JS
@@ -25,8 +27,6 @@
 				data.push({"name":"Asset Type", "type":"dropdown"});
 				data.push({"name":"Source Type", "type":"dropdown"});
 				data.push({"name":"Grouping Text", "type":"text"});
-				
-				console.log(data.length)
 				
 				var bigDivs = [];
 				bigDivs.push( document.createElement("div") )
@@ -55,8 +55,8 @@
 						/*
 						<div>
 							Avaiable Solutions
-							<select>
-								<option>filler</option>
+							<select  onchange="selectChange(this)">
+							<option>You must first select a category</option>
 							</select>
 						</div>
 						*/
@@ -67,7 +67,7 @@
 						var select = document.createElement("select");
 						
 						var option = document.createElement("option");
-						option.innerHTML = "filler";
+						option.innerHTML = "Filler";
 						
 						select.appendChild(option);
 						
@@ -86,7 +86,7 @@
 	</head>
 	<body onload="onload()">
 		<div id="tabHolder">
-			<div id="optionsTab" name="options" onclick="clickTab(this)" class="tab selected">Options</div>
+			<div id="optionsTab" name="options" onclick="clickTab(this)" class="tab selected">options</div>
 			<div id="solutionsTab" name="solutions" onclick="clickTab(this)" class="tab">Solutions</div>
 			<div id="offeringsTab" name="offerings" onclick="clickTab(this)" class="tab">Offerings</div>
 			<div id="assetsTab" name="assets" onclick="clickTab(this)" class="tab">Assets</div>
@@ -103,14 +103,18 @@
 				<div class="selections">
 					<div>
 						Categories Name
-						<select>
-							<option>filler</option>
+						<select onchange="selectChange(this, 'solutionsSolutions', 'Categories')" id="solutionsCategories">
+							<option>Make a selection</option>
+							<option>Command and Control, Operations, and Emergency Management</option>
+							<option>Video, Physical Cyber Security and Surveillance</option>
+							<option>Intelligent Lead Policing Investigative and Predictive Analytics</option>
+							<option>Realtime Crime / Fusion Center</option>
 						</select>
 					</div>
 					<div>
 						Avaiable Solutions
-						<select>
-							<option>filler</option>
+						<select onchange="populateEdit(this, 'solutions')" id="solutionsSolutions">
+							<option>You must first select a category</option>
 						</select>
 					</div>
 				</div>
@@ -139,20 +143,24 @@
 				<div class="selections">
 					<div>
 						Categories Name
-						<select>
-							<option>filler</option>
+						<select onchange="selectChange(this, 'offeringsSolutions', 'Categories')" id="offeringsCategories">
+							<option>Make a selection</option>
+							<option>Command and Control, Operations, and Emergency Management</option>
+							<option>Video, Physical Cyber Security and Surveillance</option>
+							<option>Intelligent Lead Policing Investigative and Predictive Analytics</option>
+							<option>Realtime Crime / Fusion Center</option>
 						</select>
 					</div>
 					<div>
-						Categories Name
-						<select>
-							<option>filler</option>
+						Avaiable Solutions
+						<select onchange="selectChange(this, 'offeringsOfferings', 'Solutions')" id="offeringsSolutions">
+							<option>You must first select a category</option>
 						</select>
 					</div>
 					<div>
 						Avaiable Offerings
-						<select>
-							<option>filler</option>
+						<select onchange="populateEdit(this, 'offerings')" id="offeringsOfferings">
+							<option>You must first select a solution</option>
 						</select>
 					</div>
 				</div>
