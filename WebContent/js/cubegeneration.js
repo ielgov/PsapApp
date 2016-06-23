@@ -29,18 +29,21 @@ var startingPositions = {
 //Idea being the breadcrums will be positioned in the 3d world/scene corresponding to top(Y) left(X) window position
 var breadCrumsPos = {
 		'categories':{
+			'type':'categories',
 			'screen':{
 				'X':0.03,//0.03,//0.95
 				'Y':0.05,//0.1
 				}
 			},
 		'solutions':{
+			'type':'solutions',
 			'screen':{
 				'X':0.18,//0.95
 				'Y':0.05,//0.07,//0.35
 				}
 		},
 		'offerings':{
+			'type':'offerings',
 			'screen':{
 				'X':0.33,//0.37,//0.95
 				'Y':0.05//0.07,//0.6
@@ -1140,7 +1143,7 @@ function colorThisFace(intersectObj)
 			}
 		}
 		
-		//Cube face was clicked
+		//Cubie face was clicked
 		if (!isBreadCrum)
 		{
 			//Check to make sure that none of the INNER face (face with no text) gets clicked
@@ -1161,14 +1164,14 @@ function colorThisFace(intersectObj)
 				
 				//Generate next level Rubiks cube
 				var nextLevelDataOBj = cubieMesh.$cubie.$materialList[materialIndex];
-				//console.warn('nextLevelDataOBj for breadcrum',nextLevelDataOBj);
+				//console.warn('nextLevelDataOBj for breadcrum',JSON.stringify(nextLevelDataOBj));
 				
 				var nextStep = function(){
 					console.log('next function');
 					activeRubiksCube.visible = false;
 					setCubeData(nextLevelDataOBj, cubieMesh.$cubie.$rubiksCubeType);
 				};
-				
+				show2dBreadCrum(nextLevelDataOBj, cubieMesh.$cubie.$rubiksCubeType);
 				moveCubieToTop(cubieMesh, nextStep);
 			}
 			else
@@ -1259,8 +1262,7 @@ function processBreadCrum(cubieMesh,breadCrumType)
 		assetsSlider.classList.add("hidden");
 	}
 	
-	reversalBreadCrum(breadCrumsPos[breadCrumType],1000);
-	
+	reversalBreadCrum(breadCrumsPos[breadCrumType],1000);	
 }
 
 //reversalBreadCrum(breadCrumsPos['solutions'],0)
@@ -1311,7 +1313,10 @@ function moveCubieToTop(cubieMesh, nextStep)
 	//moveObject(cubieMesh,-10,8,-15,3000);
 	
 	scaleBreadCrum(cubieMesh,0.2,rotationDetails['scaleAxis'],750);
-	moveObject(cubieMesh,cubie3dPos.x,cubie3dPos.y,-3,1000, function(){
+	/*moveObject(cubieMesh,cubie3dPos.x,cubie3dPos.y,-3,1000, function(){
+		breadCrumsCubies.push(cubieMesh);
+	});*/
+	moveObject(cubieMesh,0,15,0,1000, function(){
 		breadCrumsCubies.push(cubieMesh);
 	});
 	
@@ -1326,7 +1331,7 @@ function moveCubieToTop(cubieMesh, nextStep)
 //This function brings the selected breadcrum cubie back to its rubiks cube position
 function reversalBreadCrum(breadCrumsObj, animationDuration)
 {
-	console.log('Function :: reversalBreadCrum');
+	console.warn('Function :: reversalBreadCrum',breadCrumsObj.type);
 	
 	if (breadCrumsObj)
 	{		
@@ -1336,6 +1341,12 @@ function reversalBreadCrum(breadCrumsObj, animationDuration)
 		{
 			scaleBreadCrum(catCM.cubieMesh,1,catCM.cubieMesh.rotationDetails['scaleAxis'],750);
 			moveObject(catCM.cubieMesh,catCM.cubieMeshOriginalVector.x,catCM.cubieMeshOriginalVector.y,catCM.cubieMeshOriginalVector.z,animationDuration,function(){
+				hide2dBreamCrum(catCM.type);
+				
+				if (breadCrumsCubies.length > 0)
+				{
+					highlightBreadCrum(breadCrumsCubies[breadCrumsCubies.length-1].$cubie.$rubiksCubeType);
+				}
 			});
 			
 			var originalParentGroup = catCM.cubieMesh.$cubie.originalParent;
@@ -1377,6 +1388,7 @@ function reversalBreadCrum(breadCrumsObj, animationDuration)
 				activeRubiksCube.allowRotation = true;
 				activeRubiksCube.visible = true;
 				//activeRubiksCube.addAllCubieClicks();
+
 			});
 			//debugger;
 		}		

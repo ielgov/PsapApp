@@ -3,10 +3,10 @@ var mouseMoved = false;
 var mouseSelectX =0, mouseSelectY=0;
 var currentPosition = {};
 var movedCount = 0;
-
+var multipleTouch = false;
 function onDocumentMouseDown( event )
 {
-	console.log("Function :: onDocumentMouseDown");
+	//console.log("Function :: onDocumentMouseDown");
 	event.preventDefault();	
 	
 	document.querySelector("#WebGL-output").addEventListener( 'mousemove', onDocumentMouseMove, false );
@@ -58,7 +58,7 @@ function onDocumentMouseMove( event )
 
 function onDocumentMouseUp( event ) 
 {
-	console.log("Function :: onDocumentMouseUp");
+	//console.log("Function :: onDocumentMouseUp");
 	document.querySelector("#WebGL-output").removeEventListener( 'mousemove', onDocumentMouseMove, false );
 	document.querySelector("#WebGL-output").removeEventListener( 'mouseup', onDocumentMouseUp, false );
 	document.querySelector("#WebGL-output").removeEventListener( 'mouseout', onDocumentMouseOut, false );
@@ -111,7 +111,7 @@ function onDocumentMouseUp( event )
 
 function onDocumentMouseOut( event ) 
 {
-	console.log("Function :: onDocumentMouseOut");
+	//console.log("Function :: onDocumentMouseOut");
 	document.querySelector("#WebGL-output").removeEventListener( 'mousemove', onDocumentMouseMove, false );
 	document.querySelector("#WebGL-output").removeEventListener( 'mouseup', onDocumentMouseUp, false );
 	document.querySelector("#WebGL-output").removeEventListener( 'mouseout', onDocumentMouseOut, false );
@@ -121,11 +121,17 @@ function onDocumentMouseOut( event )
 
 function onDocumentTouchStart( event ) 
 {
-	console.log("Function :: onDocumentTouchStart");
+	//console.log("Function :: onDocumentTouchStart");
 	//console.log('event touches = '+event.touches.length);
     if ( event.touches.length == 1 ) 
     {
 		event.preventDefault();
+		console.log("single touchSTART");
+		
+		multipleTouch = false;
+		
+		orbitControl.enabled = false;
+		console.log("orbitContorl disabled");
 		
 		if (activeRubiksCube && activeRubiksCube.group)
 		{
@@ -147,16 +153,30 @@ function onDocumentTouchStart( event )
 		lastPosition.x = mouseSelectX;
 		lastPosition.y = mouseSelectY;
     }
+    else if (event.touches.length > 1)
+    {
+    	
+    	event.preventDefault();
+    	multipleTouch = true;
+    	console.log("multiple touchSTART");
+    	orbitControl.enabled = true;
+		console.log("orbitContorl enabled");
+    }
 }
 
 function onDocumentTouchMove( event ) 
 {
-	console.log('Function :: onDocumentTouchMove');
+	//console.log('Function :: onDocumentTouchMove');
 	//console.log('event touches = '+event.touches.length);
     if ( event.touches.length == 1 ) 
     {
-
+    	console.log("single touchMOVE");
         event.preventDefault();
+        
+        multipleTouch = false;
+        
+        orbitControl.enabled = false;
+		console.log("orbitContorl disabled");
 
         mouseX = event.touches[ 0 ].pageX - windowHalfX;
         targetRotationX = targetRotationOnMouseDownX + ( mouseX - mouseXOnMouseDown ) * 0.05;//0.05
@@ -171,18 +191,27 @@ function onDocumentTouchMove( event )
     	
     		
     }
+    else if ( event.touches.length > 1 /* == 2*/)
+    {
+    	console.log("multiple touchMOVE");
+    	multipleTouch = true;
+    	orbitControl.enabled = true;
+		console.log("orbitContorl enabled");
+    }
 
 }
 
 function onDocumentTouchEnd( event )
 {
-	console.log('Function :: onDocumentTouchEnd');
+	//console.log('Function :: onDocumentTouchEnd');
 	//console.log('event touches = '+event.touches.length);
 	
 	//if ( event.touches.length == 1 )
+	if (!multipleTouch)
 	{
+		console.log("single touchEND");
 		event.preventDefault();
-		
+				
 		currentPosition.x = mouseSelectX;
 		currentPosition.y = mouseSelectY;
 		
@@ -220,11 +249,25 @@ function onDocumentTouchEnd( event )
 		else
 		{
 			console.log("No click!!!");
+			console.log("single touchEND");
+			orbitControl.enabled = true;
+			console.log("orbitContorl enabled");
 		}
 			
 		mouseMoved = false;
 		movedCount = 0;
 	}
+	else
+	{
+		console.log("multiple touchEND");
+		orbitControl.enabled = true;
+		console.log("orbitContorl enabled");
+	}
+}
+
+function onDocumentTouchCancel( event )
+{
+	//console.log('Function :: onDocumentTouchCancel');
 	
 }
 
@@ -315,4 +358,43 @@ function checkSelected(currX,currY)
 		console.log("nothing intersected");
 		return false;
 	}	
+}
+
+
+//Breadcrum functions
+
+//nextLevelDataOBj = {"CategoryId":"02","Name":"CCOEM","Display":"Command and Control, Operations, and Emergency Management"}
+//rubiksCubeType = categories
+var prevBreadCrumItem = undefined;
+function show2dBreadCrum(nextLevelDataOBj, rubiksCubeType)
+{
+	//console.log("Function :: show2dBreadCrum");
+	//console.log('nextLevelDataOBj',JSON.stringify(nextLevelDataOBj));
+	//console.log('rubiksCubeType',rubiksCubeType);
+	$('.breadcrum-container .' + rubiksCubeType).text(nextLevelDataOBj['Display']);
+	$('.breadcrum-container .' + rubiksCubeType).fadeIn('slow', function(){
+		//console.log('fadeIn complete');
+		highlightBreadCrum(rubiksCubeType);
+	});
+	
+}
+
+function hide2dBreamCrum(breadCrumType)
+{
+	//console.log("Function :: hide2dBreamCrum");
+	//console.log('breadCrumType',breadCrumType);
+	$('.breadcrum-container .' + breadCrumType).fadeOut('fast', function(){
+		//console.log('fadeOut complete');
+		$('.breadcrum-container .' + breadCrumType).text('');
+	});	
+}
+
+function highlightBreadCrum(breadCrumType)
+{
+	//console.warn("Function :: highlightBreadCrum",breadCrumType);
+	if (prevBreadCrumItem)
+		$('.breadcrum-container .' + prevBreadCrumItem).removeClass('highlight-breadcrum');
+	
+	$('.breadcrum-container .' + breadCrumType).addClass('highlight-breadcrum');
+	prevBreadCrumItem = breadCrumType;
 }

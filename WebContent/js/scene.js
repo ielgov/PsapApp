@@ -3,6 +3,7 @@ var spotLightShowLines = false;
 var debug = false;
 var domEvents;
 var orbitControl;
+var trackballControl;
 var worldGroups = {};
 var errorCubeSpeed = 0.003;
 
@@ -23,6 +24,8 @@ var mouseYOnMouseDown = 0;
 var finalRotationY;
 
 var cameraCube = undefined;
+
+var clock = new THREE.Clock();
 
 function initializeScene()
 {
@@ -61,9 +64,19 @@ function initializeScene()
     //THREE.Object3D._threexDomEvent.camera(camera);
     //domEvents = new THREEx.DomEvents(camera, renderer.domElement)
     
-    //orbitControl = new THREE.OrbitControls(camera, renderer.domElement);
+    //Orbit Controls
+    orbitControl = new THREE.OrbitControls(camera, renderer.domElement);
+    orbitControl.minDistance = 16;
+    orbitControl.maxDistance = 22;
     //enableCameraControl();
-    //disableCameraControl();
+    disableCameraControl();
+    
+    //Trackball Controls
+    //trackballControl = new THREE.TrackballControls( camera, renderer.domElement);
+    //trackballControl.noRotate = true;
+    //trackballControl.noPan = true;
+    //trackballControl.minDistance = 16;
+   // trackballControl.maxDistance = 22;
     
     setSpotLight(50,20,20,spotLightShowLines);
     setSpotLight(-40,20,20,spotLightShowLines);
@@ -104,6 +117,9 @@ function initializeScene()
 	document.querySelector("#WebGL-output").addEventListener( 'touchstart', onDocumentTouchStart, false );
 	document.querySelector("#WebGL-output").addEventListener( 'touchmove', onDocumentTouchMove, false );
 	document.querySelector("#WebGL-output").addEventListener( 'touchend', onDocumentTouchEnd, false );
+	//document.querySelector("#WebGL-output").addEventListener( 'touchcancel', onDocumentTouchCancel, false );
+	
+	//trackballControl.addEventListener( 'change', render );
 }
 
 
@@ -153,10 +169,14 @@ function render()
 }
 
 function update()
-{
+{	
 	//checkHighlight();
 	//checkMouseSphere();
 	TWEEN.update();
+	
+	//var delta = clock.getDelta();
+	//trackballControl.update(delta);
+	//trackballControl.update();
 }
 
 function animate()
@@ -190,7 +210,7 @@ function onWindowResize()
 	//renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.setSize( webGLWidth, webGLHeight );
 	
-	
+	//trackballControl.handleResize();
 	
 }
 
