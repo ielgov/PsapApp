@@ -6,13 +6,13 @@ function addToCurrentParents()
 	
 	if(categoryName != null || solutionName != null || assetName != null)
 	{
-		var toAdd = getParentsHTML( categoryName, solutionName, assetName, true )
+		var toAdd = getParentsHTML( categoryName, solutionName, assetName, getItemObject(assetName, "solutions").catid )
 		document.querySelector("#assets .currentParents").appendChild(toAdd);
 	}
 	else alert("Make sure to select a category, solution and offering.");
 }
 
-function getParentsHTML(categoryName, solutionName, offeringName, deleteButtonFlag)
+function getParentsHTML(categoryName, solutionName, offeringName, catid)
 {
 	/*
 	<div>
@@ -33,16 +33,13 @@ function getParentsHTML(categoryName, solutionName, offeringName, deleteButtonFl
 	
 	var holder = document.createElement("div");
 	
-	if(deleteButtonFlag)
-	{
-		var deleteButton = document.createElement("div")
-		deleteButton.innerHTML = "Delete";
-		deleteButton.classList.add("delete");
-		deleteButton.classList.add("button");
-		deleteButton.setAttribute("onclick", "deleteClicked(this)");
+	var deleteButton = document.createElement("div")
+	deleteButton.innerHTML = "Delete";
+	deleteButton.classList.add("delete");
+	deleteButton.classList.add("button");
+	deleteButton.setAttribute("onclick", "deleteClicked(this)");
 	
-		holder.appendChild(deleteButton)
-	}
+	holder.appendChild(deleteButton)
 	
 	var category = document.createElement("div")
 	category.innerHTML = "Category: ";
@@ -74,8 +71,8 @@ function getParentsHTML(categoryName, solutionName, offeringName, deleteButtonFl
 	offering.classList.add("offering");
 	offering.setAttribute("name", offeringName)
 	
-	holder.setAttribute("parentId", getItemObject(offeringName, "solutions").catid)
-	console.log(getItemObject(offeringName, "solutions"));
+	holder.setAttribute("parentId", catid)
+	//console.log(getItemObject(offeringName, "solutions"));
 	
 	holder.appendChild(category)
 	holder.appendChild(solution)
@@ -92,8 +89,116 @@ function deleteClicked(buttonClicked)
 
 function showAssetSearchResults()
 {
+	var table = document.querySelectorAll(".asset.searchResult table > *")[0];
+	document.querySelectorAll(".asset.searchResult")[0].classList.remove("hidden");
+	
+	var toRemove = document.querySelectorAll(".asset.searchResult table > * > :not(.title)"); // removes all current results
+	for(var k=0; k<toRemove.length; k++)
+	{
+		toRemove[k].parentElement.removeChild( toRemove[k] );
+	}
+		
 	console.log("showAssetSearchResults");
-	toggleClass(solutionSearchResultsHolder, "hidden")
+	document.querySelector(".asset.searchResult").classList.remove("hidden")
+	
+	var email = document.querySelector('#assets .searchBar input[placeholder="Email"]').value;
+	console.log("email is ");
+	
+	var url = config.url+"/PSAP/dbAssets?action=search&SubmittedBy="+email;
+	console.log("url is "+url)
+	
+	httpRequest(url, function(data){
+		data = JSON.parse(data).result;
+		currentData["assets"] = data;
+		
+		for(var k in data)
+		{
+			var row = document.createElement("tr")
+			var theData = data[k];
+			row.setAttribute("onclick", "populateAsset("+k+")");
+			
+			var id = document.createElement("td");
+			id.innerHTML = data[k].AssetDetail.assetid;
+			
+			var name = document.createElement("td");
+			name.innerHTML = data[k].AssetDetail.assetdisplayname;
+			
+			var submitedBy = document.createElement("td")
+			submitedBy.innerHTML = data[k].AssetDetail.submittedby;
+			
+			row.appendChild(id)
+			row.appendChild(name)
+			row.appendChild(submitedBy)
+			table.appendChild(row);
+		}
+	}, "GET")
+}
+
+function populateAsset( k )
+{
+	//console.log(currentData["assets"][k]);
+	data = currentData["assets"][k];
+	//console.log(data.AssetDetail)
+	page = assets;
+	
+	page.querySelector('[name="AssetID"]').value = data.AssetDetail.assetid; 
+	page.querySelector('[name="AssetDisplayName"]').value = data.AssetDetail.assetdisplayname; 
+	page.querySelector('[name="AssetDisplayDescription"]').value = data.AssetDetail.assetdisplaydescription; 				// fix
+	page.querySelector('[name="URL"]').value = data.AssetDetail.url; 
+	page.querySelector('[name="ActionType"]').selectedIndex = setSelectIndex( data.AssetDetail.actiontype, page.querySelector('[name="ActionType"]')); 
+	page.querySelector('[name="AssetType"]').selectedIndex = setSelectIndex( data.AssetDetail.assettype, page.querySelector('[name="AssetType"]')); 
+	page.querySelector('[name="SourceType"]').selectedIndex = setSelectIndex( data.AssetDetail.sourcetype, page.querySelector('[name="SourceType"]')); 
+	page.querySelector('[name="AssetGroupingText"]').value = data.AssetDetail.assetgroupingtext; 
+	page.querySelector('[name="SubmittedBy"]').value = data.AssetDetail.submittedby; 
+	page.querySelector('[name="Status"]').selectedIndex = setSelectIndex( data.AssetDetail.status, page.querySelector('[name="Status"]')); 
+// I think this is set up just fine	getParentOfferingIDs( page.querySelectorAll(".currentParents > *") ) = data.AssetDetail.AssetID;
+	addParents(data.AssetParents);
+	
+	document.querySelector(".asset.searchResult").classList.add("hidden")
+	
+	function setSelectIndex( str, select)
+	{		
+		selectG = select;
+		for( var i=0; i<select.options.length; i++)
+		{
+			//console.log( select.options[i] );
+			if( select.options[i].innerHTML === str )
+			{
+				console.log("setSelectIndex is retrunging "+1);
+				return i;
+			}
+			else if(false)
+			{
+				console.log(select.options[i]);
+				console.log(str);
+			}
+		}
+		console.log("failed");
+	}
+	
+	function addParents(parents)
+	{
+		var parent = document.querySelector("#assets .currentParents");
+		var toRemove = parent.querySelectorAll("*");
+		
+		for(var k=0; k<toRemove.length; k++)
+		{
+			toRemove[k].parentElement.removeChild( toRemove[k] );
+		}
+		
+		console.log(parents)
+		//var parentsHTML = getParentsHTML(categoryName, solutionName, offeringName, catid);
+		for(var k in parents)
+		{
+			console.log(parents[k]);
+			console.log(parents[k].offering);
+			console.log(parents[k].solution	);
+			console.log(parents[k].category);
+			parentsHTML = getParentsHTML(parents[k].category, parents[k].solution, parents[k].offering, parents[k].offeringid);
+			console.log(parentsHTML)
+			parent.appendChild(parentsHTML)
+		}
+	}
 }
 
 // page should be the tab it was called from
@@ -132,12 +237,15 @@ function assetRequest(button)
 		o.AssetGroupingText = page.querySelector('[name="AssetGroupingText"]').value; 
 		o.SubmittedBy = page.querySelector('[name="SubmittedBy"]').value; 
 		o.Status = page.querySelector('[name="Status"]').selectedOptions[0].value; 
-		o.AdminComments = undefined; //o.AdminComments = page.querySelector('[name="AdminComments"]').value;  //TODO fix this
-		o.OfferingID = getParentOfferingIDs( page.querySelectorAll(".currentParents > *") ); //o.OfferingID = page.querySelector('[name="OfferingID"]').value; // TODO fix this
+		o.AdminComments = page.querySelector('[name="AdminComments"]').value; //undefined;
+		o.OfferingID = getParentOfferingIDs( page.querySelectorAll(".currentParents > *") );
 	}
 	console.log(o)
 	var urls = buildURL(o, pageID);
-	doRequests(urls)
+		
+	var id = o.action == "add" ? "" : o.AssetID || page.querySelector('[containsId]').selectedOptions[0].getAttribute("catid");
+	
+	doRequests(urls, button.getAttribute("actionName"), id);
 	
 	function getParentOfferingIDs( elementArr )
 	{
@@ -152,43 +260,97 @@ function assetRequest(button)
 	function buildURL(o, pageID)
 	{
 		var length = getObjectLength(o);
-		var url = [config.url+"/PSAP/dbCategories?"];
+		var baseUrl = config.url+"/PSAP/dbCategories?";
+		var url = [];
 		
 		var count=0;
 		for(var k in o)
 		{
 			if( k == "OfferingID" )
 			{
-				url[0] += o[k].length > 0 ? k +"=\""+ o[k][0] +"\"" : k +"=\"\"" ;
+				continue;
+				baseUrl += o[k].length > 0 ? k +"="+ o[k][0] +"" : k +"=" ;
 				console.log(o)
 			}
 			else
 			{
-				url[0] += k +"=\""+ o[k] +"\"";
+				baseUrl += k +"=\""+ o[k] +"\"";
 			}
-			url[0] += count+1 < length ? "&" : "" ;
+			baseUrl += count+1 < length ? "&" : "" ;
 			count++;
 		}
 		
-		console.log(url[0]);
+		console.log(baseUrl);
 		
 		if(pageID == "assets")
 		{
-			for(var i=1; i<o["OfferingID"].length; i++)
+			console.log('o["OfferingID"] is...');console.log(o["OfferingID"]);
+			
+			for(var i=0; i<o["OfferingID"].length; i++)
 			{
 				// TODO make this add but not remove what is there by adding url to url array
+				url.push( baseUrl+ "OfferingID="+ o["OfferingID"][i].getAttribute("parentid"));
 			}
+		}
+		else
+		{
+			url.push(baseUrl);
 		}
 		
 		return url;		
 	}
 }
 
-function doRequests(urls)
-{
-	console.log(urls)
-	console.log("would have done the requests");
+function doRequests(urls, type, itemid)
+{	
+
+	console.log("urls is "+urls)	
+	console.log("type is "+type)	
+	console.log("itemid is "+itemid)
+
+	return;	
+	
+	if(type === "modify")
+	{
+		var deleteUrl = config.url+"/PSAP/dbCategories?itemid="+itemid+"&type="+type+"&action=delete";
+		urls.unshift(deleteUrl)
+		console.log(urls);
+		return
+		doSingleRequest(urls, 0);		
+	}
+	else if(type === "add")
+	{		
+		doSingleRequest(urls, 0);
+	}
+	else if(type === "delete")
+	{		
+		var deleteUrl = config.url+"/PSAP/dbCategories?itemid="+itemid+"&type="+type+"&action=delete";
+		urls = [];
+		urls.push(deleteUrl);
+		doSingleRequest(urls, 0);
+	}
+	
+	function doSingleRequest(arr, index)
+	{
+		if( index >= arr.length )
+		{
+			return;
+		}
+		else
+		{
+			//return;// TODO remove			
+			httpRequest(arr[index], function()
+			{
+				console.log("callback")
+				doSingleRequest(arr, index+1);
+			}, "POST", function(){alert("doing request "+index);console.log("")})
+		}
+	}
 }
+
+
+
+
 
 
 

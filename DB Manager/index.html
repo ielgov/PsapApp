@@ -12,19 +12,22 @@
 			function onload()
 			{
 				assetsTab.click() // TODO remove
-				document.querySelector(".searchBar .button:not(.clear)").click();
+				//document.querySelector(".searchBar .button:not(.clear)").click();
 			}
 		</script>
 		
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body onload="onload()">
-		<div id="solutionSearchResultsHolder" class="slider hidden">
-			<div id="solutionSearchResults">
-				<div onclick="setAsset(this)" class="asset searchResult">
-					<span>ID</span>
-					<span>Name</span>
-				</div>
+		<div id="solutionSearchResults">
+			<div onclick="" class="asset searchResult hidden">
+				<table>
+					<tr class="title">
+						<td>Asset ID</td>
+						<td>Name</td>
+						<td>Submited By</td>
+					</tr>
+				</table>
 			</div>
 		</div>
 		<div id="tabHolder">
@@ -55,7 +58,7 @@
 					</div>
 					<div>
 						Avaiable Solutions
-						<select onchange="populateEdit(this, 'solutions', 'categories')" id="solutionsSolutions">
+						<select onchange="populateEdit(this, 'solutions', 'categories')" id="solutionsSolutions" containsId>
 							<option show=true>You must first Select a category     </option>
 						</select>
 					</div>
@@ -101,7 +104,7 @@
 					</div>
 					<div>
 						Avaiable Offerings
-						<select onchange="populateEdit(this, 'offerings', 'solutions')" id="offeringsOfferings">
+						<select onchange="populateEdit(this, 'offerings', 'solutions')" id="offeringsOfferings" containsId>
 							<option show=true>You must first Select a solution     </option>
 						</select>
 					</div>
@@ -131,7 +134,7 @@
 				<div id="assetsBar">
 					<div class="searchBar">
 						<span>Asset ID<input type="text" placeholder="Asset ID"></input></span>
-						<span>Asset ID<input type="text" placeholder="Asset ID"></input></span>
+						<span>Submited By<input type="text" type="email" placeholder="Email" value="edgingtn@us.ibm.com"></input></span>
 						<div class="button" onclick="showAssetSearchResults(this)">Search</div>
 						<div class="clear button" onclick="clearAssetFields(this)">Clear Fields</div>
 					</div>
@@ -159,8 +162,12 @@
 							<span>Status</span>
 							<select name="Status">
 									<option show=true>New</option>
-									<option show=true>Verified</option>
+									<option show=true>Validated</option>
 							</select>
+						</div>
+						<div>
+							<span>Admin Comments</span>
+							<input type="text" name="AdminComments">
 						</div>
 					</div>
 					<div>

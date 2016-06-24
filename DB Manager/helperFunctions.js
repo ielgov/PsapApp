@@ -41,10 +41,15 @@ function toggleClass(e, className)
 	}
 }
 
-function httpRequest(url, callback, method)
+function httpRequest(url, callback, method, callforward)
 {
 	async = true;
 	method = method || "GET";
+	
+	if(callforward !== undefined)
+	{
+		callforward();
+	}
 	
 	var xhttp = new XMLHttpRequest();
 	
