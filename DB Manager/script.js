@@ -1,11 +1,10 @@
-var currentData = undefined;
+var currentData = {};
 
 function clickTab(e)
 {	
 	var removeSelected = document.querySelectorAll(".tab.selected");
 	for( var i=0; i<removeSelected.length; i++)
 	{
-		console.log(removeSelected[i]);
 		removeSelected[i].classList.remove("selected");
 	}
 	
@@ -51,7 +50,10 @@ function selectChange(changedSelect, nextId, type)
 {
 	var nextElement = document.querySelector("#"+nextId);
 	
-	if(changedSelect.value == "Make a selection" || changedSelect.value == "There were no results")
+	changedSelectG = changedSelect // TODO remove
+	selectedStr = changedSelect.selectedOptions[0].getAttribute('name');
+	
+	if(selectedStr == "Make a selection" || selectedStr == "There were no results")
 	{
 		nextElement.innerHTML = "<option>Make a "+type.toLowerCase()+" selection</option>";
 	}
@@ -62,25 +64,27 @@ function selectChange(changedSelect, nextId, type)
 	
 		if( type.toLowerCase() === "categories" )
 		{
-			console.log("c "+type.toLowerCase())
 			URLSegment = config.categoriesURL;
-			console.log("changedSelect is... ");console.log(changedSelect.value);
-			parentID = config.categories[ changedSelect.value ]; //fix this
+			parentID = config.categories[ selectedStr ]; //fix this
 		}
 		else if( type.toLowerCase() === "solutions" )
 		{
-			console.log("s "+type.toLowerCase())
 			URLSegment = config.solutionsURL;
-			parentID = getItemObject( changedSelect.value ).catid;
+			parentID = getItemObject( selectedStr,  "categories").catid;
 		}
 		else if( type.toLowerCase() === "offerings" )
 		{
-			console.log("o "+type.toLowerCase())
 			URLSegment = config.offeringsURL;
 			parentID = "edgingtn@us.ibm.com";
 		}
+		
+		//	alert("parent id is "+parentID)
 	
-		httpRequest(config.url+URLSegment+parentID, function(data){ currentData=JSON.parse(data); setSelect( nextElement,  currentData);});
+		httpRequest(config.url+URLSegment+parentID, function(data)
+		{
+			currentData[type.toLowerCase()] = JSON.parse(data); 
+			setSelect( nextElement,  currentData[type.toLowerCase()]);
+		});
 	}
 }
 
@@ -106,31 +110,36 @@ function setSelect(select, data)
 	for(var i=0; i<data.length; i++)
 	{
 		var option = document.createElement("option");
-		option.innerHTML = data[i].catdisplayname;
-		option.name = data[i].catid;
+		option.innerHTML = data[i].catdisplayname.substring(0, 19)+"...";
+		option.setAttribute("name", data[i].catdisplayname);
+		option.setAttribute("catid", data[i].catid);
 		select.appendChild(option);
 	}
 }
 
-function populateEdit( changedSelect, tabId)
+function populateEdit( changedSelect, tabId, dataType)
 {
-	var obj = getItemObject( changedSelect.value );
+	var obj = getItemObject( changedSelect.selectedOptions[0].getAttribute('name'), dataType );
 	document.querySelector('#'+ tabId +' input[placeholder=Name]').value = obj.catdisplayname;
 	document.querySelector('#'+ tabId +' input[placeholder=Description]').value = obj.catdesc;
 }
 
-function getItemObject(itemName)
+// data type is the parent that was called to get to this point not the actual data you want; this could be fixed
+function getItemObject(itemName, dataType)
 {
-	for(var i=0; i<currentData.result.length; i++)
+	console.log("itemName is "+itemName);
+	console.log("129 dataType is "+dataType);
+	if(dataType==undefined) alert("130 dataType is "+dataType);
+	for(var i=0; i<currentData[dataType].result.length; i++)
 	{
-		if( currentData.result[i].catdisplayname === itemName )
+		if( currentData[dataType].result[i].catdisplayname === itemName || currentData[dataType].result[i].catdisplayname.substring(0, 19)+"..." === itemName)
 		{
-			console.log("returning"+ currentData.result[i].catid);
-			return currentData.result[i];
+			console.log("returning"+ currentData[dataType].result[i].catid);
+			return currentData[dataType].result[i];
 		}
 	}
-	console.log("didnt find requested solution")
-	console.log("currentData is...");console.log(currentData);
+	alert("ERROR: Didn't find requested solution for \""+itemName+"\"");
+	console.log("currentData["+dataType+"] is...");console.log(currentData[dataType]);
 }
 
 

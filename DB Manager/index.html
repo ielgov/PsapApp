@@ -6,87 +6,29 @@
 		<script src="config.js"></script>
 		<script src="script.js"></script>
 		<script src="helperFunctions.js"></script>
+		<script src="manageAssets.js"></script>
 		
 		<script>
 			function onload()
 			{
-				solutionsTab.click()
-				setUpAssets();
-			}
-			function setUpAssets() // TODO change this to be done with HTML not JS
-			{
-				var data = [];
-				
-				data.push({"name":"Asset ID", "type":"text"});
-				data.push({"name":"Display Name", "type":"text"});
-				data.push({"name":"Description", "type":"text"});
-				data.push({"name":"URL", "type":"text"});
-				data.push({"name":"Stalies - wut", "type":"dropdown"});
-				data.push({"name":"Submited By", "type":"text"});
-				data.push({"name":"Action Type", "type":"dropdown"});
-				data.push({"name":"Asset Type", "type":"dropdown"});
-				data.push({"name":"Source Type", "type":"dropdown"});
-				data.push({"name":"Grouping Text", "type":"text"});
-				
-				var bigDivs = [];
-				bigDivs.push( document.createElement("div") )
-				bigDivs.push( document.createElement("div") )
-				
-				for(var i=0; i<data.length; i++)
-				{
-					var isLeft = (data.length-1-i)/(data.length-1/2) > .5;
-					
-					var e = data[i];
-					var holderDiv = document.createElement("div");
-					
-					if(e.type=="text")
-					{
-						var name = document.createElement("span");
-						name.innerHTML = e.name;
-						
-						var input = document.createElement("input");
-						input.setAttribute("type", "text");
-						
-						holderDiv.appendChild(name);
-						holderDiv.appendChild(input);
-					}				
-					else if(e.type=="dropdown")
-					{
-						/*
-						<div>
-							Avaiable Solutions
-							<select  onchange="selectChange(this)">
-							<option>You must first select a category</option>
-							</select>
-						</div>
-						*/
-						
-						var name = document.createElement("span");
-						name.innerHTML = e.name;
-						
-						var select = document.createElement("select");
-						
-						var option = document.createElement("option");
-						option.innerHTML = "Filler";
-						
-						select.appendChild(option);
-						
-						holderDiv.appendChild(name);						
-						holderDiv.appendChild(select);						
-					}
-					bigDivs[ isLeft ? 0 : 1 ].appendChild(holderDiv);
-				}
-				
-				assets.appendChild(bigDivs[0])
-				assets.appendChild(bigDivs[1])
+				assetsTab.click() // TODO remove
+				document.querySelector(".searchBar .button:not(.clear)").click();
 			}
 		</script>
 		
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body onload="onload()">
+		<div id="solutionSearchResultsHolder" class="slider hidden">
+			<div id="solutionSearchResults">
+				<div onclick="setAsset(this)" class="asset searchResult">
+					<span>ID</span>
+					<span>Name</span>
+				</div>
+			</div>
+		</div>
 		<div id="tabHolder">
-			<div id="optionsTab" name="options" onclick="clickTab(this)" class="tab selected">options</div>
+			<div id="optionsTab" name="options" onclick="clickTab(this)" class="tab selected">Options</div>
 			<div id="solutionsTab" name="solutions" onclick="clickTab(this)" class="tab">Solutions</div>
 			<div id="offeringsTab" name="offerings" onclick="clickTab(this)" class="tab">Offerings</div>
 			<div id="assetsTab" name="assets" onclick="clickTab(this)" class="tab">Assets</div>
@@ -104,17 +46,17 @@
 					<div>
 						Categories Name
 						<select onchange="selectChange(this, 'solutionsSolutions', 'Categories')" id="solutionsCategories">
-							<option>Make a selection</option>
-							<option>Command and Control, Operations, and Emergency Management</option>
-							<option>Video, Physical Cyber Security and Surveillance</option>
-							<option>Intelligent Lead Policing Investigative and Predictive Analytics</option>
-							<option>Realtime Crime / Fusion Center</option>
+							<option name="Make a selection">Make a selection</option>
+							<option name="Command and Control, Operations, and Emergency Management">Command and Control...</option>
+							<option name="Video, Physical Cyber Security and Surveillance">Video, Physical Cyb...</option>
+							<option name="Intelligent Lead Policing Investigative and Predictive Analytics">Intelligent Lead Po...</option>
+							<option name="Realtime Crime / Fusion Center">Realtime Crime / Fu...</option>
 						</select>
 					</div>
 					<div>
 						Avaiable Solutions
-						<select onchange="populateEdit(this, 'solutions')" id="solutionsSolutions">
-							<option>You must first select a category</option>
+						<select onchange="populateEdit(this, 'solutions', 'categories')" id="solutionsSolutions">
+							<option show=true>You must first Select a category     </option>
 						</select>
 					</div>
 				</div>
@@ -123,18 +65,18 @@
 					<div class="actionsFields">
 						<span><span>
 							Solution Display Name
-							<input type="text" placeholder="Name"></input>
+							<input type="text" placeholder="Name" name="displayname"></input>
 						</span></span>
 						<span><span>
 							Solution Description
-							<input type="text" placeholder="Description"></input>
+							<input type="text" placeholder="Description" name="description"></input>
 						</span></span>
 					</div>
 					<div class="buttons">
 						<span><span>
-							<button>Add</button>
-							<button>Modify</button>
-							<button>Delete</button>
+							<button actionName="add" onclick="assetRequest(this)">Add</button>
+							<button actionName="modify" onclick="assetRequest(this)">Modify</button>
+							<button actionName="delete" onclick="assetRequest(this)">Delete</button>
 						</span></span>
 					</div>
 				</div>
@@ -144,23 +86,23 @@
 					<div>
 						Categories Name
 						<select onchange="selectChange(this, 'offeringsSolutions', 'Categories')" id="offeringsCategories">
-							<option>Make a selection</option>
-							<option>Command and Control, Operations, and Emergency Management</option>
-							<option>Video, Physical Cyber Security and Surveillance</option>
-							<option>Intelligent Lead Policing Investigative and Predictive Analytics</option>
-							<option>Realtime Crime / Fusion Center</option>
+							<option show=true>Make a selection</option>
+							<option name="Command and Control, Operations, and Emergency Management">Command and Control...</option>
+							<option name="Video, Physical Cyber Security and Surveillance">Video, Physical Cyb...</option>
+							<option name="Intelligent Lead Policing Investigative and Predictive Analytics">Intelligent Lead Po...</option>
+							<option name="Realtime Crime / Fusion Center">Realtime Crime / Fu...</option>
 						</select>
 					</div>
 					<div>
 						Avaiable Solutions
 						<select onchange="selectChange(this, 'offeringsOfferings', 'Solutions')" id="offeringsSolutions">
-							<option>You must first select a category</option>
+							<option show=true>You must first Select a category     </option>
 						</select>
 					</div>
 					<div>
 						Avaiable Offerings
-						<select onchange="populateEdit(this, 'offerings')" id="offeringsOfferings">
-							<option>You must first select a solution</option>
+						<select onchange="populateEdit(this, 'offerings', 'solutions')" id="offeringsOfferings">
+							<option show=true>You must first Select a solution     </option>
 						</select>
 					</div>
 				</div>
@@ -169,23 +111,133 @@
 					<div class="actionsFields">
 						<span><span>
 							Offering Display Name
-							<input type="text" placeholder="Name"></input>
+							<input type="text" placeholder="Name" name="displayname"></input>
 						</span></span>
 						<span><span>
 							Offering Description
-							<input type="text" placeholder="Description"></input>
+							<input type="text" placeholder="Description" name="description"></input>
 						</span></span>
 					</div>
 					<div class="buttons">
 						<span><span>
-							<button>Add</button>
-							<button>Modify</button>
-							<button>Delete</button>
+							<button actionName="add" onclick="assetRequest(this)">Add</button>
+							<button actionName="modify" onclick="assetRequest(this)">Modify</button>
+							<button actionName="delete" onclick="assetRequest(this)">Delete</button>
 						</span></span>
 					</div>
 				</div>
 			</div>
-			<div id="assets" name="assets" class="hidden bodySection">
+			<div id="assets" name="assets" class="bodySection hidden">
+				<div id="assetsBar">
+					<div class="searchBar">
+						<span>Asset ID<input type="text" placeholder="Asset ID"></input></span>
+						<span>Asset ID<input type="text" placeholder="Asset ID"></input></span>
+						<div class="button" onclick="showAssetSearchResults(this)">Search</div>
+						<div class="clear button" onclick="clearAssetFields(this)">Clear Fields</div>
+					</div>
+				</div>
+				<hr>
+				<div class="assetsFieldHolder">
+					<div>
+						<div>
+							<span>Asset ID</span>
+							<input type="text" readonly placeholder="Cannot be set" name="AssetID"></input>
+						</div>
+						<div>
+							<span>Display Name</span>
+							<input type="text" name="AssetDisplayName"></input>
+						</div>
+						<div>
+							<span>Description</span>
+							<input type="text" name="AssetDisplayDescription">
+						</div>
+						<div>
+							<span>URL</span>
+							<input type="text" name="URL">
+						</div>
+						<div>
+							<span>Status</span>
+							<select name="Status">
+									<option show=true>New</option>
+									<option show=true>Verified</option>
+							</select>
+						</div>
+					</div>
+					<div>
+						<div>
+							<span>Submited By</span>
+							<input type="text" name="SubmittedBy" placeholder="email">
+						</div>
+						<div>
+							<span>Action Type</span>
+							<select name="ActionType">
+								<option show=true>DIRECT_LINK</option>
+								<option show=true>POPUP</option>
+								<option show=true>OTHER</option>
+							</select>
+						</div>
+						<div>
+							<span>Asset Type</span>
+							<select name="AssetType">
+								<option show=true>URL</option>
+								<option show=true>PDF</option>
+								<option show=true>DOC</option>
+								<option show=true>VIDEO</option>
+								<option show=true>OTHER</option>
+							</select>
+						</div>
+						<div>
+							<span>Source Type</span>
+							<select name="SourceType">
+								<option show=true>W3</option>
+								<option show=true>IBM Connection</option>
+								<option show=true>IBM.COM</option>
+								<option show=true>OTHER</option>
+							</select>
+						</div>
+						<div>
+							<span>Grouping Text</span>
+							<input type="text" name="AssetGroupingText">
+						</div>
+					</div>
+				</div>
+				<hr>
+				<div id="assetsParentsManager">
+					<div class="addAssetParents">
+						<img src="images/icons/add-icon.png" class="addIcon" onclick="addToCurrentParents()"/><!--TODO this image should be changed-->
+						<div>
+							Categories
+							<select onchange="selectChange(this, 'assetsSolutions', 'Categories')" id="assetsCategories">
+								<option validChoice=false>Make a selection</option>
+								<option name="Command and Control, Operations, and Emergency Management">Command and Control...</option>
+								<option name="Video, Physical Cyber Security and Surveillance">Video, Physical Cyb...</option>
+								<option name="Intelligent Lead Policing Investigative and Predictive Analytics">Intelligent Lead Po...</option>
+								<option name="Realtime Crime / Fusion Center">Realtime Crime / Fu...</option>
+							</select>
+						</div>
+						<div>
+							Solutions
+							<select onchange="selectChange(this, 'assetsOfferings', 'Solutions')" id="assetsSolutions">
+								<option show=true>Select a category     </option>
+							</select>
+						</div>
+						<div>
+							Offerings
+							<!--<select onchange="populateEdit(this, 'offerings')" id="assetsOfferings">-->
+							<select id="assetsOfferings">
+								<option show=true>Select a solution     </option>
+							</select>
+						</div>
+					</div>
+					<div class="currentParents"></div><!--this is where the parents will be added-->					
+					<div class="buttons">
+						<span><span>
+							<button actionName="add" onclick="assetRequest(this)">Add</button>
+							<button actionName="modify" onclick="assetRequest(this)">Modify</button>
+							<button actionName="delete" onclick="assetRequest(this)">Delete</button>
+						</span></span>
+					</div>
+				</div>
 			</div>
 		</div>
 	</body>	
