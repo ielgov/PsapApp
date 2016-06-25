@@ -372,7 +372,7 @@ function show2dBreadCrum(nextLevelDataOBj, rubiksCubeType)
 	//console.log('nextLevelDataOBj',JSON.stringify(nextLevelDataOBj));
 	//console.log('rubiksCubeType',rubiksCubeType);
 	$('.breadcrum-container .' + rubiksCubeType).text(nextLevelDataOBj['Display']);
-	$('.breadcrum-container .' + rubiksCubeType).fadeIn('slow', function(){
+	$('.breadcrum-container .' + rubiksCubeType + '-parent').fadeIn('slow', function(){
 		//console.log('fadeIn complete');
 		highlightBreadCrum(rubiksCubeType);
 	});
@@ -383,7 +383,7 @@ function hide2dBreamCrum(breadCrumType)
 {
 	//console.log("Function :: hide2dBreamCrum");
 	//console.log('breadCrumType',breadCrumType);
-	$('.breadcrum-container .' + breadCrumType).fadeOut('fast', function(){
+	$('.breadcrum-container .' + breadCrumType + '-parent').fadeOut('fast', function(){
 		//console.log('fadeOut complete');
 		$('.breadcrum-container .' + breadCrumType).text('');
 	});	
@@ -393,8 +393,13 @@ function highlightBreadCrum(breadCrumType)
 {
 	//console.warn("Function :: highlightBreadCrum",breadCrumType);
 	if (prevBreadCrumItem)
-		$('.breadcrum-container .' + prevBreadCrumItem).removeClass('highlight-breadcrum');
+	{
+		$('.breadcrum-container .' + prevBreadCrumItem  + '-parent .breadcrum-items').removeClass('highlight-breadcrum');
+		$('.breadcrum-container .' + prevBreadCrumItem  + '-parent .triangle').removeClass('highlight-breadcrum');
+	}
+		
 	
-	$('.breadcrum-container .' + breadCrumType).addClass('highlight-breadcrum');
+	$('.breadcrum-container .' + breadCrumType  + '-parent .breadcrum-items').addClass('highlight-breadcrum');
+	$('.breadcrum-container .' + breadCrumType  + '-parent .triangle').addClass('highlight-breadcrum');
 	prevBreadCrumItem = breadCrumType;
 }
