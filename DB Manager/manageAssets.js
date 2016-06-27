@@ -242,17 +242,25 @@ function assetRequest(button)
 	}
 	console.log(o)
 	var urls = buildURL(o, pageID);
-		
-	var id = o.action == "add" ? "" : o.AssetID || page.querySelector('[containsId]').selectedOptions[0].getAttribute("catid");
 	
-	doRequests(urls, button.getAttribute("actionName"), id);
+	console.log("o.AssetID is -"+o.AssetID+"-")
+	console.log("type of o.AssetID is "+typeof o.AssetID)
+		
+	//var id = o.action == "add" ? "" : o.AssetID || page.querySelector('[containsId]').selectedOptions[0].getAttribute("catid");
+	var id = o.AssetID;
+	if(id == undefined)
+	{
+		id = page.querySelector('[containsId]').selectedOptions[0].getAttribute("catid");
+	}
+	
+	doRequests(urls, button.getAttribute("actionName"), id, pageID);
 	
 	function getParentOfferingIDs( elementArr )
 	{
 		var toReturn = [];
 		for(var i=0; i<elementArr.length; i++)
 		{
-			toReturn.push( elementArr[i] );
+			toReturn.push( elementArr[i].getAttribute("parentid") );
 		}
 		return toReturn;		
 	}
@@ -260,8 +268,31 @@ function assetRequest(button)
 	function buildURL(o, pageID)
 	{
 		var length = getObjectLength(o);
-		var baseUrl = config.url+"/PSAP/dbCategories?";
+		var baseUrl = config.url+"/PSAP/";
 		var url = [];
+		
+		o.action = o.action === "modify" ? "add" : o.action; // can you call modify if the data has been deleted? can you call add with an id?
+		
+		if(pageID == "assets")
+		{
+			baseUrl += "dbAssets?";
+			console.log('o["OfferingID"] is...');console.log(o["OfferingID"]);
+			
+			/*/
+			for(var i=0; i<o["OfferingID"].length; i++)
+			{
+				url.push( baseUrl+ "&OfferingID="+ o["OfferingID"][i] );
+				console.log("added to url"+ baseUrl+ "&OfferingID="+ o["OfferingID"][i] );
+				// TODO make this add but not remove what is there by adding url to url array
+			}
+			//*/
+		}
+		else
+		{
+			baseUrl += "dbCategories?";
+			url.push(baseUrl);
+			console.log("added to url"+baseUrl);
+		}
 		
 		var count=0;
 		for(var k in o)
@@ -274,7 +305,7 @@ function assetRequest(button)
 			}
 			else
 			{
-				baseUrl += k +"=\""+ o[k] +"\"";
+				baseUrl += k +"="+ o[k] +"";
 			}
 			baseUrl += count+1 < length ? "&" : "" ;
 			count++;
@@ -282,58 +313,64 @@ function assetRequest(button)
 		
 		console.log(baseUrl);
 		
+		//*/
 		if(pageID == "assets")
 		{
 			console.log('o["OfferingID"] is...');console.log(o["OfferingID"]);
 			
 			for(var i=0; i<o["OfferingID"].length; i++)
 			{
+				url.push( baseUrl+ "&OfferingID="+ o["OfferingID"][i]);
+				console.log("pushing "+baseUrl+ "&OfferingID="+ o["OfferingID"][i])
 				// TODO make this add but not remove what is there by adding url to url array
-				url.push( baseUrl+ "OfferingID="+ o["OfferingID"][i].getAttribute("parentid"));
+				
 			}
 		}
 		else
 		{
 			url.push(baseUrl);
+			console.log("added to url"+baseUrl);
 		}
+		//*/
 		
+		console.log("***returning "+url)
+		console.log("***returning length is "+url.length)
 		return url;		
 	}
 }
 
-function doRequests(urls, type, itemid)
+function doRequests(urls, type, itemid, pageID) 
+// TODO change dbCategories for all but assets and to dbAssets for assets if it is an asset 
+// AssetID for assets and itemid for cat and solutions last one this needs type
 {	
 
 	console.log("urls is "+urls)	
 	console.log("type is "+type)	
 	console.log("itemid is "+itemid)
-
-	return;	
 	
-	if(type === "modify")
+	var dbEndpoint = pageID == "assets" ? "dbAssets" : "dbCategories";
+	var idStr = pageID == "assets" ? "AssetID" : "itemid"; 
+	
+	if( type === "delete")
 	{
-		var deleteUrl = config.url+"/PSAP/dbCategories?itemid="+itemid+"&type="+type+"&action=delete";
-		urls.unshift(deleteUrl)
-		console.log(urls);
-		return
-		doSingleRequest(urls, 0);		
-	}
-	else if(type === "add")
-	{		
-		doSingleRequest(urls, 0);
-	}
-	else if(type === "delete")
-	{		
-		var deleteUrl = config.url+"/PSAP/dbCategories?itemid="+itemid+"&type="+type+"&action=delete";
 		urls = [];
-		urls.push(deleteUrl);
-		doSingleRequest(urls, 0);
 	}
+	
+	if(type === "modify" || type === "delete")
+	{
+		var deleteUrl = config.url+"/PSAP/"+dbEndpoint+"?"+idStr+"="+itemid+"&action=delete";
+		urls.unshift(deleteUrl)	
+	}
+	
+	console.log("about to request "+urls)
+	doSingleRequest(urls, 0);
+	
 	
 	function doSingleRequest(arr, index)
 	{
 		if( index >= arr.length )
 		{
+			console.log("should be done. Index is "+index+". arr is "+arr)
 			return;
 		}
 		else
