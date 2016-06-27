@@ -14,23 +14,6 @@ function addToCurrentParents()
 
 function getParentsHTML(categoryName, solutionName, offeringName, catid)
 {
-	/*
-	<div>
-		<div class="deleteButton">
-			Delete
-		</div>
-		<div class="assetParent category">
-			Category: <span class="selectedParent">category name here</span>
-		</div>
-		<div class="assetParent solution">
-			Solution:<span class="selectedParent">solution name here</span>
-		</div>
-		<div class="assetParent offering">
-			Offering: <span class="selectedParent">Offering name here</span>
-		</div>
-	</div>
-	*/
-	
 	var holder = document.createElement("div");
 	
 	var deleteButton = document.createElement("div")
@@ -151,6 +134,7 @@ function populateAsset( k )
 	page.querySelector('[name="AssetGroupingText"]').value = data.AssetDetail.assetgroupingtext; 
 	page.querySelector('[name="SubmittedBy"]').value = data.AssetDetail.submittedby; 
 	page.querySelector('[name="Status"]').selectedIndex = setSelectIndex( data.AssetDetail.status, page.querySelector('[name="Status"]')); 
+	page.querySelector('[name="AdminComments"]').selectedIndex = data.AssetDetail.AdminComments; 
 // I think this is set up just fine	getParentOfferingIDs( page.querySelectorAll(".currentParents > *") ) = data.AssetDetail.AssetID;
 	addParents(data.AssetParents);
 	
@@ -272,68 +256,24 @@ function assetRequest(button)
 		var url = [];
 		
 		o.action = o.action === "modify" ? "add" : o.action; // can you call modify if the data has been deleted? can you call add with an id?
-		
-		if(pageID == "assets")
-		{
-			baseUrl += "dbAssets?";
-			console.log('o["OfferingID"] is...');console.log(o["OfferingID"]);
-			
-			/*/
-			for(var i=0; i<o["OfferingID"].length; i++)
-			{
-				url.push( baseUrl+ "&OfferingID="+ o["OfferingID"][i] );
-				console.log("added to url"+ baseUrl+ "&OfferingID="+ o["OfferingID"][i] );
-				// TODO make this add but not remove what is there by adding url to url array
-			}
-			//*/
-		}
-		else
-		{
-			baseUrl += "dbCategories?";
-			url.push(baseUrl);
-			console.log("added to url"+baseUrl);
-		}
+				
+		baseUrl += pageID == "assets" ? "dbAssets?" : "dbCategories?";
 		
 		var count=0;
 		for(var k in o)
 		{
-			if( k == "OfferingID" )
-			{
-				continue;
-				baseUrl += o[k].length > 0 ? k +"="+ o[k][0] +"" : k +"=" ;
-				console.log(o)
-			}
-			else
-			{
-				baseUrl += k +"="+ o[k] +"";
-			}
+			baseUrl += k +"="
+			
+			baseUrl += o[k] +"";
+			
 			baseUrl += count+1 < length ? "&" : "" ;
 			count++;
 		}
+		url.push(baseUrl);
 		
 		console.log(baseUrl);
 		
-		//*/
-		if(pageID == "assets")
-		{
-			console.log('o["OfferingID"] is...');console.log(o["OfferingID"]);
-			
-			for(var i=0; i<o["OfferingID"].length; i++)
-			{
-				url.push( baseUrl+ "&OfferingID="+ o["OfferingID"][i]);
-				console.log("pushing "+baseUrl+ "&OfferingID="+ o["OfferingID"][i])
-				// TODO make this add but not remove what is there by adding url to url array
-				
-			}
-		}
-		else
-		{
-			url.push(baseUrl);
-			console.log("added to url"+baseUrl);
-		}
-		//*/
-		
-		console.log("***returning "+url)
+		console.log("***returning \""+url+"\"")
 		console.log("***returning length is "+url.length)
 		return url;		
 	}
@@ -362,7 +302,7 @@ function doRequests(urls, type, itemid, pageID)
 		urls.unshift(deleteUrl)	
 	}
 	
-	console.log("about to request "+urls)
+	console.log("about to request "+JSON.stringify(urls) )
 	doSingleRequest(urls, 0);
 	
 	

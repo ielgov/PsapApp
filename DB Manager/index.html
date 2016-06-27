@@ -13,6 +13,7 @@
 			{
 				assetsTab.click() // TODO remove
 				//document.querySelector(".searchBar .button:not(.clear)").click();
+				document.querySelector("[type='text'][name='AssetDisplayName']").value = (new Date()).getHours()+":"+(new Date()).getMinutes()+":"+(new Date()).getSeconds()
 			}
 		</script>
 		
@@ -173,7 +174,7 @@
 					<div>
 						<div>
 							<span>Submited By</span>
-							<input type="text" name="SubmittedBy" placeholder="email">
+							<input type="text" name="SubmittedBy" placeholder="email" value='drewtest'>
 						</div>
 						<div>
 							<span>Action Type</span>
