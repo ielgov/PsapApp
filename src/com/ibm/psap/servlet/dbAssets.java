@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.StringTokenizer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -151,36 +152,59 @@ public class dbAssets extends HttpServlet {
 			String AssetDisplayName, String AssetDisplayDescription, String URL,
 			String ActionType, String AssetType, String SourceType,
 			String AssetGroupingText, String SubmittedBy, String Status,
-			String AdminComments, String OfferingID) throws Exception{
+			String AdminComments, String OfferingIDs) throws Exception{
+		int index = 0;
 		logger.info("Setting information to the database for the type Asset");
-		
+		logger.info("Received offering string is "+ OfferingIDs);
+		StringTokenizer offeringIDTokens =  new StringTokenizer(OfferingIDs,",");
+		String OfferingID = null;	     
 		CallableStatement cs = null;
-	
+		PreparedStatement ps = null;
+		int assetID = 0;
 		try {
 			Connection con = (Connection) getServletContext().getAttribute("DBConnection");
-			logger.info("Preparing SQL "+sql);
-			cs = con.prepareCall(sql);
-			cs.setString(1, AssetDisplayName);
-			cs.setString(2, AssetDisplayDescription);
-			cs.setString(3, URL);
-			cs.setString(4, ActionType);
-			cs.setString(5, AssetType);
-			cs.setString(6, SourceType);
-			cs.setString(7, AssetGroupingText);
-			cs.setString(8, SubmittedBy);
-			cs.setString(9, Status);
-			cs.setString(10, AdminComments);
-			cs.setInt(11, Integer.parseInt(OfferingID));
-			
-			cs.executeUpdate();
-		
+			while (offeringIDTokens.hasMoreTokens()) {
+				OfferingID = offeringIDTokens.nextToken();
+				logger.info("Offering ID  is " + OfferingID);
+				if (index == 0){
+					logger.info("Adding a Asset & its realtionship");
+					logger.info("Preparing SQL "+sql);
+					cs = con.prepareCall(sql);
+					cs.setString(1, AssetDisplayName);
+					cs.setString(2, AssetDisplayDescription);
+					cs.setString(3, URL);
+					cs.setString(4, ActionType);
+					cs.setString(5, AssetType);
+					cs.setString(6, SourceType);
+					cs.setString(7, AssetGroupingText);
+					cs.setString(8, SubmittedBy);
+					cs.setString(9, Status);
+					cs.setString(10, AdminComments);
+					cs.setInt(11, Integer.parseInt(OfferingID));
+					cs.registerOutParameter(12, java.sql.Types.INTEGER);
+					cs. executeUpdate();
+					assetID = cs.getInt(12);
+					logger.info("The Asset inserted is " +  assetID);
+				}else{
+					logger.info(" Adding asset relationship");
+					ps = con.prepareStatement(Constants.set_AssetRelation);
+					ps.setInt(1, assetID);
+					ps.setInt(2, Integer.parseInt(OfferingID));
+					ps.executeUpdate();
+					logger.info("Successfully inserted the record to the asset relationship table");
+				}
+				index++;
+			}	
 		} catch (SQLException e) {
 			e.printStackTrace();
 			logger.error("Database problem: " + e.getMessage());
 			throw new Exception("DB problem.");
 		}finally{
 			try {
+				if (cs != null)
 				cs.close();
+				if (ps != null)
+					ps.close();
 			} catch (SQLException e) {
 				logger.error("SQLException in closing PreparedStatement or ResultSet");;
 			}
