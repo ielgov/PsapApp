@@ -364,15 +364,15 @@ function checkSelected(currX,currY)
 
 //Breadcrum functions
 
-//nextLevelDataOBj = {"CategoryId":"02","Name":"CCOEM","Display":"Command and Control, Operations, and Emergency Management"}
-//rubiksCubeType = categories
+/*//nextLevelDataOBj = {"categoryid":"02","display":"Command and Control, Operations, and Emergency Management"}
+*///rubiksCubeType = categories
 var prevBreadCrumItem = undefined;
 function show2dBreadCrum(nextLevelDataOBj, rubiksCubeType)
 {
 	//console.log("Function :: show2dBreadCrum");
 	//console.log('nextLevelDataOBj',JSON.stringify(nextLevelDataOBj));
 	//console.log('rubiksCubeType',rubiksCubeType);
-	$('.breadcrum-container .' + rubiksCubeType).text(nextLevelDataOBj['Display']);
+	$('.breadcrum-container .' + rubiksCubeType).text(nextLevelDataOBj['display']);
 	$('.breadcrum-container .' + rubiksCubeType + '-parent').fadeIn('slow', function(){
 		//console.log('fadeIn complete');
 		highlightBreadCrum(rubiksCubeType);

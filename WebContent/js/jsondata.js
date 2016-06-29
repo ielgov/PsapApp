@@ -27,28 +27,29 @@ var appData = {
 			'usePNG':false,
 		},
 };
-
+//{"catid":201,"display":"Situational Awareness and Incident Response",
+//"catdesc":"Situational Awareness and Incident Response ","parent_catid":2}
 var categoryJSON = {
 		"categories": [
 		           	{
-		           		"CategoryId": "01",
-		           		"Name": "ILP",
-		           		"Display": "Intelligence Led Policing"
+		           		"categoryid": "01",
+		           		/*"Name": "ILP",*/
+		           		"display": "Intelligence Led Policing"
 		           	}, 
 		           	{
-		           		"CategoryId": "02",
-		           		"Name": "CCOEM",
-		           		"Display": "Command and Control, Operations, and Emergency Management"
+		           		"categoryid": "02",
+		           		/*"Name": "CCOEM",*/
+		           		"display": "Command and Control, Operations, and Emergency Management"
 		           	}, 
 		           	{
-		           		"CategoryId": "03",
-		           		"Name": "Real time crime",
-		           		"Display": "Real time Crime and Fusion Centers"
+		           		"categoryid": "03",
+		           		/*"Name": "Real time crime",*/
+		           		"display": "Real time Crime and Fusion Centers"
 		           	}, 
 		           	{
-		           		"CategoryId": "04",
-		           		"Name": "Security",
-		           		"Display": "Video, Physical, Cyber Security and Surveillance"
+		           		"categoryid": "04",
+		           		/*"Name": "Security",*/
+		           		"display": "Video, Physical, Cyber Security and Surveillance"
 		           	}
 		           	]
 		           };
@@ -57,81 +58,81 @@ var categoryJSON = {
 var solutionJSON = {
 		"01": [
 				{
-				"CategoryId": "101",
-				"Name": "ILE",
-				"Display": "1Tactical Lead Generation"
+				"categoryid": "101",
+				/*"Name": "ILE",*/
+				"display": "1Tactical Lead Generation"
 				}, 
 				{
-				"CategoryId": "102",
-				"Name": "IDRes",
-				"Display": "1Identity Resolution"
+				"categoryid": "102",
+				/*"Name": "IDRes",*/
+				"display": "1Identity Resolution"
 				}, 
 				{
-				"CategoryId": "103",
-				"Name": "EIA",
-				"Display": "1Intellgent Analysis"
+				"categoryid": "103",
+				/*"Name": "EIA",*/
+				"display": "1Intellgent Analysis"
 				}, 
 				{
-				"CategoryId": "104",
-				"Name": "SMA_WASMA",
-				"Display": "1Social Media Analytics"
+				"categoryid": "104",
+				/*"Name": "SMA_WASMA",*/
+				"display": "1Social Media Analytics"
 				}, 
 				{
-				"CategoryId": "105",
-				"Name": "PredPolicingSPSS",
-				"Display": "1Proactive Policing"
+				"categoryid": "105",
+				/*"Name": "PredPolicingSPSS",*/
+				"display": "1Proactive Policing"
 				}, 
 				{
-				"CategoryId": "106",
-				"Name": "Dashboard",
-				"Display": "1Reporting and Dashboard"
+				"categoryid": "106",
+				/*"Name": "Dashboard",*/
+				"display": "1Reporting and Dashboard"
 				}, 
 				{
-				"CategoryId": "107",
-				"Name": "MobileFirstResponse",
-				"Display": "1Officer Safety, Situation Awareness"
+				"categoryid": "107",
+				/*"Name": "MobileFirstResponse",*/
+				"display": "1Officer Safety, Situation Awareness"
 				}, 
 				{
-				"CategoryId": "108",
-				"Name": "CaseMgr",
-				"Display": "1Investigation Support"
+				"categoryid": "108",
+				/*"Name": "CaseMgr",*/
+				"display": "1Investigation Support"
 				}
 			],
 			"02": [
 				{
-				"CategoryId": "201",
-				"Name": "IOC4EM",
-				"Display": "2Situation Awareness and Incident Response"
+				"categoryid": "201",
+				/*"Name": "IOC4EM",*/
+				"display": "2Situation Awareness and Incident Response"
 				}, 
 				{
-				"CategoryId": "202",
-				"Name": "IOT",
-				"Display": "2Body Worn Cameras and IOT"
+				"categoryid": "202",
+				/*"Name": "IOT",*/
+				"display": "2Body Worn Cameras and IOT"
 				}, 
 				{
-				"CategoryId": "204",
-				"Name": "Weather",
-				"Display": "2Weather Analysis"
+				"categoryid": "204",
+				/*"Name": "Weather",*/
+				"display": "2Weather Analysis"
 				}, 
 				{
-				"CategoryId": "205",
-				"Name": "Citizens",
-				"Display": "2Citizen and Community Engagement"
+				"categoryid": "205",
+				/*"Name": "Citizens",*/
+				"display": "2Citizen and Community Engagement"
 				}, 
 				{
-				"CategoryId": "206",
-				"Name": "SMA",
-				"Display": "2Social Media Analysis"
+				"categoryid": "206",
+				/*"Name": "SMA",*/
+				"display": "2Social Media Analysis"
 				}, 
 				{
-				"CategoryId": "207",
-				"Name": "Cloud",
-				"Display": "2Cloud and Deployment"
+				"categoryid": "207",
+				/*"Name": "Cloud",*/
+				"display": "2Cloud and Deployment"
 				}, 
 				{
-				"CategoryId": "208",
-				"Name": "FirstResponse",
-				"Display": "2Incident Responders"
+				"categoryid": "208",
+				/*"Name": "FirstResponse",*/
+				"display": "2Incident Responders"
 				}
 			]
 		};
@@ -139,128 +140,128 @@ var solutionJSON = {
 var offeringsJSON = {
 		"101": [
 				{
-				"CategoryId": "1001",
-				"Name": "ILE-Products",
-				"Display": "1Products"
+				"categoryid": "1001",
+				/*"Name": "ILE-Products",*/
+				"display": "1Products"
 				}, 
 				{
-				"CategoryId": "1002",
-				"Name": "ILE-Services",
-				"Display": "1Services"
+				"categoryid": "1002",
+				/*"Name": "ILE-Services",*/
+				"display": "1Services"
 				},
 				{
-				"CategoryId": "1003",
-				"Name": "ILE-Reference",
-				"Display": "1References"
+				"categoryid": "1003",
+				/*"Name": "ILE-Reference",*/
+				"display": "1References"
 				},
 				{
-				"CategoryId": "1004",
-				"Name": "ILE-Competition",
-				"Display": "1Competition"
+				"categoryid": "1004",
+				/*"Name": "ILE-Competition",*/
+				"display": "1Competition"
 				},
 				{
-				"CategoryId": "1005",
-				"Name": "ILE-WhitePapers",
-				"Display": "1White Papers"
+				"categoryid": "1005",
+				/*"Name": "ILE-WhitePapers",*/
+				"display": "1White Papers"
 				},
 				{
-				"CategoryId": "1006",
-				"Name": "ILE-Contacts",
-				"Display": "1Contacts"
+				"categoryid": "1006",
+				/*"Name": "ILE-Contacts",*/
+				"display": "1Contacts"
 				},
 				{
-				"CategoryId": "1007",
-				"Name": "ILE-ROI",
-				"Display": "1Economic Value (ROI)"
+				"categoryid": "1007",
+				/*"Name": "ILE-ROI",*/
+				"display": "1Economic Value (ROI)"
 				},
 				{
-				"CategoryId": "1008",
-				"Name": "ILE-OTHERMaterial",
-				"Display": "1Additional Material"
+				"categoryid": "1008",
+				/*"Name": "ILE-OTHERMaterial",*/
+				"display": "1Additional Material"
 				}
 			],
 			"102": [
 					{
-					"CategoryId": "1010",
-					"Name": "IDRes-Products",
-					"Display": "2Products"
+					"categoryid": "1010",
+					/*"Name": "IDRes-Products",*/
+					"display": "2Products"
 					}, 
 					{
-					"CategoryId": "1011",
-					"Name": "IDRes-Services",
-					"Display": "2Services"
+					"categoryid": "1011",
+					/*"Name": "IDRes-Services",*/
+					"display": "2Services"
 					},
 					{
-					"CategoryId": "1012",
-					"Name": "IDRes-Reference",
-					"Display": "2References"
+					"categoryid": "1012",
+					/*"Name": "IDRes-Reference",*/
+					"display": "2References"
 					},
 					{
-					"CategoryId": "1013",
-					"Name": "IDRes-Competition",
-					"Display": "2Competition"
+					"categoryid": "1013",
+					/*"Name": "IDRes-Competition",*/
+					"display": "2Competition"
 					},
 					{
-					"CategoryId": "1014",
-					"Name": "IDRes-WhitePapers",
-					"Display": "2White Papers"
+					"categoryid": "1014",
+					/*"Name": "IDRes-WhitePapers",*/
+					"display": "2White Papers"
 					},
 					{
-					"CategoryId": "1015",
-					"Name": "IDRes-Contacts",
-					"Display": "2Contacts"
+					"categoryid": "1015",
+					/*"Name": "IDRes-Contacts",*/
+					"display": "2Contacts"
 					},
 					{
-					"CategoryId": "1016",
-					"Name": "IDRes-ROI",
-					"Display": "2Economic Value (ROI)"
+					"categoryid": "1016",
+					/*"Name": "IDRes-ROI",*/
+					"display": "2Economic Value (ROI)"
 					},
 					/*{
-					"CategoryId": "1017",
+					"categoryid": "1017",
 					"Name": "IDRes-OTHERMaterial",
-					"Display": "Additional Material"
+					"display": "Additional Material"
 					}*/
 				],
 				"201": [
 						{
-						"CategoryId": "2001",
-						"Name": "IOC4EM-Products",
-						"Display": "Products"
+						"categoryid": "2001",
+						/*"Name": "IOC4EM-Products",*/
+						"display": "Products"
 						}, 
 						{
-						"CategoryId": "2002",
-						"Name": "IOC4EM-Services",
-						"Display": "Services"
+						"categoryid": "2002",
+						/*"Name": "IOC4EM-Services",*/
+						"display": "Services"
 						},
 						{
-						"CategoryId": "2003",
-						"Name": "IOC4EM-Reference",
-						"Display": "References"
+						"categoryid": "2003",
+						/*"Name": "IOC4EM-Reference",*/
+						"display": "References"
 						},
 						{
-						"CategoryId": "2004",
-						"Name": "IOC4EM-Competition",
-						"Display": "Competition"
+						"categoryid": "2004",
+						/*"Name": "IOC4EM-Competition",*/
+						"display": "Competition"
 						},
 						{
-						"CategoryId": "2005",
-						"Name": "IOC4EM-WhitePapers",
-						"Display": "White Papers"
+						"categoryid": "2005",
+						/*"Name": "IOC4EM-WhitePapers",*/
+						"display": "White Papers"
 						},
 						{
-						"CategoryId": "2006",
-						"Name": "IOC4EM-Contacts",
-						"Display": "Contacts"
+						"categoryid": "2006",
+						/*"Name": "IOC4EM-Contacts",*/
+						"display": "Contacts"
 						},
 						{
-						"CategoryId": "2007",
-						"Name": "IOC4EM-ROI",
-						"Display": "Economic Value (ROI)"
+						"categoryid": "2007",
+						/*"Name": "IOC4EM-ROI",*/
+						"display": "Economic Value (ROI)"
 						},
 						{
-						"CategoryId": "2008",
-						"Name": "IOC4EM-OTHERMaterial",
-						"Display": "Additional Material"
+						"categoryid": "2008",
+						/*"Name": "IOC4EM-OTHERMaterial",*/
+						"display": "Additional Material"
 						}
 					]
 			

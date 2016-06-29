@@ -72,7 +72,7 @@ function setCubeData(nextLevelDataObj, currRubiksType)
 	{
 		//Draw rubiks cube for 'solutions' under this category
 		appData['solutions']['getDataFor'] = nextLevelDataObj;
-		appData['solutions']['parentId'] = nextLevelDataObj['CategoryId'];
+		appData['solutions']['parentId'] = nextLevelDataObj['categoryid'];
 		getData(appData['solutions'], function(response){
 			if (DEVELOPMENT)
 			{
@@ -113,7 +113,7 @@ function setCubeData(nextLevelDataObj, currRubiksType)
 	{
 		//Draw rubiks cube for 'offerings' under this solution
 		appData['offerings']['getDataFor'] = nextLevelDataObj;
-		appData['offerings']['parentId'] = nextLevelDataObj['CategoryId'];
+		appData['offerings']['parentId'] = nextLevelDataObj['categoryid'];
 		getData(appData['offerings'], function(response){
 			if (DEVELOPMENT)
 			{
@@ -154,15 +154,15 @@ function setCubeData(nextLevelDataObj, currRubiksType)
 	{
 		//Get all assets for this offering
 		console.log("Show Assets overlay - call function to show Assets popup");
-		var offeringId = nextLevelDataObj['CategoryId'];
-		var name = nextLevelDataObj['Name'];
-		var display = nextLevelDataObj['Display'];
-		var parentId = activeRubiksCube['parentData']['CategoryId'];
+		var offeringId = nextLevelDataObj['categoryid'];
+		//var name = nextLevelDataObj['Name'];
+		var display = nextLevelDataObj['display'];
+		var parentId = activeRubiksCube['parentData']['categoryid'];
 		console.log('parent',activeRubiksCube['parentData']);
 		console.log('offeringId',offeringId);
 		console.log('parentId',parentId);
 		console.log('display',display);
-		console.log('name',name);
+		//console.log('name',name);
 		showPopUp(offeringId, parentId, display);
 		//alert('offeringId - ' +offeringId+'display - '+display+', parentId - '+parentId);
 	}
@@ -505,13 +505,13 @@ function RubiksCube(options)
 					var dataobj = {};
 					if (ref.parentData)
 					{
-						dataobj['Display'] = ref.parentData['Display'];
-						dataobj['Name'] = ref.parentData['Name'];
+						dataobj['display'] = ref.parentData['display'];
+						//dataobj['Name'] = ref.parentData['Name'];
 					}
 					else
 					{
-						dataobj['Display'] = 'CENTER';
-						dataobj['Name'] = 'CENTER';
+						dataobj['display'] = 'CENTER';
+						//dataobj['Name'] = 'CENTER';
 					}
 					ref.assignDataToCubieFace(cubie, facenum, dataobj);
 				}				
@@ -526,7 +526,7 @@ function RubiksCube(options)
 		var materialIndex = facenum.slice(-1);
 		faceData['parentData'] = ref.parentData;
 		cubie.$materialList[materialIndex] = faceData;
-		//console.log(cubie.$cubenum + ' assigned data = ' + faceData['Display'] + ' | for material index = ' + materialIndex);
+		//console.log(cubie.$cubenum + ' assigned data = ' + faceData['display'] + ' | for material index = ' + materialIndex);
 	};
 			
 	this.setCenterCubieData = function(){
@@ -534,13 +534,13 @@ function RubiksCube(options)
 		var dataObj = {};
 		if (ref.parentData)
 		{
-			dataObj['Display'] = ref.parentData['Display'];
-			dataObj['Name'] = ref.parentData['Name'];
+			dataObj['display'] = ref.parentData['display'];
+			//dataObj['Name'] = ref.parentData['Name'];
 		}
 		else
 		{
-			dataObj['Display'] = 'CENTER';
-			dataObj['Name'] = 'CENTER';
+			dataObj['display'] = 'CENTER';
+			//dataObj['Name'] = 'CENTER';
 		}
 		
 		for (var i=0; i < ref.centerCubes.length; i++)
@@ -638,7 +638,7 @@ function RubiksCube(options)
 				var dataObj = cubie.$materialList[i];
 				
 				/*dynamicTexture.drawTextCooked({
-					text		: dataObj['Display'],//faceText['Name'],//
+					text		: dataObj['display'],//faceText['Name'],//
 					lineHeight	: ref.textureLineHeight,
 					fillStyle	: ref.textureFillStyle,
 					align		: ref.textureAlignText,
@@ -731,7 +731,7 @@ function RubiksCube(options)
 			if (cubie.$materialList.hasOwnProperty(i))
 			{
 				var dataObj = cubie.$materialList[i];
-				var imageName = imagePath + dataObj['CategoryId'] + '.png';
+				var imageName = imagePath + dataObj['categoryid'] + '.png';
 				
 				var faceColor = cubie['color-face'+i];
 				if (cubie.type == 'center')
@@ -797,7 +797,7 @@ function RubiksCube(options)
 				if (cubie.$materialList.hasOwnProperty(i))
 				{
 					var dataObj = $materialList[i];
-					var imageName = imagePath + dataObj['CategoryId'] + '.png';
+					var imageName = imagePath + dataObj['categoryid'] + '.png';
 					var faceColor = cubie['color-face'+i];
 					
 					if (cubie.type == 'center')
@@ -839,7 +839,7 @@ function RubiksCube(options)
 	
 	this.getFaceData = function(dataObj, dynamicTexture){
 		//console.log("Function :: getFaceData");
-		var str = dataObj['Display'];
+		var str = dataObj['display'];
 		cubielabelarray = [];
 		stringDivider(str,16,"");
 		var arrylen = cubielabelarray.length;
@@ -946,7 +946,7 @@ function RubiksCube(options)
 			if (cubie.$materialList.hasOwnProperty(i))
 			{
 				var dataObj = cubie.$materialList[i];
-				var canvastext = dataObj['Display'];				
+				var canvastext = dataObj['display'];				
 				
 				createTextureMaterialCanvas(canvastext, cubie, i, function(){
 					//debugger;
