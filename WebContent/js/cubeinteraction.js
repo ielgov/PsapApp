@@ -30,7 +30,7 @@ function onDocumentMouseDown( event )
 	//mouseSelectX = event.clientX;
 	//mouseSelectY = event.clientY;
 	//debugger;
-	var obj = getComputedTranslateY(document.getElementById('WebGL-output'));
+	var obj = getComputedTranslate(document.getElementById('WebGL-output'));
 	mouseSelectX = event.clientX - 0 + Math.abs(obj['X']);
 	mouseSelectY = event.clientY - $('#WebGL-output').parent()[0].offsetTop;
 	
@@ -51,7 +51,7 @@ function onDocumentMouseMove( event )
 		
 	//mouseSelectX = event.clientX;
 	//mouseSelectY = event.clientY;
-	var obj = getComputedTranslateY(document.getElementById('WebGL-output'));
+	var obj = getComputedTranslate(document.getElementById('WebGL-output'));
 	mouseSelectX = event.clientX - 0 + Math.abs(obj['X']);
 	mouseSelectY = event.clientY - $('#WebGL-output').parent()[0].offsetTop;
 }
@@ -66,7 +66,7 @@ function onDocumentMouseUp( event )
 	
 	//currentPosition.x = event.clientX;
 	//currentPosition.y = event.clientY;
-	var obj = getComputedTranslateY(document.getElementById('WebGL-output'));
+	var obj = getComputedTranslate(document.getElementById('WebGL-output'));
 	currentPosition.x = event.clientX - 0 + Math.abs(obj['X']);
 	currentPosition.y = event.clientY -  $('#WebGL-output').parent()[0].offsetTop;
 	
@@ -406,8 +406,8 @@ function highlightBreadCrum(breadCrumType)
 }
 
 
-//getComputedTranslateY(document.getElementById('WebGL-output'))
-function getComputedTranslateY(obj)
+//getComputedTranslate(document.getElementById('WebGL-output'))
+function getComputedTranslate(obj)
 {
     if(!window.getComputedStyle) return;
     var style = getComputedStyle(obj),
