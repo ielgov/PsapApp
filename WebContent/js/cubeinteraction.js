@@ -30,7 +30,8 @@ function onDocumentMouseDown( event )
 	//mouseSelectX = event.clientX;
 	//mouseSelectY = event.clientY;
 	//debugger;
-	mouseSelectX = event.clientX - 0;
+	var obj = getComputedTranslateY(document.getElementById('WebGL-output'));
+	mouseSelectX = event.clientX - 0 + Math.abs(obj['X']);
 	mouseSelectY = event.clientY - $('#WebGL-output').parent()[0].offsetTop;
 	
 	lastPosition.x = mouseSelectX;
@@ -50,8 +51,8 @@ function onDocumentMouseMove( event )
 		
 	//mouseSelectX = event.clientX;
 	//mouseSelectY = event.clientY;
-	
-	mouseSelectX = event.clientX - 0;
+	var obj = getComputedTranslateY(document.getElementById('WebGL-output'));
+	mouseSelectX = event.clientX - 0 + Math.abs(obj['X']);
 	mouseSelectY = event.clientY - $('#WebGL-output').parent()[0].offsetTop;
 }
 
@@ -65,8 +66,8 @@ function onDocumentMouseUp( event )
 	
 	//currentPosition.x = event.clientX;
 	//currentPosition.y = event.clientY;
-	
-	currentPosition.x = event.clientX - 0;
+	var obj = getComputedTranslateY(document.getElementById('WebGL-output'));
+	currentPosition.x = event.clientX - 0 + Math.abs(obj['X']);
 	currentPosition.y = event.clientY -  $('#WebGL-output').parent()[0].offsetTop;
 	
 	var movedX = Math.abs(currentPosition.x - lastPosition.x);
@@ -403,3 +404,26 @@ function highlightBreadCrum(breadCrumType)
 	$('.breadcrum-container .' + breadCrumType  + '-parent .triangle').addClass('highlight-breadcrum');
 	prevBreadCrumItem = breadCrumType;
 }
+
+
+//getComputedTranslateY(document.getElementById('WebGL-output'))
+function getComputedTranslateY(obj)
+{
+    if(!window.getComputedStyle) return;
+    var style = getComputedStyle(obj),
+        transform = style.transform || style.webkitTransform || style.mozTransform;
+    var mat = transform.match(/^matrix3d\((.+)\)$/);
+    if(mat) return parseFloat(mat[1].split(', ')[13]);
+    mat = transform.match(/^matrix\((.+)\)$/);
+    //return mat ? parseFloat(mat[1].split(', ')[5]) : 0;
+    var x=0,y=0,z=0;
+    x = mat ? parseFloat(mat[1].split(', ')[4]) : 0;
+    y = mat ? parseFloat(mat[1].split(', ')[5]) : 0;
+    z = mat ? parseFloat(mat[1].split(', ')[6]) : 0;
+    
+    x = isNaN(x) ? 0 : x;
+    y = isNaN(y) ? 0 : y;
+    z = isNaN(z) ? 0 : z;
+    return {'X':x ,'Y':y,'Z':z,'mat':mat};
+}
+

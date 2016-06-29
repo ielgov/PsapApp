@@ -66,6 +66,14 @@ Cube highlight face 3 = #ff8039
 {
 	transform: translateX(-12vw);
 }
+.translateX30
+{
+	transform: translateX(30%);
+}
+.translateX-30
+{
+	transform: translateX(-30%);
+}
 .translateX100
 {
 	transform: translateX(100%);
@@ -98,6 +106,8 @@ Cube highlight face 3 = #ff8039
 	width: 100%;
 	z-index: 1;
 	position: relative;
+	transition: transform 500ms ease-out;
+	/* background-color: rgba(255,0,0,0.1); */
 }
 
 #canvas-overlay
