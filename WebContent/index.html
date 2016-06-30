@@ -157,12 +157,16 @@
 		    
 	    </div>
 		<div id="assetsSlider" class="hidden">
+			</span>
 				<svg id="slideUpCloseArrow" onclick="hidePopUp()">
 					<line style="stroke:#525659; stroke-width:1px" />
 					<line style="stroke:#525659; stroke-width:1px" />
 				</svg>
-				<div id="assetsTitle"><span>Showing <span id="numberOfResults" style="color:black">00</span> results <span id="resultsName"></span></span></div>
-				<div id="assetsHolder"></div>
+			</span>
+			<span>
+					<div id="assetsTitle"><span>Showing <span id="numberOfResults" style="color:black">00</span> results <span id="resultsName"></span></span></div>
+					<div id="assetsHolder"></div>
+			<span>
 		</div>
     </div>
     <!-- <canvas id="textureCanvas"></canvas> -->
@@ -239,7 +243,7 @@
 		
 		
 		window.addEventListener( 'resize', onWindowResize, false );
-		window.addEventListener( 'load', function(){ slideArrowUp(); }, false );
+		window.addEventListener( 'load', function(){ slideArrowRight(); }, false );
 		//window.addEventListener( 'load', function(){ showPopUp(2001, 201); }, false ); // TODO REMOVE!
 	</script>
 

@@ -18,14 +18,18 @@ function showPopUp(offeringId, parentId, resultName)
 		localStorage.setItem("search_results", JSON.stringify(results) ); // TODO remove if you dont want caching
 	}
 	numberOfResults.innerHTML = assetsSlider.getElementsByClassName("asset").length;
-	sizeAssets(buttonForSizing, document.getElementsByClassName("assetSmallererParent"));
+	
+	assetsSlider.addEventListener("animationend", function(){
+		console.log("animationend")
+		sizeAssets(buttonForSizing, document.getElementsByClassName("assetSmallererParent"));
+	})
 	
 	if(resultName !== undefined)
 	{		
 		document.querySelector("#resultsName").innerHTML = "for "+resultName;		
 	}
 	assetsSlider.classList.remove("hidden");
-	slideArrowDown();
+	slideArrowRight();
 }
 
 function hidePopUp()

@@ -11,43 +11,6 @@ body:hover
 	cursor:default;
 }
 
-#assetsSlider.hidden
-{
-	height: 0rem !important;
-}
-
-#assetsSlider
-{
-	font-size:1rem !important;
-	height: 0rem;
-	/*width:100%;*/
-	background-color:#D2D2D2;
-	
-	margin:0rem;
-	padding:0rem;
-	border:0rem;
-	
-	position:absolute;
-	bottom:0rem;
-	left:0rem;
-	
-	color:black;
-	text-align:center;
-		
-	transition: all .4s;
-	
-	/*overflow-x:auto;*/
-	
-	transition: all .4s;
-	
-	display:-webkit-flex;
-	display:flex;
-	flex-direction: column;
-	align-itrems: center;
-	
-	height:60%;
-}
-
 #assetsSubSlider
 {
 	display:-webkit-flex;

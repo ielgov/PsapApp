@@ -1,5 +1,5 @@
 window.onload = function(){
-	assetsSlider.style.height = "75%";
+	assetsSlider.style.width = "75%";
 	//showPopUp(2001, 201);
 }
 
@@ -76,6 +76,11 @@ function sizeAssets(seedButton, containerArr) // sorry, this is really jank
 	{
 		var buttonWidth = seedButton.getBoundingClientRect().width + config.minTileMargin;
 		var parentWidth = containerArr[0].getBoundingClientRect().width;
+		
+		console.log("buttonWidth is "+buttonWidth)
+		console.log("parentWidth is "+parentWidth)
+		console.log("containerArr is...")
+		console.log(containerArr)
 	
 		var buttonCount = parseInt( parentWidth / buttonWidth );
 		var marginCount = buttonCount*2;
