@@ -1260,7 +1260,7 @@ function processBreadCrum(cubieMesh,breadCrumType)
 			        function(o,i) { return o['uuid'] === breadCrumsPos['offerings']['cubieMesh']['uuid']; },
 			        true);
 			
-			$('#WebGL-output').removeClass('translateX-30');
+			$('#WebGL-output').removeClass('translateX-35');
 			
 			reversalBreadCrum(breadCrumsPos['offerings'],0);
 			breadCrumsPos['offerings'].RC.group.position.set(0,-25,0);
@@ -1276,7 +1276,7 @@ function processBreadCrum(cubieMesh,breadCrumType)
 			breadCrumsCubies = $.grep( breadCrumsCubies ,
 			        function(o,i) { return o['uuid'] === breadCrumsPos['offerings']['cubieMesh']['uuid']; },
 			        true);
-			$('#WebGL-output').removeClass('translateX-30');
+			$('#WebGL-output').removeClass('translateX-35');
 			
 			reversalBreadCrum(breadCrumsPos['offerings'],0);
 			breadCrumsPos['offerings'].RC.group.position.set(0,-25,0);
@@ -1288,7 +1288,7 @@ function processBreadCrum(cubieMesh,breadCrumType)
 	{
 		console.log('HIDE POPup');
 		assetsSlider.classList.add("hidden");
-		$('#WebGL-output').removeClass('translateX-30');
+		$('#WebGL-output').removeClass('translateX-35');
 	}
 	
 	reversalBreadCrum(breadCrumsPos[breadCrumType],1000);	
@@ -1358,13 +1358,13 @@ function moveCubieToTop(cubieMesh, nextStep)
 	}
 	else if (currRubiksType == 'offerings')
 	{
-		$('#WebGL-output').addClass('translateX-30');
+		$('#WebGL-output').addClass('translateX-35');
 		breadCrumsCubies.push(cubieMesh);
 		if (nextStep)
 			nextStep();
 		
 		var parent = cubieMesh.parent;
-		moveRubiksCube(parent,-5);
+		moveRubiksCube(parent,-8);
 	}
 		
 	window.CM = cubieMesh;

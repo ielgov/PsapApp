@@ -74,6 +74,14 @@ Cube highlight face 3 = #ff8039
 {
 	transform: translateX(-30%);
 }
+.translateX35
+{
+	transform: translateX(35%);
+}
+.translateX-35
+{
+	transform: translateX(-35%);
+}
 .translateX100
 {
 	transform: translateX(100%);
