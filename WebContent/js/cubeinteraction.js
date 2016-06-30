@@ -396,12 +396,14 @@ function highlightBreadCrum(breadCrumType)
 	if (prevBreadCrumItem)
 	{
 		$('.breadcrum-container .' + prevBreadCrumItem  + '-parent .breadcrum-items').removeClass('highlight-breadcrum');
-		$('.breadcrum-container .' + prevBreadCrumItem  + '-parent .triangle').removeClass('highlight-breadcrum');
+		//$('.breadcrum-container .' + prevBreadCrumItem  + '-parent .triangle svg').removeClass('highlight-svg-triangle');
+		$('.breadcrum-container .' + prevBreadCrumItem  + '-parent .triangle svg').css({fill:'rgba(255,255,255,0.2)'});
 	}
 		
 	
 	$('.breadcrum-container .' + breadCrumType  + '-parent .breadcrum-items').addClass('highlight-breadcrum');
-	$('.breadcrum-container .' + breadCrumType  + '-parent .triangle').addClass('highlight-breadcrum');
+	//$('.breadcrum-container .' + breadCrumType  + '-parent .triangle svg').addClass('highlight-svg-triangle');
+	$('.breadcrum-container .' + breadCrumType  + '-parent .triangle svg').css({fill:'rgba(255,255,255,0.6)'});
 	prevBreadCrumItem = breadCrumType;
 }
 

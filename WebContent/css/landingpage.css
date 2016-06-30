@@ -336,6 +336,11 @@ Cube highlight face 3 = #ff8039
 	background-color: rgba(255,255,255,0.6) !important;
 }
 
+.highlight-svg-triangle
+{
+	fill: rgba(255,255,255,0.6) !important;
+}
+
 .breadcrum-container
 {
     position: absolute;
@@ -369,13 +374,18 @@ Cube highlight face 3 = #ff8039
     transition: background-color 500ms ease-in, display 500ms ease-in;
 }
 
-.breadcrum-container .triangle
+/* .breadcrum-container .triangle
 {
     width: 15px;
     height: 100%;
-    -webkit-clip-path: polygon(0 100%, 0 0, 0% 0, 100% 50%);
-    clip-path: polygon(0 100%, 0 0, 0% 0, 100% 50%);
+    clip-path: polygon(0% 100%, 0% 0%, 0% 0%, 100% 50%);
+    -webkit-clip-path: polygon(0% 100%, 0% 0%, 0% 0%, 100% 50%);
     background-color: rgba(255,255,255,0.2);
     transition: background-color 500ms ease-in, display 500ms ease-in;
-}
+} */
 
+.breadcrum-container .triangle svg
+{
+	fill: rgba(255,255,255,0.2);
+	transition: fill 500ms ease-in;
+}
