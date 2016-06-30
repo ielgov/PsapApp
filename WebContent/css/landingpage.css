@@ -338,44 +338,44 @@ Cube highlight face 3 = #ff8039
 
 .breadcrum-container
 {
-	position: absolute;
-	top: 1%;
-	left: 0.5%;
-	xborder: 1px solid black;
-	font-size: 1.5rem;
+    position: absolute;
+    top: 1%;
+    left: 0.5%;
+    xborder: 1px solid black;
+    font-size: 1.25rem;
     color: black;
     xpadding: 0.1rem;
     font-weight: bold;
-    xwidth:30%;
+    xwidth: 30%;
     xheight: 8%;
     z-index: 2;
 }
 
 .breadcrum-container > div
 {
-	xwidth: 33%;
-	width: 220px;
-	height: 100px;
-	text-align: center;
-	margin-right: 0.2rem;
+    xwidth: 33%;
+    width: 180px;
+    height: 100px;
+    text-align: center;
+    margin-right: 0.2rem;
 }
 
 .breadcrum-container .breadcrum-items
 {
-	width: 200px;
-	height:100%;
-	padding: 0.5rem;
-	background-color: rgba(255,255,255,0.2);
-	transition: background-color 500ms ease-in, display 500ms ease-in;
+    width: 165px;
+    height: 100%;
+    padding: 0.5rem;
+    background-color: rgba(255,255,255,0.2);
+    transition: background-color 500ms ease-in, display 500ms ease-in;
 }
 
 .breadcrum-container .triangle
 {
-	width: 15px;
-	height: 100%;
-	-webkit-clip-path: polygon(0 100%, 0 0, 0% 0, 100% 50%);
-	clip-path: polygon(0 100%, 0 0, 0% 0, 100% 50%);
-	background-color: rgba(255,255,255,0.2);
-	transition: background-color 500ms ease-in, display 500ms ease-in;
+    width: 15px;
+    height: 100%;
+    -webkit-clip-path: polygon(0 100%, 0 0, 0% 0, 100% 50%);
+    clip-path: polygon(0 100%, 0 0, 0% 0, 100% 50%);
+    background-color: rgba(255,255,255,0.2);
+    transition: background-color 500ms ease-in, display 500ms ease-in;
 }
 
