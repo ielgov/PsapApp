@@ -29,7 +29,7 @@ function showPopUp(offeringId, parentId, resultName)
 		document.querySelector("#resultsName").innerHTML = "for "+resultName;		
 	}
 	assetsSlider.classList.remove("hidden");
-	slideArrowRight();
+	//slideArrowLeft();
 }
 
 function hidePopUp()
@@ -139,7 +139,7 @@ function closeButton()
 		buttonToClose.style.top = (placeHolderBoundingRect.top - config.assetMargin)+"px";;
 		//buttonToClose.style.zIndex = "";
 		
-		document.querySelector(".asset.open > .contentHolder").classList.add("hidden");
+		//document.querySelector(".asset.open > .contentHolder").classList.add("hidden");
 	
 		buttonToClose.style.width = placeHolder.style.width;
 		buttonToClose.style.height = placeHolder.style.height;

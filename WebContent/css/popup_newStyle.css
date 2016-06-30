@@ -1,7 +1,7 @@
 .asset
 {
-	/*padding:.75rem;*/
-	text-align:center;
+	padding:1.75rem;
+	/*text-align:center;*/
 	
 	transform:translateZ(100px);
 	
@@ -10,24 +10,32 @@
 	justify-content:center;
 	/*align-items:center;*/
 		
-	background: white;
+	background: #efefef;
 	color:black;
 	
-	height: 24rem; /*for some reason if this is above 10.7rem (119px) it will be hidden by the space above the slider*/
-	width: 16.5rem;
+	height: 30rem; /*for some reason if this is above 10.7rem (119px) it will be hidden by the space above the slider*/
+	width: 27rem;
 	
 	/*margin-right:18px;*/
 	margin-bottom:18px;
 	/*border-radius: 1.5rem;*/
-	border-width: 2px;
+	/*border-width: 2px;
 	border-color: #00b9de;
-	border-style: solid;
+	border-style: solid;*/
 
-	padding:.5rem;
+	/*padding:.5rem;*/
+	
+	font-size:1.5rem;
+	
+	overflow:hidden;
 	
 	transition: all .4s .0s, width .4s .0s, height .4s .0s;
 	
-	font-size:1.8rem;
+}
+.asset .title
+{
+	font-size:2.5rem;
+	font-weight: bold;
 }
 
 .asset.open
@@ -44,9 +52,10 @@
 	font-size:2rem;
 }
 
-.assetSmallerParent
+.assetContent
 {
-	
+	margin-top:1rem;
+	margin-bottom:1rem;
 }
 
 .assetSmallerParent.hidden
@@ -91,6 +100,8 @@
 	margin-left:3.28rem;
 	margin-bottom:1.64rem;
 	margin-top:1.64rem;
+	
+	height:2%;
 }
 
 /*
@@ -140,10 +151,22 @@
 	
 }
 
+.containerForResults
+{
+	height:98%;
+	overflow:scroll; 
+	/*height:500px;*/
+}
+
 #assetsSlider.hidden
 {
 	/*width: 0rem !important;*/
 	right:-100vw;
+}
+
+#assetsSlider.expanded
+{
+	width:100% !important; 
 }
 
 #assetsSlider
@@ -167,7 +190,7 @@
 		
 	transition: all .4s;
 	
-	overflow-x:auto;
+	/*overflow-x:auto;*/
 	
 	transition: all .4s;
 	
@@ -205,7 +228,7 @@
 	overflow:hidden;
 	
 	opacity: 1;
-	margin:2.5rem;
+	/*margin:2.5rem;*/
 	
     transition: all .4s, height .4s, opacity .4s; /*the .2s is really nice with the .4*/
 }

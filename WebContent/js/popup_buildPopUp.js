@@ -16,6 +16,8 @@ function buildPopUp( results )
 		assetsHolder.appendChild( assetParent );
 	}
 	
+	/*// this is the part to center the text in the tile on the slid up
+	
 	var assets = document.getElementsByClassName("asset");// start of sizing margin for asset
 	for(var i=0; i<assets.length; i++)
 	{
@@ -33,6 +35,7 @@ function buildPopUp( results )
 					
 		title.style.marginTop = marginTop+"px";
 	}
+	*/
 	
 	numberOfResults.innerHTML = assetsSlider.getElementsByClassName("asset").length;	
 	resize();
@@ -43,11 +46,11 @@ function getGroups( results )
 	var toReturn = {};
 	for( var k in results )
 	{
-		if( toReturn[ results[k].ASSETGROUP ] == undefined )
+		if( toReturn[ results[k].assetgroup ] == undefined )
 		{
-			toReturn[ results[k].ASSETGROUP ] = [];
+			toReturn[ results[k].assetgroup ] = [];
 		}
-		toReturn[ results[k].ASSETGROUP ].push( results[k]  );
+		toReturn[ results[k].assetgroup ].push( results[k]  );
 	}
 	return toReturn;
 }
@@ -80,20 +83,18 @@ function makeAssetSmallerParent(assets, id)
 	{
 		var asset = makeAsset( assets[k], i );
 		
-		var column = getColumn( assetSmallererParent, i );
-		
 		assetSmallererParent.appendChild( asset );
 		
 		var contentHolder = document.createElement("div");
 		contentHolder.classList.add("contentHolder")
-		contentHolder.classList.add("hidden")
-
+		//contentHolder.classList.add("hidden")
+		
 		for( var l in assets[k] ) // TODO this should be moved to the makeAsset function
 		{
 			if( config.keyIsToBeShown(l) )
 			{
 				var div = makeDivWithData( assets[k], l )
-				contentHolder.appendChild( document.createElement("br") );
+				//contentHolder.appendChild( document.createElement("br") );
 				contentHolder.appendChild( div );
 			}
 		}
@@ -117,20 +118,24 @@ function makeAssetSmallerParent(assets, id)
 		asset.classList.add("asset");
 		asset.style.order = i;
 		
+		var icon = document.createElement("img");
+		icon.setAttribute("src", "images/black.png")// TODO change to be relevant to the icon
+		asset.appendChild( icon )
+		
 		var title = document.createElement("div");
 		title.innerHTML = assetObj.display;
 		title.classList.add("title");
 		asset.appendChild( title )
 	
-		if( assetObj.assetaction.toUpperCase() == "BLURB" ) // is meant to be a pop up
+		if( assetObj.assetaction.toUpperCase() == "POPUP" ) // is meant to be a pop up
 		{
 			asset.onclick = function(){openButton(this)}
 		}
 		else // is meant to be a link
 		{
-			asset.onclick = function(){open_in_new_tab(assetObj.URL)}
+			asset.onclick = function(){open_in_new_tab(assetObj.url)}
 		}
-		//console.log("assetObj.ASSETACTION is "+assetObj.ASSETACTION)
+		//console.log("assetObj.assetaction is "+assetObj.assetaction)
 		
 		return asset;
 	}
@@ -139,35 +144,32 @@ function makeAssetSmallerParent(assets, id)
 	{
 		
 		var div = document.createElement( "div" );
-		if( l === "URL")
+		div.classList.add("assetContent")
+		if( l === "url")
 		{	
 			//console.log("data is " + JSON.stringify( data ))
 			div.onclick = function(){ open_in_new_tab( data[l] ) };
-			//div.innerHTML = l+": "+data[l] + " ("+data['ASSET_TYPE']+")";
+			//div.innerHTML = l+": "+data[l] + " ("+data['asset_type']+")";
 			
-			if( data['ASSET_TYPE'].toUpperCase() != "DESCRIPTION ONLY" )
+			if( data['asset_type'].toUpperCase() != "DESCRIPTION ONLY" )
 			{				
 				try
 				{
 					var img = document.createElement("img")
 					img.classList.add("linkIcon");
-					img.src = config.weburl + "/PSAP/images/icons/" + data['ASSET_TYPE'].toUpperCase() + ".png"
+					img.src = config.weburl + "/PSAP/images/icons/" + data['asset_type'].toUpperCase() + ".png"
 					div.appendChild(img);				
 				}
 				catch(e)
 				{
 					var innerDiv = document.createElement("div")
-					innerDiv.innerHTML += data['ASSET_TYPE']					
+					innerDiv.innerHTML += data['asset_type']					
 				}	
-			}
-			else
-			{
-				
 			}
 		}
 		else
 		{
-			div.innerHTML = data[l];
+			div.innerHTML = abrivateString(data[l], 203);
 			//div.classList.add("hidden");
 			
 		}

@@ -117,6 +117,21 @@ function makeSVGImage(pointsArr, width, height)
 	return dStr;
 }
 
+function abrivateString(str, length)
+{
+	var toReturn = undefined;
+	console.log("str is "+str)
+	if((typeof str) !== "string")
+	{
+		alert("file type is not a string"); // TODO change this to an error that is thrown
+	}
+	else
+	{
+		toReturn = str.length > length ? str.substring(0, length-3)+"..." : str;
+	}
+	return toReturn;
+}
+
 
 
 
