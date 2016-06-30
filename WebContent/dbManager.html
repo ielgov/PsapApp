@@ -3,17 +3,20 @@
 	<head>
 		<title>PSAP Database Manager</title>
 	
-		<script src="js/dbManager_config.js"></script>
-		<script src="js/dbManager_script.js"></script>
 		<script src="js/dbManager_helperFunctions.js"></script>
+		<script src="js/config.js"></script>
+		<script src="js/dbManager_script.js"></script>
 		<script src="js/dbManager_manageAssets.js"></script>
 		
 		<script>
 			function onload()
 			{
-				assetsTab.click() // TODO remove
-				//document.querySelector(".searchBar .button:not(.clear)").click();
-				document.querySelector("[type='text'][name='AssetDisplayName']").value = (new Date()).getHours()+":"+(new Date()).getMinutes()+":"+(new Date()).getSeconds()
+				if(runFromLocalStorage)
+				{
+					assetsTab.click() // TODO remove
+					//document.querySelector(".searchBar .button:not(.clear)").click();
+					document.querySelector("[type='text'][name='AssetDisplayName']").value = (new Date()).getHours()+":"+(new Date()).getMinutes()+":"+(new Date()).getSeconds()
+				}
 			}
 		</script>
 		
@@ -134,23 +137,75 @@
 			<div id="assets" name="assets" class="bodySection hidden">
 				<div id="assetsBar">
 					<div class="searchBar">
-						<span>Asset ID<input type="text" placeholder="Asset ID"></input></span>
-						<span>Submited By<input type="text" type="email" placeholder="Email" value="drewtest"></input></span>
+						<span style="display: none;">Asset ID<input type="text" placeholder="Asset ID"></input></span>
+						<span>Submited By<input type="text" type="email" placeholder="Email"></input></span>
 						<div class="button" onclick="showAssetSearchResults(this)">Search</div>
 						<div class="clear button" onclick="clearAssetFields(this)">Clear Fields</div>
 					</div>
 				</div>
 				<hr>
 				<div class="assetsFieldHolder">
-					<div>
-						<div style="display:none">
-							<span>Asset ID</span>
-							<input type="text" readonly placeholder="Cannot be set" name="AssetID"></input>
+					<span class="multiLine">
+						<div>
+							<div>
+								<span>Asset ID</span>
+								<input type="text" readonly placeholder="Cannot be set" name="AssetID"></input>
+							</div>
+							<div>
+								<span>Display Name</span>
+								<input type="text" name="AssetDisplayName"></input>
+							</div>
+							<div>
+								<span>Status</span>
+								<select name="Status">
+										<option show=true>active</option>
+										<option show=true>inactive</option>
+								</select>
+							</div>
+							<div>
+								<span>Admin Comments</span>
+								<input type="text" name="AdminComments">
+							</div>
+							<div>
+								<span>Grouping Text</span>
+								<input type="text" name="AssetGroupingText">
+							</div>
 						</div>
 						<div>
-							<span>Display Name</span>
-							<input type="text" name="AssetDisplayName"></input>
+							<div>
+								<span>Submitted By</span>
+								<input type="text" name="SubmittedBy" placeholder="email">
+							</div>
+							<div>
+								<span>Action Type</span>
+								<select name="ActionType">
+									<option show=true>DIRECT_LINK</option>
+									<option show=true>POPUP</option>
+									<option show=true>OTHER</option>
+								</select>
+							</div>
+							<div>
+								<span>Asset Type</span>
+								<select name="AssetType">
+									<option show=true>URL</option>
+									<option show=true>PDF</option>
+									<option show=true>DOC</option>
+									<option show=true>VIDEO</option>
+									<option show=true>OTHER</option>
+								</select>
+							</div>
+							<div>
+								<span>Source Type</span>
+								<select name="SourceType">
+									<option show=true>W3</option>
+									<option show=true>IBM Connection</option>
+									<option show=true>IBM.COM</option>
+									<option show=true>OTHER</option>
+								</select>
+							</div>
 						</div>
+					</span>
+					<span class="singleLine">
 						<div>
 							<span>Description</span>
 							<input type="text" name="AssetDisplayDescription">
@@ -159,55 +214,7 @@
 							<span>URL</span>
 							<input type="text" name="URL">
 						</div>
-						<div>
-							<span>Status</span>
-							<select name="Status">
-									<option show=true>New</option>
-									<option show=true>Validated</option>
-							</select>
-						</div>
-						<div>
-							<span>Admin Comments</span>
-							<input type="text" name="AdminComments">
-						</div>
-					</div>
-					<div>
-						<div>
-							<span>Submited By</span>
-							<input type="text" name="SubmittedBy" placeholder="email" value='drewtest'>
-						</div>
-						<div>
-							<span>Action Type</span>
-							<select name="ActionType">
-								<option show=true>DIRECT_LINK</option>
-								<option show=true>POPUP</option>
-								<option show=true>OTHER</option>
-							</select>
-						</div>
-						<div>
-							<span>Asset Type</span>
-							<select name="AssetType">
-								<option show=true>URL</option>
-								<option show=true>PDF</option>
-								<option show=true>DOC</option>
-								<option show=true>VIDEO</option>
-								<option show=true>OTHER</option>
-							</select>
-						</div>
-						<div>
-							<span>Source Type</span>
-							<select name="SourceType">
-								<option show=true>W3</option>
-								<option show=true>IBM Connection</option>
-								<option show=true>IBM.COM</option>
-								<option show=true>OTHER</option>
-							</select>
-						</div>
-						<div>
-							<span>Grouping Text</span>
-							<input type="text" name="AssetGroupingText">
-						</div>
-					</div>
+					</span>
 				</div>
 				<hr>
 				<div id="assetsParentsManager">
@@ -240,8 +247,8 @@
 					<div class="currentParents"></div><!--this is where the parents will be added-->					
 					<div class="buttons">
 						<span><span>
-							<button actionName="add" onclick="assetRequest(this)">Add</button>
-							<button actionName="modify" onclick="assetRequest(this)">Modify</button>
+							<button actionName="add" onclick="assetRequest(this)">Add New</button>
+							<button actionName="modify" onclick="assetRequest(this)">Modify Current</button>
 							<button actionName="delete" onclick="assetRequest(this)">Delete</button>
 						</span></span>
 					</div>

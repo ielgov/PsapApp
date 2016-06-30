@@ -87,7 +87,7 @@ function showAssetSearchResults()
 	var email = document.querySelector('#assets .searchBar input[placeholder="Email"]').value;
 	console.log("email is ");
 	
-	var url = config.url+"/PSAP/dbAssets?action=search&SubmittedBy="+email;
+	var url = config.weburl+"/PSAP/dbAssets?action=search&SubmittedBy="+email;
 	console.log("url is "+url)
 	
 	httpRequest(url, function(data){
@@ -188,6 +188,12 @@ function populateAsset( k )
 // page should be the tab it was called from
 function assetRequest(button)
 {
+	if(document.querySelectorAll(".currentParents > *").length < 1)
+	{
+		alert("You must first add parents to the asset");
+		return;
+	}
+	
 	var page = document.querySelector(".bodySection:not(.hidden)");
 	var pageID = page.id;
 	pageG = page;
@@ -252,7 +258,7 @@ function assetRequest(button)
 	function buildURL(o, pageID)
 	{
 		var length = getObjectLength(o);
-		var baseUrl = config.url+"/PSAP/";
+		var baseUrl = config.weburl+"/PSAP/";
 		var url = [];
 		
 		o.action = o.action === "modify" ? "add" : o.action; // can you call modify if the data has been deleted? can you call add with an id?
@@ -298,7 +304,7 @@ function doRequests(urls, type, itemid, pageID)
 	
 	if(type === "modify" || type === "delete")
 	{
-		var deleteUrl = config.url+"/PSAP/"+dbEndpoint+"?"+idStr+"="+itemid+"&action=delete";
+		var deleteUrl = config.weburl+"/PSAP/"+dbEndpoint+"?"+idStr+"="+itemid+"&action=delete";
 		urls.unshift(deleteUrl)	
 	}
 	
@@ -311,6 +317,7 @@ function doRequests(urls, type, itemid, pageID)
 		if( index >= arr.length )
 		{
 			console.log("should be done. Index is "+index+". arr is "+arr)
+			alert("action completed successfully");
 			return;
 		}
 		else
@@ -320,9 +327,28 @@ function doRequests(urls, type, itemid, pageID)
 			{
 				console.log("callback")
 				doSingleRequest(arr, index+1);
-			}, "POST", function(){alert("doing request "+index);console.log("")})
+			}, "POST", function(){/*alert("doing request "+index);*/console.log("")})
 		}
 	}
+}
+
+function clearAssetFields ()
+{
+	var toSetToEmpty = document.querySelectorAll('#assets .assetsFieldHolder [type="text"]');
+	
+	for(var i=0; i<toSetToEmpty.length; i++)
+	{
+		toSetToEmpty[i].value = "";
+	}
+	
+	var toSetToEmpty = document.querySelectorAll('#assets .assetsFieldHolder select')
+	
+	for(var i=0; i<toSetToEmpty.length; i++)
+	{
+		toSetToEmpty[i].selectedIndex  = 0;
+	}
+	
+	document.querySelector('.currentParents').innerHTML = "";
 }
 
 

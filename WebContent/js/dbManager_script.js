@@ -39,11 +39,11 @@ function optionsContinue()
 
 function test()
 {
-	//httpRequest(config.url+"/PSAP/dbCategories?action=search&type=SOLUTION&parentid="+"01", function(d){console.log("d is "+d);});
-	//httpRequest(config.url+"/PSAP/dbCategories?action=search&type=OFERING&parentid="+"101", function(d){console.log("d is "+d);});
-	httpRequest(config.url+"/PSAP/dbAssets?action=search&SubmittedBy="+"edgingtn@us.ibm.com", function(d){console.log("d is "+d);});
+	//httpRequest(config.weburl+"/PSAP/dbCategories?action=search&type=SOLUTION&parentid="+"01", function(d){console.log("d is "+d);});
+	//httpRequest(config.weburl+"/PSAP/dbCategories?action=search&type=OFERING&parentid="+"101", function(d){console.log("d is "+d);});
+	httpRequest(config.weburl+"/PSAP/dbAssets?action=search&SubmittedBy="+"edgingtn@us.ibm.com", function(d){console.log("d is "+d);});
 	
-	//httpRequest(config.url+"/PSAP/dbCategories?type=OFERING&action=search&parentid="+"101", getSelectData);
+	//httpRequest(config.weburl+"/PSAP/dbCategories?type=OFERING&action=search&parentid="+"101", getSelectData);
 }
 
 function selectChange(changedSelect, nextId, type)
@@ -78,9 +78,9 @@ function selectChange(changedSelect, nextId, type)
 			parentID = "edgingtn@us.ibm.com";
 		}
 		
-		//	alert("parent id is "+parentID)
+		//alert("config.weburl id is "+config.weburl)
 	
-		httpRequest(config.url+URLSegment+parentID, function(data)
+		httpRequest(config.weburl+URLSegment+parentID, function(data)
 		{
 			currentData[type.toLowerCase()] = JSON.parse(data); 
 			setSelect( nextElement,  currentData[type.toLowerCase()]);

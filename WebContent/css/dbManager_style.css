@@ -48,7 +48,7 @@
 	
 }
 
-.assetsFieldHolder
+.assetsFieldHolder > .multiLine
 {
 	width:100%;
 	padding:0rem;
@@ -57,7 +57,7 @@
 	flex-direction:row;
 }
 
-.assetsFieldHolder > * > *
+.assetsFieldHolder > .multiLine  > * > *
 {
 	display:-webkit-flex;
 	display:flex;
@@ -67,7 +67,15 @@
 	margin:1rem;
 }
 
-.assetsFieldHolder > * > * > select,input[type=text]
+.assetsFieldHolder > .singleLine input[type=text]
+{
+	width:90%;
+	margin:1px;
+	border:1px;
+	padding:1px;
+}
+
+.assetsFieldHolder > .multiLine >* > * > select, .assetsFieldHolder > .multiLine >* > * > input[type=text]
 {
 	width:10rem;
 	margin:1px;
@@ -75,7 +83,7 @@
 	padding:1px;
 }
 
-.assetsFieldHolder > * > * > span
+.assetsFieldHolder > .multiLine >  * > * > span
 {
 	margin-right:1rem;
 }

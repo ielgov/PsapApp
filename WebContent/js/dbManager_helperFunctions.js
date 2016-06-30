@@ -46,6 +46,9 @@ function httpRequest(url, callback, method, callforward)
 	async = true;
 	method = method || "GET";
 	
+	//alert("url is...");
+	//alert(url);
+	
 	if(callforward !== undefined)
 	{
 		callforward();
