@@ -42,10 +42,17 @@
 		</div>
 		<div id="mainBody">
 			<div id="options" name="options" class="bodySection">
-				<span><input type="radio" name="optionsRadioButton" tab="optionsTab" value="category"><span onclick='this.parentElement.querySelector("input").click()'> Categories</span></span></br>
-				<span><input type="radio" name="optionsRadioButton" tab="solutionsTab" value="solution"><span onclick='this.parentElement.querySelector("input").click()'>  Solutions</span></span></br>
-				<span><input type="radio" name="optionsRadioButton" tab="offeringsTab" value="offering"><span onclick='this.parentElement.querySelector("input").click()'>  Offerings</span></span></br>
-				<span><input type="radio" name="optionsRadioButton" tab="assetsTab" value="assets"><span onclick='this.parentElement.querySelector("input").click()'>  Assets</span></span></br>
+				
+				<fieldset class="radiogroup">
+				<legend>Controls</legend>
+				  <ul class="radio">
+				  	<li><input type="radio" name="optionsRadioButton" tab="optionsTab" value="category"><span onclick='this.parentElement.querySelector("input").click()'> Categories</span></li>
+					<li><input type="radio" name="optionsRadioButton" tab="solutionsTab" value="solution"><span onclick='this.parentElement.querySelector("input").click()'>  Solutions</span></li>
+					<li><input type="radio" name="optionsRadioButton" tab="offeringsTab" value="offering"><span onclick='this.parentElement.querySelector("input").click()'>  Offerings</span></li>
+					<li><input type="radio" name="optionsRadioButton" tab="assetsTab" value="assets"><span onclick='this.parentElement.querySelector("input").click()'>  Assets</span></li>
+				
+				  </ul>
+				</fieldset>
 				<button onclick="optionsContinue()">Continue</button>
 			</div>
 			<div id="solutions" name="solutions" class="hidden bodySection">
@@ -140,11 +147,11 @@
 						<span style="display: none;">Asset ID<input type="text" placeholder="Asset ID"></input></span>
 						<span>Submited By<input type="text" type="email" placeholder="Email"></input></span>
 						<div class="button" onclick="showAssetSearchResults(this)">Search</div>
-						<div class="clear button" onclick="clearAssetFields(this)">Clear Fields</div>
+						<div id="clearassetfields" class="clear button" onclick="clearAssetFields(this)">Clear Fields</div>
 					</div>
 				</div>
 				<hr>
-				<div class="assetsFieldHolder">
+				<div id="assetsParentHolder" class="assetsFieldHolder">
 					<span class="multiLine">
 						<div>
 							<div style="display:none;">
@@ -153,7 +160,7 @@
 							</div>
 							<div>
 								<span>Display Name</span>
-								<input type="text" name="AssetDisplayName"></input>
+								<input type="text" maxlength="40" name="AssetDisplayName"></input>
 							</div>
 							<div>
 								<span>Status</span>
@@ -169,6 +176,18 @@
 							<div>
 								<span>Grouping Text</span>
 								<input type="text" name="AssetGroupingText">
+							</div>
+							<div>
+								<span  >
+								<span>Description</span>
+								<BR>
+								<!-- <input type="text" maxlength="500" name="AssetDisplayDescription"> -->
+								<textarea type="text"  style="width: 300px; " name="AssetDisplayDescription"></textarea>
+								<BR>
+								<span>URL</span>
+								<BR>
+								<input type="text" style="width: 300px; " name="URL">
+								</span>
 							</div>
 						</div>
 						<div>
@@ -204,23 +223,17 @@
 								</select>
 							</div>
 						</div>
+						
 					</span>
-					<span class="singleLine">
-						<div>
-							<span>Description</span>
-							<input type="text" name="AssetDisplayDescription">
-						</div>
-						<div>
-							<span>URL</span>
-							<input type="text" name="URL">
-						</div>
-					</span>
+					
 				</div>
 				<hr>
 				<div id="assetsParentsManager">
+					<img src="images/add.png" class="addIcon" onclick="addToCurrentParents()"/><!--TODO this image should be changed-->
+				
 					<div class="addAssetParents">
-						<img src="images/icons/add-icon.png" class="addIcon" onclick="addToCurrentParents()"/><!--TODO this image should be changed-->
 						<div>
+						<!-- icons/add-icon.png -->
 							Categories
 							<select onchange="selectChange(this, 'assetsSolutions', 'Categories')" id="assetsCategories">
 								<option validChoice=false>Make a selection</option>
@@ -244,6 +257,9 @@
 							</select>
 						</div>
 					</div>
+					<HR>
+					<BR>
+					<BR>
 					<div class="currentParents"></div><!--this is where the parents will be added-->					
 					<div class="buttons">
 						<span><span>

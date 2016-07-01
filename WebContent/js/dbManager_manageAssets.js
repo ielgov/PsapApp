@@ -349,6 +349,7 @@ function clearAssetFields ()
 	}
 	
 	document.querySelector('.currentParents').innerHTML = "";
+	
 }
 
 

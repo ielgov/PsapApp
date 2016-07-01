@@ -153,6 +153,3 @@ function getItemObject(itemName, dataType)
 
 
 
-
-
-
