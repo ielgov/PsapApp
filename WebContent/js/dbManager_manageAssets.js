@@ -73,7 +73,7 @@ function deleteClicked(buttonClicked)
 function showAssetSearchResults()
 {
 	var table = document.querySelectorAll(".asset.searchResult table > *")[0];
-	document.querySelectorAll(".asset.searchResult")[0].classList.remove("hidden");
+	//document.querySelectorAll(".asset.searchResult")[0].classList.remove("hidden");
 	
 	var toRemove = document.querySelectorAll(".asset.searchResult table > * > :not(.title)"); // removes all current results
 	for(var k=0; k<toRemove.length; k++)
@@ -82,7 +82,7 @@ function showAssetSearchResults()
 	}
 		
 	console.log("showAssetSearchResults");
-	document.querySelector(".asset.searchResult").classList.remove("hidden")
+	
 	
 	var email = document.querySelector('#assets .searchBar input[placeholder="Email"]').value;
 	console.log("email is ");
@@ -93,9 +93,10 @@ function showAssetSearchResults()
 	httpRequest(url, function(data){
 		data = JSON.parse(data).result;
 		currentData["assets"] = data;
-		
+		var i = 0;
 		for(var k in data)
 		{
+			i = i +1;
 			var row = document.createElement("tr")
 			var theData = data[k];
 			row.setAttribute("onclick", "populateAsset("+k+")");
@@ -114,6 +115,10 @@ function showAssetSearchResults()
 			row.appendChild(submitedBy)
 			table.appendChild(row);
 		}
+		if (i!=0)
+			document.querySelector(".asset.searchResult").classList.remove("hidden")
+		else
+			alert("No record found!!!")
 	}, "GET")
 }
 
