@@ -193,16 +193,16 @@ function populateAsset( k )
 // page should be the tab it was called from
 function assetRequest(button)
 {
-	if(document.querySelectorAll(".currentParents > *").length < 1)
+	var page = document.querySelector(".bodySection:not(.hidden)");
+	var pageID = page.id;
+	pageG = page;
+
+	if (( pageID == "assets" ) && (document.querySelectorAll(".currentParents > *").length < 1))
 	{
 		alert("You must first add parents to the asset");
 		return;
 	}
 	
-	var page = document.querySelector(".bodySection:not(.hidden)");
-	var pageID = page.id;
-	pageG = page;
-
 	var o = {};
 	o.action = button.getAttribute("actionName");
 	
@@ -248,7 +248,7 @@ function assetRequest(button)
 		id = page.querySelector('[containsId]').selectedOptions[0].getAttribute("catid");
 	}
 	
-	doRequests(urls, button.getAttribute("actionName"), id, pageID);
+	doRequests(urls, button.getAttribute("actionName"), id, pageID, o.type);
 	
 	function getParentOfferingIDs( elementArr )
 	{
@@ -290,33 +290,33 @@ function assetRequest(button)
 	}
 }
 
-function doRequests(urls, type, itemid, pageID) 
+function doRequests(urls, action, itemid, pageID, type) 
 // TODO change dbCategories for all but assets and to dbAssets for assets if it is an asset 
 // AssetID for assets and itemid for cat and solutions last one this needs type
 {	
 
 	console.log("urls is "+urls)	
-	console.log("type is "+type)	
+	console.log("type is "+action)	
 	console.log("itemid is "+itemid)
 	
 	var dbEndpoint = pageID == "assets" ? "dbAssets" : "dbCategories";
 	var idStr = pageID == "assets" ? "AssetID" : "itemid"; 
 	
-	if( type === "delete")
+	if( action === "delete")
 	{
 		urls = [];
 	}
 	
-	if(type === "modify" || type === "delete")
+	if(action === "modify" || action === "delete")
 	{
-		var deleteUrl = config.weburl+"/PSAP/"+dbEndpoint+"?"+idStr+"="+itemid+"&action=delete";
+		var deleteUrl = config.weburl+"/PSAP/"+dbEndpoint+"?"+idStr+"="+itemid+"&action=delete&type=" +type;
 		urls.unshift(deleteUrl)	
 	}
 	
 	console.log("about to request "+JSON.stringify(urls) )
 	doSingleRequest(urls, 0);
 	
-	
+	/*
 	function doSingleRequest(arr, index)
 	{
 		if( index >= arr.length )
@@ -332,9 +332,10 @@ function doRequests(urls, type, itemid, pageID)
 			{
 				console.log("callback")
 				doSingleRequest(arr, index+1);
-			}, "POST", function(){/*alert("doing request "+index);*/console.log("")})
+			}, "POST", function(){console.log("")})
 		}
 	}
+	*/
 }
 
 function clearAssetFields ()
@@ -358,7 +359,75 @@ function clearAssetFields ()
 }
 
 
+function categoryRequest(button){
+	var page = document.querySelector(".bodySection:not(.hidden)");
+	var pageID = page.id;
+	pageG = page;
 
+	
+	var o = {};
+	o.action = button.getAttribute("actionName");
+	
+	if( pageID == "solutions" )
+	{
+		o.parentid = page.querySelector("#solutionsCategories").selectedOptions[0].value;
+		o.itemid = page.querySelector("#solutionsSolutions").selectedOptions[0].getAttribute("catid");
+		o.type = "SOLUTION";
+		o.displayname = page.querySelector('[name="displayname"]').value;
+		o.description = page.querySelector('[name="description"]').value;
+	}
+	else if( pageID == "offerings" )
+	{
+		
+		o.parentid = page.querySelector("#offeringsSolutions").selectedOptions[0].getAttribute("catid");
+		o.itemid = page.querySelector("#offeringsOfferings").selectedOptions[0].getAttribute("catid");
+		
+		o.type = "OFFERING";
+		o.displayname = page.querySelector('[name="displayname"]').value;
+		o.description = page.querySelector('[name="description"]').value;
+	}
+	
+	var baseUrl = config.weburl+"/PSAP/";
+	var urls = [];
+	
+	if ( button.getAttribute("actionName") == 'add' ){		
+		baseUrl += "dbCategories?" + 'action=' + o.action + '&type=' + o.type + '&parentid=' + o.parentid + '&displayname=' + o.displayname + '&description=' + o.description;
+		urls.push(baseUrl);
+	}	
+	else if ( button.getAttribute("actionName") == 'delete' ){
+		baseUrl += "dbCategories?" + 'action=' + o.action + '&type=' + o.type + '&itemid=' + o.itemid;
+		urls.push(baseUrl);
+	}
+	else if ( button.getAttribute("actionName") == 'modify' ){
+		//do a delete
+		baseUrl += "dbCategories?" + 'action=delete&type=' + o.type + '&itemid=' + o.itemid;
+		urls.push(baseUrl);
+		//do a add
+		baseUrl = config.weburl+"/PSAP/";
+		baseUrl += "dbCategories?" + 'action=add&type=' + o.type + '&parentid=' + o.parentid + '&displayname=' + o.displayname + '&description=' + o.description;
+		urls.push(baseUrl);
+	}
+	doSingleRequest(urls, 0);
+}
+
+function doSingleRequest(arr, index)
+{
+	if( index >= arr.length )
+	{
+		console.log("should be done. Index is "+index+". arr is "+arr)
+		alert("action completed successfully");
+		return;
+	}
+	else
+	{
+		//return;// TODO remove			
+		httpRequest(arr[index], function()
+		{
+			console.log("callback")
+			doSingleRequest(arr, index+1);
+		}, "POST", function(){/*alert("doing request "+index);*/console.log("")})
+	}
+}
 
 
 
