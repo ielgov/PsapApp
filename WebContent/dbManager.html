@@ -24,7 +24,7 @@
 	</head>
 	<body onload="onload()">
 		<div id="solutionSearchResults">
-			<div onclick="" class="asset searchResult hidden">
+			<div onclick=""  class="asset searchResult hidden">
 				<table>
 					<tr class="title">
 						<td>Asset ID</td>
@@ -141,6 +141,7 @@
 					</div>
 				</div>
 			</div>
+			
 			<div id="assets" name="assets" class="bodySection hidden">
 				<div id="assetsBar">
 					<div class="searchBar">
@@ -182,11 +183,13 @@
 								<span>Description</span>
 								<BR>
 								<!-- <input type="text" maxlength="500" name="AssetDisplayDescription"> -->
-								<textarea type="text"  style="width: 300px; " name="AssetDisplayDescription"></textarea>
+								<textarea type="text"  style="width: 300px;height:100px " name="AssetDisplayDescription"></textarea>
 								<BR>
 								<span>URL</span>
 								<BR>
-								<input type="text" style="width: 300px; " name="URL">
+								<!-- <input type="text" style="width: 300px; " name="URL"> -->
+								<textarea type="text"  style="width: 300px;height:50px " name="URL"></textarea>
+								
 								</span>
 							</div>
 						</div>
@@ -228,9 +231,8 @@
 					
 				</div>
 				<hr>
+				<img src="images/add.png" class="addIcon" onclick="addToCurrentParents()"/><!--TODO this image should be changed-->
 				<div id="assetsParentsManager">
-					<img src="images/add.png" class="addIcon" onclick="addToCurrentParents()"/><!--TODO this image should be changed-->
-				
 					<div class="addAssetParents">
 						<div>
 						<!-- icons/add-icon.png -->
@@ -257,10 +259,10 @@
 							</select>
 						</div>
 					</div>
-					<HR>
-					<BR>
-					<BR>
+					<hr>
 					<div class="currentParents"></div><!--this is where the parents will be added-->					
+					<br>
+					<hr>
 					<div class="buttons">
 						<span><span>
 							<button actionName="add" onclick="assetRequest(this)">Add New</button>
