@@ -38,19 +38,19 @@
 			<div id="optionsTab" name="options" onclick="clickTab(this)" class="tab selected">Options</div>
 			<div id="solutionsTab" name="solutions" onclick="clickTab(this)" class="tab hidden">Solutions</div>
 			<div id="offeringsTab" name="offerings" onclick="clickTab(this)" class="tab hidden">Offerings</div>
-			<div id="assetsTab" name="assets" onclick="clickTab(this)" class="tab">Assets</div>
+			<div id="assetsTab" name="assets" onclick="clickTab(this)" class="tab">Assets</div>	
 		</div>
 		<div id="mainBody">
+			
+			
 			<div id="options" name="options" class="bodySection">
-				
 				<fieldset class="radiogroup">
 				<legend>Controls</legend>
 				  <ul class="radio">
 				  	<li><input type="radio" name="optionsRadioButton" tab="optionsTab" value="category"><span onclick='this.parentElement.querySelector("input").click()'> Categories</span></li>
 					<li><input type="radio" name="optionsRadioButton" tab="solutionsTab" value="solution"><span onclick='this.parentElement.querySelector("input").click()'>  Solutions</span></li>
 					<li><input type="radio" name="optionsRadioButton" tab="offeringsTab" value="offering"><span onclick='this.parentElement.querySelector("input").click()'>  Offerings</span></li>
-					<li><input type="radio" name="optionsRadioButton" tab="assetsTab" value="assets"><span onclick='this.parentElement.querySelector("input").click()'>  Assets</span></li>
-				
+					<li><input type="radio" name="optionsRadioButton" tab="assetsTab" value="assets"><span onclick='this.parentElement.querySelector("input").click()'>  Assets</span></li>	
 				  </ul>
 				</fieldset>
 				<button onclick="optionsContinue()">Continue</button>
@@ -209,10 +209,13 @@
 							<div>
 								<span>Asset Type</span>
 								<select name="AssetType">
-									<option show=true>URL</option>
+									<option show=true>WEBSITE</option>
 									<option show=true>PDF</option>
 									<option show=true>DOC</option>
 									<option show=true>VIDEO</option>
+									<option show=true>COMMUNITY</option>
+									<option show=true>CONTACT</option>
+									<option show=true>REDBOOK</option>
 									<option show=true>OTHER</option>
 								</select>
 							</div>
