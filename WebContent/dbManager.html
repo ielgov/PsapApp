@@ -59,18 +59,18 @@
 				<div class="selections">
 					<div>
 						Categories Name
-						<select onchange="selectChange(this, 'solutionsSolutions', 'Categories')" id="solutionsCategories">
-							<option name="Make a selection">Make a selection</option>
-							<option name="Command and Control, Operations, and Emergency Management">Command and Control...</option>
-							<option name="Video, Physical Cyber Security and Surveillance">Video, Physical Cyb...</option>
-							<option name="Intelligent Lead Policing Investigative and Predictive Analytics">Intelligent Lead Po...</option>
-							<option name="Realtime Crime / Fusion Center">Realtime Crime / Fu...</option>
+						<select onchange="selectChange(this, 'solutionsSolutions', 'Categories')" id="solutionsCategories" >
+							<option value="" name="Make a selection">Make a selection</option>
+							<option value="02" name="Command and Control, Operations, and Emergency Management">Command and Control...</option>
+							<option value="04" name="Video, Physical Cyber Security and Surveillance">Video, Physical Cyb...</option>
+							<option value="01" name="Intelligent Lead Policing Investigative and Predictive Analytics">Intelligent Lead Po...</option>
+							<option value="03" name="Realtime Crime / Fusion Center">Realtime Crime / Fu...</option>
 						</select>
 					</div>
 					<div>
 						Avaiable Solutions
 						<select onchange="populateEdit(this, 'solutions', 'categories')" id="solutionsSolutions" containsId>
-							<option show=true>You must first Select a category     </option>
+							<option show=true>You must first Select a category</option>
 						</select>
 					</div>
 				</div>
@@ -88,9 +88,9 @@
 					</div>
 					<div class="buttons">
 						<span><span>
-							<button actionName="add" onclick="assetRequest(this)">Add</button>
-							<button actionName="modify" onclick="assetRequest(this)">Modify</button>
-							<button actionName="delete" onclick="assetRequest(this)">Delete</button>
+							<button actionName="add" onclick="categoryRequest(this)">Add</button>
+							<button actionName="modify" onclick="categoryRequest(this)">Modify</button>
+							<button actionName="delete" onclick="categoryRequest(this)">Delete</button>
 						</span></span>
 					</div>
 				</div>
@@ -134,9 +134,9 @@
 					</div>
 					<div class="buttons">
 						<span><span>
-							<button actionName="add" onclick="assetRequest(this)">Add</button>
-							<button actionName="modify" onclick="assetRequest(this)">Modify</button>
-							<button actionName="delete" onclick="assetRequest(this)">Delete</button>
+							<button actionName="add" onclick="categoryRequest(this)">Add</button>
+							<button actionName="modify" onclick="categoryRequest(this)">Modify</button>
+							<button actionName="delete" onclick="categoryRequest(this)">Delete</button>
 						</span></span>
 					</div>
 				</div>
