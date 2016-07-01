@@ -10,7 +10,7 @@ function pxToEm( px )
 {
 	//console.log("IN PX TO EM");
 	px += "";
-	px = px.split("px").join("");
+	px = px.split("px").join(""); // TODO chnage to work with regex?
 	px = parseFloat(px)
 	return ( 1/divForFindingEMSize.getBoundingClientRect().width ) * px;
 }
@@ -41,33 +41,27 @@ function toggleClass(e, className)
 	}
 }
 
-function toggleClass(e, className)
-{
-	if( (typeof e) == "number" || (typeof e) == "string" || (typeof e) == "function")
-	{
-		return;
-	}
-	
-	if(e.classList.contains(className))
-	{
-		e.classList.remove(className);
-	}
-	else
-	{
-		e.classList.add(className);
-	}
-}
-
-function httpRequest(url, callback, method)
+function httpRequest(url, callback, method, callforward)
 {
 	async = true;
 	method = method || "GET";
 	
+	//alert("url is...");
+	//alert(url);
+	
+	if(callforward !== undefined)
+	{
+		callforward();
+	}
+	
 	var xhttp = new XMLHttpRequest();
 	
 	
+		console.log(52)
 	xhttp.onreadystatechange = function() 
 	{
+		console.log("xhttp.readyState is "+xhttp.readyState)
+		console.log("xhttp.status is "+xhttp.status)
 		if (xhttp.readyState == 4 && xhttp.status == 200) 
 		{
 			//console.log( JSON.parse(xhttp.responseText) );
@@ -87,6 +81,7 @@ function httpRequest(url, callback, method)
 		console.log("***Using offline data");
 		callback( localStorage.getItem("search_results") )
 	}
+	return xhttp;
 }
 
 var pointsObj = [
@@ -131,6 +126,17 @@ function abrivateString(str, length)
 	}
 	return toReturn;
 }
+
+function getObjectLength(o)
+{
+	var lengthCount = 0;
+	for(var k in o)
+	{
+		lengthCount++;
+	}
+	return lengthCount;
+}
+
 
 
 

@@ -1,5 +1,5 @@
 window.onload = function(){
-	assetsSlider.style.height = "75%";
+	assetsSlider.style.width = "70%";
 	//showPopUp(2001, 201);
 }
 
@@ -76,10 +76,16 @@ function sizeAssets(seedButton, containerArr) // sorry, this is really jank
 	{
 		var buttonWidth = seedButton.getBoundingClientRect().width + config.minTileMargin;
 		var parentWidth = containerArr[0].getBoundingClientRect().width;
+		
+		console.log("buttonWidth is "+buttonWidth)
+		console.log("parentWidth is "+parentWidth)
+		console.log("containerArr is...")
+		console.log(containerArr)
 	
 		var buttonCount = parseInt( parentWidth / buttonWidth );
 		var marginCount = buttonCount*2;
 	
+		
 		marginWidth = (parentWidth - ( buttonWidth*buttonCount ))/( marginCount )
 		
 		var assets = document.querySelectorAll(".asset")
@@ -97,6 +103,26 @@ function resize()
 	sizePopOutWidth( undefined, true );
 	assetsSlider.style.width = window.innerWidth
 	//resizeX();
+}
+
+function closePopUp()
+{
+	assetsSlider.classList.add("hidden");
+}
+
+function togglePopUpWidth()
+{
+	if( assetsSlider.classList.contains("expanded") ) 
+	{
+		assetsSlider.classList.remove("expanded");
+		slideArrowLeft();
+		
+	}
+	else
+	{
+		assetsSlider.classList.add("expanded");
+		slideArrowRight();
+	}
 }
 
 

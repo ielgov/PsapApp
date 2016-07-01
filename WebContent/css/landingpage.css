@@ -66,6 +66,22 @@ Cube highlight face 3 = #ff8039
 {
 	transform: translateX(-12vw);
 }
+.translateX30
+{
+	transform: translateX(30%);
+}
+.translateX-30
+{
+	transform: translateX(-30%);
+}
+.translateX35
+{
+	transform: translateX(35%);
+}
+.translateX-35
+{
+	transform: translateX(-35%);
+}
 .translateX100
 {
 	transform: translateX(100%);
@@ -98,6 +114,8 @@ Cube highlight face 3 = #ff8039
 	width: 100%;
 	z-index: 1;
 	position: relative;
+	transition: transform 500ms ease-out;
+	/* background-color: rgba(255,0,0,0.1); */
 }
 
 #canvas-overlay
@@ -310,4 +328,64 @@ Cube highlight face 3 = #ff8039
 #menu div .highlight-menu-item
 {
 	background-color: gray;
+}
+
+/*2D Breadcrums */
+.highlight-breadcrum
+{
+	background-color: rgba(255,255,255,0.6) !important;
+}
+
+.highlight-svg-triangle
+{
+	fill: rgba(255,255,255,0.6) !important;
+}
+
+.breadcrum-container
+{
+    position: absolute;
+    top: 1%;
+    left: 0.5%;
+    xborder: 1px solid black;
+    font-size: 1.25rem;
+    color: black;
+    xpadding: 0.1rem;
+    font-weight: bold;
+    xwidth: 30%;
+    xheight: 8%;
+    z-index: 2;
+}
+
+.breadcrum-container > div
+{
+    xwidth: 33%;
+    width: 180px;
+    height: 100px;
+    text-align: center;
+    margin-right: 0.2rem;
+}
+
+.breadcrum-container .breadcrum-items
+{
+    width: 165px;
+    height: 100%;
+    padding: 0.5rem;
+    background-color: rgba(255,255,255,0.2);
+    transition: background-color 500ms ease-in, display 500ms ease-in;
+}
+
+/* .breadcrum-container .triangle
+{
+    width: 15px;
+    height: 100%;
+    clip-path: polygon(0% 100%, 0% 0%, 0% 0%, 100% 50%);
+    -webkit-clip-path: polygon(0% 100%, 0% 0%, 0% 0%, 100% 50%);
+    background-color: rgba(255,255,255,0.2);
+    transition: background-color 500ms ease-in, display 500ms ease-in;
+} */
+
+.breadcrum-container .triangle svg
+{
+	fill: rgba(255,255,255,0.2);
+	transition: fill 500ms ease-in;
 }

@@ -3,10 +3,10 @@ var mouseMoved = false;
 var mouseSelectX =0, mouseSelectY=0;
 var currentPosition = {};
 var movedCount = 0;
-
+var multipleTouch = false;
 function onDocumentMouseDown( event )
 {
-	console.log("Function :: onDocumentMouseDown");
+	//console.log("Function :: onDocumentMouseDown");
 	event.preventDefault();	
 	
 	document.querySelector("#WebGL-output").addEventListener( 'mousemove', onDocumentMouseMove, false );
@@ -30,7 +30,8 @@ function onDocumentMouseDown( event )
 	//mouseSelectX = event.clientX;
 	//mouseSelectY = event.clientY;
 	//debugger;
-	mouseSelectX = event.clientX - 0;
+	var obj = getComputedTranslate(document.getElementById('WebGL-output'));
+	mouseSelectX = event.clientX - 0 + Math.abs(obj['X']);
 	mouseSelectY = event.clientY - $('#WebGL-output').parent()[0].offsetTop;
 	
 	lastPosition.x = mouseSelectX;
@@ -50,23 +51,23 @@ function onDocumentMouseMove( event )
 		
 	//mouseSelectX = event.clientX;
 	//mouseSelectY = event.clientY;
-	
-	mouseSelectX = event.clientX - 0;
+	var obj = getComputedTranslate(document.getElementById('WebGL-output'));
+	mouseSelectX = event.clientX - 0 + Math.abs(obj['X']);
 	mouseSelectY = event.clientY - $('#WebGL-output').parent()[0].offsetTop;
 }
 
 
 function onDocumentMouseUp( event ) 
 {
-	console.log("Function :: onDocumentMouseUp");
+	//console.log("Function :: onDocumentMouseUp");
 	document.querySelector("#WebGL-output").removeEventListener( 'mousemove', onDocumentMouseMove, false );
 	document.querySelector("#WebGL-output").removeEventListener( 'mouseup', onDocumentMouseUp, false );
 	document.querySelector("#WebGL-output").removeEventListener( 'mouseout', onDocumentMouseOut, false );
 	
 	//currentPosition.x = event.clientX;
 	//currentPosition.y = event.clientY;
-	
-	currentPosition.x = event.clientX - 0;
+	var obj = getComputedTranslate(document.getElementById('WebGL-output'));
+	currentPosition.x = event.clientX - 0 + Math.abs(obj['X']);
 	currentPosition.y = event.clientY -  $('#WebGL-output').parent()[0].offsetTop;
 	
 	var movedX = Math.abs(currentPosition.x - lastPosition.x);
@@ -111,7 +112,7 @@ function onDocumentMouseUp( event )
 
 function onDocumentMouseOut( event ) 
 {
-	console.log("Function :: onDocumentMouseOut");
+	//console.log("Function :: onDocumentMouseOut");
 	document.querySelector("#WebGL-output").removeEventListener( 'mousemove', onDocumentMouseMove, false );
 	document.querySelector("#WebGL-output").removeEventListener( 'mouseup', onDocumentMouseUp, false );
 	document.querySelector("#WebGL-output").removeEventListener( 'mouseout', onDocumentMouseOut, false );
@@ -121,11 +122,17 @@ function onDocumentMouseOut( event )
 
 function onDocumentTouchStart( event ) 
 {
-	console.log("Function :: onDocumentTouchStart");
+	//console.log("Function :: onDocumentTouchStart");
 	//console.log('event touches = '+event.touches.length);
     if ( event.touches.length == 1 ) 
     {
 		event.preventDefault();
+		console.log("single touchSTART");
+		
+		multipleTouch = false;
+		
+		orbitControl.enabled = false;
+		console.log("orbitContorl disabled");
 		
 		if (activeRubiksCube && activeRubiksCube.group)
 		{
@@ -147,16 +154,30 @@ function onDocumentTouchStart( event )
 		lastPosition.x = mouseSelectX;
 		lastPosition.y = mouseSelectY;
     }
+    else if (event.touches.length > 1)
+    {
+    	
+    	event.preventDefault();
+    	multipleTouch = true;
+    	console.log("multiple touchSTART");
+    	orbitControl.enabled = true;
+		console.log("orbitContorl enabled");
+    }
 }
 
 function onDocumentTouchMove( event ) 
 {
-	console.log('Function :: onDocumentTouchMove');
+	//console.log('Function :: onDocumentTouchMove');
 	//console.log('event touches = '+event.touches.length);
     if ( event.touches.length == 1 ) 
     {
-
+    	console.log("single touchMOVE");
         event.preventDefault();
+        
+        multipleTouch = false;
+        
+        orbitControl.enabled = false;
+		console.log("orbitContorl disabled");
 
         mouseX = event.touches[ 0 ].pageX - windowHalfX;
         targetRotationX = targetRotationOnMouseDownX + ( mouseX - mouseXOnMouseDown ) * 0.05;//0.05
@@ -171,18 +192,27 @@ function onDocumentTouchMove( event )
     	
     		
     }
+    else if ( event.touches.length > 1 /* == 2*/)
+    {
+    	console.log("multiple touchMOVE");
+    	multipleTouch = true;
+    	orbitControl.enabled = true;
+		console.log("orbitContorl enabled");
+    }
 
 }
 
 function onDocumentTouchEnd( event )
 {
-	console.log('Function :: onDocumentTouchEnd');
+	//console.log('Function :: onDocumentTouchEnd');
 	//console.log('event touches = '+event.touches.length);
 	
 	//if ( event.touches.length == 1 )
+	if (!multipleTouch)
 	{
+		console.log("single touchEND");
 		event.preventDefault();
-		
+				
 		currentPosition.x = mouseSelectX;
 		currentPosition.y = mouseSelectY;
 		
@@ -220,11 +250,25 @@ function onDocumentTouchEnd( event )
 		else
 		{
 			console.log("No click!!!");
+			console.log("single touchEND");
+			orbitControl.enabled = true;
+			console.log("orbitContorl enabled");
 		}
 			
 		mouseMoved = false;
 		movedCount = 0;
 	}
+	else
+	{
+		console.log("multiple touchEND");
+		orbitControl.enabled = true;
+		console.log("orbitContorl enabled");
+	}
+}
+
+function onDocumentTouchCancel( event )
+{
+	//console.log('Function :: onDocumentTouchCancel');
 	
 }
 
@@ -316,3 +360,72 @@ function checkSelected(currX,currY)
 		return false;
 	}	
 }
+
+
+//Breadcrum functions
+
+/*//nextLevelDataOBj = {"categoryid":"02","display":"Command and Control, Operations, and Emergency Management"}
+*///rubiksCubeType = categories
+var prevBreadCrumItem = undefined;
+function show2dBreadCrum(nextLevelDataOBj, rubiksCubeType)
+{
+	//console.log("Function :: show2dBreadCrum");
+	//console.log('nextLevelDataOBj',JSON.stringify(nextLevelDataOBj));
+	//console.log('rubiksCubeType',rubiksCubeType);
+	$('.breadcrum-container .' + rubiksCubeType).text(nextLevelDataOBj['display']);
+	$('.breadcrum-container .' + rubiksCubeType + '-parent').fadeIn('slow', function(){
+		//console.log('fadeIn complete');
+		highlightBreadCrum(rubiksCubeType);
+	});
+	
+}
+
+function hide2dBreamCrum(breadCrumType)
+{
+	//console.log("Function :: hide2dBreamCrum");
+	//console.log('breadCrumType',breadCrumType);
+	$('.breadcrum-container .' + breadCrumType + '-parent').fadeOut('fast', function(){
+		//console.log('fadeOut complete');
+		$('.breadcrum-container .' + breadCrumType).text('');
+	});	
+}
+
+function highlightBreadCrum(breadCrumType)
+{
+	//console.warn("Function :: highlightBreadCrum",breadCrumType);
+	if (prevBreadCrumItem)
+	{
+		$('.breadcrum-container .' + prevBreadCrumItem  + '-parent .breadcrum-items').removeClass('highlight-breadcrum');
+		//$('.breadcrum-container .' + prevBreadCrumItem  + '-parent .triangle svg').removeClass('highlight-svg-triangle');
+		$('.breadcrum-container .' + prevBreadCrumItem  + '-parent .triangle svg').css({fill:'rgba(255,255,255,0.2)'});
+	}
+		
+	
+	$('.breadcrum-container .' + breadCrumType  + '-parent .breadcrum-items').addClass('highlight-breadcrum');
+	//$('.breadcrum-container .' + breadCrumType  + '-parent .triangle svg').addClass('highlight-svg-triangle');
+	$('.breadcrum-container .' + breadCrumType  + '-parent .triangle svg').css({fill:'rgba(255,255,255,0.6)'});
+	prevBreadCrumItem = breadCrumType;
+}
+
+
+//getComputedTranslate(document.getElementById('WebGL-output'))
+function getComputedTranslate(obj)
+{
+    if(!window.getComputedStyle) return;
+    var style = getComputedStyle(obj),
+        transform = style.transform || style.webkitTransform || style.mozTransform;
+    var mat = transform.match(/^matrix3d\((.+)\)$/);
+    if(mat) return parseFloat(mat[1].split(', ')[13]);
+    mat = transform.match(/^matrix\((.+)\)$/);
+    //return mat ? parseFloat(mat[1].split(', ')[5]) : 0;
+    var x=0,y=0,z=0;
+    x = mat ? parseFloat(mat[1].split(', ')[4]) : 0;
+    y = mat ? parseFloat(mat[1].split(', ')[5]) : 0;
+    z = mat ? parseFloat(mat[1].split(', ')[6]) : 0;
+    
+    x = isNaN(x) ? 0 : x;
+    y = isNaN(y) ? 0 : y;
+    z = isNaN(z) ? 0 : z;
+    return {'X':x ,'Y':y,'Z':z,'mat':mat};
+}
+

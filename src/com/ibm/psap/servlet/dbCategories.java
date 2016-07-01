@@ -47,7 +47,13 @@ public class dbCategories extends HttpServlet {
 		logger.info("The requested type is "+categorytype + " action is " + action);
 		if (categorytype!= null){
 			try {
-				jsonResponse = getDBResultSetAsJson(categorytype, Constants.GET_CategoryRecord, parentId);				
+				if (categorytype.equalsIgnoreCase("ASSET")){
+					//if asset search
+					jsonResponse = getDBResultSetAsJson(categorytype, Constants.GET_AssetRecordForOffering, parentId);
+				}else{
+					//if not asset search
+					jsonResponse = getDBResultSetAsJson(categorytype, Constants.GET_CategoryRecord, parentId);								
+				}
 				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

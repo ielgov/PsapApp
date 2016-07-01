@@ -145,20 +145,48 @@
 	    	</div>
 	    </div>
 	    <div id="canvas-container">
+	    	<div id="breadcrum-container" class="breadcrum-container helvLightFont display-flex">
+	    		<div class="categories-parent display-flex">
+	    			<div class="categories breadcrum-items display-flex flex-align-center flex-justify-center" data-breadcrumitem="categories"></div>
+	    			<div class="triangle">
+	    				<svg width="15" height="100">
+						    <polygon points="0 100,15 50,0 0"></polygon>
+						</svg>
+	    			</div>
+	    		</div>	    		
+	    		<div class="solutions-parent display-flex">
+	    			<div class="solutions breadcrum-items display-flex flex-align-center flex-justify-center" data-breadcrumitem="solutions"></div>
+	    			<div class="triangle">
+	    				<svg width="15" height="100">
+						    <polygon points="0 100,15 50,0 0"></polygon>
+						</svg>
+	    			</div>
+	    		</div>	    		
+	    		<div class="offerings-parent display-flex">
+	    			<div class="offerings breadcrum-items display-flex flex-align-center flex-justify-center" data-breadcrumitem="offerings"></div>
+	    			<div class="triangle">
+	    				<svg width="15" height="100">
+						    <polygon points="0 100,15 50,0 0"></polygon>
+						</svg>
+	    			</div></div>	    		
+	    	</div>
 	    	<div id="WebGL-output"></div>
 		    <!-- <div id="canvas-overlay" class="xdisplay-none">
 		    	<div class="image"></div>
 		    </div> -->
-		    
+			<div id="assetsSlider" class="hidden">
+				</span>
+					<svg id="slideUpCloseArrow" onclick="togglePopUpWidth()">
+						<line style="stroke:#525659; stroke-width:1px" />
+						<line style="stroke:#525659; stroke-width:1px" />
+					</svg>
+				</span>
+				<span>
+						<div id="assetsTitle"><span>Showing <span id="numberOfResults" style="color:black">00</span> results <span id="resultsName"></span></span></div>
+						<div class="containerForResults"><div id="assetsHolder"></div></div>
+				<span>
+			</div>		    
 	    </div>
-		<div id="assetsSlider" class="hidden">
-				<svg id="slideUpCloseArrow" onclick="hidePopUp()">
-					<line style="stroke:#525659; stroke-width:1px" />
-					<line style="stroke:#525659; stroke-width:1px" />
-				</svg>
-				<div id="assetsTitle"><span>Showing <span id="numberOfResults" style="color:black">00</span> results <span id="resultsName"></span></span></div>
-				<div id="assetsHolder"></div>
-		</div>
     </div>
     <!-- <canvas id="textureCanvas"></canvas> -->
     <!-- <div id="footer"></div> -->
@@ -185,7 +213,7 @@
 	
 	<!-- <script type="text/javascript" src="js/Threejs/rasterizeHTML.allinone.js"></script> -->
 	<script type="text/javascript" src="js/rasterizeTexture.js"></script>
-	<script type="text/javascript" src="js/menu.js"></script>
+	<script type="text/javascript" src="js/psapmenu.js"></script>
     <script type="text/javascript" src="js/accessdata.js"></script>
     <script type="text/javascript" src="js/jsondata.js"></script>	
 	<script type="text/javascript" src="js/movements.js"></script>
@@ -234,7 +262,7 @@
 		
 		
 		window.addEventListener( 'resize', onWindowResize, false );
-		window.addEventListener( 'load', function(){ slideArrowUp(); }, false );
+		window.addEventListener( 'load', function(){ slideArrowLeft(); }, false );
 		//window.addEventListener( 'load', function(){ showPopUp(2001, 201); }, false ); // TODO REMOVE!
 	</script>
 

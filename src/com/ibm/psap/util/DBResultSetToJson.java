@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.ibm.psap.servlet.dbCategories;
 
 import java.sql.ResultSet;  
 
@@ -92,7 +91,8 @@ public final class DBResultSetToJson {
 	            assetParentArray =  new JSONArray();
 	            for (int i = 0; i < total_cols; i++) {
 	            		colname = resultSet.getMetaData().getColumnLabel(i + 1);
-	            	    if (colname.equalsIgnoreCase("CATEGORY") || colname.equalsIgnoreCase("OFFERING") || colname.equalsIgnoreCase("SOLUTION")){
+	            	    if (colname.equalsIgnoreCase("CATEGORY") || colname.equalsIgnoreCase("OFFERING") || 
+	            	    		colname.equalsIgnoreCase("SOLUTION") || colname.equalsIgnoreCase("OFFERINGID")){
 	        	            	//parent detail
 	        	            	assetParentobj.put(resultSet.getMetaData().getColumnLabel(i + 1)
 	 	    	                        .toLowerCase(), resultSet.getObject(i + 1));

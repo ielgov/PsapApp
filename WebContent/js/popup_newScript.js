@@ -18,14 +18,18 @@ function showPopUp(offeringId, parentId, resultName)
 		localStorage.setItem("search_results", JSON.stringify(results) ); // TODO remove if you dont want caching
 	}
 	numberOfResults.innerHTML = assetsSlider.getElementsByClassName("asset").length;
-	sizeAssets(buttonForSizing, document.getElementsByClassName("assetSmallererParent"));
+	
+	assetsSlider.addEventListener("animationend", function(){
+		console.log("animationend")
+		sizeAssets(buttonForSizing, document.getElementsByClassName("assetSmallererParent"));
+	})
 	
 	if(resultName !== undefined)
 	{		
 		document.querySelector("#resultsName").innerHTML = "for "+resultName;		
 	}
 	assetsSlider.classList.remove("hidden");
-	slideArrowDown();
+	//slideArrowLeft();
 }
 
 function hidePopUp()
@@ -135,7 +139,7 @@ function closeButton()
 		buttonToClose.style.top = (placeHolderBoundingRect.top - config.assetMargin)+"px";;
 		//buttonToClose.style.zIndex = "";
 		
-		document.querySelector(".asset.open > .contentHolder").classList.add("hidden");
+		//document.querySelector(".asset.open > .contentHolder").classList.add("hidden");
 	
 		buttonToClose.style.width = placeHolder.style.width;
 		buttonToClose.style.height = placeHolder.style.height;

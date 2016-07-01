@@ -50,6 +50,12 @@ function showRubiksCube(object,func)
 	moveObject(object,0,0,0,1000,func);
 }
 
+function moveRubiksCube(object,z,func)
+{
+	console.log("Function :: moveRubiksCube");
+	moveObject(object,0,0,z,1000,func);
+}
+
 function resetRubiksCube()
 {
 	if (activeRubiksCube && activeRubiksCube.group)
