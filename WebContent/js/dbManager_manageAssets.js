@@ -420,6 +420,7 @@ function doSingleRequest(arr, index)
 	}
 	else
 	{
+		alert(arr[index]);
 		//return;// TODO remove			
 		httpRequest(arr[index], function()
 		{

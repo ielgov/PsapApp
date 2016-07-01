@@ -5,7 +5,7 @@ var config={};
 //config.weburl = "http://172.27.50.155:9080"; //TEST
 config.weburl = "https://172.27.50.155:9443"; //TEST HTTPS
 
-config.weburl = runFromLocalStorage == true ? "http://172.27.50.135:9080" : config.weburl ; // uses dev server if run from local file system
+config.weburl = runFromLocalStorage == true ? "http://172.27.50.155:9080" : config.weburl ; // uses dev server if run from local file system
 
 config.minTileMargin = 5.5;
 
