@@ -1,3 +1,6 @@
+var seletedAssetParents = [];
+var seletedAsset = '';
+
 function addToCurrentParents()
 {
 	var categoryName = assetsCategories.selectedOptions[0].getAttribute("name");
@@ -126,7 +129,7 @@ function populateAsset( k )
 {
 	//console.log(currentData["assets"][k]);
 	data = currentData["assets"][k];
-	//console.log(data.AssetDetail)
+	console.log(data.AssetDetail)
 	page = assets;
 	
 	page.querySelector('[name="AssetID"]').value = data.AssetDetail.assetid; 
@@ -197,7 +200,7 @@ function assetRequest(button)
 	var pageID = page.id;
 	pageG = page;
 
-	if (( pageID == "assets" ) && (document.querySelectorAll(".currentParents > *").length < 1))
+	if (document.querySelectorAll(".currentParents > *").length < 1)
 	{
 		alert("You must first add parents to the asset");
 		return;
@@ -233,7 +236,8 @@ function assetRequest(button)
 		o.SubmittedBy = page.querySelector('[name="SubmittedBy"]').value; 
 		o.Status = page.querySelector('[name="Status"]').selectedOptions[0].value; 
 		o.AdminComments = page.querySelector('[name="AdminComments"]').value; //undefined;
-		o.OfferingID = getParentOfferingIDs( page.querySelectorAll(".currentParents > *") );
+		//o.OfferingID = getParentOfferingIDs( page.querySelectorAll(".currentParents > *") );
+		o.OfferingID = getParentOfferingIDs( page.querySelectorAll("#assets .currentParents > *"));
 	}
 	console.log(o)
 	var urls = buildURL(o, pageID);
