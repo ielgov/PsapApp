@@ -1,3 +1,6 @@
+var seletedAssetParents = [];
+var seletedAsset = '';
+
 function addToCurrentParents()
 {
 	var categoryName = assetsCategories.selectedOptions[0].getAttribute("name");
@@ -126,7 +129,7 @@ function populateAsset( k )
 {
 	//console.log(currentData["assets"][k]);
 	data = currentData["assets"][k];
-	//console.log(data.AssetDetail)
+	console.log(data.AssetDetail)
 	page = assets;
 	
 	page.querySelector('[name="AssetID"]').value = data.AssetDetail.assetid; 
@@ -197,7 +200,7 @@ function assetRequest(button)
 	var pageID = page.id;
 	pageG = page;
 
-	if (( pageID == "assets" ) && (document.querySelectorAll(".currentParents > *").length < 1))
+	if (document.querySelectorAll(".currentParents > *").length < 1)
 	{
 		alert("You must first add parents to the asset");
 		return;
@@ -420,12 +423,19 @@ function doSingleRequest(arr, index)
 	}
 	else
 	{
+		//alert(arr[index]);
 		//return;// TODO remove			
-		httpRequest(arr[index], function()
+		httpRequest(arr[index], function(data)
 		{
-			console.log("callback")
+			console.log("callback");
+			if (data != ""){
+				data = JSON.parse(data).result;
+				if (data.assetid != null)
+					document.getElementById("AssetsAssetID").value=data.assetid;
+			}	
+			
 			doSingleRequest(arr, index+1);
-		}, "POST", function(){/*alert("doing request "+index);*/console.log("")})
+		}, "POST", function(){console.log("")})
 	}
 }
 

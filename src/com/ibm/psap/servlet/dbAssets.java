@@ -84,11 +84,19 @@ public class dbAssets extends HttpServlet {
 			try {
 				if (action.equalsIgnoreCase("add")){
 					sql = Constants.Set_AssetRecord;
-					setAssetToDB(sql, 
+					int assetid = setAssetToDB(sql, 
 							AssetDisplayName, AssetDisplayDescription, URL,
 							ActionType, AssetType, SourceType,
 							AssetGroupingText, SubmittedBy, Status,
 							AdminComments, OfferingID);
+					logger.info("Returning asset id " + assetid);
+					JSONObject addAssetResp =  new JSONObject();
+					addAssetResp.put("assetid", assetid);
+					JSONObject jsonResponse =  new JSONObject();
+					jsonResponse.put("result", addAssetResp);
+					response.setContentType("application/json");
+					response.getWriter().write(jsonResponse.toString());
+					logger.info("Success: " + action + " an Asset item");
 				}else if (action.equalsIgnoreCase("modify")){
 					sql = Constants.Modify_AssetRecord;
 					UpdateAssetToDB(sql, 
@@ -96,9 +104,11 @@ public class dbAssets extends HttpServlet {
 							ActionType, AssetType, SourceType,
 							AssetGroupingText, SubmittedBy, Status,
 							AdminComments, AssetID);
+					logger.info("Success: " + action + " an Asset item");
 				}else if (action.equalsIgnoreCase("delete")){
 					sql = Constants.Delete_AssetRecord;
 					deleteAssetToDB(sql, AssetID);
+					logger.info("Success: " + action + " an Asset item");
 				}
 						
 			} catch (Exception e) {
@@ -106,7 +116,7 @@ public class dbAssets extends HttpServlet {
 				throw new IOException(e.getMessage());
 			}						
 		}
-		logger.info("Success: " + action + " an Asset item");
+		
 	}
 	
 	
@@ -148,7 +158,7 @@ public class dbAssets extends HttpServlet {
 		return jsonResponse;
 	}
 	
-	protected void setAssetToDB(String sql, 
+	protected int setAssetToDB(String sql, 
 			String AssetDisplayName, String AssetDisplayDescription, String URL,
 			String ActionType, String AssetType, String SourceType,
 			String AssetGroupingText, String SubmittedBy, String Status,
@@ -209,7 +219,8 @@ public class dbAssets extends HttpServlet {
 				logger.error("SQLException in closing PreparedStatement or ResultSet");;
 			}
 			
-		}		
+		}
+		return assetID;
 	}
 	
 	protected void UpdateAssetToDB(String sql, 
