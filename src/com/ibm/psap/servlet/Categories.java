@@ -222,7 +222,7 @@ public class Categories extends HttpServlet {
 	            for (int i = 0; i < total_cols; i++) {
 	            	colname = resultSet.getMetaData().getColumnLabel(i + 1);
 	            	newcolname = mapprop.getProperty(colname);
-	            	//logger.info("DB Colname=" + colname + " PropFile colname=" + newcolname);
+	            	logger.info("DB Colname=" + colname + " PropFile colname=" + newcolname);
 	            	if ( newcolname != null)
 	            		obj.put(newcolname
 	                        .toLowerCase(), resultSet.getObject(i + 1));

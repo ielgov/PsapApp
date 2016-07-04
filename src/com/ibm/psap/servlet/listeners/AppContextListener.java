@@ -102,7 +102,6 @@ public class AppContextListener implements ServletContextListener {
 			}
     		
     	}
-    	
     	//read mapping file
     	{
     		System.out.println("Reading the mapping file");
