@@ -96,7 +96,7 @@ public final class DBResultSetToJson {
 	        	            	//parent detail
 	        	            	assetParentobj.put(resultSet.getMetaData().getColumnLabel(i + 1)
 	 	    	                        .toLowerCase(), resultSet.getObject(i + 1));
-	 	    	                //logger.info("The column value is " + obj);
+	        	                
 	        	         }else{
 	        	            	//asset detail
 	        	            	assetDetailobj.put(resultSet.getMetaData().getColumnLabel(i + 1)

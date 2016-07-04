@@ -236,8 +236,7 @@ function assetRequest(button)
 		o.SubmittedBy = page.querySelector('[name="SubmittedBy"]').value; 
 		o.Status = page.querySelector('[name="Status"]').selectedOptions[0].value; 
 		o.AdminComments = page.querySelector('[name="AdminComments"]').value; //undefined;
-		//o.OfferingID = getParentOfferingIDs( page.querySelectorAll(".currentParents > *") );
-		o.OfferingID = getParentOfferingIDs( page.querySelectorAll("#assets .currentParents > *"));
+		o.OfferingID = getParentOfferingIDs( page.querySelectorAll(".currentParents > *") );
 	}
 	console.log(o)
 	var urls = buildURL(o, pageID);
@@ -424,13 +423,19 @@ function doSingleRequest(arr, index)
 	}
 	else
 	{
-		alert(arr[index]);
+		//alert(arr[index]);
 		//return;// TODO remove			
-		httpRequest(arr[index], function()
+		httpRequest(arr[index], function(data)
 		{
-			console.log("callback")
+			console.log("callback");
+			if (data != ""){
+				data = JSON.parse(data).result;
+				if (data.assetid != null)
+					document.getElementById("AssetsAssetID").value=data.assetid;
+			}	
+			
 			doSingleRequest(arr, index+1);
-		}, "POST", function(){/*alert("doing request "+index);*/console.log("")})
+		}, "POST", function(){console.log("")})
 	}
 }
 

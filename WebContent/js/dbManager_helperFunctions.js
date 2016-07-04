@@ -55,13 +55,11 @@ function httpRequest(url, callback, method, callforward)
 	}
 	
 	var xhttp = new XMLHttpRequest();
-	
-	
-		console.log(52)
+
 	xhttp.onreadystatechange = function() 
 	{
-		console.log("xhttp.readyState is "+xhttp.readyState)
-		console.log("xhttp.status is "+xhttp.status)
+		//console.log("xhttp.readyState is "+xhttp.readyState)
+		//console.log("xhttp.status is "+xhttp.status)
 		if (xhttp.readyState == 4 && xhttp.status == 200) 
 		{
 			//console.log( JSON.parse(xhttp.responseText) );
@@ -72,7 +70,7 @@ function httpRequest(url, callback, method, callforward)
 			}
 		}
 	};
-	console.log("requesting *"+url+"*");
+	//console.log("requesting *"+url+"*");
 	xhttp.open(method, url, async);
 	try{
 		xhttp.send();
