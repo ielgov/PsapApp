@@ -44,7 +44,7 @@ public class Assets extends HttpServlet {
 		String offeridid = request.getParameter("offeringId");
 		String parentId = request.getParameter("parentId");
 		JSONObject jsonResponse =  null;
-		boolean productionMode = (Boolean) getServletContext().getAttribute("productionMode");
+		boolean productionMode =(Boolean)getServletContext().getAttribute("productionMode");
 		logger.info("The requested type is Asset");
 		logger.info("Serach for Asset with offeringid=" +offeridid + " and solutionid=" + parentId);
 		if (offeridid!= null && parentId!=null){
@@ -52,7 +52,7 @@ public class Assets extends HttpServlet {
 			if (productionMode){
 				//extarct from the data set
 				jsonResponse = doGetDB(request);
-			}else{
+			}else {
 				//stub
 				//jsonString = Constants.ASSET_JSONSTR;
 				jsonResponse = getJSONResponse("Asset", offeridid, parentId);	

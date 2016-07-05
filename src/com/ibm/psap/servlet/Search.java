@@ -1,16 +1,26 @@
 package com.ibm.psap.servlet;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.ibm.psap.util.Constants;
+import com.ibm.psap.util.User;
 
 /**
  * Servlet implementation class Search
@@ -33,24 +43,21 @@ public class Search extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		boolean productionMode =(Boolean)getServletContext().getAttribute("productionMode");
-		String solutionID=null;
-		if (productionMode){
-			solutionID = request.getParameter("name");
-		}else{
-			solutionID = request.getParameter("CategoryID");
-		}
-			
+		String querytext = request.getParameter("queryText ");
+		
+				
 		JSONObject jsonResponse =  null;
 		logger.info("The requested type is Search");
-		logger.info("Serach for " +solutionID );
-		if (solutionID!=null){
+		logger.info("Serach for " +querytext );
+		if (querytext!=null){
 
 			if (productionMode){
-				//extarct from the data set
+				//extarct from the bluemix
+				jsonResponse = callCognitiveSearch(request, querytext);
 			}else{
 				//stub	
-				//jsonString = Constants.SERACH_JSONSTR;
-				jsonResponse = getJSONResponse("Offering", solutionID);
+				logger.info("The search action is not stubed. Use bluemix");
+				
 			}
 		
 		}
@@ -68,21 +75,85 @@ public class Search extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	protected JSONObject getJSONResponse(String type, String parentid) throws IOException {
-		logger.info("Retriving JSON for the type "+type);
-		JSONObject obj = (JSONObject)getServletContext().getAttribute(type);
+	protected JSONObject callCognitiveSearch( HttpServletRequest request, String query) throws IOException {
+		logger.info("Calling Cognitivie Serach");
 		//logger.info(obj.toString());
-		logger.info("Retriving JSON for the type "+type + " for parent id " + parentid);
 		JSONObject Responseobj =  new JSONObject();
+		JSONObject serachobj =  new JSONObject();
 		try {
-			JSONArray objArray = (JSONArray) obj.getJSONArray(parentid);
-			//logger.info(objArray.toString());
+			String searchresult = sendGet(request, query);
+			if (searchresult != null){
+				serachobj = new JSONObject(searchresult);
+				logger.info("Created a json object for the serach results");
+			}else{
+				//empty object
+				serachobj =  new JSONObject();
+			}
 			Responseobj =  new JSONObject();
-			Responseobj.put("result", objArray);
+			Responseobj.put("result", serachobj);
+			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			throw new IOException(e.getMessage());
 		}			
 		return Responseobj;
+	}
+	
+	 
+	// HTTP GET request
+	protected String sendGet(HttpServletRequest request, String query) throws IOException {
+			logger.info("Setting Cognitive URL");
+			BufferedReader in =  null;
+			StringBuffer response =  null;
+			OutputStreamWriter wr =  null;
+			
+			try{
+				URL obj = new URL(Constants.CognitiveSearchUrl);
+				HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+	
+				// optional default is GET
+				con.setRequestMethod("GET");
+	
+				//add request header
+				con.setRequestProperty("Content-Type", "application/json");
+				con.setRequestProperty("Accept", "application/json");
+				
+				//creating json body
+				JSONObject serachbody =  new JSONObject();
+				HttpSession session =  request.getSession();
+				User userobj  = (User) session.getAttribute("User");
+				serachbody.put("userID", userobj.getEmail());
+				serachbody.put("queryText ", query);
+				logger.info("Setting query text as json");
+				
+				wr = new OutputStreamWriter(con.getOutputStream());
+				wr.write(serachbody.toString());
+				wr.flush();
+				logger.info("Setting json query and user id to cognitive url body");
+	
+				int responseCode = con.getResponseCode();
+				logger.info("Response Code : " + responseCode);
+				if ( responseCode == 200){
+					logger.info("Reading the search results");
+					in = new BufferedReader(
+					        new InputStreamReader(con.getInputStream()));
+					String inputLine;
+					response = new StringBuffer();
+					while ((inputLine = in.readLine()) != null) {
+						response.append(inputLine);
+					}
+					//print result
+					logger.info("The result[" + response.toString() + "]");
+				}
+			}catch(Exception exp){
+				logger.error(exp.getMessage());
+				throw new IOException (exp.getMessage());
+			}finally{
+				if (in != null)
+					in.close();
+				if (wr !=null)
+					wr.close();
+			}
+			return response.toString();
 	}
 }

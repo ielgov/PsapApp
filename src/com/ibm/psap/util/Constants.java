@@ -6,6 +6,13 @@ public final class Constants {
     private Constants() {
             // restrict instantiation
     }
+    
+    public static final String CognitiveSearchUrl = "http://www.google.com/search?q=mkyong";
+    
+    public static final String BLUEMIX = "bluemix"; 
+    public static final String DB = "db"; 
+    public static final String JSON = "json"; 
+    
     public static final String CATEGORY_JSONSTR = "[		    {\"CategoryId\":\"01\", \"Name\":\"Intelligent Led Policing\", \"DisplayName\":\"ILP\"},{\"CategoryId\":\"02\", \"Name\":\"Realtime Crime\", \"DisplayName\":\"RLT_CRIME\"}]";
     public static final String SOLUTION_JSONSTR = "[ 			{\"CategoryId\":\"101\", \"Name\": \"Intelligent Analysis\", \"DisplayName\":\"EAI\"}, 			 {\"CategoryId\":\"102\", \"Name\": \"Proactive Policing\", \"DisplayName\":\"ProactivePolice\"}, 			 {\"CategoryId\":\"103\", \"Name\": \"xxxxxxxxxx\", \"DisplayName\":\"yyy\"} 			]";
     public static final String OFFERING_JSONSTR = "[ 			{\"CategoryId\":\"1001\", \"Name\": \"Products\", \"DisplayName\":\" Products\"}, 			 {\"CategoryId\":\"1002\", \"Name\": \"Contact\", \"DisplayName\":\" Contact\"}, 			 {\"CategoryId\":\"1003\", \"Name\": \"Competition\", \"DisplayName\":\" Competition\"} 			]";
