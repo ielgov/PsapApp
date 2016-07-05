@@ -147,8 +147,8 @@ function onDocumentTouchStart( event )
 				
 		/*currentPosition.x = event.touches[ 0 ].pageX;
 		currentPosition.y = event.touches[ 0 ].pageY;*/
-		
-		mouseSelectX = event.touches[ 0 ].pageX - 0;
+		var obj = getComputedTranslate(document.getElementById('WebGL-output'));
+		mouseSelectX = event.touches[ 0 ].pageX - 0 + Math.abs(obj['X']);
 		mouseSelectY = event.touches[ 0 ].pageY - $('#WebGL-output').parent()[0].offsetTop;
 		
 		lastPosition.x = mouseSelectX;
@@ -187,7 +187,8 @@ function onDocumentTouchMove( event )
         
         mouseMoved = true;
     	movedCount++;
-        mouseSelectX = event.touches[ 0 ].pageX - 0;
+    	var obj = getComputedTranslate(document.getElementById('WebGL-output'));
+        mouseSelectX = event.touches[ 0 ].pageX - 0 + Math.abs(obj['X']);
     	mouseSelectY = event.touches[ 0 ].pageY - - $('#WebGL-output').parent()[0].offsetTop;
     	
     		

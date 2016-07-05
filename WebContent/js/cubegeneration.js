@@ -1364,7 +1364,7 @@ function moveCubieToTop(cubieMesh, nextStep)
 			nextStep();
 		
 		var parent = cubieMesh.parent;
-		moveRubiksCube(parent,-8);
+		moveRubiksCube(parent,-10);
 	}
 		
 	window.CM = cubieMesh;
