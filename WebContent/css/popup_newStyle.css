@@ -154,7 +154,7 @@
 .containerForResults
 {
 	height:98%;
-	overflow:scroll; 
+	overflow-x:scroll; 
 	/*height:500px;*/
 }
 
@@ -242,6 +242,7 @@
 #assetsHolder
 {
 	overflow-x:auto;
+	margin-bottom:3rem;
 	/*width:100%;*/
 }
 
@@ -293,6 +294,7 @@
 	width:1rem;
 	margin:1.64rem;
 	margin-bottom:0rem;
+	margin-left:1rem;
 	transition: all .4s .0s;
 	
 	position:absolute;

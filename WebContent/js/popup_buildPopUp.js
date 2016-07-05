@@ -4,10 +4,16 @@ function buildPopUp( results )
 	
 	for(var k in results)
 	{
+		addToJumpList( k );
+		
 		var assetParent = makeAssetParent()
 		var breakLine = document.createElement("hr");
 		var title = makeTitle( k );
 		var assetSmallerParent = makeAssetSmallerParent( results[k], undefined );
+		
+		assetParent.setAttribute("id", k);
+		
+		console.log( assetParent );
 		
 		assetParent.appendChild( breakLine );
 		assetParent.appendChild( title );
@@ -39,6 +45,14 @@ function buildPopUp( results )
 	
 	numberOfResults.innerHTML = assetsSlider.getElementsByClassName("asset").length;	
 	resize();
+}
+
+function addToJumpList( str )
+{
+	var item = document.createElement("a");
+	item.innerHTML = " | "+abrivateString(str, 23);
+	item.setAttribute("href", "#"+str);
+	jumpList.appendChild( item )
 }
 
 function getGroups( results )
