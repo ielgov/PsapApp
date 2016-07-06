@@ -82,6 +82,22 @@ Cube highlight face 3 = #ff8039
 {
 	transform: translateX(-35%);
 }
+.translateX38
+{
+	transform: translateX(38%);
+}
+.translateX-38
+{
+	transform: translateX(-38%);
+}
+.translateX40
+{
+	transform: translateX(40%);
+}
+.translateX-40
+{
+	transform: translateX(-40%);
+}
 .translateX100
 {
 	transform: translateX(100%);
@@ -103,7 +119,7 @@ Cube highlight face 3 = #ff8039
 #canvas-container
 {
 	xheight: 93vh;
-	height: 90%;
+	height: 91%;
 	width: 100%;
 	z-index: 1;
 	position: relative;
@@ -158,11 +174,11 @@ Cube highlight face 3 = #ff8039
 #header
 {
 	xheight: 7vh;
-	height: 7%;
+	height: 6.25%;
 	width: 100%;
 	xborder-bottom: 1px solid rgba(255,255,255,0.5);
 	z-index: 1;
-	background-color: #30373d;
+	background-color: #2d4255;/* #30373d; */
 }
 
 #header .ibm-logo
@@ -395,9 +411,9 @@ Cube highlight face 3 = #ff8039
 
 #breadcrum-strip
 {
-	height: 3%;
-    background-color: #172735;
-    font-size: 1.5rem;
+	height: 2.75%;
+    background-color: #222a30;
+    font-size: 1.35rem;
 }
 
 #breadcrum-strip > div:first-child

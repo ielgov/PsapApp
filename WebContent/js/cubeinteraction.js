@@ -411,7 +411,8 @@ function highlightBreadCrum(breadCrumType)
 function show2dBreadCrum(nextLevelDataOBj, rubiksCubeType)
 {
 	//console.log("Function :: show2dBreadCrum");
-	$('.breadcrum-strip .' + rubiksCubeType).text(nextLevelDataOBj['display']);
+	var string = truncateBreadCrumText(nextLevelDataOBj['display'],rubiksCubeType);
+	$('.breadcrum-strip .' + rubiksCubeType).text(string);
 	$('.breadcrum-strip .' + rubiksCubeType + '-parent').fadeIn('slow', function(){
 		//console.log('fadeIn complete');
 		//bolderBreadCrum(rubiksCubeType);
@@ -458,3 +459,15 @@ function getComputedTranslate(obj)
     return {'X':x ,'Y':y,'Z':z,'mat':mat};
 }
 
+function truncateBreadCrumText(string,rubiksCubeType)
+{
+   if (string.length > 30)
+   {
+	   if (rubiksCubeType == 'offerings')
+		   return string.substring(0,30)+'...More';
+	   else
+		   return string.substring(0,30)+'...';		   
+   }      
+   else
+      return string;
+};
