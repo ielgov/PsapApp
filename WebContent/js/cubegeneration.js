@@ -1391,7 +1391,8 @@ function reversalBreadCrum(breadCrumsObj, animationDuration)
 					
 					if (breadCrumsCubies.length > 0)
 					{
-						highlightBreadCrum(breadCrumsCubies[breadCrumsCubies.length-1].$cubie.$rubiksCubeType);
+						/*highlightBreadCrum(breadCrumsCubies[breadCrumsCubies.length-1].$cubie.$rubiksCubeType);*/
+						/*bolderBreadCrum(breadCrumsCubies[breadCrumsCubies.length-1].$cubie.$rubiksCubeType);*/
 					}
 				});
 				
@@ -1443,7 +1444,8 @@ function reversalBreadCrum(breadCrumsObj, animationDuration)
 				hide2dBreamCrum(catCM.type);
 				if (breadCrumsCubies.length > 0)
 				{
-					highlightBreadCrum(breadCrumsCubies[breadCrumsCubies.length-1].$cubie.$rubiksCubeType);
+					/*highlightBreadCrum(breadCrumsCubies[breadCrumsCubies.length-1].$cubie.$rubiksCubeType);*/
+					/*bolderBreadCrum(breadCrumsCubies[breadCrumsCubies.length-1].$cubie.$rubiksCubeType);*/
 				}
 				var materialIndex = catCM.cubieMesh.$materialClicked;
 				var color = catCM.cubieMesh.$cubie['color-face'+materialIndex];

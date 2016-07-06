@@ -5,6 +5,7 @@ function initializeClicks()
 	console.log("Function :: initializeClicks");
 	
 	$('.breadcrum-container').children().fadeOut(10);
+	$('.breadcrum-strip').children().fadeOut(10);
 	
 	$('#menu-button').bind(onUserAction, function(e){
 		e.preventDefault();

@@ -102,7 +102,8 @@ Cube highlight face 3 = #ff8039
 /*CANVAS container*/
 #canvas-container
 {
-	height: 93vh;
+	xheight: 93vh;
+	height: 90%;
 	width: 100%;
 	z-index: 1;
 	position: relative;
@@ -156,7 +157,8 @@ Cube highlight face 3 = #ff8039
 /*HEADER*/
 #header
 {
-	height: 7vh;
+	xheight: 7vh;
+	height: 7%;
 	width: 100%;
 	xborder-bottom: 1px solid rgba(255,255,255,0.5);
 	z-index: 1;
@@ -298,8 +300,8 @@ Cube highlight face 3 = #ff8039
 
 #main-container
 {
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 100%;
 	transition: transform 0.3s ease;
 	z-index: 1;
 }
@@ -311,7 +313,7 @@ Cube highlight face 3 = #ff8039
     z-index: 1;
     background-color: #2d4255;
     transition: transform 0.3s ease;
-    height: 100vh;
+    height: 100%;
     /* width: 12vw; */
     top: 0;
     font-size: 2.25rem;
@@ -389,4 +391,33 @@ Cube highlight face 3 = #ff8039
 {
 	fill: rgba(255,255,255,0.2);
 	transition: fill 500ms ease-in;
+}
+
+#breadcrum-strip
+{
+	height: 3%;
+    background-color: #172735;
+    font-size: 1.5rem;
+}
+
+#breadcrum-strip > div:first-child
+{
+	margin-left: 1rem;
+}
+
+#breadcrum-strip .arrow
+{
+	background-image: url(../images/icons/Forward-64-gray.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.bolder-breadcrum
+{
+	font-weight: bolder;
 }

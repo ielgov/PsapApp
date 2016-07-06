@@ -368,7 +368,7 @@ function checkSelected(currX,currY)
 /*//nextLevelDataOBj = {"categoryid":"02","display":"Command and Control, Operations, and Emergency Management"}
 *///rubiksCubeType = categories
 var prevBreadCrumItem = undefined;
-function show2dBreadCrum(nextLevelDataOBj, rubiksCubeType)
+function show2dBreadCrumOLD(nextLevelDataOBj, rubiksCubeType)
 {
 	//console.log("Function :: show2dBreadCrum");
 	//console.log('nextLevelDataOBj',JSON.stringify(nextLevelDataOBj));
@@ -381,7 +381,7 @@ function show2dBreadCrum(nextLevelDataOBj, rubiksCubeType)
 	
 }
 
-function hide2dBreamCrum(breadCrumType)
+function hide2dBreamCrumOLD(breadCrumType)
 {
 	//console.log("Function :: hide2dBreamCrum");
 	//console.log('breadCrumType',breadCrumType);
@@ -408,6 +408,34 @@ function highlightBreadCrum(breadCrumType)
 	prevBreadCrumItem = breadCrumType;
 }
 
+function show2dBreadCrum(nextLevelDataOBj, rubiksCubeType)
+{
+	//console.log("Function :: show2dBreadCrum");
+	$('.breadcrum-strip .' + rubiksCubeType).text(nextLevelDataOBj['display']);
+	$('.breadcrum-strip .' + rubiksCubeType + '-parent').fadeIn('slow', function(){
+		//console.log('fadeIn complete');
+		//bolderBreadCrum(rubiksCubeType);
+	});
+}
+
+function hide2dBreamCrum(breadCrumType)
+{
+	//console.log("Function :: hide2dBreamCrum");	
+	$('.breadcrum-strip .' + breadCrumType + '-parent').fadeOut('fast', function(){
+		//console.log('fadeOut complete');
+		$('.breadcrum-strip .' + breadCrumType).text('');
+	});	
+}
+
+function bolderBreadCrum(breadCrumType)
+{
+	if (prevBreadCrumItem)
+	{
+		$('.breadcrum-strip .' + prevBreadCrumItem  + '-parent .breadcrum-items').removeClass('bolder-breadcrum');
+	}
+	$('.breadcrum-strip .' + breadCrumType  + '-parent .breadcrum-items').addClass('bolder-breadcrum');
+	prevBreadCrumItem = breadCrumType;
+}
 
 //getComputedTranslate(document.getElementById('WebGL-output'))
 function getComputedTranslate(obj)
