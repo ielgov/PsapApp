@@ -62,7 +62,7 @@ public class AuthenticationFilter implements Filter {
 					chain.doFilter(request, response);
 				}
 				else{
-					res.sendRedirect("/PSAP/login.jsp");
+					res.sendRedirect("/PSAP/login.jsp?directTo=" + uri);
 				}	
 			}else{
 				if (session == null){
@@ -82,7 +82,7 @@ public class AuthenticationFilter implements Filter {
 							chain.doFilter(request, response);
 						}else{
 							session.invalidate();
-							res.sendRedirect("/PSAP/login.jsp");
+							res.sendRedirect("/PSAP/login.jsp?directTo=" + uri);
 						}	
 					}
 				}
