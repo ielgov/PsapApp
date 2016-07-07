@@ -256,6 +256,8 @@
 	/*display:flex;*/
 	flex-direction: column;
 	align-items: center;
+	
+	overflow: hidden;
 }
 
 #assetsSlider > *
@@ -299,9 +301,11 @@
 
 #assetsHolder
 {
-	overflow-x:auto;
+	/* overflow-x:auto; */
+	overflow-y:scroll;
 	/*margin-bottom:3rem;*/
 	/*width:100%;*/
+	-webkit-overflow-scrolling: touch;
 }
 
 #assetsHolder::-webkit-scrollbar { 
