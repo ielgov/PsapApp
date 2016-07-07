@@ -53,7 +53,6 @@ function openButton(buttonClicked)
  
 	var buttonClickedBoundingRect = buttonClicked.getBoundingClientRect();
 	
-	//buttonClicked.classList.add("finallyOpen");
 	console.log("look here at "+77)
 	
 	lastClicked = buttonClicked
@@ -83,39 +82,30 @@ function openButton(buttonClicked)
 	console.log("buttonClicked.style.left is "+buttonClicked.style.left) // TODO remove
 	console.log("buttonClicked.style.top is "+buttonClicked.style.top) // TODO remove
 	
-	/*/ this is the toggle for auto sizing of the div
-	buttonClicked.style.width = "80vw";
-	buttonClicked.style.height = "auto";
-	
-	buttonClicked.style.width = buttonClicked.getBoundingClientRect().width;
-	buttonClicked.style.height = buttonClicked.getBoundingClientRect().height;
-	/*/
 	buttonClicked.style.width = "85%";
 	buttonClicked.style.height = "85%";
-	//*/
 	
 	buttonClicked.classList.add("open");
 	buttonClicked.classList.remove("closed");
 	// end of animating motion of div
 	
-	//buttonClicked.getElementsByClassName( "contentHolder" )
+	buttonClicked.getAttribute("display")
+	buttonClicked.querySelector(".title").innerHTML = "";
+	buttonClicked.querySelector(".title").appendChild( abrivateStringWithMore( buttonClicked.getAttribute("display"), Number.MAX_VALUE, undefined, false ) )
 	
 	buttonClicked.onclick = ""
 	
-	//greyOutBox.style.zIndex = 1;		
-	//greyOutBox.classList.remove("hidden")
-	
-	buttonClicked.addEventListener("transitionend", function(e)
+	//buttonClicked.addEventListener("transitionend", function(e)
 	{
 		if( buttonClicked.classList.contains("open") )
 		{
 			xIcon.classList.remove("hidden")
-			//buttonClicked.parentElement.appendChild(xIcon);
 			moveX(buttonClicked);		
 			document.querySelector(".asset.open > .contentHolder").classList.remove("hidden");
 		}
 		
-	}, false)
+	}
+	//, false)
 	function setButtonPosition( buttonClicked )
 	{
 		buttonClicked.style.left = emToPx(1)+"px"; // TODO change this so it is centered in the page
@@ -129,17 +119,14 @@ function closeButton()
 	
 	for( var i=0; i<openButtons.length; i++)//.forEach(function(buttonToClose)
 	{
-		buttonToClose = openButtons[i];
+		var buttonToClose = openButtons[i];
 		xIcon.classList.add("hidden")
 			
 		var placeHolder = document.getElementById( buttonToClose.id+"PlaceHolder" );
 		placeHolderBoundingRect = placeHolder.getBoundingClientRect()
 	
 		buttonToClose.style.left = (placeHolderBoundingRect.left - config.assetMargin)+"px";
-		buttonToClose.style.top = (placeHolderBoundingRect.top - config.assetMargin)+"px";;
-		//buttonToClose.style.zIndex = "";
-		
-		//document.querySelector(".asset.open > .contentHolder").classList.add("hidden");
+		buttonToClose.style.top = (placeHolderBoundingRect.top - config.assetMargin)+"px";
 	
 		buttonToClose.style.width = placeHolder.style.width;
 		buttonToClose.style.height = placeHolder.style.height;
@@ -149,9 +136,17 @@ function closeButton()
 		
 		//greyOutBox.style.zIndex = -1;		
 		//greyOutBox.classList.add("hidden");
-		
-		
-		buttonToClose.addEventListener("transitionend", function(e)
+						
+		buttonToClose.getAttribute("display")
+		buttonToClose.querySelector(".title").innerHTML = "";
+		buttonToClose.querySelector(".title").appendChild( abrivateStringWithMore( buttonToClose.getAttribute("display"), config.maxCharInTile, 
+			function(e)
+			{ 
+				e.stopPropagation(); 
+				openButton(buttonToClose); 
+			}, buttonToClose.getAttribute("hasDescription") ) )
+				
+		//buttonToClose.addEventListener("transitionend", function(e)
 		{
 			if( buttonToClose.classList.contains("closed") )
 			{
@@ -166,7 +161,8 @@ function closeButton()
 					buttonToClose.style.zIndex = "";
 				}					
 			}			
-		}, false)
+		}
+		//, false)
 	}
 }
 

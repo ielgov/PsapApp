@@ -1,8 +1,5 @@
 .asset
 {
-	padding:1.75rem;
-	/*text-align:center;*/
-	
 	transform:translateZ(100px);
 	
 	/*display:-webkit-flex;*/
@@ -10,37 +7,55 @@
 	justify-content:center;
 	/*align-items:center;*/
 		
-	background: #efefef;
+	background: #ffffff;
 	color:black;
 	
-	height: 30rem; /*for some reason if this is above 10.7rem (119px) it will be hidden by the space above the slider*/
-	width: 27rem;
+	height: 20.90rem; /*for some reason if this is above 10.7rem (119px) it will be hidden by the space above the slider*/
+	width: 20.45rem;
 	
+	margin-top:1.27rem;/*about 14 px on ipad*/
 	/*margin-right:18px;*/
-	margin-bottom:18px;
+	/*margin-bottom:1.63rem; /*about 18 px on ipad*/
 	/*border-radius: 1.5rem;*/
 	/*border-width: 2px;
 	border-color: #00b9de;
 	border-style: solid;*/
 
-	/*padding:.5rem;*/
+	padding:2.18rem;/*about 24 px on ipad*/
 	
 	font-size:1.5rem;
 	
 	overflow:hidden;
 	
-	transition: all .4s .0s, width .4s .0s, height .4s .0s;
+	/*transition: all .4s .0s, width .4s .0s, height .4s .0s;*/
 	
 }
+
+.asset:hover
+{
+	box-shadow: 0rem .3rem 1rem grey;
+}
+
 .asset .title
 {
-	font-size:2.5rem;
-	font-weight: bold;
+	font-size:2.27rem;/*about 25 px on ipad*/
+}
+
+.asset .title  a.hidden 
+{
+	font-size:0rem;
+}
+
+.asset .title  a
+{
+	text-decoration: underline;
+	color:blue;
+	font-size: 1.63rem;
 }
 
 .asset.open
 {
-	transition: all .4s, width .4s, height .4s;
+	/*transition: all .4s, width .4s, height .4s;*/
 	z-index:10;
 }
 
@@ -52,10 +67,24 @@
 	font-size:2rem;
 }
 
+.asset > img
+{
+	width: 2.72rem;
+}
+
+.asset > *
+{
+}
+
+.asset:not(.open) .assetContent
+{
+	font-size:0rem;
+}
+
 .assetContent
 {
-	margin-top:1rem;
-	margin-bottom:1rem;
+	/*margin-top:1rem;*/
+	/*margin-bottom:1rem;*/
 }
 
 .assetSmallerParent.hidden
@@ -74,32 +103,35 @@
 	
 	/*margin-left:3rem;*/
 	
+	padding-bottom:.5rem;
 	transition: all .4s;
 }
 
 .assetParent > .title
 {
-	font-size:2.3rem;
-	padding:.5rem;
-	padding-left:0rem;
+	font-size:1rem;
+	/*padding:.5rem;*/
+	/*padding-left:0rem;*/
 	border:0rem;
+	margin-top:1.27rem;
+	margin-left:1.27rem;
 }
 
 #assetsTitle
 {
 	color:grey;
-	margin: 1rem;
+	/*margin: 1rem;*/
 	/*width:100%;*/
-	font-size:1.45rem;
+	font-size:1rem;
 	
-	/*display:-webkit-flex;*/
+	display:-webkit-flex;
 	display:flex;
-	/*justify-content: space-around;*/
+	justify-content: space-between;
 	text-align:left;
 	
-	margin-left:3.28rem;
-	margin-bottom:1.64rem;
-	margin-top:1.64rem;
+	margin-left:1.27rem;
+	/*margin-bottom:1.27rem; /*about 14 px on ipad*/
+	margin-top:2.36rem; /* about 26 px on ipad*/
 	
 	height:2%;
 }
@@ -123,9 +155,9 @@
 	/*color:white;*/
 	text-align:left;
 	/*width:100%;*/
-	padding-bottom:1rem;
-	margin-left:3.28rem;
-	margin-right:3.28rem;
+	/*padding-bottom:1rem;*/
+	/*margin-left:3.28rem;*/
+	/*margin-right:3.28rem;*/
 	
 	display:-webkit-flex;
 	display:flex;
@@ -134,9 +166,9 @@
 
 .assetParent > *
 {
-	margin-bottom:1.64rem;	
-	/*margin-left:3.28rem;	
-	margin-right:3.28rem;*/
+	/*margin-bottom:1.27rem; /*about 14 px on ipad*/	
+	/*margin-left:3.28rem;	*/
+	/*margin-right:3.28rem;*/
 }
 
 .assetParent > hr
@@ -147,7 +179,8 @@
 	/*height: 1px;*/
 	border-color:rgba(0,0,0,0);
 	border-bottom-color:#525659;
-	width:100%;
+	width:95%;
+	border-bottom: dashed 2px #d0d0d0;
 	
 }
 
@@ -155,6 +188,7 @@
 {
 	height:98%;
 	overflow-x:scroll; 
+	margin-left:2rem;
 	/*height:500px;*/
 }
 
@@ -175,9 +209,9 @@
 	font-size:1rem !important;
 	height: 100%;
 	width:100%;
-	background-color:white;
+	background-color:#f2f2f2;
 	
-	margin:0rem;
+	/*margin:0rem;*/
 	padding:0rem;
 	border:0rem;
 	
@@ -242,7 +276,7 @@
 #assetsHolder
 {
 	overflow-x:auto;
-	margin-bottom:3rem;
+	/*margin-bottom:3rem;*/
 	/*width:100%;*/
 }
 
@@ -283,18 +317,19 @@
 
 .arrowDown
 {
-	margin-left:1rem;
-	margin-right:1rem;
+	/*margin-left:1rem;*/
+	/*margin-right:1rem;*/
 	font-size:3rem;
 }
 
 #slideUpCloseArrow
 {
+	margin:.5rem;
 	height:4rem;
 	width:1rem;
-	margin:1.64rem;
-	margin-bottom:0rem;
-	margin-left:1rem;
+	/*margin:1.64rem;*/
+	/*margin-bottom:0rem;*/
+	/*margin-left:1rem;*/
 	transition: all .4s .0s;
 	
 	position:absolute;

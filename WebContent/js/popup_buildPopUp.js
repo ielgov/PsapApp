@@ -1,10 +1,11 @@
+global=undefined;//TODO remove
+
 function buildPopUp( results )
 {	
 	results = getGroups( results );
 	
 	for(var k in results)
 	{
-		addToJumpList( k );
 		
 		var assetParent = makeAssetParent()
 		var breakLine = document.createElement("hr");
@@ -15,8 +16,8 @@ function buildPopUp( results )
 		
 		console.log( assetParent );
 		
-		assetParent.appendChild( breakLine );
 		assetParent.appendChild( title );
+		assetParent.appendChild( breakLine );
 		assetParent.appendChild( assetSmallerParent );
 		
 		assetsHolder.appendChild( assetParent );
@@ -47,6 +48,7 @@ function buildPopUp( results )
 	resize();
 }
 
+/* TODO remove
 function addToJumpList( str )
 {
 	var item = document.createElement("a");
@@ -54,6 +56,7 @@ function addToJumpList( str )
 	item.setAttribute("href", "#"+str);
 	jumpList.appendChild( item )
 }
+*/
 
 function getGroups( results )
 {
@@ -105,7 +108,7 @@ function makeAssetSmallerParent(assets, id)
 		
 		for( var l in assets[k] ) // TODO this should be moved to the makeAsset function
 		{
-			if( config.keyIsToBeShown(l) )
+			if( config.keyIsToBeShown(l) ) // TODO remove
 			{
 				var div = makeDivWithData( assets[k], l )
 				//contentHolder.appendChild( document.createElement("br") );
@@ -127,7 +130,13 @@ function makeAssetSmallerParent(assets, id)
 	
 	function makeAsset(assetObj, i)
 	{
-		//console.log(assetObj);
+		var hasDescription = false;
+		if( assetObj.desc_display != undefined && assetObj.desc_display != "" )
+		{
+			hasDescription = true;
+		}
+		
+		console.log(assetObj);
 		var asset = document.createElement("div");
 		asset.classList.add("asset");
 		asset.style.order = i;
@@ -137,19 +146,18 @@ function makeAssetSmallerParent(assets, id)
 		asset.appendChild( icon )
 		
 		var title = document.createElement("div");
-		title.innerHTML = assetObj.display;
+		title.appendChild(abrivateStringWithMore( assetObj.display, config.maxCharInTile, function(e){ e.stopPropagation(); openButton(asset); }, hasDescription ));
 		title.classList.add("title");
 		asset.appendChild( title )
 	
-		if( assetObj.assetaction.toUpperCase() == "POPUP" ) // is meant to be a pop up
-		{
-			asset.onclick = function(){openButton(this)}
-		}
-		else // is meant to be a link
-		{
-			asset.onclick = function(){open_in_new_tab(assetObj.url)}
-		}
-		//console.log("assetObj.assetaction is "+assetObj.assetaction)
+		//asset.onclick = function(){ openButton(this); }
+		asset.onclick = function(){open_in_new_tab(assetObj.url)}
+		//asset.onclick = function(){console.log("asdf");console.log( asset );}
+		
+		asset.setAttribute("desc_display", assetObj.desc_display);
+		asset.setAttribute("display", assetObj.display);
+		asset.setAttribute("hasDescription", hasDescription);
+		console.log(assetObj)
 		
 		return asset;
 	}
@@ -183,7 +191,7 @@ function makeAssetSmallerParent(assets, id)
 		}
 		else
 		{
-			div.innerHTML = abrivateString(data[l], 203);
+			div.innerHTML = data[l];
 			//div.classList.add("hidden");
 			
 		}
@@ -233,6 +241,69 @@ function slideArrowRight()
 	
 	slideArrow.appendChild(line1);
 	slideArrow.appendChild(line2);
+}
+
+function abrivateStringWithMore( str, length, action, hasDescription )
+{
+	var addMore = hasDescription || str.length > length;
+	
+	if( addMore && str.length+7 > length )
+	{
+		str = str.substring(0, length-3);
+	}	
+	
+	var e = document.createElement("span");
+	e.innerHTML = str;
+	
+	if( addMore )
+	{
+		var a = document.createElement("a");
+		if( action != undefined )
+		{
+			a.onclick = action;
+		}
+		a.innerHTML = "...More"
+		e.appendChild(a);
+	}
+	
+	return e;
+}
+
+function abrivateStringWithMore_old( str, length, action, hasDescription )
+{
+	
+	var addMore = false;
+	
+	if( hasDescription )
+	{
+		addMore = true;
+		length-=4;
+	}
+	else if( str.length >  length )
+	{
+		addMore = true;
+		console.log("else if")
+		length-=4;
+	}
+	
+	var needToShorten = str.length > length;
+	
+	//str.length > length ? str.substring(0, length-3)+"..." : str;
+	
+	var str = abrivateString(str, length);
+	
+	if( addMore || needToShorten )
+	{
+	}
+	else
+	{
+		
+	}
+	
+	
+	e.innerHTML = str;
+	
+	return e;	
 }
 
 
