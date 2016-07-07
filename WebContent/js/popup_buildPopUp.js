@@ -4,6 +4,12 @@ function buildPopUp( results )
 {	
 	results = getGroups( results );
 	
+	var clusterSelect = document.querySelector(".jumpToBar select")
+	clusterSelect.innerHTML = "";
+	var option = document.createElement("option");
+	option.innerHTML = "Make a selection";
+	clusterSelect.appendChild( option );
+	
 	for(var k in results)
 	{
 		
@@ -21,6 +27,10 @@ function buildPopUp( results )
 		assetParent.appendChild( assetSmallerParent );
 		
 		assetsHolder.appendChild( assetParent );
+		
+		var option = document.createElement("option");
+		option.innerHTML = k;
+		clusterSelect.appendChild( option );
 	}
 	
 	/*// this is the part to center the text in the tile on the slid up
@@ -173,6 +183,7 @@ function makeAssetSmallerParent(assets, id)
 			div.onclick = function(){ open_in_new_tab( data[l] ) };
 			//div.innerHTML = l+": "+data[l] + " ("+data['asset_type']+")";
 			
+			//*/
 			if( data['asset_type'].toUpperCase() != "DESCRIPTION ONLY" )
 			{				
 				try
@@ -188,6 +199,7 @@ function makeAssetSmallerParent(assets, id)
 					innerDiv.innerHTML += data['asset_type']					
 				}	
 			}
+			//*/
 		}
 		else
 		{

@@ -67,8 +67,13 @@ function openButton(buttonClicked)
 	
 	document.querySelector("body").appendChild(buttonClicked);
 	
-	buttonClicked.style.left = (buttonClickedBoundingRect.left - config.assetMargin)+"px";
-	buttonClicked.style.top = (buttonClickedBoundingRect.top - config.assetMargin)+"px";
+	//buttonClicked.style.left = (buttonClickedBoundingRect.left - config.assetMargin)+"px";
+	//buttonClicked.style.top = (buttonClickedBoundingRect.top - config.assetMargin)+"px";
+	
+	//TODO if this next part works remove left and top from above
+	buttonClicked.style.left = "20%";
+	buttonClicked.style.top = "20%";
+	
 	buttonClicked.style.zIndex = 10;
 	buttonClicked.style.position = "fixed";
 	// end of moving up so it can nicely transition to open
@@ -77,13 +82,13 @@ function openButton(buttonClicked)
 	console.log("buttonClicked.style.left is "+buttonClicked.style.left) // TODO remove
 	console.log("buttonClicked.style.top is "+buttonClicked.style.top) // TODO remove
 	
-	setButtonPosition( buttonClicked );
+	//setButtonPosition( buttonClicked );
 	
 	console.log("buttonClicked.style.left is "+buttonClicked.style.left) // TODO remove
 	console.log("buttonClicked.style.top is "+buttonClicked.style.top) // TODO remove
 	
-	buttonClicked.style.width = "85%";
-	buttonClicked.style.height = "85%";
+	buttonClicked.style.width = "60%";
+	buttonClicked.style.height = "auto";
 	
 	buttonClicked.classList.add("open");
 	buttonClicked.classList.remove("closed");
@@ -163,6 +168,24 @@ function closeButton()
 			}			
 		}
 		//, false)
+	}
+}
+
+function selectJumpTo(e)
+{
+	if(e.target.selectedIndex !== 0)
+	{
+		var a = document.createElement("a");
+		a.href = "#"+e.target.value;
+		a.click();
+	}
+	else
+	{
+		/*
+		var a = document.createElement("a");
+		a.href = "";
+		a.click();	
+		*/		
 	}
 }
 

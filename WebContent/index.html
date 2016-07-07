@@ -201,11 +201,7 @@
 						<div id="assetsTitle">
 							<span>Showing <span id="numberOfResults" style="color:black">00</span> results <span id="resultsName"></span></span>
 							<span class="jumpToBar">
-								<select>
-									<option>asfd</option>
-									<option>asdf</option>
-									<option>asdf</option>
-								</select>
+								<select onchange="selectJumpTo(event);"></select>
 							</span>
 						</div>
 						<div class="containerForResults"><div id="assetsHolder"></div></div>
@@ -288,7 +284,7 @@
 		
 		window.addEventListener( 'resize', onWindowResize, false );
 		window.addEventListener( 'load', function(){ slideArrowLeft(); }, false );
-		//window.addEventListener( 'load', function(){ showPopUp(2001, 201); }, false ); // TODO REMOVE!
+		window.addEventListener( 'load', function(){ showPopUp(2001, 201); }, false ); // TODO REMOVE!
 	</script>
 
 	<!-- <button id="thisShouldBeRemoved" onclick="showPopUp(2001, 201)" style="z-index:5; position:fixed; left:100px; top:100px;">Click to reveal assets with showPopUp(2001, 201)</button>

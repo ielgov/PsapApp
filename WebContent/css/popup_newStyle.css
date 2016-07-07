@@ -59,12 +59,36 @@
 	z-index:10;
 }
 
+.asset.open > img
+{
+	margin:1rem;
+}
+
 .asset.open > div.title
 {
-	text-align:center;
-	/*margin-top: 1rem !important;*/
+	text-align:left;
+	margin-left: 1rem ;
 	transition: all .4s;
 	font-size:2rem;
+}
+
+.asset.open > *
+{
+	margin-left: 1rem;
+	margin-top: 2rem;
+}
+
+.asset.open 	.linkIcon
+{
+	height:2.5rem;
+	margin-top:2rem;
+	margin-bottom:2rem;
+}
+
+.asset .linkIcon
+{
+	height:0rem;
+	margin:0rem;
 }
 
 .asset > img
@@ -301,11 +325,6 @@
 	z-index:1;
 	
 	transition: all .4s;
-}
-
-.linkIcon
-{
-	height:2.5rem;
 }
 
 .finallyOpen
