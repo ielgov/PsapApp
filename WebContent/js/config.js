@@ -18,8 +18,7 @@ config.popupWidth = 50; // window percent to take up for popup; this is needed s
 config.popupHeight = 50; // window percent to take up for popup
 
 config.keysToShow = [
-	"desc_display",
-	"url"
+	"desc_display"
 ]
 
 config.categoriesURL = "/PSAP/dbCategories?action=search&type=SOLUTION&parentid=";
