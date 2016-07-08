@@ -100,7 +100,7 @@ function showAssetSearchResults()
 		for(var k in data)
 		{
 			i = i +1;
-			var row = document.createElement("tr")
+			var row = document.createElement("tr");
 			var theData = data[k];
 			row.setAttribute("onclick", "populateAsset("+k+")");
 			
@@ -110,18 +110,20 @@ function showAssetSearchResults()
 			var name = document.createElement("td");
 			name.innerHTML = data[k].AssetDetail.assetdisplayname;
 			
-			var submitedBy = document.createElement("td")
+			var submitedBy = document.createElement("td");
 			submitedBy.innerHTML = data[k].AssetDetail.submittedby;
+			var rowbreak = document.createElement("br")
 			
-			row.appendChild(id)
-			row.appendChild(name)
-			row.appendChild(submitedBy)
+			row.appendChild(id);
+			row.appendChild(name);
+			row.appendChild(submitedBy);
 			table.appendChild(row);
+			table.appendChild(rowbreak);
 		}
 		if (i!=0)
-			document.querySelector(".asset.searchResult").classList.remove("hidden")
+			document.querySelector(".asset.searchResult").classList.remove("hidden");
 		else
-			alert("No record found!!!")
+			alert("No record found!!!");
 	}, "GET")
 }
 
@@ -208,37 +210,32 @@ function assetRequest(button)
 	
 	var o = {};
 	o.action = button.getAttribute("actionName");
-	
-	if( pageID == "solutions" )
-	{
-		o.parentid = page.querySelector("#solutionsSolutions").selectedOptions[0].getAttribute("catid");
-		o.type = "SOLUTION";
-		o.displayname = page.querySelector('[name="displayname"]').value;
-		o.description = page.querySelector('[name="description"]').value;
-	}
-	else if( pageID == "offerings" )
-	{
-		o.parentid = page.querySelector("#offeringsOfferings").selectedOptions[0].getAttribute("catid");
-		o.type = "OFFERING";
-		o.displayname = page.querySelector('[name="displayname"]').value;
-		o.description = page.querySelector('[name="description"]').value;
-	}
-	else if( pageID == "assets" )
+	var emptyfiled ="";
+	if( pageID == "assets" )
 	{
 		o.AssetID = page.querySelector('[name="AssetID"]').value; 
-		o.AssetDisplayName = page.querySelector('[name="AssetDisplayName"]').value; 
+		o.AssetDisplayName = page.querySelector('[name="AssetDisplayName"]').value;
+		if (checkifEmpty(o.AssetDisplayName))
+			emptyfiled =  emptyfiled + " " + "[AssetDisplayName]";
 		o.AssetDisplayDescription = page.querySelector('[name="AssetDisplayDescription"]').value; 
 		o.URL = page.querySelector('[name="URL"]').value; 
+		if (checkifEmpty(o.URL))
+			emptyfiled =  emptyfiled + " " + "[AssetURL]";
 		o.ActionType = page.querySelector('[name="ActionType"]').selectedOptions[0].value; 
 		o.AssetType = page.querySelector('[name="AssetType"]').selectedOptions[0].value; 
 		o.SourceType = page.querySelector('[name="SourceType"]').selectedOptions[0].value; 
 		o.AssetGroupingText = page.querySelector('[name="AssetGroupingText"]').value; 
 		o.SubmittedBy = page.querySelector('[name="SubmittedBy"]').value; 
+		if (checkifEmpty(o.SubmittedBy))
+			emptyfiled =  emptyfiled + " " + "[SubmittedBy]";
 		o.Status = page.querySelector('[name="Status"]').selectedOptions[0].value; 
 		o.AdminComments = page.querySelector('[name="AdminComments"]').value; //undefined;
 		o.OfferingID = getParentOfferingIDs( page.querySelectorAll(".currentParents > *") );
 	}
-	console.log(o)
+	if (!checkifEmpty(emptyfiled)){
+		alert (emptyfiled + ", Cannot be empty!!!");
+		return;
+	}
 	var urls = buildURL(o, pageID);
 	
 	console.log("o.AssetID is -"+o.AssetID+"-")
@@ -363,6 +360,7 @@ function clearAssetFields ()
 
 
 function categoryRequest(button){
+	 
 	var page = document.querySelector(".bodySection:not(.hidden)");
 	var pageID = page.id;
 	pageG = page;
@@ -370,26 +368,40 @@ function categoryRequest(button){
 	
 	var o = {};
 	o.action = button.getAttribute("actionName");
-	
+	var emptyfiled ="";
 	if( pageID == "solutions" )
 	{
 		o.parentid = page.querySelector("#solutionsCategories").selectedOptions[0].value;
+		if (checkifEmpty(o.parentid))
+			emptyfiled =  emptyfiled + " " + "[CategoriesName]";
 		o.itemid = page.querySelector("#solutionsSolutions").selectedOptions[0].getAttribute("catid");
 		o.type = "SOLUTION";
 		o.displayname = page.querySelector('[name="displayname"]').value;
+		if (checkifEmpty(o.displayname))
+			emptyfiled =  emptyfiled + " " + "[SolutionDisplayName]";
 		o.description = page.querySelector('[name="description"]').value;
 	}
 	else if( pageID == "offerings" )
 	{
 		
 		o.parentid = page.querySelector("#offeringsSolutions").selectedOptions[0].getAttribute("catid");
+		if (checkifEmpty(o.parentid))
+			emptyfiled =  emptyfiled + " " + "[AvailableSolutionsName]";
+
 		o.itemid = page.querySelector("#offeringsOfferings").selectedOptions[0].getAttribute("catid");
 		
 		o.type = "OFFERING";
 		o.displayname = page.querySelector('[name="displayname"]').value;
+		if (checkifEmpty(o.displayname))
+			emptyfiled =  emptyfiled + " " + "[OfferingDisplayName]";
 		o.description = page.querySelector('[name="description"]').value;
 	}
 	
+	if (!checkifEmpty(emptyfiled)){
+		alert (emptyfiled + ", Cannot be empty!!!");
+		return;
+	}
+		
 	var baseUrl = config.weburl+"/PSAP/";
 	var urls = [];
 	
@@ -437,9 +449,22 @@ function doSingleRequest(arr, index)
 			doSingleRequest(arr, index+1);
 		}, "POST", function(){console.log("")})
 	}
+	
 }
 
-
+function checkifEmpty(value){
+	if (value != null){
+		var trimmed = value.trim();
+	    var isEmpty = !trimmed;
+	    
+	    if (isEmpty)
+	    	return true;
+	    else
+	    	return false;
+	}else{
+		return true;
+	}    
+}
 
 
 
