@@ -2,7 +2,14 @@
 <html>
 	<head>
 		<title>PSAP Database Manager</title>
-	
+		
+		<link href="css/style.css" rel="stylesheet" type="text/css" />
+		<link href="css/font-awesome.css" rel="stylesheet" type="text/css" />
+		<link href="css/fonts.css" rel="stylesheet" type="text/css" />
+		<link href="css/flex.css" rel="stylesheet" type="text/css" />
+		<link href="css/sizes.css" rel="stylesheet" type="text/css" />
+		<link href="css/landingpage.css" rel="stylesheet" type="text/css" />
+		
 		<script src="js/dbManager_helperFunctions.js"></script>
 		<script src="js/config.js"></script>
 		<script src="js/dbManager_script.js"></script>
@@ -18,11 +25,22 @@
 					document.querySelector("[type='text'][name='AssetDisplayName']").value = (new Date()).getHours()+":"+(new Date()).getMinutes()+":"+(new Date()).getSeconds()
 				}
 			}
+			
+			function gotoHome(){
+			 	window.open("/PSAP/index.html", "_self");
+			}
 		</script>
 		
 		<link rel="stylesheet" type="text/css" href="css/dbManager_style.css">
 	</head>
 	<body onload="onload()">
+		<div id="header" class="helvLightFont display-flex flex-row flex-align-center flex-justify-space-between">
+    		<div class="display-flex flex-align-center">
+    			<div class="home-icon" onclick="gotoHome()"></div>
+				<div class="ibm-logo"></div>
+				<div class="title">Public Safety Solutions</div>
+			</div>    	
+    	</div>	
 		<div id="solutionSearchResults">
 			<div onclick=""  class="asset searchResult hidden">
 				<table>
@@ -42,24 +60,26 @@
 		</div>
 		<div id="mainBody">
 			
-			
-			<div id="options" name="options" class="bodySection">
-				<fieldset class="radiogroup">
+		<div id="options" name="options" class="bodySection">
+				<fieldset style="border:medium solid white">
 				<legend>Controls</legend>
-				  <ul class="radio">
+				  <ul >
 				  	<li><input type="radio" name="optionsRadioButton" tab="optionsTab" value="category"><span onclick='this.parentElement.querySelector("input").click()'> Categories</span></li>
 					<li><input type="radio" name="optionsRadioButton" tab="solutionsTab" value="solution"><span onclick='this.parentElement.querySelector("input").click()'>  Solutions</span></li>
 					<li><input type="radio" name="optionsRadioButton" tab="offeringsTab" value="offering"><span onclick='this.parentElement.querySelector("input").click()'>  Offerings</span></li>
 					<li><input type="radio" name="optionsRadioButton" tab="assetsTab" value="assets"><span onclick='this.parentElement.querySelector("input").click()'>  Assets</span></li>	
 				  </ul>
+				
+				<button onclick="optionsContinue()" style="width:100px; margin:3%">Continue</button>
 				</fieldset>
-				<button onclick="optionsContinue()">Continue</button>
 			</div>
 			<div id="solutions" name="solutions" class="hidden bodySection">
+				
 				<div class="selections">
 					<div>
-						Categories Name
-						<select onchange="selectChange(this, 'solutionsSolutions', 'Categories')" id="solutionsCategories" >
+						* Categories Name
+						<select onchange="selectChange(this, 'solutionsSolutions', 'Categories')" 
+						id="solutionsCategories" required>
 							<option value="" name="Make a selection">Make a selection</option>
 							<option value="02" name="Command and Control, Operations, and Emergency Management">Command and Control...</option>
 							<option value="04" name="Video, Physical Cyber Security and Surveillance">Video, Physical Cyb...</option>
@@ -78,8 +98,8 @@
 				<div class="actions">
 					<div class="actionsFields">
 						<span><span>
-							Solution Display Name
-							<input type="text" placeholder="Name" name="displayname"></input>
+							* Solution Display Name 
+							<input type="text" placeholder="Name" name="displayname" required></input>
 						</span></span>
 						<span><span>
 							Solution Description
@@ -94,23 +114,27 @@
 						</span></span>
 					</div>
 				</div>
+				
 			</div>
 			<div id="offerings" name="offerings" class="hidden bodySection">
+				
 				<div class="selections">
 					<div>
-						Categories Name
-						<select onchange="selectChange(this, 'offeringsSolutions', 'Categories')" id="offeringsCategories">
-							<option show=true>Make a selection</option>
-							<option name="Command and Control, Operations, and Emergency Management">Command and Control...</option>
-							<option name="Video, Physical Cyber Security and Surveillance">Video, Physical Cyb...</option>
-							<option name="Intelligent Lead Policing Investigative and Predictive Analytics">Intelligent Lead Po...</option>
-							<option name="Realtime Crime / Fusion Center">Realtime Crime / Fu...</option>
+						* Categories Name
+						<select onchange="selectChange(this, 'offeringsSolutions', 'Categories')" 
+						id="offeringsCategories" required>
+						<option value="" name="Make a selection">Make a selection</option>
+							<option value="02" name="Command and Control, Operations, and Emergency Management">Command and Control...</option>
+							<option value="04" name="Video, Physical Cyber Security and Surveillance">Video, Physical Cyb...</option>
+							<option value="01" name="Intelligent Lead Policing Investigative and Predictive Analytics">Intelligent Lead Po...</option>
+							<option value="03" name="Realtime Crime / Fusion Center">Realtime Crime / Fu...</option>
 						</select>
 					</div>
 					<div>
-						Avaiable Solutions
-						<select onchange="selectChange(this, 'offeringsOfferings', 'Solutions')" id="offeringsSolutions">
-							<option show=true>You must first Select a category     </option>
+						* Avaiable Solutions
+						<select onchange="selectChange(this, 'offeringsOfferings', 'Solutions')" 
+						id="offeringsSolutions" required>
+							<option>You must first Select a category     </option>
 						</select>
 					</div>
 					<div>
@@ -124,8 +148,8 @@
 				<div class="actions">
 					<div class="actionsFields">
 						<span><span>
-							Offering Display Name
-							<input type="text" placeholder="Name" name="displayname"></input>
+							* Offering Display Name
+							<input type="text" placeholder="Name" name="displayname" required></input>
 						</span></span>
 						<span><span>
 							Offering Description
@@ -140,6 +164,7 @@
 						</span></span>
 					</div>
 				</div>
+				
 			</div>
 			
 			<div id="assets" name="assets" class="bodySection hidden">
@@ -153,16 +178,17 @@
 				</div>
 				<hr>
 				<div id="assetsParentHolder" class="assetsFieldHolder">
-					<span class="multiLine">
+					<span class="multiLine">							
 						<div>
 							<div style="display:none;">
 								<span>Asset ID</span>
-								<input type="text"id="AssetsAssetID" readonly placeholder="Cannot be set" name="AssetID"></input>
+								<input type="text" id="AssetsAssetID" readonly placeholder="Cannot be set" name="AssetID"></input>
 							</div>
 							<div>
-								<span>Display Name</span>
-								<input type="text" maxlength="40" name="AssetDisplayName"></input>
+								<span>Display Name</span>		
+								<input type="text" style="width: 300px;" name="AssetDisplayName"></input>
 							</div>
+						
 							<div>
 								<span>Status</span>
 								<select name="Status">
@@ -172,11 +198,11 @@
 							</div>
 							<div>
 								<span>Admin Comments</span>
-								<input type="text" name="AdminComments">
+								<input style="width: 300px;" type="text" name="AdminComments">
 							</div>
 							<div>
 								<span>Grouping Text</span>
-								<input type="text" name="AssetGroupingText">
+								<input style="width: 300px;" type="text" name="AssetGroupingText">
 							</div>
 							<div>
 								<span  >

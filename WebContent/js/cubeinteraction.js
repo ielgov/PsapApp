@@ -412,6 +412,7 @@ function show2dBreadCrum(nextLevelDataOBj, rubiksCubeType)
 {
 	//console.log("Function :: show2dBreadCrum");
 	var string = truncateBreadCrumText(nextLevelDataOBj['display'],rubiksCubeType);
+	$('#breadcrum-strip').removeClass('translateY-100');
 	$('.breadcrum-strip .' + rubiksCubeType).text(string);
 	$('.breadcrum-strip .' + rubiksCubeType + '-parent').fadeIn('slow', function(){
 		//console.log('fadeIn complete');
@@ -426,6 +427,10 @@ function hide2dBreamCrum(breadCrumType)
 		//console.log('fadeOut complete');
 		$('.breadcrum-strip .' + breadCrumType).text('');
 	});	
+	if (breadCrumType == 'categories')
+	{
+		$('#breadcrum-strip').addClass('translateY-100');
+	}
 }
 
 function bolderBreadCrum(breadCrumType)

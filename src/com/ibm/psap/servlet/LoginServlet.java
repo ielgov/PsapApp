@@ -77,13 +77,13 @@ public class LoginServlet extends HttpServlet {
 				User user = new User(rs.getString("name"), rs.getString("email"), rs.getString("role"));
 				logger.info("User found with details="+user);	
 				session.setAttribute("User", user);
-				if (directTo!= null  && directTo.trim().isEmpty()){
+				if (directTo!= null  && !(directTo.trim().isEmpty())){
 					if ((directTo.indexOf("login.jsp") != -1) || (directTo.indexOf("Login") != -1) || (directTo.indexOf("Logout") != -1)){
 						response.sendRedirect("index.html");
 					}else{
 						if (directTo.length() > 6){
 							directTo = directTo.substring(6, directTo.length());
-							logger.info("REDIRECTING TO " + directTo);
+							logger.info("Redirecting to " + directTo);
 							response.sendRedirect(directTo);
 						}else{
 							response.sendRedirect("index.html");
