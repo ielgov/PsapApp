@@ -70,6 +70,7 @@ function sizeElements()
 }
 
 // params: seedButton is the button to get the width off of
+// params: containerArr is array of elements to be sized
 function sizeAssets(seedButton, containerArr) // sorry, this is really jank 
 {
 	if( containerArr.length !== 0 )
@@ -115,13 +116,13 @@ function togglePopUpWidth()
 	if( assetsSlider.classList.contains("expanded") ) 
 	{
 		assetsSlider.classList.remove("expanded");
-		slideArrowLeft();
+		//slideArrowLeft();
 		
 	}
 	else
 	{
 		assetsSlider.classList.add("expanded");
-		slideArrowRight();
+		//slideArrowRight();
 	}
 }
 

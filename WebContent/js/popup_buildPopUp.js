@@ -29,7 +29,7 @@ function buildPopUp( results )
 		assetsHolder.appendChild( assetParent );
 		
 		var option = document.createElement("option");
-		option.innerHTML = k;
+		option.innerHTML = abrivateString(k, 20);
 		clusterSelect.appendChild( option );
 	}
 	
@@ -112,20 +112,6 @@ function makeAssetSmallerParent(assets, id)
 		
 		assetSmallererParent.appendChild( asset );
 		
-		var contentHolder = document.createElement("div");
-		contentHolder.classList.add("contentHolder")
-		//contentHolder.classList.add("hidden")
-		
-		for( var l in assets[k] ) // TODO this should be moved to the makeAsset function
-		{
-			if( config.keyIsToBeShown(l) ) // TODO remove
-			{
-				var div = makeDivWithData( assets[k], l )
-				//contentHolder.appendChild( document.createElement("br") );
-				contentHolder.appendChild( div );
-			}
-		}
-		asset.appendChild( contentHolder ); // TODO this should be moved to the makeAsset function
 		i++;
 	}
 	
@@ -146,13 +132,19 @@ function makeAssetSmallerParent(assets, id)
 			hasDescription = true;
 		}
 		
-		console.log(assetObj);
+		//console.log(assetObj);
 		var asset = document.createElement("div");
 		asset.classList.add("asset");
 		asset.style.order = i;
 		
 		var icon = document.createElement("img");
-		icon.setAttribute("src", "images/black.png")// TODO change to be relevant to the icon
+		
+		try{
+			console.log("trying "+"images/icons/" + assetObj['asset_type'].toUpperCase() + ".png")
+			icon.setAttribute("src", "images/icons/" + assetObj['asset_type'].toUpperCase() + ".svg")
+		}catch(e){console.log("catching");}
+		
+		//icon.setAttribute("src", "images/black.png")// TODO change to be relevant to the icon
 		asset.appendChild( icon )
 		
 		var title = document.createElement("div");
@@ -169,15 +161,46 @@ function makeAssetSmallerParent(assets, id)
 		asset.setAttribute("hasDescription", hasDescription);
 		console.log(assetObj)
 		
+		if( assetObj.desc_display !== undefined && assetObj.desc_display !== "")
+		{
+			var contentHolder = document.createElement("div");
+			contentHolder.classList.add("contentHolder")
+		
+			var div = document.createElement("div");
+			div.innerHTML = assetObj.desc_display;
+			div.classList.add("assetContent")
+			contentHolder.appendChild( div );
+			console.log(contentHolder);		
+			asset.appendChild( contentHolder ); // TODO this should be moved to the makeAsset function
+		
+			console.log(contentHolder);
+			console.log(asset);
+			//debugger;
+		}
+		
+		// add link to card
+		if( assetObj.url !== undefined && assetObj.url !== "" )
+		{
+			var linkSpan = document.createElement("span");
+			linkSpan.classList.add("link");
+			linkSpan.innerHTML = "Link: ";
+			linkSpan.setAttribute("onclick", "open_in_new_tab(\""+assetObj.url+"\");");
+				var link = document.createElement("a");
+				link.innerHTML = abrivateString(assetObj.url, 48)
+				linkSpan.appendChild(link);
+		
+			asset.appendChild(linkSpan);
+		}
+		
 		return asset;
 	}
 	
 	function makeDivWithData(data, l)
 	{
-		
+		console.log("div with data "+l)
 		var div = document.createElement( "div" );
 		div.classList.add("assetContent")
-		if( l === "url")
+		if( l === "url" ) // this code wont be reached as long as the config file does not allow it
 		{	
 			//console.log("data is " + JSON.stringify( data ))
 			div.onclick = function(){ open_in_new_tab( data[l] ) };
@@ -195,6 +218,7 @@ function makeAssetSmallerParent(assets, id)
 				}
 				catch(e)
 				{
+					console.log("catching "+e)
 					var innerDiv = document.createElement("div")
 					innerDiv.innerHTML += data['asset_type']					
 				}	
@@ -209,50 +233,6 @@ function makeAssetSmallerParent(assets, id)
 		}
 		return div;
 	}
-}
-
-function slideArrowLeft()
-{
-	var slideArrow = document.querySelector("#slideUpCloseArrow");
-	var slideArrowChildren = document.querySelectorAll("#slideUpCloseArrow > *");
-	var boundingRect = slideArrow.getBoundingClientRect();
-	
-	line1 = slideArrowChildren[0]
-	line1.setAttribute("x1", boundingRect.width);
-	line1.setAttribute("y1", 0);	
-	line1.setAttribute("x2", 0);
-	line1.setAttribute("y2", boundingRect.height/2);
-	
-	line2 = slideArrowChildren[1]
-	line2.setAttribute("x1", 0);
-	line2.setAttribute("y1", boundingRect.height/2);	
-	line2.setAttribute("x2", boundingRect.width);
-	line2.setAttribute("y2", boundingRect.height);
-	
-	slideArrow.appendChild(line1);
-	slideArrow.appendChild(line2);
-}
-
-function slideArrowRight()
-{
-	var slideArrow = document.querySelector("#slideUpCloseArrow");
-	var slideArrowChildren = document.querySelectorAll("#slideUpCloseArrow > *");
-	var boundingRect = slideArrow.getBoundingClientRect();
-	
-	line1 = slideArrowChildren[0]
-	line1.setAttribute("x1", 0);
-	line1.setAttribute("y1", 0);	
-	line1.setAttribute("x2", boundingRect.width);
-	line1.setAttribute("y2", boundingRect.height/2);
-	
-	line2 = slideArrowChildren[1]
-	line2.setAttribute("x1", boundingRect.width);
-	line2.setAttribute("y1", boundingRect.height/2);	
-	line2.setAttribute("x2", 0);
-	line2.setAttribute("y2", boundingRect.height);
-	
-	slideArrow.appendChild(line1);
-	slideArrow.appendChild(line2);
 }
 
 function abrivateStringWithMore( str, length, action, hasDescription )

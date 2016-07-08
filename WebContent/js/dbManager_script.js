@@ -2,6 +2,7 @@ var currentData = {};
 
 function clickTab(e)
 {	
+	
 	var removeSelected = document.querySelectorAll(".tab.selected");
 	for( var i=0; i<removeSelected.length; i++)
 	{
@@ -18,6 +19,15 @@ function clickTab(e)
 	for( var i=0; i<removeHidden.length; i++ )
 	{
 		removeHidden[i].classList.remove("hidden");
+		if (removeHidden[i].innerText == 'Search'){
+			console.log('Search Tab');
+			document.querySelector(".asset.searchResult").classList.remove("hidden")
+		}else if (removeHidden[i].innerText == 'Assets' ||
+				removeHidden[i].innerText == 'Offerings' ||
+				removeHidden[i].innerText == 'Options' || 
+				removeHidden[i].innerText == 'Solutions'){
+			document.querySelector(".asset.searchResult").classList.add("hidden")
+		}
 	}
 	
 	e.classList.add("selected");

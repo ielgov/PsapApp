@@ -87,7 +87,7 @@ function showAssetSearchResults()
 	console.log("showAssetSearchResults");
 	
 	
-	var email = document.querySelector('#assets .searchBar input[placeholder="Email"]').value;
+	var email = document.querySelector('#assetsearch .searchBar input[placeholder="Email"]').value;
 	console.log("email is ");
 	
 	var url = config.weburl+"/PSAP/dbAssets?action=search&SubmittedBy="+email;
@@ -149,6 +149,7 @@ function populateAsset( k )
 	addParents(data.AssetParents);
 	
 	document.querySelector(".asset.searchResult").classList.add("hidden")
+	document.querySelector( "#assetsTab" ).click();
 	
 	function setSelectIndex( str, select)
 	{		

@@ -31,9 +31,9 @@
 	
 }
 
-.asset:hover
+.asset:hover, .asset.open
 {
-	box-shadow: 0rem .3rem 1rem grey;
+	box-shadow: 0rem .09rem .54rem rgba(1,1,1,.25);
 }
 
 .asset .title
@@ -75,7 +75,7 @@
 .asset.open > *
 {
 	margin-left: 1rem;
-	margin-top: 2rem;
+	margin: 2rem;
 }
 
 .asset.open 	.linkIcon
@@ -137,7 +137,10 @@
 	/*padding:.5rem;*/
 	/*padding-left:0rem;*/
 	border:0rem;
-	margin-top:1.27rem;
+	
+	margin-top: 1.81rem;
+	/*margin-top:.635rem;
+	*/
 	margin-left:1.27rem;
 }
 
@@ -154,7 +157,7 @@
 	text-align:left;
 	
 	margin-left:1.27rem;
-	/*margin-bottom:1.27rem; /*about 14 px on ipad*/
+	margin-bottom:1.27rem; /*about 14 px on ipad*/
 	margin-top:2.36rem; /* about 26 px on ipad*/
 	
 	height:2%;
@@ -211,8 +214,9 @@
 .containerForResults
 {
 	height:98%;
-	overflow-x:scroll; 
-	margin-left:2rem;
+	overflow-y:scroll; 
+	overflow-x:hidden; 
+	/*margin-left:2rem;*/
 	/*height:500px;*/
 }
 
@@ -256,8 +260,13 @@
 	/*display:flex;*/
 	flex-direction: column;
 	align-items: center;
+<<<<<<< HEAD
 	
 	overflow: hidden;
+	
+	box-shadow: -1px 0px 5px rgba(1,1,1,.25)
+=======
+>>>>>>> parent of 21cf777... minor changes for touch scroll
 }
 
 #assetsSlider > *
@@ -301,11 +310,14 @@
 
 #assetsHolder
 {
-	/* overflow-x:auto; */
-	overflow-y:scroll;
+	overflow-x:auto;
 	/*margin-bottom:3rem;*/
 	/*width:100%;*/
+<<<<<<< HEAD
 	-webkit-overflow-scrolling: touch;
+	margin-bottom:5rem;
+=======
+>>>>>>> parent of 21cf777... minor changes for touch scroll
 }
 
 #assetsHolder::-webkit-scrollbar { 
@@ -325,10 +337,10 @@
 	position:absolute; 
 	top:0; 
 	left:0; 
-	background:rgba(0,0,0,.7);
+	background:rgba(1,1,1,.55);
 	z-index:1;
 	
-	transition: all .4s;
+	/*transition: all .4s;*/
 }
 
 .finallyOpen
@@ -345,11 +357,36 @@
 	font-size:3rem;
 }
 
-#slideUpCloseArrow
+.jumpToBar select
+{	
+    margin-right: 1.36rem;
+}
+
+.link
+{
+	height:0px;
+	font-size:0rem;
+}
+
+.link > a
+{
+	color:blue;
+	text-decoration: underline;
+}
+
+.asset.open .link
+{
+	font-size:2rem;		
+	margin:1rem !important;
+	margin-top:1rem;
+	margin-bottom:1rem;
+}
+
+#assetsSlider #slideUpCloseArrow
 {
 	margin:.5rem;
-	height:4rem;
-	width:1rem;
+	height:3rem;
+	width:3rem;
 	/*margin:1.64rem;*/
 	/*margin-bottom:0rem;*/
 	/*margin-left:1rem;*/
@@ -358,6 +395,16 @@
 	position:absolute;
 	left:0;
 	top:50%;
+	
+	background:#f2f2f2;
+	z-index:11;
+}
+
+#assetsSlider.expanded #slideUpCloseArrow
+{
+	-ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
 }
 
 #triangle

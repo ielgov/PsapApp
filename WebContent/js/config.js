@@ -5,7 +5,7 @@ config.weburl = "http://172.27.50.135:9080"; //DEV
 //config.weburl = "http://172.27.50.155:9080"; //TEST
 //config.weburl = "https://172.27.50.155:9443"; //TEST HTTPS
 
-config.weburl = runFromLocalStorage == true ? "http://172.27.50.155:9080" : config.weburl ; // uses dev server if run from local file system
+config.weburl = runFromLocalStorage == true ? "http://172.27.50.135:9080" : config.weburl ; // uses dev server if run from local file system
 
 //config.minTileMargin = 5.5;
 config.minTileMargin = 0;
@@ -18,8 +18,7 @@ config.popupWidth = 50; // window percent to take up for popup; this is needed s
 config.popupHeight = 50; // window percent to take up for popup
 
 config.keysToShow = [
-	"desc_display",
-	"url"
+	"desc_display"
 ]
 
 config.categoriesURL = "/PSAP/dbCategories?action=search&type=SOLUTION&parentid=";

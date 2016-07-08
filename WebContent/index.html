@@ -110,7 +110,7 @@
 	</script>
     
   </head>
-  <body style="visibility: visible;height:100vh;width:100vw;" onresize="resize()" ><!--the resize is needed to fit elements on page size change. It is in popup_script.js-->
+  <body style="visibility: visible;height:100vh;width:100vw;" ontouchmove="event.preventDefault();" onresize="resize()" ><!--the resize is needed to fit elements on page size change. It is in popup_script.js-->
     
     <div id="Stats-output"></div>
 	<div id="menu" class="helvLightFont translateX-100">
@@ -143,40 +143,62 @@
 	    		<div id="emailId" class="white-txt" style="margin-right:2rem;font-size:1.5rem;"></div>
 	    		<div class="user-image"></div>
 	    	</div>
-	    </div>	    
+	    </div>
+	    
+	    <div id="breadcrum-strip" class="helvLightFont breadcrum-strip display-flex flex-align-center white-txt">
+	    	<div class="categories-parent display-flex flex-align-center">
+	    		<div class="categories breadcrum-items" data-breadcrumitem="categories"></div>
+	    		<div class="arrow"></div>
+	    	</div>
+	    	<div class="solutions-parent display-flex flex-align-center">
+	    		<div class="solutions breadcrum-items" data-breadcrumitem="solutions"></div>
+	    		<div class="arrow"></div>
+	    	</div>
+	    	<div class="offerings-parent display-flex flex-align-center">
+	    		<div class="offerings breadcrum-items" data-breadcrumitem="offerings"></div>
+	    		<div class="arrow display-none"></div>
+	    	</div>	    	
+	    </div>
 	    
 	    <div id="canvas-container">
-	    	
-	    	<div id="breadcrum-strip" class="helvLightFont breadcrum-strip display-flex flex-align-center white-txt translateY-100">
-		    	<div class="categories-parent display-flex flex-align-center"><div class="categories breadcrum-items" data-breadcrumitem="categories"></div><div class="arrow"></div></div>
-		    	<div class="solutions-parent display-flex flex-align-center"><div class="solutions breadcrum-items" data-breadcrumitem="solutions"></div><div class="arrow"></div></div>
-		    	<div class="offerings-parent display-flex flex-align-center"><div class="offerings breadcrum-items" data-breadcrumitem="offerings"></div><div class="arrow display-none"></div></div>	    	
-		    </div>
-		    
 	    	<div id="breadcrum-container" class="display-none helvLightFont breadcrum-container helvLightFont display-flex">
-	    		<div class="categories-parent display-flex "><div class="categories breadcrum-items display-flex flex-align-center flex-justify-center" data-breadcrumitem="categories"></div>
-	    			<div class="triangle"><svg width="15" height="100"><polygon points="0 100,15 50,0 0"></polygon></svg></div>
+	    		<div class="categories-parent display-flex ">
+	    			<div class="categories breadcrum-items display-flex flex-align-center flex-justify-center" data-breadcrumitem="categories"></div>
+	    			<div class="triangle">
+	    				<svg width="15" height="100">
+						    <polygon points="0 100,15 50,0 0"></polygon>
+						</svg>
+	    			</div>
 	    		</div>	    		
 	    		<div class="solutions-parent display-flex">
 	    			<div class="solutions breadcrum-items display-flex flex-align-center flex-justify-center" data-breadcrumitem="solutions"></div>
-	    			<div class="triangle"><svg width="15" height="100"><polygon points="0 100,15 50,0 0"></polygon></svg></div>
+	    			<div class="triangle">
+	    				<svg width="15" height="100">
+						    <polygon points="0 100,15 50,0 0"></polygon>
+						</svg>
+	    			</div>
 	    		</div>	    		
 	    		<div class="offerings-parent display-flex">
 	    			<div class="offerings breadcrum-items display-flex flex-align-center flex-justify-center" data-breadcrumitem="offerings"></div>
-	    			<div class="triangle"><svg width="15" height="100"><polygon points="0 100,15 50,0 0"></polygon></svg></div>
-	    		</div>	    		
+	    			<div class="triangle">
+	    				<svg width="15" height="100">
+						    <polygon points="0 100,15 50,0 0"></polygon>
+						</svg>
+	    			</div></div>	    		
 	    	</div>
-	    	
 	    	<div id="WebGL-output"></div>
 		    <!-- <div id="canvas-overlay" class="xdisplay-none">
 		    	<div class="image"></div>
 		    </div> -->
 			<div id="assetsSlider" class="hidden">
 				</span>
+					<!--
 					<svg id="slideUpCloseArrow" onclick="togglePopUpWidth()">
 						<line style="stroke:#525659; stroke-width:1px" />
 						<line style="stroke:#525659; stroke-width:1px" />
 					</svg>
+					-->
+					<img id="slideUpCloseArrow" src="images\icons\Chevron Left in Circle.svg" onclick="togglePopUpWidth()"></img>
 				</span>
 				<span>
 						<div id="assetsTitle">
@@ -264,14 +286,14 @@
 		
 		
 		window.addEventListener( 'resize', onWindowResize, false );
-		window.addEventListener( 'load', function(){ slideArrowLeft(); }, false );
+		//window.addEventListener( 'load', function(){ slideArrowLeft(); }, false );
 		//window.addEventListener( 'load', function(){ showPopUp(2001, 201); }, false ); // TODO REMOVE!
 	</script>
 
 	<!-- <button id="thisShouldBeRemoved" onclick="showPopUp(2001, 201)" style="z-index:5; position:fixed; left:100px; top:100px;">Click to reveal assets with showPopUp(2001, 201)</button>
 	<button id="thisShouldBeRemovedToo" onclick="hidePopUp()" style="z-index:5; position:fixed; left:100px; top:125px;">Click to hide assets with hidePopUp()</button> -->
-	<img id="xIcon" src="images/x.png" onclick="closeButton()" class="hidden xIcon"></img>
-	<!--<div id="greyOutBox" class="hidden" onclick="closeButton()"></div>--> 
+	<img id="xIcon" src="images/x.svg" onclick="closeButton()" class="hidden xIcon"></img>
+	<div id="greyOutBox" class="hidden" onclick="closeButton()"></div>
 	<div id='divForFindingEMSize' style=" width:1rem; position:absolute; left:-10000; right:-10000;"></div><!--if this is removed the page wont format correctly-->
 	<div id="buttonForSizing" style="order:1; position:fixed; left:-500px;" class="asset offScreen"></div>
   </body>

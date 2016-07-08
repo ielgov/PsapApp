@@ -49,6 +49,8 @@ function toggleExpanded( e )
 var lastClicked; // TODO remove?
 function openButton(buttonClicked)
 {
+	greyOutBox.classList.remove("hidden");
+	
 	buttonClicked = buttonClicked || lastClicked;
  
 	var buttonClickedBoundingRect = buttonClicked.getBoundingClientRect();
@@ -102,11 +104,12 @@ function openButton(buttonClicked)
 	
 	//buttonClicked.addEventListener("transitionend", function(e)
 	{
+		var elementToShow = document.querySelector(".asset.open > .contentHolder")
 		if( buttonClicked.classList.contains("open") )
 		{
 			xIcon.classList.remove("hidden")
 			moveX(buttonClicked);		
-			document.querySelector(".asset.open > .contentHolder").classList.remove("hidden");
+			elementToShow.classList.remove("hidden");
 		}
 		
 	}
@@ -120,6 +123,8 @@ function openButton(buttonClicked)
 
 function closeButton()
 {
+	greyOutBox.classList.add("hidden");
+	
 	var openButtons = document.querySelectorAll(".asset.open")
 	
 	for( var i=0; i<openButtons.length; i++)//.forEach(function(buttonToClose)
@@ -171,21 +176,64 @@ function closeButton()
 	}
 }
 
+
+function slideArrowLeft()
+{
+	var slideArrow = document.querySelector("#slideUpCloseArrow");
+	var slideArrowChildren = document.querySelectorAll("#slideUpCloseArrow > *");
+	var boundingRect = slideArrow.getBoundingClientRect();
+	
+	line1 = slideArrowChildren[0]
+	line1.setAttribute("x1", boundingRect.width);
+	line1.setAttribute("y1", 0);	
+	line1.setAttribute("x2", 0);
+	line1.setAttribute("y2", boundingRect.height/2);
+	
+	line2 = slideArrowChildren[1]
+	line2.setAttribute("x1", 0);
+	line2.setAttribute("y1", boundingRect.height/2);	
+	line2.setAttribute("x2", boundingRect.width);
+	line2.setAttribute("y2", boundingRect.height);
+	
+	slideArrow.appendChild(line1);
+	slideArrow.appendChild(line2);
+}
+
+function slideArrowRight()
+{
+	var slideArrow = document.querySelector("#slideUpCloseArrow");
+	var slideArrowChildren = document.querySelectorAll("#slideUpCloseArrow > *");
+	var boundingRect = slideArrow.getBoundingClientRect();
+	
+	line1 = slideArrowChildren[0]
+	line1.setAttribute("x1", 0);
+	line1.setAttribute("y1", 0);	
+	line1.setAttribute("x2", boundingRect.width);
+	line1.setAttribute("y2", boundingRect.height/2);
+	
+	line2 = slideArrowChildren[1]
+	line2.setAttribute("x1", boundingRect.width);
+	line2.setAttribute("y1", boundingRect.height/2);	
+	line2.setAttribute("x2", 0);
+	line2.setAttribute("y2", boundingRect.height);
+	
+	slideArrow.appendChild(line1);
+	slideArrow.appendChild(line2);
+}
+
 function selectJumpTo(e)
 {
 	if(e.target.selectedIndex !== 0)
 	{
-		var a = document.createElement("a");
-		a.href = "#"+e.target.value;
-		a.click();
-	}
-	else
-	{
-		/*
-		var a = document.createElement("a");
-		a.href = "";
-		a.click();	
-		*/		
+		var element = document.getElementById(e.target.value);
+		global = element;
+		
+		element.scrollIntoView({
+			"behavior": "smooth",
+			"block": "start"
+		});
+		
+		document.querySelector("#assetsTitle").scrollIntoView(false);
 	}
 }
 

@@ -41,22 +41,14 @@
 				<div class="title">Public Safety Solutions</div>
 			</div>    	
     	</div>	
-		<div id="solutionSearchResults">
-			<div onclick=""  class="asset searchResult hidden">
-				<table>
-					<tr class="title">
-						<td>Asset ID</td>
-						<td>Name</td>
-						<td>Submited By</td>
-					</tr>
-				</table>
-			</div>
-		</div>
+		
 		<div id="tabHolder">
 			<div id="optionsTab" name="options" onclick="clickTab(this)" class="tab selected">Options</div>
 			<div id="solutionsTab" name="solutions" onclick="clickTab(this)" class="tab hidden">Solutions</div>
 			<div id="offeringsTab" name="offerings" onclick="clickTab(this)" class="tab hidden">Offerings</div>
-			<div id="assetsTab" name="assets" onclick="clickTab(this)" class="tab">Assets</div>	
+			<div id="assetsTab" name="assets" onclick="clickTab(this)" class="tab">Assets</div>
+			<div id="assetsearchTab" name="assetsearch" onclick="clickTab(this)" class="tab">Search</div>		
+			
 		</div>
 		<div id="mainBody">
 			
@@ -168,15 +160,10 @@
 			</div>
 			
 			<div id="assets" name="assets" class="bodySection hidden">
-				<div id="assetsBar">
-					<div class="searchBar">
-						<span style="display: none;">Asset ID<input type="text" placeholder="Asset ID"></input></span>
-						<span>Submited By<input type="text" type="email" placeholder="Email"></input></span>
-						<div class="button" onclick="showAssetSearchResults(this)">Search</div>
-						<div id="clearassetfields" class="clear button" onclick="clearAssetFields(this)">Clear Fields</div>
-					</div>
+				<div align="center">
+				<button id="clearassetfields" class="clear button" onclick="clearAssetFields(this)">Clear Fields</button>
 				</div>
-				<hr>
+				<hr>	
 				<div id="assetsParentHolder" class="assetsFieldHolder">
 					<span class="multiLine">							
 						<div>
@@ -301,6 +288,28 @@
 					</div>
 				</div>
 			</div>
+			<!-- Asset Serach -->
+			<div id="assetsearch" name="assetsearch" class="bodySection hidden">
+				<div id="assetsBar">
+					<div class="searchBar">
+						<span style="display: none;">Asset ID<input type="text" placeholder="Asset ID"></input></span>
+						<span>Submited By<input type="text" type="email" placeholder="Email"></input></span>
+						<button class="button" onclick="showAssetSearchResults(this)">Search</button>
+					</div>
+				</div>
+				<hr>
+				<div id="solutionSearchResults">
+				<div id="assetsearchresult"  class="asset searchResult hidden">
+				<table>
+					<tr class="title">
+						<td>Asset ID</td>
+						<td>Name</td>
+						<td>Submited By</td>
+					</tr>
+				</table>
+				</div>
+		</div>
+			</div>	
 		</div>
 	</body>	
 </html>
