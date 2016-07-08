@@ -26,12 +26,15 @@ function clickTab(e)
 function optionsContinue()
 {
 	var clicked = undefined
-	document.querySelectorAll(".bodySection input").forEach(function(e){
+	var elements = document.querySelectorAll(".bodySection input")
+	for(var i=0; i<elements.length; i++)
+	{
+		var e = elements[i];
 		if(e.checked)
 		{
 			clicked = e;
 		}
-	})
+	}
 	if(clicked == undefined){alert("Make a slection before moving on.");return;}
 	
 	document.querySelector( "#"+clicked.getAttribute("tab") ).click();

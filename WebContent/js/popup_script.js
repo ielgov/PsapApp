@@ -1,5 +1,5 @@
 window.onload = function(){
-	assetsSlider.style.width = "70%";
+	assetsSlider.style.width = "75%";
 	//showPopUp(2001, 201);
 }
 

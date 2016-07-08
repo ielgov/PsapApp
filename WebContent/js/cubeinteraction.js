@@ -147,8 +147,8 @@ function onDocumentTouchStart( event )
 				
 		/*currentPosition.x = event.touches[ 0 ].pageX;
 		currentPosition.y = event.touches[ 0 ].pageY;*/
-		
-		mouseSelectX = event.touches[ 0 ].pageX - 0;
+		var obj = getComputedTranslate(document.getElementById('WebGL-output'));
+		mouseSelectX = event.touches[ 0 ].pageX - 0 + Math.abs(obj['X']);
 		mouseSelectY = event.touches[ 0 ].pageY - $('#WebGL-output').parent()[0].offsetTop;
 		
 		lastPosition.x = mouseSelectX;
@@ -187,7 +187,8 @@ function onDocumentTouchMove( event )
         
         mouseMoved = true;
     	movedCount++;
-        mouseSelectX = event.touches[ 0 ].pageX - 0;
+    	var obj = getComputedTranslate(document.getElementById('WebGL-output'));
+        mouseSelectX = event.touches[ 0 ].pageX - 0 + Math.abs(obj['X']);
     	mouseSelectY = event.touches[ 0 ].pageY - - $('#WebGL-output').parent()[0].offsetTop;
     	
     		
@@ -367,7 +368,7 @@ function checkSelected(currX,currY)
 /*//nextLevelDataOBj = {"categoryid":"02","display":"Command and Control, Operations, and Emergency Management"}
 *///rubiksCubeType = categories
 var prevBreadCrumItem = undefined;
-function show2dBreadCrum(nextLevelDataOBj, rubiksCubeType)
+function show2dBreadCrumOLD(nextLevelDataOBj, rubiksCubeType)
 {
 	//console.log("Function :: show2dBreadCrum");
 	//console.log('nextLevelDataOBj',JSON.stringify(nextLevelDataOBj));
@@ -380,7 +381,7 @@ function show2dBreadCrum(nextLevelDataOBj, rubiksCubeType)
 	
 }
 
-function hide2dBreamCrum(breadCrumType)
+function hide2dBreamCrumOLD(breadCrumType)
 {
 	//console.log("Function :: hide2dBreamCrum");
 	//console.log('breadCrumType',breadCrumType);
@@ -407,6 +408,35 @@ function highlightBreadCrum(breadCrumType)
 	prevBreadCrumItem = breadCrumType;
 }
 
+function show2dBreadCrum(nextLevelDataOBj, rubiksCubeType)
+{
+	//console.log("Function :: show2dBreadCrum");
+	var string = truncateBreadCrumText(nextLevelDataOBj['display'],rubiksCubeType);
+	$('.breadcrum-strip .' + rubiksCubeType).text(string);
+	$('.breadcrum-strip .' + rubiksCubeType + '-parent').fadeIn('slow', function(){
+		//console.log('fadeIn complete');
+		//bolderBreadCrum(rubiksCubeType);
+	});
+}
+
+function hide2dBreamCrum(breadCrumType)
+{
+	//console.log("Function :: hide2dBreamCrum");	
+	$('.breadcrum-strip .' + breadCrumType + '-parent').fadeOut('fast', function(){
+		//console.log('fadeOut complete');
+		$('.breadcrum-strip .' + breadCrumType).text('');
+	});	
+}
+
+function bolderBreadCrum(breadCrumType)
+{
+	if (prevBreadCrumItem)
+	{
+		$('.breadcrum-strip .' + prevBreadCrumItem  + '-parent .breadcrum-items').removeClass('bolder-breadcrum');
+	}
+	$('.breadcrum-strip .' + breadCrumType  + '-parent .breadcrum-items').addClass('bolder-breadcrum');
+	prevBreadCrumItem = breadCrumType;
+}
 
 //getComputedTranslate(document.getElementById('WebGL-output'))
 function getComputedTranslate(obj)
@@ -429,3 +459,15 @@ function getComputedTranslate(obj)
     return {'X':x ,'Y':y,'Z':z,'mat':mat};
 }
 
+function truncateBreadCrumText(string,rubiksCubeType)
+{
+   if (string.length > 30)
+   {
+	   if (rubiksCubeType == 'offerings')
+		   return string.substring(0,30)+'...More';
+	   else
+		   return string.substring(0,30)+'...';		   
+   }      
+   else
+      return string;
+};

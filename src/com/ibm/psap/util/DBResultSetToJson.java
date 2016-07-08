@@ -22,9 +22,9 @@ public final class DBResultSetToJson {
         logger.info("Creating a JSON response for the DB resultset");
         try{
         	do {
-	        	//logger.info("Getting Column Count for the record.");
+	        	logger.info("Getting Column Count for the record.");
 	            int total_cols = resultSet.getMetaData().getColumnCount();
-	            //logger.info("Column Count is " + total_cols);
+	            logger.info("Column Count is " + total_cols);
 	            JSONObject obj = new JSONObject();
 	           
 	            for (int i = 0; i < total_cols; i++) {

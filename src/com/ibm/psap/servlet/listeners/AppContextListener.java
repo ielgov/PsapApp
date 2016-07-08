@@ -36,8 +36,9 @@ public class AppContextListener implements ServletContextListener {
     	
     	//Get the App mode
     	String mode = ctx.getInitParameter("productionMode");
-    	ctx.setAttribute("productionMode", Boolean.parseBoolean(mode));
     	
+    	ctx.setAttribute("productionMode", Boolean.valueOf(mode));
+        	
     	//initialize DB Connection
     	String dbSource = ctx.getInitParameter("dbSource");
     
@@ -102,7 +103,6 @@ public class AppContextListener implements ServletContextListener {
 			}
     		
     	}
-    	
     	//read mapping file
     	{
     		System.out.println("Reading the mapping file");

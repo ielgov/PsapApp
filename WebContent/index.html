@@ -110,7 +110,7 @@
 	</script>
     
   </head>
-  <body style="visibility: visible;height:100vh;width:100vw;" ontouchmove="event.preventDefault();" onresize="resize()" ><!--the resize is needed to fit elements on page size change. It is in popup_script.js-->
+  <body style="visibility: visible;height:100vh;width:100vw;" onresize="resize()" ><!--the resize is needed to fit elements on page size change. It is in popup_script.js-->
     
     <div id="Stats-output"></div>
 	<div id="menu" class="helvLightFont translateX-100">
@@ -144,9 +144,25 @@
 	    		<div class="user-image"></div>
 	    	</div>
 	    </div>
+	    
+	    <div id="breadcrum-strip" class="helvLightFont breadcrum-strip display-flex flex-align-center white-txt">
+	    	<div class="categories-parent display-flex flex-align-center">
+	    		<div class="categories breadcrum-items" data-breadcrumitem="categories"></div>
+	    		<div class="arrow"></div>
+	    	</div>
+	    	<div class="solutions-parent display-flex flex-align-center">
+	    		<div class="solutions breadcrum-items" data-breadcrumitem="solutions"></div>
+	    		<div class="arrow"></div>
+	    	</div>
+	    	<div class="offerings-parent display-flex flex-align-center">
+	    		<div class="offerings breadcrum-items" data-breadcrumitem="offerings"></div>
+	    		<div class="arrow display-none"></div>
+	    	</div>	    	
+	    </div>
+	    
 	    <div id="canvas-container">
-	    	<div id="breadcrum-container" class="breadcrum-container helvLightFont display-flex">
-	    		<div class="categories-parent display-flex">
+	    	<div id="breadcrum-container" class="display-none helvLightFont breadcrum-container helvLightFont display-flex">
+	    		<div class="categories-parent display-flex ">
 	    			<div class="categories breadcrum-items display-flex flex-align-center flex-justify-center" data-breadcrumitem="categories"></div>
 	    			<div class="triangle">
 	    				<svg width="15" height="100">
@@ -182,7 +198,12 @@
 					</svg>
 				</span>
 				<span>
-						<div id="assetsTitle"><span>Showing <span id="numberOfResults" style="color:black">00</span> results <span id="resultsName"></span></span></div>
+						<div id="assetsTitle">
+							<span>Showing <span id="numberOfResults" style="color:black">00</span> results <span id="resultsName"></span></span>
+							<span class="jumpToBar">
+								<select onchange="selectJumpTo(event);"></select>
+							</span>
+						</div>
 						<div class="containerForResults"><div id="assetsHolder"></div></div>
 				<span>
 			</div>		    
@@ -263,7 +284,7 @@
 		
 		window.addEventListener( 'resize', onWindowResize, false );
 		window.addEventListener( 'load', function(){ slideArrowLeft(); }, false );
-		//window.addEventListener( 'load', function(){ showPopUp(2001, 201); }, false ); // TODO REMOVE!
+		window.addEventListener( 'load', function(){ showPopUp(2001, 201); }, false ); // TODO REMOVE!
 	</script>
 
 	<!-- <button id="thisShouldBeRemoved" onclick="showPopUp(2001, 201)" style="z-index:5; position:fixed; left:100px; top:100px;">Click to reveal assets with showPopUp(2001, 201)</button>
