@@ -177,6 +177,8 @@ public class Assets extends HttpServlet {
         JSONObject jsonObj = new JSONObject();
         String colname =  null;
         String newcolname = null;
+        Object value = null;
+        String str = null;
         logger.info("Creating a JSON response for the DB resultset");
         try{
         	do {
@@ -187,13 +189,22 @@ public class Assets extends HttpServlet {
 	           
 	            for (int i = 0; i < total_cols; i++) {
 	            	colname = resultSet.getMetaData().getColumnLabel(i + 1);
-	            	newcolname = mapprop.getProperty(colname);
+	            	value=resultSet.getObject(i + 1);
+	            	logger.info("VALUE=" + value);
+    	        	if (colname.equalsIgnoreCase("AssetDisplayDescription") || 
+    	        			 colname.equalsIgnoreCase("URL")){
+    	        	 	if (value!=null){
+        	    			str = (String)value;
+        	    			value = str.replace("[amp;]", "&");
+    	        	 	}	
+    	        	}
+    	        	newcolname = mapprop.getProperty(colname); 
 	            	if ( newcolname != null)
 	            		obj.put(newcolname
-	                        .toLowerCase(), resultSet.getObject(i + 1));
+	                        .toLowerCase(), value);
 	            	else
 	            		obj.put(colname
-		                        .toLowerCase(), resultSet.getObject(i + 1));
+		                        .toLowerCase(), value);
 	        
 	            }
 	            jsonArray.put(obj);

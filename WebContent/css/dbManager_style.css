@@ -181,6 +181,7 @@
 {
 	overflow:hidden;
 	height:0px;
+	
 }
 
 #solutionSearchResults
@@ -188,7 +189,7 @@
 	position:fixed;
 	left:0;
 	width:100vw;
-	background:green;
+
 }
 
 #assetsBar  .button
@@ -325,18 +326,60 @@ hr
 	margin:.75rem;
 }
 
-tr.title
-{
-	text-decoration: underline;
+
+
+
+table {
+    margin: 0px auto;
+    width: 700px;
+    color: #666666;
+    border: 1px solid #D7D7D9;
+    padding: 4px;
+    height: 650px;
+    position: relative;
 }
 
-td {padding: 4px;}
-td {background-color: rgba(255, 255, 255, .4);}
 
+table tbody {
+    position: absolute;
+    top: 40px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 605px;
+    width: 690px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+}
 
+table tbody tr {}
 
+table tbody tr:nth-child(odd) {
+    background: #F7F7F7;
+}
 
+table tbody tr:nth-child(even) {
+    background: #F0F0F0;
+}
 
+table tbody tr td:nth-child(odd) {
+    width: 90px;
+}
+
+table tbody tr td:nth-child(even) {
+    width: 490px;
+    border-right: #FFFFFF solid 5px;
+}
+
+table tbody tr td {
+	 width: 110px;
+    padding: 7px 9px 8px 9px;
+    border-bottom: 5px solid #FFFFFF;
+}
+
+table tbody tr:last-of-type td {
+    border-bottom: 0 none;
+}
 
 
 
