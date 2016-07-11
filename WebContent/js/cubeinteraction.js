@@ -417,6 +417,8 @@ function show2dBreadCrum(nextLevelDataOBj, rubiksCubeType)
 	$('.breadcrum-strip .' + rubiksCubeType + '-parent').fadeIn('slow', function(){
 		//console.log('fadeIn complete');
 		//bolderBreadCrum(rubiksCubeType);
+		
+		$('#canvas-container').addClass('showBreadCrumStrip');
 	});
 }
 
@@ -430,6 +432,7 @@ function hide2dBreamCrum(breadCrumType)
 	if (breadCrumType == 'categories')
 	{
 		$('#breadcrum-strip').addClass('translateY-100');
+		$('#canvas-container').removeClass('showBreadCrumStrip');
 	}
 }
 
