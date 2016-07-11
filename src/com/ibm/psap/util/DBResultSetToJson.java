@@ -79,6 +79,8 @@ public final class DBResultSetToJson {
         
         int jsonIndex = 0;
         String colname = null;
+        Object value =  null;
+        String str = null;
         logger.info("Creating a JSON response for the DB resultset");
         try{
         	do {
@@ -94,13 +96,23 @@ public final class DBResultSetToJson {
 	            	    if (colname.equalsIgnoreCase("CATEGORY") || colname.equalsIgnoreCase("OFFERING") || 
 	            	    		colname.equalsIgnoreCase("SOLUTION") || colname.equalsIgnoreCase("OFFERINGID")){
 	        	            	//parent detail
-	        	            	assetParentobj.put(resultSet.getMetaData().getColumnLabel(i + 1)
+	            	    		
+	            	    		assetParentobj.put(resultSet.getMetaData().getColumnLabel(i + 1)
 	 	    	                        .toLowerCase(), resultSet.getObject(i + 1));
 	        	                
 	        	         }else{
-	        	            	//asset detail
-	        	            	assetDetailobj.put(resultSet.getMetaData().getColumnLabel(i + 1)
-	 	    	                        .toLowerCase(), resultSet.getObject(i + 1));
+	        	            //asset detail
+	        	        	 value=resultSet.getObject(i + 1);
+	        	        	 logger.info("VALUE=" + value);
+	        	        	 if (colname.equalsIgnoreCase("AssetDisplayDescription") || 
+	        	        			 colname.equalsIgnoreCase("URL")){
+	        	        	 	if (value!=null){
+	            	    			str = (String)value;
+	            	    			value = str.replace("[amp;]", "&");
+	        	        	 	}	
+	        	        	 }
+	        	             assetDetailobj.put(resultSet.getMetaData().getColumnLabel(i + 1)
+	 	    	                        .toLowerCase(), value);
 	        	         }
 	        	           
 	            }//end of for

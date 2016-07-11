@@ -236,6 +236,7 @@ public class dbAssets extends HttpServlet {
 			
 			cs = con.prepareCall(sql);
 			cs.setString(1, AssetDisplayName);
+			AssetDisplayDescription=AssetDisplayDescription.replaceAll("&", "[amp;]");
 			cs.setString(2, AssetDisplayDescription);
 			cs.setString(3, URL);
 			cs.setString(4, ActionType);

@@ -163,7 +163,8 @@
 				<div align="center">
 				<button id="clearassetfields" class="clear button" onclick="clearAssetFields(this)">Clear Fields</button>
 				</div>
-				<hr>	
+				<hr>
+				<P style="font-size:16px;">Asset Details</P>	
 				<div id="assetsParentHolder" class="assetsFieldHolder">
 					<span class="multiLine">							
 						<div>
@@ -247,6 +248,7 @@
 					
 				</div>
 				<hr>
+				<P style="font-size:16px;">Use the add button to associate an asset to a solution. An asset should have at least one association.</P>
 				<img src="images/add.png" class="addIcon" onclick="addToCurrentParents()"/><!--TODO this image should be changed-->
 				<div id="assetsParentsManager">
 					<div class="addAssetParents">
@@ -276,7 +278,8 @@
 						</div>
 					</div>
 					<hr>
-					<div class="currentParents"></div><!--this is where the parents will be added-->					
+					<div class="currentParents">					
+					</div><!--this is where the parents will be added-->					
 					<br>
 					<hr>
 					<div class="buttons">
@@ -300,15 +303,16 @@
 				<hr>
 				<div id="solutionSearchResults">
 				<div id="assetsearchresult"  class="asset searchResult hidden">
-				<table>
-					<tr class="title">
+				<table cellpadding="0" cellspacing="0">
+				<tr class="title">
 						<td>Asset ID</td>
 						<td>Name</td>
 						<td>Submited By</td>
-					</tr>
+				</tr>
+    				
 				</table>
 				</div>
-		</div>
+				</div>
 			</div>	
 		</div>
 	</body>	

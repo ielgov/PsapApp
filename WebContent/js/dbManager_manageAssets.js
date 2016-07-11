@@ -210,6 +210,7 @@ function assetRequest(button)
 	}
 	
 	var o = {};
+	var res ="";
 	o.action = button.getAttribute("actionName");
 	var emptyfiled ="";
 	if( pageID == "assets" )
@@ -219,9 +220,19 @@ function assetRequest(button)
 		if (checkifEmpty(o.AssetDisplayName))
 			emptyfiled =  emptyfiled + " " + "[AssetDisplayName]";
 		o.AssetDisplayDescription = page.querySelector('[name="AssetDisplayDescription"]').value; 
+		if (checkifEmpty(o.AssetDisplayDescription)){
+			console.log("Description is emppty");
+		}else{
+			res = o.AssetDisplayDescription.replace(/&/g, "[amp;]");
+			o.AssetDisplayDescription=res;
+		}
 		o.URL = page.querySelector('[name="URL"]').value; 
 		if (checkifEmpty(o.URL))
 			emptyfiled =  emptyfiled + " " + "[AssetURL]";
+		else{
+			res = o.URL.replace(/&/g, "[amp;]");
+			o.URL=res;
+		}	
 		o.ActionType = page.querySelector('[name="ActionType"]').selectedOptions[0].value; 
 		o.AssetType = page.querySelector('[name="AssetType"]').selectedOptions[0].value; 
 		o.SourceType = page.querySelector('[name="SourceType"]').selectedOptions[0].value; 
