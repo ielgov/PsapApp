@@ -1,6 +1,7 @@
 function showPopUp(offeringId, parentId, resultName)
 {
 	assetsHolder.innerHTML = "";
+	assetsSlider.classList.remove("expanded");
 	
 	var results; // TODO remove if you dont want caching 
 	

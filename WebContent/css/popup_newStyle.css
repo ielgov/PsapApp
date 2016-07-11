@@ -401,6 +401,11 @@
     transform: rotate(180deg);
 }
 
+.showBreadCrumStrip > #assetsSlider
+{
+	top:2.75%;
+}
+
 #triangle
 {
 	position:fixed;
