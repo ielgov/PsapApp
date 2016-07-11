@@ -260,13 +260,9 @@
 	/*display:flex;*/
 	flex-direction: column;
 	align-items: center;
-<<<<<<< HEAD
 	
 	overflow: hidden;
-	
-	box-shadow: -1px 0px 5px rgba(1,1,1,.25)
-=======
->>>>>>> parent of 21cf777... minor changes for touch scroll
+	box-shadow: -1px 0px 5px rgba(1,1,1,.25);
 }
 
 #assetsSlider > *
@@ -310,14 +306,12 @@
 
 #assetsHolder
 {
-	overflow-x:auto;
+	/* overflow-x:auto; */
+	overflow-y:scroll;
 	/*margin-bottom:3rem;*/
 	/*width:100%;*/
-<<<<<<< HEAD
 	-webkit-overflow-scrolling: touch;
 	margin-bottom:5rem;
-=======
->>>>>>> parent of 21cf777... minor changes for touch scroll
 }
 
 #assetsHolder::-webkit-scrollbar { 
