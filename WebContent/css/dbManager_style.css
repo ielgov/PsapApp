@@ -170,7 +170,16 @@
 	
 	color:#cccccc;
 	margin-top:.25rem;
-	margin-bottom:.25rem;
+	margin-bottom: 1.25rem;
+}
+
+.currentParents div div:nth-child(even) {
+    width: 200px;
+    
+}
+.currentParents div div:nth-child(odd) {
+    width: 200px;
+   
 }
 
 .asset.searchResult
