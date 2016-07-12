@@ -10,15 +10,19 @@ function showPopUp(offeringId, parentId, resultName)
 	
 	//alert("url is *"+url+"*")
 	
-	httpRequest( url, callback );
+	spinner.classList.remove("hidden");
 	
 	function callback( respText )
 	{
 		results = JSON.parse( respText ); // TODO add var
 		buildPopUp( results.result );
 		localStorage.setItem("search_results", JSON.stringify(results) ); // TODO remove if you dont want caching
+		spinner.classList.add("hidden");
+		numberOfResults.innerHTML = assetsSlider.getElementsByClassName("asset").length;
 	}
-	numberOfResults.innerHTML = assetsSlider.getElementsByClassName("asset").length;
+	
+	httpRequest( url, callback );
+	
 	
 	assetsSlider.addEventListener("animationend", function(){
 		console.log("animationend")
