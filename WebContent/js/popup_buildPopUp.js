@@ -27,7 +27,7 @@ function buildPopUp( results )
 		assetsHolder.appendChild( assetParent );
 		
 		var option = document.createElement("option");
-		option.innerHTML = abrivateString(k, 20);
+		option.innerHTML = abrivateString(k, 54);
 		clusterSelect.appendChild( option );
 	}
 	
