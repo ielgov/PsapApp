@@ -201,7 +201,7 @@ Cube highlight face 3 = #ff8039
     margin-left: 3rem;
 }
 
-#header > .title
+#header .titlename
 {
 	font-size: 2.25rem;
 	text-align: center;
