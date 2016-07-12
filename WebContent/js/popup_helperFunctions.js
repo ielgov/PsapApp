@@ -78,7 +78,7 @@ function httpRequest(url, callback, method)
 			}
 		}
 	};
-	console.log("requesting *"+url+"*");
+	//console.log("requesting *"+url+"*");
 	xhttp.open(method, url, async);
 	try{
 		xhttp.send();
@@ -127,8 +127,6 @@ function abrivateString(str, length)
 	else
 	{
 		toReturn = str.length > length ? str.substring(0, length-3)+"..." : str;
-		console.log("str.length is "+str.length)
-		console.log(toReturn)
 	}
 	return toReturn;
 }

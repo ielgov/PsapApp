@@ -5,12 +5,10 @@ window.onload = function(){
 
 function sizePopOutWidth( buttonClicked, moveXFlag )
 {	
-	console.log("look here on line 37")
 	moveXFlag = moveXFlag || false;
 	
 	if(moveXFlag)
 	{
-		console.log("moving x");
 		moveX(buttonClicked);
 	}
 	//else{console.log("not sizing")};
@@ -77,11 +75,6 @@ function sizeAssets(seedButton, containerArr) // sorry, this is really jank
 	{
 		var buttonWidth = seedButton.getBoundingClientRect().width + config.minTileMargin;
 		var parentWidth = containerArr[0].getBoundingClientRect().width;
-		
-		console.log("buttonWidth is "+buttonWidth)
-		console.log("parentWidth is "+parentWidth)
-		console.log("containerArr is...")
-		console.log(containerArr)
 	
 		var buttonCount = parseInt( parentWidth / buttonWidth );
 		var marginCount = buttonCount*2;
