@@ -113,7 +113,7 @@
   <body style="visibility: visible;height:100vh;width:100vw;" onresize="resize()" ><!--the resize is needed to fit elements on page size change. It is in popup_script.js-->
     
     <div id="Stats-output"></div>
-
+    
 	<div id="menu" class="helvLightFont translateX-100">
     	<div style="position: relative;height: 100%;">
     	<div class="menu-items highlight-menu-item" data-menuitem="solutions">Our Solution</div>
@@ -133,10 +133,33 @@
 				<div class="title">Public Safety</div>
 			</div>
 			<div class="width30 height100 display-flex flex-align-center flex-justify-center">
-				<div class="search-box width75 height50 positionRelative display-flex flex-align-center flex-justify-space-between white-txt">
-					<div class="search-icon"></div>
+				<div class="search-box width90 height50 positionRelative display-flex flex-align-center flex-justify-space-between white-txt">
+					<!-- <div class="search-icon"></div>
 					<div class="search-entry">Search</div>
-					<div class="search-send"></div>
+					<div class="search-send"></div> -->
+					<div class="search-icon positionAbsolute"></div>
+					<input type="search" id="searchbox" name="searchbox" class="serachbox" placeholder="Search"/>
+					<!-- <div class="search-send positionAbsolute"></div> -->
+					
+					<div id="search-results" class="display-none search-results" style="color:black;">
+						<table id="search-table" class="search-table">
+							<tbody class="top-pages"></tbody>
+							<tbody class="people" style="border-top: solid 1px #DFE9E9;">
+								<tr>
+									<td class="cell1" rowspan="2">People</td>
+									<td class="cell2">
+										<div class="search-result-item"><div class="title">Hung Tack Kwan</div><div class="desc">Senior Architect</div></div>
+									</td>
+								</tr>
+								<tr>
+									<td class="cell2">
+										<div class="search-result-item"><div class="title">Pandian Mariadoss</div><div class="desc">Integration Solution Architect</div></div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="footer">Press Enter to see all search results.</div>
+					</div>
 				</div> 			
 			</div>   	
 	    	<div class="width30 display-flex flex-justify-end flex-align-center">
@@ -226,6 +249,7 @@
 	<script type="text/javascript" src="js/cubegeneration.js"></script>
 	<script type="text/javascript" src="js/cubeinteraction.js"></script>
 	<script type="text/javascript" src="js/errorcube.js"></script>
+	<script type="text/javascript" src="js/search.js"></script>
 	
 	<!-- 
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>

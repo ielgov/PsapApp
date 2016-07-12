@@ -63,6 +63,33 @@ function initializeClicks()
 		console.log('breadCrumClicked', breadCrumClicked);
 		processBreadCrum(breadCrumsPos[breadCrumClicked]['cubieMesh'],breadCrumClicked);
 	});
+	var searchcount = 0;
+	$('input[type="search"][name="searchbox"]').on('search', function () {
+	    // search logic here
+	    // this function will be executed on click of X (clear button)
+		var searchText  = $('#searchbox').val();
+		console.log("Search event",searchcount++);
+		console.log("serachText = " + searchText + ", length = " + searchText.length);
+		
+		if (searchText.length == 0)
+		{
+			$('#search-results').addClass('display-none');
+			emptyTopPages();
+		}
+		else if (searchText.length > 0)
+		{
+			emptyTopPages();
+			
+			var carray = categoryJSON['categories'];
+			for (var i=0;i<carray.length;i++)
+			{
+				populateSearchResults(carray[i]['display'],carray[i]['display']);
+			}
+			$('#search-results').removeClass('display-none');
+			
+		}
+		
+	});
 }
 
 

@@ -201,7 +201,7 @@ Cube highlight face 3 = #ff8039
     margin-left: 3rem;
 }
 
-#header .title
+#header > .title
 {
 	font-size: 2.25rem;
 	text-align: center;
@@ -258,7 +258,7 @@ Cube highlight face 3 = #ff8039
 #header .search-box
 {
 	font-weight: bolder;
-    border-bottom: 1px solid rgba(255,255,255,0.5);
+    xborder-bottom: 1px solid rgba(255,255,255,0.5);
     border-radius: 0px;
     font-size: 1.5rem;
 }
@@ -272,6 +272,7 @@ Cube highlight face 3 = #ff8039
     height: 1.75rem;
     width: 1.75rem;
     margin-left: 0.5rem;
+    cursor: pointer;
 }
 
 #header .search-entry
@@ -287,6 +288,7 @@ Cube highlight face 3 = #ff8039
     background-size: contain;
     height: 1.55rem;
     width: 1.55rem;
+    right: 0;
 }
 
 .menu-turquoise
@@ -451,4 +453,94 @@ Cube highlight face 3 = #ff8039
 .bolder-breadcrum
 {
 	font-weight: bolder;
+}
+
+.serachbox
+{
+	width: 100%;
+	text-align: center;
+	color: white;
+	background-color: transparent;
+	border: 0;
+	font-size: 1.5rem;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border-bottom: 1px solid rgba(255,255,255,0.5);
+    /* -webkit-appearance: none; */
+}
+
+/*search-results*/
+.search-results
+{
+	position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    z-index: 700;
+    /* display: none; */
+    box-shadow: 5px 5px 7px rgba(0,0,0,.4);
+    border: solid 1px #DFE9E9;
+}
+
+.search-results .footer
+{
+	font-size: 1.25rem;
+	padding: 1rem;
+    color: #7D7373;
+    text-align: right;
+    border-top: solid 1px #DFE9E9;
+    color: black;
+}
+
+.search-table td + td { border-left:1px solid #DFE9E9; }
+.search-table
+{
+	width: 100%;
+	border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.search-table .cell1
+{
+	width: 20%;
+	padding: 0.5rem;
+	text-align: right;
+	font-size: 1.25rem;
+}
+
+.search-table .cell2
+{
+	width: 80%;
+	padding: 0.5rem;
+    padding-bottom: 1rem;
+}
+
+.search-table .cell2:hover 
+{
+	background: #F4F4F4;
+}
+
+.search-result-item
+{
+    font-size: 1.25rem;
+}
+
+.search-result-item .title
+{
+	font-weight: bolder;
+	font-size: 1.25rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.search-result-item .desc
+{
+	color: #7D7373;
+	font-size: 1.15rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-top: 0.5rem;
 }
