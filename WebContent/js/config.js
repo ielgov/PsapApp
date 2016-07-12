@@ -17,6 +17,8 @@ config.maxCharInTile = 51;
 config.popupWidth = 50; // window percent to take up for popup; this is needed so it can stay in em and be animated
 config.popupHeight = 50; // window percent to take up for popup
 
+config.backUpImage = 'images/icons/COMMUNITY.svg'; // window percent to take up for popup
+
 config.keysToShow = [
 	"desc_display"
 ]

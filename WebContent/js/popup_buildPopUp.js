@@ -20,8 +20,6 @@ function buildPopUp( results )
 		
 		assetParent.setAttribute("id", k);
 		
-		console.log( assetParent );
-		
 		assetParent.appendChild( title );
 		assetParent.appendChild( breakLine );
 		assetParent.appendChild( assetSmallerParent );
@@ -29,7 +27,7 @@ function buildPopUp( results )
 		assetsHolder.appendChild( assetParent );
 		
 		var option = document.createElement("option");
-		option.innerHTML = abrivateString(k, 20);
+		option.innerHTML = abrivateString(k, 54);
 		clusterSelect.appendChild( option );
 	}
 	
@@ -136,17 +134,37 @@ function makeAssetSmallerParent(assets, id)
 		var asset = document.createElement("div");
 		asset.classList.add("asset");
 		asset.style.order = i;
+				
+		/*/ TODO add back
+		try
+		{
+			// console.log("trying "+"images/icons/" + assetObj['asset_type'].toUpperCase() + ".png")
+			// icon.setAttribute("src", "images/icons/" + assetObj['asset_type'].toUpperCase() + ".svg")
+			
+			var img = document.createElement("img")
+			//img.classList.add("linkIcon");
+			img.src = config.weburl + "/PSAP/images/icons/" + assetObj['asset_type'].toUpperCase() + ".svg"
+			asset.appendChild(img);	
+			alert("finished try "+img.src)
+		}
+		catch(e)
+		{
+			console.log(e)
+			debugger;
+			var img = document.createElement("img")
+			//img.classList.add("linkIcon");
+			img.src = "/images/icons/" + "COMMUNITY" + ".svg"
+			asset.appendChild(img);					
+		}
 		
-		var icon = document.createElement("img");
+		/*/
 		
-		try{
-			console.log("trying "+"images/icons/" + assetObj['asset_type'].toUpperCase() + ".png")
-			icon.setAttribute("src", "images/icons/" + assetObj['asset_type'].toUpperCase() + ".svg")
-		}catch(e){console.log("catching");}
-		
-		//icon.setAttribute("src", "images/black.png")// TODO change to be relevant to the icon
-		asset.appendChild( icon )
-		
+		var img = document.createElement("img")
+		img.src = "images/icons/" + assetObj['asset_type'].toUpperCase() + ".svg"
+		img.setAttribute("onerror", "this.src=config.backUpImage" );
+		asset.appendChild(img);	
+		//*/
+				
 		var title = document.createElement("div");
 		title.appendChild(abrivateStringWithMore( assetObj.display, config.maxCharInTile, function(e){ e.stopPropagation(); openButton(asset); }, hasDescription ));
 		title.classList.add("title");
@@ -159,7 +177,6 @@ function makeAssetSmallerParent(assets, id)
 		asset.setAttribute("desc_display", assetObj.desc_display);
 		asset.setAttribute("display", assetObj.display);
 		asset.setAttribute("hasDescription", hasDescription);
-		console.log(assetObj)
 		
 		if( assetObj.desc_display !== undefined && assetObj.desc_display !== "")
 		{
@@ -170,12 +187,7 @@ function makeAssetSmallerParent(assets, id)
 			div.innerHTML = assetObj.desc_display;
 			div.classList.add("assetContent")
 			contentHolder.appendChild( div );
-			console.log(contentHolder);		
 			asset.appendChild( contentHolder ); // TODO this should be moved to the makeAsset function
-		
-			console.log(contentHolder);
-			console.log(asset);
-			//debugger;
 		}
 		
 		// add link to card
