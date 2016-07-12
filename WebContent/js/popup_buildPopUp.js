@@ -162,7 +162,6 @@ function makeAssetSmallerParent(assets, id)
 		var img = document.createElement("img")
 		img.src = "images/icons/" + assetObj['asset_type'].toUpperCase() + ".svg"
 		img.setAttribute("onerror", "this.src=config.backUpImage" );
-		alert(""+img.onerror);
 		asset.appendChild(img);	
 		//*/
 				
