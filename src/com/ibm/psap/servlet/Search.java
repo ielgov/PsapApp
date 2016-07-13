@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Properties;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -80,18 +82,20 @@ public class Search extends HttpServlet {
 		logger.info("Calling Cognitivie Serach");
 		//logger.info(obj.toString());
 		JSONObject Responseobj =  new JSONObject();
-		//JSONObject serachobj =  new JSONObject();
+		JSONObject serachobj =  new JSONObject();
+		JSONArray serachArrayobj =  new JSONArray();
 		try {
 			String searchresult = sendGet(request, query, resultcount);
 			if (searchresult != null){
-				Responseobj = new JSONObject(searchresult);
+				serachobj = new JSONObject(searchresult);
+				serachArrayobj = transformToCubeResponse(serachobj);
+				Responseobj =  new JSONObject();
 				logger.info("Created a json object for the serach results");
 			}else{
 				//empty object
 				Responseobj =  new JSONObject();
 			}
-			//Responseobj =  new JSONObject();
-			//Responseobj.put("result", serachobj);
+			Responseobj.put("result", serachArrayobj);
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -111,7 +115,8 @@ public class Search extends HttpServlet {
 			try{
 				//create URL query
 				String cog_searchURL = Constants.CognitiveSearchUrl;
-				cog_searchURL =  cog_searchURL + query;
+				String encodedquery=java.net.URLEncoder.encode(query,"UTF-8");
+				cog_searchURL =  cog_searchURL + encodedquery;
 				HttpSession session =  request.getSession();
 				if ( session != null){
 					User userobj  = (User) session.getAttribute("User");
@@ -122,12 +127,7 @@ public class Search extends HttpServlet {
 					cog_searchURL =  cog_searchURL + "&resultcount=" + resultcount;
 				else
 					cog_searchURL =  cog_searchURL + "&resultcount=20"; //default
-				/*
-				serachbody.put("userID", userobj.getEmail());
-				serachbody.put("queryText ", query);
-				*/
-				logger.info("The final HTTPS Cognitive URL is " +  cog_searchURL);
-				
+				logger.info("The final HTTPS Cognitive URL is " +  cog_searchURL);		
 				
 				URL obj = new URL(cog_searchURL);
 				HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
@@ -139,12 +139,6 @@ public class Search extends HttpServlet {
 				con.setRequestProperty("Content-Type", "application/json");
 				con.setRequestProperty("Accept", "application/json");
 				con.setRequestProperty("Authorization", "Basic " + "OGQ0MDlhZDEtY2YwMC00MDc5LTllMGItMGU1OTM4N2M5OGEwOkozQzVuZGFIcjdjSA==");
-				/*
-				wr = new OutputStreamWriter(con.getOutputStream());
-				wr.write(serachbody.toString());
-				wr.flush();
-				logger.info("Setting json query and user id to cognitive url body");
-				*/
 				
 				int responseCode = con.getResponseCode();
 				logger.info("Response Code : " + responseCode);
@@ -170,5 +164,57 @@ public class Search extends HttpServlet {
 					wr.close();
 			}
 			return response.toString();
+	}
+	
+	public JSONArray transformToCubeResponse( JSONObject searchobj) throws IOException{
+		logger.info("Transforming the cognitive result to cube result");
+		JSONArray responseobject =  new JSONArray();
+		try{
+			if (searchobj != null){
+				logger.info("Extracting [docs] object from congnitive search");
+				JSONObject responseobj =  searchobj.getJSONObject("response");
+				logger.info("Extracted [response] object from congnitive search");
+				JSONArray docsArry = responseobj.getJSONArray("docs");
+				String[] KeyNames = {"AssetDisplayDescription", "AssetType", "AssetDisplayName", "URL"};
+				 for (int i = 0; i < docsArry.length(); i++) {
+					 logger.info("Extracting [docs] at index:" + i);
+					 JSONObject docobj = docsArry.getJSONObject(i);
+					 JSONObject cubeobj = getJsonValueFromArray(docobj,KeyNames);
+					 responseobject.put(cubeobj);
+				 }
+			}
+		}catch(Exception exp){
+			throw new IOException (exp.getMessage());
+		}
+		return responseobject;
+	}
+	
+	public JSONObject getJsonValueFromArray( JSONObject docobj, String[] key) throws Exception{
+		logger.info("Getting Json Value");
+		Properties mapprop = (Properties)getServletContext().getAttribute("MapFile");
+		JSONObject responseobject =  new JSONObject();
+		try{
+			if (docobj != null){
+				 for (int i = 0; i < key.length; i++) {
+					 logger.info("Extracting [docs] value for " + key[i]);
+					 JSONArray objarry = docobj.getJSONArray(key[i]);
+					 logger.info(objarry);
+					 String value = objarry.getString(0);
+					 logger.info("Extracted value for [docs] [keys] is " +  value);
+					 String CubeKeyName = mapprop.getProperty(key[i]); 
+		            if ( CubeKeyName != null){
+		            	responseobject.put(CubeKeyName
+		                        .toLowerCase(), value);
+		            }	
+		            else{
+		            	responseobject.put(key[i]
+			                        .toLowerCase(), value);
+		            }	
+				 }
+			}
+		}catch(Exception exp){
+			throw new Exception (exp.getMessage());
+		}
+		return responseobject;
 	}
 }
