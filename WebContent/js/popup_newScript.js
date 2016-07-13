@@ -10,15 +10,15 @@ function showPopUp(inData, resultName)
 	
 	var url = "";
 	
-	if( (typeOf inData) == "string" ) // this is a search
+	if( (typeof inData) == "string" ) // this is a search
 	{
-		assetsSlider.classList.remove("expanded");
+		assetsSlider.classList.add("expanded");
 		url = config.weburl + "/PSAP/Search?queryText="+inData;
+		resultName = resultName == undefined ? inData : resultName;
 	}
 	else // assuming it is an object // this is a drill down
-	{
-		
-		assetsSlider.classList.add("expanded");
+	{		
+		assetsSlider.classList.remove("expanded");
 		url = config.weburl + "/PSAP/Assets?offeringId="+inData.offeringId+"&parentId="+inData.parentId+"";
 	}	
 	
