@@ -494,6 +494,11 @@ Cube highlight face 3 = #ff8039
     color: black;
 }
 
+.search-results .footer:hover 
+{
+	background: #F4F4F4;
+}
+
 .search-table td + td { border-left:1px solid #DFE9E9; }
 .search-table
 {

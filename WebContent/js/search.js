@@ -19,7 +19,7 @@ function doSearch(queryText,func)
 		}		
 		//showPopUpResults( results );
 		
-		showPopUp({'results':results});
+		showPopUp({'results':results},queryText);
 		
 		if (func)
 			func();
