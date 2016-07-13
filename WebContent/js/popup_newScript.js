@@ -19,23 +19,33 @@ function showPopUp(inData, resultName)
 	else // assuming it is an object // this is a drill down
 	{		
 		assetsSlider.classList.remove("expanded");
-		url = config.weburl + "/PSAP/Assets?offeringId="+inData.offeringId+"&parentId="+inData.parentId+"";
+		
+		if(inData.results == undefined)
+		{			
+			url = config.weburl + "/PSAP/Assets?offeringId="+inData.offeringId+"&parentId="+inData.parentId+"";
+		}
+		
 	}	
-	
-	var results; // TODO remove if you dont want caching 
 	
 	assetSpinner.classList.remove("hidden");
 	
-	function callback( respText )
+	if(inData.results == undefined )
 	{
-		results = JSON.parse( respText ); // TODO add var
-		buildPopUp( results.result );
-		//localStorage.setItem("search_results", JSON.stringify(results) ); // TODO remove if you dont want caching
-		assetSpinner.classList.add("hidden");
-		numberOfResults.innerHTML = assetsSlider.getElementsByClassName("asset").length;
-	}
+		function callback( respText )
+		{
+			results = JSON.parse( respText ); // TODO add var
+			buildPopUp( results.result );
+			//localStorage.setItem("search_results", JSON.stringify(results) ); // TODO remove if you dont want caching
+			assetSpinner.classList.add("hidden");
+			numberOfResults.innerHTML = assetsSlider.getElementsByClassName("asset").length;
+		}
 	
-	httpRequest( url, callback );	
+		httpRequest( url, callback );
+	}	
+	else
+	{
+		buildPopUp( inData.results );		
+	}
 	
 	assetsSlider.addEventListener("animationend", function(){
 		console.log("animationend")
