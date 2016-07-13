@@ -95,7 +95,7 @@ function makeTitle( titleStr )
 {
 	var title = document.createElement("div");
 	title.classList.add("title")
-	title.innerHTML = titleStr;
+	title.innerHTML = titleStr !== "undefined" && titleStr !== undefined ? titleStr : "";
 	return title;
 }
 
@@ -123,9 +123,7 @@ function makeAssetSmallerParent(assets, id)
 	//------------start of functions---------------------------
 	
 	function makeAsset(assetObj, i)
-	{
-		assetObj = assetObj;
-		
+	{		
 		var hasDescription = false;
 		if( assetObj.desc_display != undefined && assetObj.desc_display != "" )
 		{

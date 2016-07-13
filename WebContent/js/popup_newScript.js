@@ -2,11 +2,13 @@
 @params 
 inData is either a string or an object. 
 If it is an object, it will assume it is a drill down and will pull out the offeringId and parentId strings from within it. 
+If it is an object, and the object contains the key "results" it will display those results
 If it is a string, it will take that as a search querry
 */
 function showPopUp(inData, resultName)
 {
 	assetsHolder.innerHTML = "";
+	resultsName.innerHTML = "";
 	
 	var url = "";
 	
