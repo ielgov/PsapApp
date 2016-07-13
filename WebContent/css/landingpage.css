@@ -282,13 +282,13 @@ Cube highlight face 3 = #ff8039
 
 #header .search-send
 {
-	background-image: url(../images/icons/Forward-64-gray.png);
+	background-image: url(../images/icons/forward_128-white.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    height: 1.55rem;
-    width: 1.55rem;
-    right: 0;
+    height: 2rem;
+    width: 2rem;
+    right: 0.5rem;
 }
 
 .menu-turquoise
@@ -458,7 +458,7 @@ Cube highlight face 3 = #ff8039
 .serachbox
 {
 	width: 100%;
-	text-align: center;
+	text-align: left;
 	color: white;
 	background-color: transparent;
 	border: 0;
@@ -467,6 +467,7 @@ Cube highlight face 3 = #ff8039
     padding-top: 5px;
     border-bottom: 1px solid rgba(255,255,255,0.5);
     /* -webkit-appearance: none; */
+    padding-left: 30px;
 }
 
 /*search-results*/

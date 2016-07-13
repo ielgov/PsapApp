@@ -41,10 +41,13 @@ function showPopUp(inData, resultName)
 		}
 	
 		httpRequest( url, callback );
+		
+		assetsSlider.classList.remove("hidden");
 	}	
 	else
 	{
-		buildPopUp( inData.results );		
+		buildPopUp( inData.results );
+		assetSpinner.classList.add("hidden");
 	}
 	
 	assetsSlider.addEventListener("animationend", function(){
@@ -56,7 +59,7 @@ function showPopUp(inData, resultName)
 	{		
 		document.querySelector("#resultsName").innerHTML = "for "+resultName;		
 	}
-	assetsSlider.classList.remove("hidden");
+	//assetsSlider.classList.remove("hidden");
 	//slideArrowLeft();
 }
 

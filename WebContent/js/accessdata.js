@@ -113,6 +113,15 @@ function getRESTRequest(restURL,usejson,func)
 					if (func)
 						func(response);
 				}
+				else if (response.hasOwnProperty('response'))
+				{
+					if (response['response'].hasOwnProperty('docs'))
+					{
+						console.log("Response docs",response['response']['docs']);
+						if (func)
+							func(response['response']);
+					}					
+				}				
 				else
 				{
 					console.log("Response - " + JSON.stringify(response));

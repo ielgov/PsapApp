@@ -163,7 +163,11 @@ function setCubeData(nextLevelDataObj, currRubiksType)
 		console.log('parentId',parentId);
 		console.log('display',display);
 		//console.log('name',name);
-		showPopUp(offeringId, parentId, display);
+		var oo = {
+					'offeringId':offeringId,
+					'parentId':parentId
+				};
+		showPopUp(oo, display);
 		//alert('offeringId - ' +offeringId+'display - '+display+', parentId - '+parentId);
 	}
 }

@@ -63,36 +63,71 @@ function initializeClicks()
 		console.log('breadCrumClicked', breadCrumClicked);
 		processBreadCrum(breadCrumsPos[breadCrumClicked]['cubieMesh'],breadCrumClicked);
 	});
-	var searchcount = 0;
-	$('input[type="search"][name="searchbox"]').on('search', function () {
+	
+	//var searchcount = 0;
+	/*$('input[type="text"][name="searchbox"]').on('search', function () {
 	    // search logic here
 	    // this function will be executed on click of X (clear button)
-		var searchText  = $('#searchbox').val();
-		console.log("Search event",searchcount++);
-		console.log("serachText = " + searchText + ", length = " + searchText.length);
 		
-		if (searchText.length == 0)
+	});*/
+	
+	$('input[type="text"][name="searchbox"]').on('keyup', function(e){
+		if (e.keyCode === 13)
 		{
-			$('#search-results').addClass('display-none');
-			emptyTopPages();
+			handleSearch();
 		}
-		else if (searchText.length > 0)
+	});
+	
+	$('#search-send').bind(onUserAction, function(e){
+		e.preventDefault();
+		handleSearch();
+		//assetsSlider.classList.remove("hidden");
+		//$('#search-results').removeClass('display-none');
+	});
+	
+	$('#search-show-all').bind(onUserAction, function(e){
+		e.preventDefault();
+		assetsSlider.classList.remove("hidden");
+		$('#search-results').addClass('display-none');
+	});
+}
+var searchcount = 0;
+function handleSearch()
+{
+	console.log("Function :: handleSearch");
+	var searchText  = $('#searchbox').val();
+	console.log("Search event",searchcount++);
+	console.log("serachText = " + searchText + ", length = " + searchText.length);
+	
+	if (searchText.length == 0)
+	{
+		$('#search-results').addClass('display-none');
+		emptyTopPages();
+	}
+	else if (searchText.length > 0)
+	{
+		emptyTopPages();
+		
+		if(DEVELOPMENT)
 		{
-			emptyTopPages();
-			
 			var carray = categoryJSON['categories'];
 			for (var i=0;i<carray.length;i++)
 			{
-				populateSearchResults(carray[i]['display'],carray[i]['display']);
+				populateSearchResults(carray[i]);
 			}
-			$('#search-results').removeClass('display-none');
+		}
+		else
+		{
+			doSearch(searchText, function(){
+				console.log('psapmenu :: doSearch callback');
+				$('#search-results').removeClass('display-none');
+			});
 			
 		}
-		
-	});
+		//assignSearchClicks();
+		//$('#search-results').removeClass('display-none');
+	}		
 }
-
-
 function postLogout()
 {
 	console.log("Function :: postLogout");
