@@ -434,6 +434,22 @@
 	z-index:11;
 }
 
+.spinner.hidden 
+{
+	color:rgba(0,0,0,0);
+	left:200vw;
+	top:200vh;
+	z-index:-1;
+}
+
+.spinner
+{
+	position:absolute;
+	left:48%;
+	top:50%;
+	z-index:11;
+}
+
 
 
 

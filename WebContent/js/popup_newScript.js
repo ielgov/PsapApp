@@ -10,14 +10,14 @@ function showPopUp(offeringId, parentId, resultName)
 	
 	//alert("url is *"+url+"*")
 	
-	spinner.classList.remove("hidden");
+	assetSpinner.classList.remove("hidden");
 	
 	function callback( respText )
 	{
 		results = JSON.parse( respText ); // TODO add var
 		buildPopUp( results.result );
 		localStorage.setItem("search_results", JSON.stringify(results) ); // TODO remove if you dont want caching
-		spinner.classList.add("hidden");
+		assetSpinner.classList.add("hidden");
 		numberOfResults.innerHTML = assetsSlider.getElementsByClassName("asset").length;
 	}
 	
