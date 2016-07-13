@@ -5,14 +5,14 @@ function getSearchResults(queryText,func)
 	var restURL = webServerIP+"/PSAP/Search?queryText=" + encodeURIComponent(queryText) + "&resultcount=20";
 	getRESTRequest(restURL,true,func);
 }
-
+var searchTableLimit = 5;
 function doSearch(queryText,func)
 {
 	console.log("Function :: doSearch");
 	getSearchResults(queryText,function(response){
 		console.log('search response',response);
 		var results = response['result'];
-		for (var i=0; i<results.length; i++)
+		for (var i=0; i<results.length && i<=searchTableLimit; i++)
 		{
 			console.log('results',results[i]);
 			populateSearchResults(results[i]);
@@ -60,10 +60,14 @@ function populateSearchResults(result)
 	else if (tpLen > 0)
 	{
 		var rowspan = Number($('#search-table > .top-pages').find('td[rowspan]').attr('rowspan'));
-		rowspan++;
-		$('#search-table > .top-pages').find('td[rowspan]').attr('rowspan',rowspan);
-		tr = '<tr>'+getSearchCell(result['display'],result['desc_display'],result['url'])+'</tr>';
-		$('#search-table> tbody.top-pages').append(tr);
+		
+		if (rowspan < searchTableLimit)
+		{
+			rowspan++;
+			$('#search-table > .top-pages').find('td[rowspan]').attr('rowspan',rowspan);
+			tr = '<tr>'+getSearchCell(result['display'],result['desc_display'],result['url'])+'</tr>';
+			$('#search-table> tbody.top-pages').append(tr);
+		}		
 	}
 }
 
