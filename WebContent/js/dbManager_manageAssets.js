@@ -287,7 +287,7 @@ function assetRequest(button)
 		{
 			baseUrl += k +"="
 			
-			baseUrl += o[k] +"";
+			baseUrl += encodeURIComponent( o[k] ) +"";
 			
 			baseUrl += count+1 < length ? "&" : "" ;
 			count++;

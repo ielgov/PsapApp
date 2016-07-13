@@ -2,6 +2,10 @@ global=undefined;//TODO remove
 
 function buildPopUp( results )
 {	
+	resultsG = results
+	
+	results = decodeResults(results);
+	
 	results = getGroups( results );
 	
 	var clusterSelect = document.querySelector(".jumpToBar select")
@@ -13,7 +17,7 @@ function buildPopUp( results )
 	for(var k in results)
 	{
 		
-		var assetParent = makeAssetParent()
+		var assetParent = makeAssetParent();
 		var breakLine = document.createElement("hr");
 		var title = makeTitle( k );
 		var assetSmallerParent = makeAssetSmallerParent( results[k], undefined );
@@ -117,13 +121,11 @@ function makeAssetSmallerParent(assets, id)
 	return assetSmallerParent;
 	
 	//------------start of functions---------------------------
-	function getColumn(  parent, elementNumber )
-	{
-		document.querySelector
-	}
 	
 	function makeAsset(assetObj, i)
 	{
+		assetObj = assetObj;
+		
 		var hasDescription = false;
 		if( assetObj.desc_display != undefined && assetObj.desc_display != "" )
 		{
@@ -134,30 +136,6 @@ function makeAssetSmallerParent(assets, id)
 		var asset = document.createElement("div");
 		asset.classList.add("asset");
 		asset.style.order = i;
-				
-		/*/ TODO add back
-		try
-		{
-			// console.log("trying "+"images/icons/" + assetObj['asset_type'].toUpperCase() + ".png")
-			// icon.setAttribute("src", "images/icons/" + assetObj['asset_type'].toUpperCase() + ".svg")
-			
-			var img = document.createElement("img")
-			//img.classList.add("linkIcon");
-			img.src = config.weburl + "/PSAP/images/icons/" + assetObj['asset_type'].toUpperCase() + ".svg"
-			asset.appendChild(img);	
-			alert("finished try "+img.src)
-		}
-		catch(e)
-		{
-			console.log(e)
-			debugger;
-			var img = document.createElement("img")
-			//img.classList.add("linkIcon");
-			img.src = "/images/icons/" + "COMMUNITY" + ".svg"
-			asset.appendChild(img);					
-		}
-		
-		/*/
 		
 		var img = document.createElement("img")
 		img.src = "images/icons/" + assetObj['asset_type'].toUpperCase() + ".svg"
@@ -310,6 +288,22 @@ function abrivateStringWithMore_old( str, length, action, hasDescription )
 	return e;	
 }
 
+function decodeResults(results)
+{
+	return results;
+	var oldResults = results;
+	
+	for(var k in results )
+	{
+		for( var l in results[k] )
+		{
+			console.log( results[k][l] );
+			results[k][l] = decodeURIComponent(results[k][l]);
+		}
+	}
+	
+	debugger;
+}
 
 
 
