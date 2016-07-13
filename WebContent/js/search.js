@@ -76,7 +76,7 @@ function assignSearchClicks()
 	});
 }
 
-function emptyTopPages()
+function emptySearchResultTopPages()
 {
 	$('#search-table> tbody.top-pages').empty();
 }

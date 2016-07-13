@@ -74,6 +74,7 @@ function initializeClicks()
 	$('input[type="text"][name="searchbox"]').on('keyup', function(e){
 		if (e.keyCode === 13)
 		{
+			assetsSlider.classList.add("hidden");
 			handleSearch(function(){
 				$('#search-results').removeClass('display-none');
 			});
@@ -102,15 +103,14 @@ function handleSearch(func)
 	console.log("Search event",searchcount++);
 	console.log("serachText = " + searchText + ", length = " + searchText.length);
 	
+	emptySearchResultTopPages();
+	
 	if (searchText.length == 0)
 	{
 		$('#search-results').addClass('display-none');
-		emptyTopPages();
 	}
 	else if (searchText.length > 0)
-	{
-		emptyTopPages();
-		
+	{		
 		if(DEVELOPMENT)
 		{
 			var carray = categoryJSON['categories'];
