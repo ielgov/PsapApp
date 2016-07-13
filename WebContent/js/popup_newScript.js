@@ -1,14 +1,28 @@
-function showPopUp(offeringId, parentId, resultName)
+/*
+@params 
+inData is either a string or an object. 
+If it is an object, it will assume it is a drill down and will pull out the offeringId and parentId strings from within it. 
+If it is a string, it will take that as a search querry
+*/
+function showPopUp(inData, resultName)
 {
 	assetsHolder.innerHTML = "";
-	assetsSlider.classList.remove("expanded");
-	
-	var results; // TODO remove if you dont want caching 
 	
 	var url = "";
-	url = config.weburl + "/PSAP/Assets?offeringId="+offeringId+"&parentId="+parentId+""
 	
-	//alert("url is *"+url+"*")
+	if( (typeOf inData) == "string" ) // this is a search
+	{
+		assetsSlider.classList.remove("expanded");
+		url = config.weburl + "/PSAP/Search?queryText="+inData;
+	}
+	else // assuming it is an object // this is a drill down
+	{
+		
+		assetsSlider.classList.add("expanded");
+		url = config.weburl + "/PSAP/Assets?offeringId="+inData.offeringId+"&parentId="+inData.parentId+"";
+	}	
+	
+	var results; // TODO remove if you dont want caching 
 	
 	assetSpinner.classList.remove("hidden");
 	
@@ -16,13 +30,12 @@ function showPopUp(offeringId, parentId, resultName)
 	{
 		results = JSON.parse( respText ); // TODO add var
 		buildPopUp( results.result );
-		localStorage.setItem("search_results", JSON.stringify(results) ); // TODO remove if you dont want caching
+		//localStorage.setItem("search_results", JSON.stringify(results) ); // TODO remove if you dont want caching
 		assetSpinner.classList.add("hidden");
 		numberOfResults.innerHTML = assetsSlider.getElementsByClassName("asset").length;
 	}
 	
-	httpRequest( url, callback );
-	
+	httpRequest( url, callback );	
 	
 	assetsSlider.addEventListener("animationend", function(){
 		console.log("animationend")
