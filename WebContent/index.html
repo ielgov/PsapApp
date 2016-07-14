@@ -186,6 +186,12 @@
 		    	<div class="image"></div>
 		    </div> -->
 			<div id="assetsSlider" class="hidden">
+			<div class="slideUpCloseArrowContainer">
+				<div id="slideUpCloseArrow" >
+					<img src="images\icons\Chevron Left in Circle.svg" onclick="togglePopUpWidth()"></img>
+				</div>
+			</div>
+			<div class="assetsSliderContent">
 				<img id="assetSpinner" class="hidden spinner" src="images\loading.gif"></img>
 				
 				</span>
@@ -195,7 +201,6 @@
 						<line style="stroke:#525659; stroke-width:1px" />
 					</svg>
 					-->
-					<img id="slideUpCloseArrow" src="images\icons\Chevron Left in Circle.svg" onclick="togglePopUpWidth()"></img>
 				</span>
 				<span>
 						<div id="assetsTitle">
@@ -206,6 +211,7 @@
 						</div>
 						<div class="containerForResults"><div id="assetsHolder"></div></div>
 				<span>
+			</div>
 			</div>		    
 	    </div>
     </div>
@@ -285,7 +291,10 @@
 		
 		window.addEventListener( 'resize', onWindowResize, false );
 		//window.addEventListener( 'load', function(){ slideArrowLeft(); }, false );
-		//window.addEventListener( 'load', function(){ showPopUp(2001, 201); }, false ); // TODO REMOVE!
+		
+		function drewTest(){ showPopUp({"offeringId":2008, "parentId":201}, "test"); }
+		
+		window.addEventListener( 'load', function(){setTimeout(drewTest, 500)}, false ); // TODO REMOVE!
 	</script>
 
 	<!-- <button id="thisShouldBeRemoved" onclick="showPopUp(2001, 201)" style="z-index:5; position:fixed; left:100px; top:100px;">Click to reveal assets with showPopUp(2001, 201)</button>

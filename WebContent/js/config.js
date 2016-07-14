@@ -7,8 +7,8 @@ config.weburl = "http://172.27.50.135:9080"; //DEV
 
 config.weburl = runFromLocalStorage == true ? "http://172.27.50.135:9080" : config.weburl ; // uses dev server if run from local file system
 
-//config.minTileMargin = 5.5;
-config.minTileMargin = 0;
+config.minTileMargin = 5.5;
+//config.minTileMargin = 0;
 
 config.maxCharInTile = 51;
 

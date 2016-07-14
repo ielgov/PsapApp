@@ -69,7 +69,7 @@ function showPopUp(inData, resultName)
 function hidePopUp()
 {
 	assetsSlider.classList.add("hidden");
-	slideArrowUp();
+	//slideArrowUp();
 	processBreadCrum(breadCrumsPos['offerings']['cubieMesh'],'offerings');
 }
 
