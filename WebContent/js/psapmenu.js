@@ -83,9 +83,9 @@ function initializeClicks()
 	
 	$('#search-send').bind(onUserAction, function(e){
 		e.preventDefault();
-		$('#search-results').addClass('display-none');
+		assetsSlider.classList.add("hidden");
 		handleSearch(function(){
-			assetsSlider.classList.remove("hidden");
+			$('#search-results').removeClass('display-none');
 		});
 	});
 	
@@ -99,11 +99,14 @@ var searchcount = 0;
 function handleSearch(func)
 {
 	console.log("Function :: handleSearch");
+	
+	resetBreadCrumAndCube();
+	
 	var searchText  = $('#searchbox').val();
 	console.log("Search event",searchcount++);
 	console.log("serachText = " + searchText + ", length = " + searchText.length);
 	
-	emptySearchResultTopPages();
+	emptySearchResults();
 	
 	if (searchText.length == 0)
 	{
@@ -123,7 +126,7 @@ function handleSearch(func)
 		{
 			doSearch(searchText, function(){
 				
-				console.log('psapmenu :: doSearch callback');
+				//console.log('psapmenu :: doSearch callback');
 				
 				if (func)
 					func();

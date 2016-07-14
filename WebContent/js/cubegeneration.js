@@ -1215,6 +1215,13 @@ function colorThisFace(intersectObj)
 	}		
 }
 
+function resetBreadCrumAndCube()
+{
+	console.log("Function :: resetBreadCrumAndCube");
+	if (breadCrumsPos['categories'].hasOwnProperty('cubieMesh'))
+		processBreadCrum(breadCrumsPos['categories']['cubieMesh'],'categories');
+}
+
 function processBreadCrum(cubieMesh,breadCrumType)
 {
 	console.log("Function :: processBreadCrum");

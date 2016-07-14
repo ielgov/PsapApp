@@ -10,12 +10,16 @@ function doSearch(queryText,func)
 {
 	console.log("Function :: doSearch");
 	getSearchResults(queryText,function(response){
-		console.log('search response',response);
+		//console.log('search response',response);
 		var results = response['result'];
 		for (var i=0; i<results.length && i<=searchTableLimit; i++)
 		{
 			console.log('results',results[i]);
-			populateSearchResults(results[i]);
+			if (results[i]['asset_type'] == 'contact')
+				populateSearchResults(results[i],'people');
+			else
+				populateSearchResults(results[i],'top-pages');
+			
 		}		
 		//showPopUpResults( results );
 		
@@ -48,25 +52,29 @@ var getSearchCell = function(title,desc,url){
 	return searchItemCell;
 };
 
-function populateSearchResults(result)
+function populateSearchResults(result, searchType)
 {	
-	var tpLen = $('#search-table> tbody.top-pages').children().length;
+	var tpLen = $('#search-table> tbody.'+searchType).children().length;
 	var tr = undefined;
 	if (tpLen == 0)
 	{
-		tr = '<tr><td class="cell1" rowspan="1">Top Five</td>'+getSearchCell(result['display'],result['desc_display'],result['url'])+'</tr>';		
-		$('#search-table> tbody.top-pages').append(tr);
+		if (searchType == 'top-pages')
+			tr = '<tr><td class="cell1" rowspan="1">Top Five</td>'+getSearchCell(result['display'],result['desc_display'],result['url'])+'</tr>';
+		else if (searchType == 'people')
+			tr = '<tr><td class="cell1" rowspan="1">People</td>'+getSearchCell(result['display'],result['desc_display'],result['url'])+'</tr>';
+		
+		$('#search-table> tbody.'+searchType).append(tr);
 	}
 	else if (tpLen > 0)
 	{
-		var rowspan = Number($('#search-table > .top-pages').find('td[rowspan]').attr('rowspan'));
+		var rowspan = Number($('#search-table > .'+searchType).find('td[rowspan]').attr('rowspan'));
 		
 		if (rowspan < searchTableLimit)
 		{
 			rowspan++;
-			$('#search-table > .top-pages').find('td[rowspan]').attr('rowspan',rowspan);
+			$('#search-table > .'+searchType).find('td[rowspan]').attr('rowspan',rowspan);
 			tr = '<tr>'+getSearchCell(result['display'],result['desc_display'],result['url'])+'</tr>';
-			$('#search-table> tbody.top-pages').append(tr);
+			$('#search-table> tbody.'+searchType).append(tr);
 		}		
 	}
 }
@@ -80,7 +88,18 @@ function assignSearchClicks()
 	});
 }
 
-function emptySearchResultTopPages()
+function emptySearchResults()
 {
 	$('#search-table> tbody.top-pages').empty();
+	$('#search-table> tbody.people').empty();
+}
+
+function clearSearchBox()
+{
+	console.log("Function :: clearSearchBox");
+	$('#search-results').addClass('display-none');
+	assetsSlider.classList.add("hidden");
+	//$('#searchbox').val('');
+	$('#searchbox').blur();		
+	emptySearchResults();	
 }
