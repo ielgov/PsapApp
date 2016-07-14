@@ -54,7 +54,7 @@ function populateSearchResults(result)
 	var tr = undefined;
 	if (tpLen == 0)
 	{
-		tr = '<tr><td class="cell1" rowspan="1">Top Pages</td>'+getSearchCell(result['display'],result['desc_display'],result['url'])+'</tr>';		
+		tr = '<tr><td class="cell1" rowspan="1">Top Five</td>'+getSearchCell(result['display'],result['desc_display'],result['url'])+'</tr>';		
 		$('#search-table> tbody.top-pages').append(tr);
 	}
 	else if (tpLen > 0)

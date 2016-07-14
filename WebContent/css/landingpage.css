@@ -273,6 +273,7 @@ Cube highlight face 3 = #ff8039
     width: 1.75rem;
     margin-left: 0.5rem;
     cursor: pointer;
+    top: 5px;
 }
 
 #header .search-entry
@@ -289,6 +290,7 @@ Cube highlight face 3 = #ff8039
     height: 2rem;
     width: 2rem;
     right: 0.5rem;
+    top: 5px;
 }
 
 .menu-turquoise
