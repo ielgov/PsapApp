@@ -1,24 +1,57 @@
-function showPopUp(offeringId, parentId, resultName)
+/*
+@params 
+inData is either a string or an object. 
+If it is an object, it will assume it is a drill down and will pull out the offeringId and parentId strings from within it. 
+If it is an object, and the object contains the key "results" it will display those results
+If it is a string, it will take that as a search querry
+*/
+function showPopUp(inData, resultName)
 {
 	assetsHolder.innerHTML = "";
-	assetsSlider.classList.remove("expanded");
-	
-	var results; // TODO remove if you dont want caching 
+	resultsName.innerHTML = "";
 	
 	var url = "";
-	url = config.weburl + "/PSAP/Assets?offeringId="+offeringId+"&parentId="+parentId+""
 	
-	//alert("url is *"+url+"*")
-	
-	httpRequest( url, callback );
-	
-	function callback( respText )
+	if( (typeof inData) == "string" ) // this is a search
 	{
-		results = JSON.parse( respText ); // TODO add var
-		buildPopUp( results.result );
-		localStorage.setItem("search_results", JSON.stringify(results) ); // TODO remove if you dont want caching
+		assetsSlider.classList.add("expanded");
+		url = config.weburl + "/PSAP/Search?queryText="+inData;
+		resultName = resultName == undefined ? inData : resultName;
 	}
-	numberOfResults.innerHTML = assetsSlider.getElementsByClassName("asset").length;
+	else // assuming it is an object // this is a drill down
+	{		
+		assetsSlider.classList.remove("expanded");
+		
+		if(inData.results == undefined)
+		{			
+			url = config.weburl + "/PSAP/Assets?offeringId="+inData.offeringId+"&parentId="+inData.parentId+"";
+		}
+		
+	}	
+	
+	assetSpinner.classList.remove("hidden");
+	
+	if(inData.results == undefined )
+	{
+		function callback( respText )
+		{
+			results = JSON.parse( respText ); // TODO add var
+			buildPopUp( results.result );
+			//localStorage.setItem("search_results", JSON.stringify(results) ); // TODO remove if you dont want caching
+			assetSpinner.classList.add("hidden");
+			numberOfResults.innerHTML = assetsSlider.getElementsByClassName("asset").length;
+		}
+	
+		httpRequest( url, callback );
+		
+		assetsSlider.classList.remove("hidden");
+	}	
+	else
+	{
+		buildPopUp( inData.results );
+		assetSpinner.classList.add("hidden");
+		assetsSlider.classList.add("expanded");
+	}
 	
 	assetsSlider.addEventListener("animationend", function(){
 		console.log("animationend")
@@ -29,7 +62,7 @@ function showPopUp(offeringId, parentId, resultName)
 	{		
 		document.querySelector("#resultsName").innerHTML = "for "+resultName;		
 	}
-	assetsSlider.classList.remove("hidden");
+	//assetsSlider.classList.remove("hidden");
 	//slideArrowLeft();
 }
 

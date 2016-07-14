@@ -9,6 +9,8 @@ function onDocumentMouseDown( event )
 	//console.log("Function :: onDocumentMouseDown");
 	event.preventDefault();	
 	
+	clearSearchBox();
+	
 	document.querySelector("#WebGL-output").addEventListener( 'mousemove', onDocumentMouseMove, false );
 	document.querySelector("#WebGL-output").addEventListener( 'mouseup', onDocumentMouseUp, false );
 	document.querySelector("#WebGL-output").addEventListener( 'mouseout', onDocumentMouseOut, false );
@@ -124,6 +126,9 @@ function onDocumentTouchStart( event )
 {
 	//console.log("Function :: onDocumentTouchStart");
 	//console.log('event touches = '+event.touches.length);
+	
+	clearSearchBox();
+	
     if ( event.touches.length == 1 ) 
     {
 		event.preventDefault();

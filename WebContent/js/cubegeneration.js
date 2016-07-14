@@ -163,7 +163,11 @@ function setCubeData(nextLevelDataObj, currRubiksType)
 		console.log('parentId',parentId);
 		console.log('display',display);
 		//console.log('name',name);
-		showPopUp(offeringId, parentId, display);
+		var oo = {
+					'offeringId':offeringId,
+					'parentId':parentId
+				};
+		showPopUp(oo, display);
 		//alert('offeringId - ' +offeringId+'display - '+display+', parentId - '+parentId);
 	}
 }
@@ -1209,6 +1213,13 @@ function colorThisFace(intersectObj)
 			//processBreadCrum(cubieMesh,breadCrumType);
 		}		
 	}		
+}
+
+function resetBreadCrumAndCube()
+{
+	console.log("Function :: resetBreadCrumAndCube");
+	if (breadCrumsPos['categories'].hasOwnProperty('cubieMesh'))
+		processBreadCrum(breadCrumsPos['categories']['cubieMesh'],'categories');
 }
 
 function processBreadCrum(cubieMesh,breadCrumType)

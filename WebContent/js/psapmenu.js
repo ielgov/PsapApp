@@ -63,9 +63,80 @@ function initializeClicks()
 		console.log('breadCrumClicked', breadCrumClicked);
 		processBreadCrum(breadCrumsPos[breadCrumClicked]['cubieMesh'],breadCrumClicked);
 	});
+	
+	//var searchcount = 0;
+	/*$('input[type="text"][name="searchbox"]').on('search', function () {
+	    // search logic here
+	    // this function will be executed on click of X (clear button)
+		
+	});*/
+	
+	$('input[type="text"][name="searchbox"]').on('keyup', function(e){
+		if (e.keyCode === 13)
+		{
+			assetsSlider.classList.add("hidden");
+			handleSearch(function(){
+				$('#search-results').removeClass('display-none');
+			});
+		}
+	});
+	
+	$('#search-send').bind(onUserAction, function(e){
+		e.preventDefault();
+		assetsSlider.classList.add("hidden");
+		handleSearch(function(){
+			$('#search-results').removeClass('display-none');
+		});
+	});
+	
+	$('#search-show-all').bind(onUserAction, function(e){
+		e.preventDefault();
+		assetsSlider.classList.remove("hidden");
+		$('#search-results').addClass('display-none');
+	});
 }
-
-
+var searchcount = 0;
+function handleSearch(func)
+{
+	console.log("Function :: handleSearch");
+	
+	resetBreadCrumAndCube();
+	
+	var searchText  = $('#searchbox').val();
+	console.log("Search event",searchcount++);
+	console.log("serachText = " + searchText + ", length = " + searchText.length);
+	
+	emptySearchResults();
+	
+	if (searchText.length == 0)
+	{
+		$('#search-results').addClass('display-none');
+	}
+	else if (searchText.length > 0)
+	{		
+		if(DEVELOPMENT)
+		{
+			var carray = categoryJSON['categories'];
+			for (var i=0;i<carray.length;i++)
+			{
+				populateSearchResults(carray[i]);
+			}
+		}
+		else
+		{
+			doSearch(searchText, function(){
+				
+				//console.log('psapmenu :: doSearch callback');
+				
+				if (func)
+					func();
+			});
+			
+		}
+		//assignSearchClicks();
+		//$('#search-results').removeClass('display-none');
+	}		
+}
 function postLogout()
 {
 	console.log("Function :: postLogout");
