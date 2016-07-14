@@ -50,6 +50,7 @@ function showPopUp(inData, resultName)
 	{
 		buildPopUp( inData.results );
 		assetSpinner.classList.add("hidden");
+		assetsSlider.classList.add("expanded");
 	}
 	
 	assetsSlider.addEventListener("animationend", function(){
