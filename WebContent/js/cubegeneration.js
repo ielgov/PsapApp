@@ -29,18 +29,21 @@ var startingPositions = {
 //Idea being the breadcrums will be positioned in the 3d world/scene corresponding to top(Y) left(X) window position
 var breadCrumsPos = {
 		'categories':{
+			'type':'categories',
 			'screen':{
 				'X':0.03,//0.03,//0.95
 				'Y':0.05,//0.1
 				}
 			},
 		'solutions':{
+			'type':'solutions',
 			'screen':{
 				'X':0.18,//0.95
 				'Y':0.05,//0.07,//0.35
 				}
 		},
 		'offerings':{
+			'type':'offerings',
 			'screen':{
 				'X':0.33,//0.37,//0.95
 				'Y':0.05//0.07,//0.6
@@ -69,7 +72,7 @@ function setCubeData(nextLevelDataObj, currRubiksType)
 	{
 		//Draw rubiks cube for 'solutions' under this category
 		appData['solutions']['getDataFor'] = nextLevelDataObj;
-		appData['solutions']['parentId'] = nextLevelDataObj['CategoryId'];
+		appData['solutions']['parentId'] = nextLevelDataObj['categoryid'];
 		getData(appData['solutions'], function(response){
 			if (DEVELOPMENT)
 			{
@@ -96,7 +99,7 @@ function setCubeData(nextLevelDataObj, currRubiksType)
 				}
 				else
 				{
-					console.log('callback for solutions',response);
+					//console.log('callback for solutions',response);
 					var returnData = response['result'];
 					var cubeData = appData['solutions'];
 					cubeData['data'] = returnData;
@@ -110,7 +113,7 @@ function setCubeData(nextLevelDataObj, currRubiksType)
 	{
 		//Draw rubiks cube for 'offerings' under this solution
 		appData['offerings']['getDataFor'] = nextLevelDataObj;
-		appData['offerings']['parentId'] = nextLevelDataObj['CategoryId'];
+		appData['offerings']['parentId'] = nextLevelDataObj['categoryid'];
 		getData(appData['offerings'], function(response){
 			if (DEVELOPMENT)
 			{
@@ -137,7 +140,7 @@ function setCubeData(nextLevelDataObj, currRubiksType)
 				}
 				else
 				{
-					console.log('callback for offerings',response);
+					//console.log('callback for offerings',response);
 					var returnData = response['result'];
 					var cubeData = appData['offerings'];
 					cubeData['data'] = returnData;
@@ -151,16 +154,20 @@ function setCubeData(nextLevelDataObj, currRubiksType)
 	{
 		//Get all assets for this offering
 		console.log("Show Assets overlay - call function to show Assets popup");
-		var offeringId = nextLevelDataObj['CategoryId'];
-		var name = nextLevelDataObj['Name'];
-		var display = nextLevelDataObj['Display'];
-		var parentId = activeRubiksCube['parentData']['CategoryId'];
+		var offeringId = nextLevelDataObj['categoryid'];
+		//var name = nextLevelDataObj['Name'];
+		var display = nextLevelDataObj['display'];
+		var parentId = activeRubiksCube['parentData']['categoryid'];
 		console.log('parent',activeRubiksCube['parentData']);
 		console.log('offeringId',offeringId);
 		console.log('parentId',parentId);
 		console.log('display',display);
-		console.log('name',name);
-		showPopUp(offeringId, parentId, display);
+		//console.log('name',name);
+		var oo = {
+					'offeringId':offeringId,
+					'parentId':parentId
+				};
+		showPopUp(oo, display);
 		//alert('offeringId - ' +offeringId+'display - '+display+', parentId - '+parentId);
 	}
 }
@@ -186,7 +193,7 @@ function drawRubiksCube(cubeData,parentData)
 				RC.allowRotation = false;
 				activeRubiksCube = RC;
 				showRubiksCube(RC.group, function(){
-					console.log('showRubiksCube callback');
+					//console.log('showRubiksCube callback');
 					activeRubiksCube.visible = true;
 					var tween = new TWEEN.Tween(activeRubiksCube.group.rotation).to({x:degToRad(25),y:degToRad(-45)}, 500).easing(TWEEN.Easing.Linear.None);
 					/*tween.onUpdate(function(){
@@ -502,13 +509,13 @@ function RubiksCube(options)
 					var dataobj = {};
 					if (ref.parentData)
 					{
-						dataobj['Display'] = ref.parentData['Display'];
-						dataobj['Name'] = ref.parentData['Name'];
+						dataobj['display'] = ref.parentData['display'];
+						//dataobj['Name'] = ref.parentData['Name'];
 					}
 					else
 					{
-						dataobj['Display'] = 'CENTER';
-						dataobj['Name'] = 'CENTER';
+						dataobj['display'] = 'CENTER';
+						//dataobj['Name'] = 'CENTER';
 					}
 					ref.assignDataToCubieFace(cubie, facenum, dataobj);
 				}				
@@ -523,7 +530,7 @@ function RubiksCube(options)
 		var materialIndex = facenum.slice(-1);
 		faceData['parentData'] = ref.parentData;
 		cubie.$materialList[materialIndex] = faceData;
-		//console.log(cubie.$cubenum + ' assigned data = ' + faceData['Display'] + ' | for material index = ' + materialIndex);
+		//console.log(cubie.$cubenum + ' assigned data = ' + faceData['display'] + ' | for material index = ' + materialIndex);
 	};
 			
 	this.setCenterCubieData = function(){
@@ -531,13 +538,13 @@ function RubiksCube(options)
 		var dataObj = {};
 		if (ref.parentData)
 		{
-			dataObj['Display'] = ref.parentData['Display'];
-			dataObj['Name'] = ref.parentData['Name'];
+			dataObj['display'] = ref.parentData['display'];
+			//dataObj['Name'] = ref.parentData['Name'];
 		}
 		else
 		{
-			dataObj['Display'] = 'CENTER';
-			dataObj['Name'] = 'CENTER';
+			dataObj['display'] = 'CENTER';
+			//dataObj['Name'] = 'CENTER';
 		}
 		
 		for (var i=0; i < ref.centerCubes.length; i++)
@@ -635,7 +642,7 @@ function RubiksCube(options)
 				var dataObj = cubie.$materialList[i];
 				
 				/*dynamicTexture.drawTextCooked({
-					text		: dataObj['Display'],//faceText['Name'],//
+					text		: dataObj['display'],//faceText['Name'],//
 					lineHeight	: ref.textureLineHeight,
 					fillStyle	: ref.textureFillStyle,
 					align		: ref.textureAlignText,
@@ -728,7 +735,7 @@ function RubiksCube(options)
 			if (cubie.$materialList.hasOwnProperty(i))
 			{
 				var dataObj = cubie.$materialList[i];
-				var imageName = imagePath + dataObj['CategoryId'] + '.png';
+				var imageName = imagePath + dataObj['categoryid'] + '.png';
 				
 				var faceColor = cubie['color-face'+i];
 				if (cubie.type == 'center')
@@ -794,7 +801,7 @@ function RubiksCube(options)
 				if (cubie.$materialList.hasOwnProperty(i))
 				{
 					var dataObj = $materialList[i];
-					var imageName = imagePath + dataObj['CategoryId'] + '.png';
+					var imageName = imagePath + dataObj['categoryid'] + '.png';
 					var faceColor = cubie['color-face'+i];
 					
 					if (cubie.type == 'center')
@@ -836,7 +843,7 @@ function RubiksCube(options)
 	
 	this.getFaceData = function(dataObj, dynamicTexture){
 		//console.log("Function :: getFaceData");
-		var str = dataObj['Display'];
+		var str = dataObj['display'];
 		cubielabelarray = [];
 		stringDivider(str,16,"");
 		var arrylen = cubielabelarray.length;
@@ -943,7 +950,7 @@ function RubiksCube(options)
 			if (cubie.$materialList.hasOwnProperty(i))
 			{
 				var dataObj = cubie.$materialList[i];
-				var canvastext = dataObj['Display'];				
+				var canvastext = dataObj['display'];				
 				
 				createTextureMaterialCanvas(canvastext, cubie, i, function(){
 					//debugger;
@@ -1132,7 +1139,7 @@ function colorThisFace(intersectObj)
 				var breadCrumMesh = obj['cubieMesh'];
 				if (cubieMesh['uuid'] == breadCrumMesh['uuid'])
 				{
-					console.log('part of the bread crum for type',key);
+					console.log('part of the bread crum for type OR already clicked, colored/selected',key);
 					isBreadCrum = true;
 					breadCrumType = key;
 					break;
@@ -1140,12 +1147,34 @@ function colorThisFace(intersectObj)
 			}
 		}
 		
-		//Cube face was clicked
-		if (!isBreadCrum)
+		//Cubie face was clicked
+		//if (!isBreadCrum)
 		{
 			//Check to make sure that none of the INNER face (face with no text) gets clicked
 			if (cubieMesh.$cubie.$materialList.hasOwnProperty(materialIndex))
 			{
+				if (breadCrumsCubies.length > 2)
+				{
+					var existingOfferingMesh = breadCrumsCubies[breadCrumsCubies.length-1];
+					var ExMaterialIndex = existingOfferingMesh.$materialClicked;
+					var color = existingOfferingMesh.$cubie['color-face'+ExMaterialIndex];
+					if (existingOfferingMesh.$cubie.usePNG)
+					{
+						existingOfferingMesh.material.materials[ExMaterialIndex].uniforms.color.value.setHex(color);
+					}
+					else
+					{
+						existingOfferingMesh.material.materials[ExMaterialIndex].color.setHex(color);
+						existingOfferingMesh.geometry.colorsNeedUpdate = true;
+					}				
+					existingOfferingMesh.$materialClicked = undefined;
+					breadCrumsCubies = $.grep( breadCrumsCubies ,
+					        function(o,i) { return o['uuid'] === breadCrumsPos['offerings']['cubieMesh']['uuid']; },
+					        true);
+					delete breadCrumsPos['offerings']['cubieMesh'];
+				}
+				
+				
 				if (cubieMesh.$cubie.usePNG)
 				{
 					cubieMesh.material.materials[materialIndex].uniforms.color.value.setHex(selectionColor);
@@ -1161,15 +1190,16 @@ function colorThisFace(intersectObj)
 				
 				//Generate next level Rubiks cube
 				var nextLevelDataOBj = cubieMesh.$cubie.$materialList[materialIndex];
-				//console.warn('nextLevelDataOBj for breadcrum',nextLevelDataOBj);
+				console.warn('nextLevelDataOBj for breadcrum',JSON.stringify(nextLevelDataOBj));
 				
 				var nextStep = function(){
-					console.log('next function');
+					//console.log('next function');
 					activeRubiksCube.visible = false;
 					setCubeData(nextLevelDataOBj, cubieMesh.$cubie.$rubiksCubeType);
 				};
-				
+				show2dBreadCrum(nextLevelDataOBj, cubieMesh.$cubie.$rubiksCubeType);
 				moveCubieToTop(cubieMesh, nextStep);
+								
 			}
 			else
 			{
@@ -1177,12 +1207,19 @@ function colorThisFace(intersectObj)
 				activeRubiksCube.allowRotation = true;
 			}
 		}
-		else
+		//else
 		{
 			//BreadCrum was clicked
-			processBreadCrum(cubieMesh,breadCrumType);
+			//processBreadCrum(cubieMesh,breadCrumType);
 		}		
 	}		
+}
+
+function resetBreadCrumAndCube()
+{
+	console.log("Function :: resetBreadCrumAndCube");
+	if (breadCrumsPos['categories'].hasOwnProperty('cubieMesh'))
+		processBreadCrum(breadCrumsPos['categories']['cubieMesh'],'categories');
 }
 
 function processBreadCrum(cubieMesh,breadCrumType)
@@ -1233,6 +1270,9 @@ function processBreadCrum(cubieMesh,breadCrumType)
 			breadCrumsCubies = $.grep( breadCrumsCubies ,
 			        function(o,i) { return o['uuid'] === breadCrumsPos['offerings']['cubieMesh']['uuid']; },
 			        true);
+			
+			$('#WebGL-output').removeClass('translateX-38');
+			
 			reversalBreadCrum(breadCrumsPos['offerings'],0);
 			breadCrumsPos['offerings'].RC.group.position.set(0,-25,0);
 			hideRubiksCube(breadCrumsPos['offerings'].RC.group,-25);
@@ -1247,6 +1287,8 @@ function processBreadCrum(cubieMesh,breadCrumType)
 			breadCrumsCubies = $.grep( breadCrumsCubies ,
 			        function(o,i) { return o['uuid'] === breadCrumsPos['offerings']['cubieMesh']['uuid']; },
 			        true);
+			$('#WebGL-output').removeClass('translateX-38');
+			
 			reversalBreadCrum(breadCrumsPos['offerings'],0);
 			breadCrumsPos['offerings'].RC.group.position.set(0,-25,0);
 			hideRubiksCube(breadCrumsPos['offerings'].RC.group,-25);
@@ -1257,10 +1299,10 @@ function processBreadCrum(cubieMesh,breadCrumType)
 	{
 		console.log('HIDE POPup');
 		assetsSlider.classList.add("hidden");
+		$('#WebGL-output').removeClass('translateX-38');
 	}
 	
-	reversalBreadCrum(breadCrumsPos[breadCrumType],1000);
-	
+	reversalBreadCrum(breadCrumsPos[breadCrumType],1000);	
 }
 
 //reversalBreadCrum(breadCrumsPos['solutions'],0)
@@ -1273,51 +1315,69 @@ function moveCubieToTop(cubieMesh, nextStep)
 	
 	//move cubieMesh to top left spot
 	var currRubiksType = cubieMesh.$cubie.$rubiksCubeType;
-	//console.log('currRubiksType',currRubiksType);
+	console.warn('currRubiksType',currRubiksType);
 	
-	var cubie3dPos = get3dCood(breadCrumsPos[currRubiksType]['screen'].X,breadCrumsPos[currRubiksType]['screen'].Y);
-	//console.log('cubie3dPos',cubie3dPos);
-	breadCrumsPos[currRubiksType]['world3d'] = cubie3dPos;
 	breadCrumsPos[currRubiksType]['cubieMesh'] = cubieMesh;
 	
-	//debugger;
-	//Parent must be RC.group object
-	var parent = cubieMesh.parent;
-	parent.updateMatrixWorld();
-	var parentVector = new THREE.Vector3();
-	parent.position.copy(parentVector);
-	
-	breadCrumsPos[currRubiksType]['cubieMeshParentPosition'] = parentVector;
-	
-	//GEt world coordinate position of the cubieMesh
-	breadCrumsPos[currRubiksType]['cubieMeshOriginalPosition'] = cubieMesh.position.clone();
-	var vector = new THREE.Vector3();
-	vector.setFromMatrixPosition( cubieMesh.matrixWorld );
-	cubieMesh.position.copy(vector);
-	breadCrumsPos[currRubiksType]['cubieMeshOriginalVector'] = vector;//cubieMesh.position;//
-	
-	THREE.SceneUtils.detach( cubieMesh, parent, scene );
-	
-	//console.log('cubieMesh.position',cubieMesh.position);
-	//This will remove cubieMesh from its original parent group (RC.group) and add it to the world scene
-	//window.scene.add(cubieMesh);
-	window.CM = cubieMesh;
-	
-	var rotationDetails = getRotation(cubieMesh);
-	cubieMesh.rotationDetails = rotationDetails;
-	cubieMesh.lookAt(camera.position);
-	cubieMesh.rotation.set(0,0,0);
-	cubieMesh.rotateOnAxis(rotationDetails['rotationAxis'],rotationDetails['rotationAngle']);
-	//moveObject(cubieMesh,-10,8,-15,3000);
-	
-	scaleBreadCrum(cubieMesh,0.2,rotationDetails['scaleAxis'],750);
-	moveObject(cubieMesh,cubie3dPos.x,cubie3dPos.y,-3,1000, function(){
+	if (currRubiksType != 'offerings')
+	{
+		var cubie3dPos = get3dCood(breadCrumsPos[currRubiksType]['screen'].X,breadCrumsPos[currRubiksType]['screen'].Y);
+		//console.log('cubie3dPos',cubie3dPos);
+		breadCrumsPos[currRubiksType]['world3d'] = cubie3dPos;	
+		
+		//debugger;
+		//Parent must be RC.group object
+		var parent = cubieMesh.parent;
+		parent.updateMatrixWorld();
+		var parentVector = new THREE.Vector3();
+		parent.position.copy(parentVector);
+		
+		breadCrumsPos[currRubiksType]['cubieMeshParentPosition'] = parentVector;
+		//GEt world coordinate position of the cubieMesh
+		breadCrumsPos[currRubiksType]['cubieMeshOriginalPosition'] = cubieMesh.position.clone();
+		var vector = new THREE.Vector3();
+		vector.setFromMatrixPosition( cubieMesh.matrixWorld );
+		cubieMesh.position.copy(vector);
+		breadCrumsPos[currRubiksType]['cubieMeshOriginalVector'] = vector;//cubieMesh.position;//
+		
+		THREE.SceneUtils.detach( cubieMesh, parent, scene );
+		
+		//console.log('cubieMesh.position',cubieMesh.position);
+		//This will remove cubieMesh from its original parent group (RC.group) and add it to the world scene
+		//window.scene.add(cubieMesh);
+		window.CM = cubieMesh;
+		var rotationDetails = getRotation(cubieMesh);
+		cubieMesh.rotationDetails = rotationDetails;
+		cubieMesh.lookAt(camera.position);
+		cubieMesh.rotation.set(0,0,0);
+		cubieMesh.rotateOnAxis(rotationDetails['rotationAxis'],rotationDetails['rotationAngle']);
+		//moveObject(cubieMesh,-10,8,-15,3000);
+		
+		scaleBreadCrum(cubieMesh,0.2,rotationDetails['scaleAxis'],750);
+		/*moveObject(cubieMesh,cubie3dPos.x,cubie3dPos.y,-3,1000, function(){
+			breadCrumsCubies.push(cubieMesh);
+		});*/
+		moveObject(cubieMesh,0,15,0,1000, function(){
+			breadCrumsCubies.push(cubieMesh);
+		});
+		
+		//move the parent group along z or disappear
+		//moveObject(parent,0,0,-15,3000,nextStep);
+		hideRubiksCube(parent,-25,nextStep);
+		
+		
+	}
+	else if (currRubiksType == 'offerings')
+	{
+		$('#WebGL-output').addClass('translateX-38');
 		breadCrumsCubies.push(cubieMesh);
-	});
-	
-	//move the parent group along z or disappear
-	//moveObject(parent,0,0,-15,3000,nextStep);
-	hideRubiksCube(parent,-25,nextStep);
+		if (nextStep)
+			nextStep();
+		
+		var parent = cubieMesh.parent;
+		moveRubiksCube(parent,-10);
+	}
+		
 	window.CM = cubieMesh;
 }
 
@@ -1326,7 +1386,7 @@ function moveCubieToTop(cubieMesh, nextStep)
 //This function brings the selected breadcrum cubie back to its rubiks cube position
 function reversalBreadCrum(breadCrumsObj, animationDuration)
 {
-	console.log('Function :: reversalBreadCrum');
+	console.warn('Function :: reversalBreadCrum',breadCrumsObj.type);
 	
 	if (breadCrumsObj)
 	{		
@@ -1334,16 +1394,70 @@ function reversalBreadCrum(breadCrumsObj, animationDuration)
 				
 		if (catCM.cubieMesh)
 		{
-			scaleBreadCrum(catCM.cubieMesh,1,catCM.cubieMesh.rotationDetails['scaleAxis'],750);
-			moveObject(catCM.cubieMesh,catCM.cubieMeshOriginalVector.x,catCM.cubieMeshOriginalVector.y,catCM.cubieMeshOriginalVector.z,animationDuration,function(){
-			});
-			
-			var originalParentGroup = catCM.cubieMesh.$cubie.originalParent;
-			moveObject(originalParentGroup,catCM.cubieMeshParentPosition.x,catCM.cubieMeshParentPosition.y,catCM.cubieMeshParentPosition.z,animationDuration, function(){
-				THREE.SceneUtils.attach(catCM.cubieMesh, scene, catCM.cubieMesh.$cubie.originalParent);
-				catCM.cubieMesh.position.set(catCM['cubieMeshOriginalPosition'].x,catCM['cubieMeshOriginalPosition'].y,catCM['cubieMeshOriginalPosition'].z);
-				catCM.cubieMesh.rotation.set(0,0,0);
-				catCM.cubieMesh.scale.set(1,1,1);
+			if (catCM.type != 'offerings')
+			{
+				scaleBreadCrum(catCM.cubieMesh,1,catCM.cubieMesh.rotationDetails['scaleAxis'],750);
+				moveObject(catCM.cubieMesh,catCM.cubieMeshOriginalVector.x,catCM.cubieMeshOriginalVector.y,catCM.cubieMeshOriginalVector.z,animationDuration,function(){
+					hide2dBreamCrum(catCM.type);
+					
+					if (breadCrumsCubies.length > 0)
+					{
+						/*highlightBreadCrum(breadCrumsCubies[breadCrumsCubies.length-1].$cubie.$rubiksCubeType);*/
+						/*bolderBreadCrum(breadCrumsCubies[breadCrumsCubies.length-1].$cubie.$rubiksCubeType);*/
+					}
+				});
+				
+				var originalParentGroup = catCM.cubieMesh.$cubie.originalParent;
+				moveObject(originalParentGroup,catCM.cubieMeshParentPosition.x,catCM.cubieMeshParentPosition.y,catCM.cubieMeshParentPosition.z,animationDuration, function(){
+					THREE.SceneUtils.attach(catCM.cubieMesh, scene, catCM.cubieMesh.$cubie.originalParent);
+					catCM.cubieMesh.position.set(catCM['cubieMeshOriginalPosition'].x,catCM['cubieMeshOriginalPosition'].y,catCM['cubieMeshOriginalPosition'].z);
+					catCM.cubieMesh.rotation.set(0,0,0);
+					catCM.cubieMesh.scale.set(1,1,1);
+					var materialIndex = catCM.cubieMesh.$materialClicked;
+					var color = catCM.cubieMesh.$cubie['color-face'+materialIndex];
+					if (catCM.cubieMesh.$cubie.usePNG)
+					{
+						catCM.cubieMesh.material.materials[materialIndex].uniforms.color.value.setHex(color);
+					}
+					else
+					{
+						catCM.cubieMesh.material.materials[materialIndex].color.setHex(color);
+						catCM.cubieMesh.geometry.colorsNeedUpdate = true;
+					}				
+					catCM.cubieMesh.$materialClicked = undefined;
+					
+					delete catCM['cubieMeshOriginalPosition'];
+					delete catCM['cubieMesh'];
+					delete catCM['cubieMeshOriginalVector'];
+					delete catCM['cubieMeshParentPosition'];
+					delete catCM['world3d'];
+					
+					if (activeRubiksCube)
+					{
+						activeRubiksCube.allowRotation = false;
+						activeRubiksCube = undefined;
+						targetRotationX=0;
+						targetRotationY=0;
+						finalRotationY=0;
+					}					
+					
+					activeRubiksCube = catCM.RC;
+					activeRubiksCube.allowRotation = true;
+					activeRubiksCube.visible = true;
+					//activeRubiksCube.addAllCubieClicks();
+
+				});
+			}
+			else if (catCM.type == 'offerings')
+			{
+				var originalParentGroup = catCM.cubieMesh.$cubie.originalParent;
+				moveRubiksCube(originalParentGroup,0);
+				hide2dBreamCrum(catCM.type);
+				if (breadCrumsCubies.length > 0)
+				{
+					/*highlightBreadCrum(breadCrumsCubies[breadCrumsCubies.length-1].$cubie.$rubiksCubeType);*/
+					/*bolderBreadCrum(breadCrumsCubies[breadCrumsCubies.length-1].$cubie.$rubiksCubeType);*/
+				}
 				var materialIndex = catCM.cubieMesh.$materialClicked;
 				var color = catCM.cubieMesh.$cubie['color-face'+materialIndex];
 				if (catCM.cubieMesh.$cubie.usePNG)
@@ -1356,12 +1470,7 @@ function reversalBreadCrum(breadCrumsObj, animationDuration)
 					catCM.cubieMesh.geometry.colorsNeedUpdate = true;
 				}				
 				catCM.cubieMesh.$materialClicked = undefined;
-				
-				delete catCM['cubieMeshOriginalPosition'];
 				delete catCM['cubieMesh'];
-				delete catCM['cubieMeshOriginalVector'];
-				delete catCM['cubieMeshParentPosition'];
-				delete catCM['world3d'];
 				
 				if (activeRubiksCube)
 				{
@@ -1370,14 +1479,14 @@ function reversalBreadCrum(breadCrumsObj, animationDuration)
 					targetRotationX=0;
 					targetRotationY=0;
 					finalRotationY=0;
-				}
-					
+				}			
 				
 				activeRubiksCube = catCM.RC;
 				activeRubiksCube.allowRotation = true;
 				activeRubiksCube.visible = true;
 				//activeRubiksCube.addAllCubieClicks();
-			});
+			}			
+			
 			//debugger;
 		}		
 	}	

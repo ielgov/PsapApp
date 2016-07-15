@@ -23,6 +23,9 @@ var initScene = false;
 function initializeClicks()
 {
 	console.log("Function :: initializeClicks");
+	
+	$('.breadcrum-container').children().fadeOut(10);
+	
 	$('#menu-button').bind(onUserAction, function(e){
 		e.preventDefault();
 		console.log("Menu button",onUserAction);
@@ -38,7 +41,7 @@ function initializeClicks()
 	
 	$('.menu-items').bind(onUserAction, function(e){
 		e.preventDefault();
-		console.log("menu-items",onUserAction);
+		//console.log("menu-items",onUserAction);
 		var current = $('#menu').find("[data-menuitem='" + menuClicked + "']");
 		//current.removeClass('highlight-menu-item');
 		
@@ -71,7 +74,14 @@ function initializeClicks()
 			
 	});
 	
-		
+	$('.breadcrum-items').bind(onUserAction, function(e){
+		e.preventDefault();
+		//console.log("breadcrum-items",onUserAction);
+		//var current = $('breadcrum-container').find("[data-breadcrumitem='" + menuClicked + "']");
+		var breadCrumClicked = $(this).data('breadcrumitem');
+		console.log('breadCrumClicked', breadCrumClicked);
+		processBreadCrum(breadCrumsPos[breadCrumClicked]['cubieMesh'],breadCrumClicked);
+	});
 }
 
 

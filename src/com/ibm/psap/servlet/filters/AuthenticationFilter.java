@@ -40,7 +40,9 @@ public class AuthenticationFilter implements Filter {
 		//Only for DEV environment to by-pass security for the APIs
 		if ( APISecurity!= null &&  APISecurity.equalsIgnoreCase("false")){
 			if( ( uri.indexOf("/Categories")!= -1) || ( uri.indexOf("/Assets")!= -1) || 
-					( uri.indexOf("/UsrList")!= -1) || ( uri.endsWith("/userlistform.jsp") ) ){
+					( uri.indexOf("/UsrList")!= -1) || ( uri.endsWith("/userlistform.jsp") ) || 
+					( uri.indexOf("/dbCategories")!= -1) || ( uri.indexOf("/dbAssets")!= -1) 
+					|| ( uri.indexOf("/Search")!= -1)){
 				logger.error("By-passing authentication");
 				// pass the request along the filter chain
 				chain.doFilter(request, response);
@@ -61,7 +63,7 @@ public class AuthenticationFilter implements Filter {
 					chain.doFilter(request, response);
 				}
 				else{
-					res.sendRedirect("/PSAP/login.jsp");
+					res.sendRedirect("/PSAP/login.jsp?directTo=" + uri);
 				}	
 			}else{
 				if (session == null){
@@ -81,7 +83,7 @@ public class AuthenticationFilter implements Filter {
 							chain.doFilter(request, response);
 						}else{
 							session.invalidate();
-							res.sendRedirect("/PSAP/login.jsp");
+							res.sendRedirect("/PSAP/login.jsp?directTo=" + uri);
 						}	
 					}
 				}

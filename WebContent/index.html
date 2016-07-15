@@ -101,23 +101,19 @@
 		
 		uniform vec3 color;
 		uniform sampler2D texture;
-
 		varying vec2 vUv;
-
 		void main() 
 		{
-
 	  		vec4 tColor = texture2D( texture, vUv );
-
 	    	gl_FragColor = vec4( mix( color, tColor.rgb, tColor.a ), 1.0 );
-
 		}
 	</script>
     
   </head>
-  <body style="visibility: visible;height:100vh;width:100vw;" ontouchmove="event.preventDefault();" onresize="resize()" ><!--the resize is needed to fit elements on page size change. It is in popup_script.js-->
+  <body style="visibility: visible;height:100vh;width:100vw;" onresize="resize()" ><!--the resize is needed to fit elements on page size change. It is in popup_script.js-->
     
     <div id="Stats-output"></div>
+    
 	<div id="menu" class="helvLightFont translateX-100">
     	<div style="position: relative;height: 100%;">
     	<div class="menu-items highlight-menu-item" data-menuitem="solutions">Our Solution</div>
@@ -134,13 +130,24 @@
 	    	<div class="width30 display-flex flex-align-center">
 				<div id="menu-button" class="menu-icon menu-white"></div>
 				<div class="ibm-logo"></div>
-				<div class="title">Public Safety</div>
+				<div class="titlename">Public Safety</div>
 			</div>
 			<div class="width30 height100 display-flex flex-align-center flex-justify-center">
-				<div class="search-box width75 height50 positionRelative display-flex flex-align-center flex-justify-space-between white-txt">
-					<div class="search-icon"></div>
+				<div class="search-box width100 height50 positionRelative display-flex flex-align-center flex-justify-space-between white-txt">
+					<!-- <div class="search-icon"></div>
 					<div class="search-entry">Search</div>
-					<div class="search-send"></div>
+					<div class="search-send"></div> -->
+					<div class="search-icon positionAbsolute"></div>
+					<input type="text" id="searchbox" name="searchbox" class="serachbox" placeholder="Search" autocomplete="off" />
+					<div id="search-send" class="search-send positionAbsolute"></div>
+					
+					<div id="search-results" class="display-none search-results" style="color:black;">
+						<table id="search-table" class="search-table">
+							<tbody class="top-pages"></tbody>
+							<tbody class="people" style="border-top: solid 1px #DFE9E9;"></tbody>
+						</table>
+						<div id="search-show-all" class="footer">Click here to see all search results.</div>
+					</div>
 				</div> 			
 			</div>   	
 	    	<div class="width30 display-flex flex-justify-end flex-align-center">
@@ -148,22 +155,65 @@
 	    		<div id="emailId" class="white-txt" style="margin-right:2rem;font-size:1.5rem;"></div>
 	    		<div class="user-image"></div>
 	    	</div>
-	    </div>
+	    </div>	    
+	    
 	    <div id="canvas-container">
+		
+			<img id="cubeSpinner" class="hidden spinner" src="images\loading.gif"></img>
+	    	
+	    	<div id="breadcrum-strip" class="helvLightFont breadcrum-strip display-flex flex-align-center white-txt translateY-100">
+		    	<div class="categories-parent display-flex flex-align-center"><div class="categories breadcrum-items" data-breadcrumitem="categories"></div><div class="arrow"></div></div>
+		    	<div class="solutions-parent display-flex flex-align-center"><div class="solutions breadcrum-items" data-breadcrumitem="solutions"></div><div class="arrow"></div></div>
+		    	<div class="offerings-parent display-flex flex-align-center"><div class="offerings breadcrum-items" data-breadcrumitem="offerings"></div><div class="arrow display-none"></div></div>	    	
+		    </div>
+		    
+	    	<div id="breadcrum-container" class="display-none helvLightFont breadcrum-container helvLightFont display-flex">
+	    		<div class="categories-parent display-flex "><div class="categories breadcrum-items display-flex flex-align-center flex-justify-center" data-breadcrumitem="categories"></div>
+	    			<div class="triangle"><svg width="15" height="100"><polygon points="0 100,15 50,0 0"></polygon></svg></div>
+	    		</div>	    		
+	    		<div class="solutions-parent display-flex">
+	    			<div class="solutions breadcrum-items display-flex flex-align-center flex-justify-center" data-breadcrumitem="solutions"></div>
+	    			<div class="triangle"><svg width="15" height="100"><polygon points="0 100,15 50,0 0"></polygon></svg></div>
+	    		</div>	    		
+	    		<div class="offerings-parent display-flex">
+	    			<div class="offerings breadcrum-items display-flex flex-align-center flex-justify-center" data-breadcrumitem="offerings"></div>
+	    			<div class="triangle"><svg width="15" height="100"><polygon points="0 100,15 50,0 0"></polygon></svg></div>
+	    		</div>	    		
+	    	</div>
+	    	
 	    	<div id="WebGL-output"></div>
 		    <!-- <div id="canvas-overlay" class="xdisplay-none">
 		    	<div class="image"></div>
 		    </div> -->
-		    
+			<div id="assetsSlider" class="hidden">
+			<div class="slideUpCloseArrowContainer">
+				<div id="slideUpCloseArrow" >
+					<img src="images\icons\Chevron Left in Circle.svg" onclick="togglePopUpWidth()"></img>
+				</div>
+			</div>
+			<div class="assetsSliderContent">
+				<img id="assetSpinner" class="hidden spinner" src="images\loading.gif"></img>
+				
+				</span>
+					<!--
+					<svg id="slideUpCloseArrow" onclick="togglePopUpWidth()">
+						<line style="stroke:#525659; stroke-width:1px" />
+						<line style="stroke:#525659; stroke-width:1px" />
+					</svg>
+					-->
+				</span>
+				<span>
+						<div id="assetsTitle">
+							<span>Showing <span id="numberOfResults" style="color:black">00</span> results <span id="resultsName"></span></span>
+							<span class="jumpToBar">
+								<select onchange="selectJumpTo(event);"></select>
+							</span>
+						</div>
+						<div class="containerForResults"><div id="assetsHolder"></div></div>
+				<span>
+			</div>
+			</div>		    
 	    </div>
-		<div id="assetsSlider" class="hidden">
-				<svg id="slideUpCloseArrow" onclick="hidePopUp()">
-					<line style="stroke:#525659; stroke-width:1px" />
-					<line style="stroke:#525659; stroke-width:1px" />
-				</svg>
-				<div id="assetsTitle"><span>Showing <span id="numberOfResults" style="color:black">00</span> results <span id="resultsName"></span></span></div>
-				<div id="assetsHolder"></div>
-		</div>
     </div>
     <!-- <canvas id="textureCanvas"></canvas> -->
     <!-- <div id="footer"></div> -->
@@ -190,13 +240,14 @@
 	
 	<!-- <script type="text/javascript" src="js/Threejs/rasterizeHTML.allinone.js"></script> -->
 	<script type="text/javascript" src="js/rasterizeTexture.js"></script>
-	<script type="text/javascript" src="js/menu.js"></script>
+	<script type="text/javascript" src="js/psapmenu.js"></script>
     <script type="text/javascript" src="js/accessdata.js"></script>
     <script type="text/javascript" src="js/jsondata.js"></script>	
 	<script type="text/javascript" src="js/movements.js"></script>
 	<script type="text/javascript" src="js/cubegeneration.js"></script>
 	<script type="text/javascript" src="js/cubeinteraction.js"></script>
 	<script type="text/javascript" src="js/errorcube.js"></script>
+	<script type="text/javascript" src="js/search.js"></script>
 	
 	<!-- 
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -239,14 +290,17 @@
 		
 		
 		window.addEventListener( 'resize', onWindowResize, false );
-		window.addEventListener( 'load', function(){ slideArrowUp(); }, false );
-		//window.addEventListener( 'load', function(){ showPopUp(2001, 201); }, false ); // TODO REMOVE!
+		//window.addEventListener( 'load', function(){ slideArrowLeft(); }, false );
+		
+		function drewTest(){ showPopUp({"offeringId":2008, "parentId":201}, "test"); }
+		
+		window.addEventListener( 'load', function(){setTimeout(drewTest, 500)}, false ); // TODO REMOVE!
 	</script>
 
 	<!-- <button id="thisShouldBeRemoved" onclick="showPopUp(2001, 201)" style="z-index:5; position:fixed; left:100px; top:100px;">Click to reveal assets with showPopUp(2001, 201)</button>
 	<button id="thisShouldBeRemovedToo" onclick="hidePopUp()" style="z-index:5; position:fixed; left:100px; top:125px;">Click to hide assets with hidePopUp()</button> -->
-	<img id="xIcon" src="images/x.png" onclick="closeButton()" class="hidden"></img>
-	<!--<div id="greyOutBox" class="hidden" onclick="closeButton()"></div>--> 
+	<img id="xIcon" src="images/x.svg" onclick="closeButton()" class="hidden xIcon"></img>
+	<div id="greyOutBox" class="hidden" onclick="closeButton()"></div>
 	<div id='divForFindingEMSize' style=" width:1rem; position:absolute; left:-10000; right:-10000;"></div><!--if this is removed the page wont format correctly-->
 	<div id="buttonForSizing" style="order:1; position:fixed; left:-500px;" class="asset offScreen"></div>
   </body>

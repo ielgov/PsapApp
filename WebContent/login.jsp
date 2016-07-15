@@ -30,26 +30,31 @@
 		
     <SCRIPT type="text/javascript">
             
-    	function setInputBox(){
-    		var mql = window.matchMedia("screen and (max-width: 768px)")
-    		
-    		//var mql = "screen and (max-device-width: 480px)";
-    		console.log("mql - "+mql);
-    		if (mql.matches){ // if media query matches
-    	  		console.log("Mobile detected.")
-    			document.getElementById("desktop").removeAttribute("name");
-                return "mobile";
-    	 	}
-    	 	else{
-    	  		console.log("Desktop detected");
-    	  		document.getElementById("mobile").removeAttribute("name"); 
-    	  		return "desktop";
-    	 	}
-    	}
+	    	function setInputBox(){
+	    		var mql = window.matchMedia("screen and (max-width: 768px)")
+	    		
+	    		//var mql = "screen and (max-device-width: 480px)";
+	    		console.log("mql - "+mql);
+	    		if (mql.matches){ // if media query matches
+	    	  		console.log("Mobile detected.")
+	    			document.getElementById("desktop").removeAttribute("name");
+	                return "mobile";
+	    	 	}
+	    	 	else{
+	    	  		console.log("Desktop detected");
+	    	  		document.getElementById("mobile").removeAttribute("name"); 
+	    	  		return "desktop";
+	    	 	}
+	    	}
 
             function windowStart() {
                 displayError();
                 setInputBox();
+                var directto = getParameterByName('directTo');
+                if (directto != ""){
+                	console.log(directto);
+                	document.getElementById('directTo').value = directto;
+                }
             }
             
             function displayError(){
@@ -67,6 +72,16 @@
                     errorDiv.className = "errorMessage visible";
                     
                 }      
+            }
+            
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
             }
             
             window.onload = windowStart;
@@ -104,6 +119,7 @@
                             <input id="desktop" type="email" class="desktop" name="email" placeholder="Your IBM email address (e.g. jdoe@us.ibm.com)"/>
 	      					<input id="mobile" type="email" class="mobile"  name="email" placeholder="jdoe@us.ibm.com"/>
 	      					<input type="password" name="password" placeholder="Password"/>
+	      					<input type="hidden" id="directTo" name="directTo" value=""/>
 					      	<input type="submit" value="Login"/>
 					    </form>
 					</div>

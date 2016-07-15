@@ -1,16 +1,14 @@
 window.onload = function(){
-	assetsSlider.style.height = "75%";
+	assetsSlider.style.width = "75%";
 	//showPopUp(2001, 201);
 }
 
 function sizePopOutWidth( buttonClicked, moveXFlag )
 {	
-	console.log("look here on line 37")
 	moveXFlag = moveXFlag || false;
 	
 	if(moveXFlag)
 	{
-		console.log("moving x");
 		moveX(buttonClicked);
 	}
 	//else{console.log("not sizing")};
@@ -70,23 +68,28 @@ function sizeElements()
 }
 
 // params: seedButton is the button to get the width off of
+// params: containerArr is array of elements to be sized
 function sizeAssets(seedButton, containerArr) // sorry, this is really jank 
 {
 	if( containerArr.length !== 0 )
 	{
-		var buttonWidth = seedButton.getBoundingClientRect().width;
+		var buttonWidth = seedButton.getBoundingClientRect().width + config.minTileMargin;
 		var parentWidth = containerArr[0].getBoundingClientRect().width;
 	
 		var buttonCount = parseInt( parentWidth / buttonWidth );
 		var marginCount = buttonCount*2;
 	
-		marginWidth = (parentWidth - ( buttonWidth*buttonCount ))/( marginCount )
+		var totalButtonsWidth = buttonWidth*buttonCount;
+		
+		var extraWidth = parentWidth - totalButtonsWidth;
+		
+		marginWidth = extraWidth/marginCount;
 		
 		var assets = document.querySelectorAll(".asset")
 		for(var i=0; i<assets.length; i++)
 		{
-			assets[i].style.marginLeft = marginWidth+"px";
-			assets[i].style.marginRight = marginWidth+"px";
+			assets[i].style.marginLeft = (marginWidth + config.minTileMargin/2)+"px";
+			assets[i].style.marginRight = (marginWidth + config.minTileMargin/2)+"px";
 		}
 	}
 }
@@ -96,7 +99,27 @@ function resize()
 	sizeAssets(buttonForSizing, document.querySelectorAll(".assetSmallererParent"));
 	sizePopOutWidth( undefined, true );
 	assetsSlider.style.width = window.innerWidth
-	//resizeX();
+}
+
+function closePopUp()
+{
+	assetsSlider.classList.add("hidden");
+}
+
+function togglePopUpWidth()
+{
+	if( assetsSlider.classList.contains("expanded") ) 
+	{
+		assetsSlider.classList.remove("expanded");
+		//slideArrowLeft();
+		
+	}
+	else
+	{
+		assetsSlider.classList.add("expanded");
+		//slideArrowRight();
+	}
+	assetsSlider.addEventListener("transitionend", resize);
 }
 
 

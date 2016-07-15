@@ -78,7 +78,7 @@ function httpRequest(url, callback, method)
 			}
 		}
 	};
-	console.log("requesting *"+url+"*");
+	//console.log("requesting *"+url+"*");
 	xhttp.open(method, url, async);
 	try{
 		xhttp.send();
@@ -115,6 +115,20 @@ function makeSVGImage(pointsArr, width, height)
 		dStr += pointsArr[i].x + " " + pointsArr[i].y; 
 	}
 	return dStr;
+}
+
+function abrivateString(str, length)
+{
+	var toReturn = undefined;
+	if((typeof str) !== "string")
+	{
+		alert("file type is not a string"); // TODO change this to an error that is thrown
+	}
+	else
+	{
+		toReturn = str.length > length ? str.substring(0, length-3)+"..." : str;
+	}
+	return toReturn;
 }
 
 

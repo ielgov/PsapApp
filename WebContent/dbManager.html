@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>PSAP Database Manager</title>
+		
+		<link href="css/style.css" rel="stylesheet" type="text/css" />
+		<link href="css/font-awesome.css" rel="stylesheet" type="text/css" />
+		<link href="css/fonts.css" rel="stylesheet" type="text/css" />
+		<link href="css/flex.css" rel="stylesheet" type="text/css" />
+		<link href="css/sizes.css" rel="stylesheet" type="text/css" />
+		<link href="css/landingpage.css" rel="stylesheet" type="text/css" />
+		
+		<script src="js/dbManager_helperFunctions.js"></script>
+		<script src="js/config.js"></script>
+		<script src="js/dbManager_script.js"></script>
+		<script src="js/dbManager_manageAssets.js"></script>
+		
+		<script>
+			function onload()
+			{
+				if(runFromLocalStorage)
+				{
+					assetsTab.click() // TODO remove
+					//document.querySelector(".searchBar .button:not(.clear)").click();
+					document.querySelector("[type='text'][name='AssetDisplayName']").value = (new Date()).getHours()+":"+(new Date()).getMinutes()+":"+(new Date()).getSeconds()
+				}
+			}
+			
+			function gotoHome(){
+			 	window.open("/PSAP/index.html", "_self");
+			}
+		</script>
+		
+		<link rel="stylesheet" type="text/css" href="css/dbManager_style.css">
+	</head>
+	<body onload="onload()">
+		<div id="header" class="helvLightFont display-flex flex-row flex-align-center flex-justify-space-between">
+    		<div class="display-flex flex-align-center">
+    			<div class="home-icon" onclick="gotoHome()"></div>
+				<div class="ibm-logo"></div>
+				<div class="title">Public Safety Solutions</div>
+			</div>    	
+    	</div>	
+		
+		<div id="tabHolder">
+			<div id="optionsTab" name="options" onclick="clickTab(this)" class="tab selected">Options</div>
+			<div id="solutionsTab" name="solutions" onclick="clickTab(this)" class="tab hidden">Solutions</div>
+			<div id="offeringsTab" name="offerings" onclick="clickTab(this)" class="tab hidden">Offerings</div>
+			<div id="assetsTab" name="assets" onclick="clickTab(this)" class="tab">Assets</div>
+			<div id="assetsearchTab" name="assetsearch" onclick="clickTab(this)" class="tab">Search</div>		
+			
+		</div>
+		<div id="mainBody">
+			
+		<div id="options" name="options" class="bodySection">
+				<fieldset style="border:medium solid white">
+				<legend>Controls</legend>
+				  <ul >
+				  	<li><input type="radio" name="optionsRadioButton" tab="optionsTab" value="category"><span onclick='this.parentElement.querySelector("input").click()'> Categories</span></li>
+					<li><input type="radio" name="optionsRadioButton" tab="solutionsTab" value="solution"><span onclick='this.parentElement.querySelector("input").click()'>  Solutions</span></li>
+					<li><input type="radio" name="optionsRadioButton" tab="offeringsTab" value="offering"><span onclick='this.parentElement.querySelector("input").click()'>  Offerings</span></li>
+					<li><input type="radio" name="optionsRadioButton" tab="assetsTab" value="assets"><span onclick='this.parentElement.querySelector("input").click()'>  Assets</span></li>	
+				  </ul>
+				
+				<button onclick="optionsContinue()" style="width:100px; margin:3%">Continue</button>
+				</fieldset>
+			</div>
+			<div id="solutions" name="solutions" class="hidden bodySection">
+				
+				<div class="selections">
+					<div>
+						* Categories Name
+						<select onchange="selectChange(this, 'solutionsSolutions', 'Categories')" 
+						id="solutionsCategories" required>
+							<option value="" name="Make a selection">Make a selection</option>
+							<option value="02" name="Command and Control, Operations, and Emergency Management">Command and Control...</option>
+							<option value="04" name="Video, Physical Cyber Security and Surveillance">Video, Physical Cyb...</option>
+							<option value="01" name="Intelligent Lead Policing Investigative and Predictive Analytics">Intelligent Lead Po...</option>
+							<option value="03" name="Realtime Crime / Fusion Center">Realtime Crime / Fu...</option>
+						</select>
+					</div>
+					<div>
+						Avaiable Solutions
+						<select onchange="populateEdit(this, 'solutions', 'categories')" id="solutionsSolutions" containsId>
+							<option show=true>You must first Select a category</option>
+						</select>
+					</div>
+				</div>
+				<hr>
+				<div class="actions">
+					<div class="actionsFields">
+						<span><span>
+							* Solution Display Name 
+							<input type="text" placeholder="Name" name="displayname" required></input>
+						</span></span>
+						<span><span>
+							Solution Description
+							<input type="text" placeholder="Description" name="description"></input>
+						</span></span>
+					</div>
+					<div class="buttons">
+						<span><span>
+							<button actionName="add" onclick="categoryRequest(this)">Add</button>
+							<button actionName="modify" onclick="categoryRequest(this)">Modify</button>
+							<button actionName="delete" onclick="categoryRequest(this)">Delete</button>
+						</span></span>
+					</div>
+				</div>
+				
+			</div>
+			<div id="offerings" name="offerings" class="hidden bodySection">
+				
+				<div class="selections">
+					<div>
+						* Categories Name
+						<select onchange="selectChange(this, 'offeringsSolutions', 'Categories')" 
+						id="offeringsCategories" required>
+						<option value="" name="Make a selection">Make a selection</option>
+							<option value="02" name="Command and Control, Operations, and Emergency Management">Command and Control...</option>
+							<option value="04" name="Video, Physical Cyber Security and Surveillance">Video, Physical Cyb...</option>
+							<option value="01" name="Intelligent Lead Policing Investigative and Predictive Analytics">Intelligent Lead Po...</option>
+							<option value="03" name="Realtime Crime / Fusion Center">Realtime Crime / Fu...</option>
+						</select>
+					</div>
+					<div>
+						* Avaiable Solutions
+						<select onchange="selectChange(this, 'offeringsOfferings', 'Solutions')" 
+						id="offeringsSolutions" required>
+							<option>You must first Select a category     </option>
+						</select>
+					</div>
+					<div>
+						Avaiable Offerings
+						<select onchange="populateEdit(this, 'offerings', 'solutions')" id="offeringsOfferings" containsId>
+							<option show=true>You must first Select a solution     </option>
+						</select>
+					</div>
+				</div>
+				<hr>
+				<div class="actions">
+					<div class="actionsFields">
+						<span><span>
+							* Offering Display Name
+							<input type="text" placeholder="Name" name="displayname" required></input>
+						</span></span>
+						<span><span>
+							Offering Description
+							<input type="text" placeholder="Description" name="description"></input>
+						</span></span>
+					</div>
+					<div class="buttons">
+						<span><span>
+							<button actionName="add" onclick="categoryRequest(this)">Add</button>
+							<button actionName="modify" onclick="categoryRequest(this)">Modify</button>
+							<button actionName="delete" onclick="categoryRequest(this)">Delete</button>
+						</span></span>
+					</div>
+				</div>
+				
+			</div>
+			
+			<div id="assets" name="assets" class="bodySection hidden">
+				<div align="center">
+				<button id="clearassetfields" class="clear button" onclick="clearAssetFields(this)">Clear Fields</button>
+				</div>
+				<hr>
+				<P style="font-size:16px;">Asset Details</P>	
+				<div id="assetsParentHolder" class="assetsFieldHolder">
+					<span class="multiLine">							
+						<div>
+							<div style="display:none;">
+								<span>Asset ID</span>
+								<input type="text" id="AssetsAssetID" readonly placeholder="Cannot be set" name="AssetID"></input>
+							</div>
+							<div>
+								<span>Display Name</span>		
+								<input type="text" style="width: 300px;" name="AssetDisplayName"></input>
+							</div>
+						
+							<div>
+								<span>Status</span>
+								<select name="Status">
+										<option show=true>active</option>
+										<option show=true>inactive</option>
+								</select>
+							</div>
+							<div>
+								<span>Admin Comments</span>
+								<input style="width: 300px;" type="text" name="AdminComments">
+							</div>
+							<div>
+								<span>Grouping Text</span>
+								<input style="width: 300px;" type="text" name="AssetGroupingText">
+							</div>
+							<div>
+								<span  >
+								<span>Description</span>
+								<BR>
+								<!-- <input type="text" maxlength="500" name="AssetDisplayDescription"> -->
+								<textarea type="text"  style="width: 300px;height:100px " name="AssetDisplayDescription"></textarea>
+								<BR>
+								<span>URL</span>
+								<BR>
+								<!-- <input type="text" style="width: 300px; " name="URL"> -->
+								<textarea type="text"  style="width: 300px;height:50px " name="URL"></textarea>
+								
+								</span>
+							</div>
+						</div>
+						<div>
+							<div>
+								<span>Submitted By</span>
+								<input type="text" name="SubmittedBy" placeholder="email">
+							</div>
+							<div>
+								<span>Action Type</span>
+								<select name="ActionType">
+									<option show=true>DIRECT_LINK</option>
+									<option show=true>POPUP</option>
+									<option show=true>OTHER</option>
+								</select>
+							</div>
+							<div>
+								<span>Asset Type</span>
+								<select name="AssetType">
+									<option show=true>WEBSITE</option>
+									<option show=true>PDF</option>
+									<option show=true>DOC</option>
+									<option show=true>VIDEO</option>
+									<option show=true>COMMUNITY</option>
+									<option show=true>REDBOOK</option>
+									<option show=true>CONTACT</option>
+									<option show=true>OTHER</option>
+								</select>
+							</div>
+							<div>
+								<span>Source Type</span>
+								<select name="SourceType">
+									<option show=true>W3</option>
+									<option show=true>IBM Connection</option>
+									<option show=true>IBM.COM</option>
+									<option show=true>OTHER</option>
+								</select>
+							</div>
+						</div>
+						
+					</span>
+					
+				</div>
+				<hr>
+				<P style="font-size:16px;">Use the add button to associate an asset to a solution. An asset should have at least one association.</P>
+				<img src="images/add.png" class="addIcon" onclick="addToCurrentParents()"/><!--TODO this image should be changed-->
+				<div id="assetsParentsManager">
+					<div class="addAssetParents">
+						<div>
+						<!-- icons/add-icon.png -->
+							Categories
+							<select onchange="selectChange(this, 'assetsSolutions', 'Categories')" id="assetsCategories">
+								<option validChoice=false>Make a selection</option>
+								<option name="Command and Control, Operations, and Emergency Management">Command and Control...</option>
+								<option name="Video, Physical Cyber Security and Surveillance">Video, Physical Cyb...</option>
+								<option name="Intelligent Lead Policing Investigative and Predictive Analytics">Intelligent Lead Po...</option>
+								<option name="Realtime Crime / Fusion Center">Realtime Crime / Fu...</option>
+							</select>
+						</div>
+						<div>
+							Solutions
+							<select onchange="selectChange(this, 'assetsOfferings', 'Solutions')" id="assetsSolutions">
+								<option show=true>Select a category     </option>
+							</select>
+						</div>
+						<div>
+							Offerings
+							<!--<select onchange="populateEdit(this, 'offerings')" id="assetsOfferings">-->
+							<select id="assetsOfferings">
+								<option show=true>Select a solution     </option>
+							</select>
+						</div>
+					</div>
+					<hr>
+					<div class="currentParents">					
+					</div><!--this is where the parents will be added-->					
+					<br>
+					<hr>
+					<div class="buttons">
+						<span><span>
+							<button actionName="add" onclick="assetRequest(this)">Add New</button>
+							<button actionName="modify" onclick="assetRequest(this)">Modify Current</button>
+							<button actionName="delete" onclick="assetRequest(this)">Delete</button>
+						</span></span>
+					</div>
+				</div>
+			</div>
+			<!-- Asset Serach -->
+			<div id="assetsearch" name="assetsearch" class="bodySection hidden">
+				<div id="assetsBar">
+					<div class="searchBar">
+						<span style="display: none;">Asset ID<input type="text" placeholder="Asset ID"></input></span>
+						<span>Submited By<input type="text" type="email" placeholder="Email"></input></span>
+						<button class="button" onclick="showAssetSearchResults(this)">Search</button>
+					</div>
+				</div>
+				<hr>
+				<div id="solutionSearchResults">
+				<div id="assetsearchresult"  class="asset searchResult hidden">
+				<table cellpadding="0" cellspacing="0">
+				<tr class="title">
+						<td>Asset ID</td>
+						<td>Name</td>
+						<td>Submited By</td>
+				</tr>
+    				
+				</table>
+				</div>
+				</div>
+			</div>	
+		</div>
+	</body>	
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
