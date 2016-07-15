@@ -14,9 +14,9 @@
   </login-config>
   <context-param>
     <param-name>productionMode</param-name>
-    <param-value>false</param-value>
+    <param-value>true</param-value>
   </context-param>
- <context-param>
+  <context-param>
     <param-name>dbSource</param-name>
     <param-value>PSAPDB</param-value>
   </context-param>
@@ -41,8 +41,13 @@
     <filter-class>com.ibm.psap.servlet.filters.AuthenticationFilter</filter-class>
     <init-param>
       <param-name>APISecurity</param-name>
+<<<<<<< HEAD
       <param-value>true</param-value>
     </init-param> 
+=======
+      <param-value>false</param-value>
+    </init-param>
+>>>>>>> refs/remotes/origin/TEST
   </filter>
   <filter-mapping>
     <filter-name>AuthenticationFilter</filter-name>
@@ -57,6 +62,10 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
   <session-config>
+<<<<<<< HEAD
     <session-timeout>30</session-timeout>
+=======
+    <session-timeout>8</session-timeout>
+>>>>>>> refs/remotes/origin/TEST
   </session-config>
 </web-app>

@@ -5,7 +5,11 @@ function initialErrorCubeSetup()
 	errorCube = new ErrorCube({
 		'cubeSize':4,
 		'startingPosition':{x:0,y:25,z:0},
-		'cubeData':{'Display':'Coming Soon','Name':'Coming Soon','errortype':'not implemented'}
+		'cubeData':{
+					'display':'Coming Soon',
+					/*'Name':'Coming Soon',*/
+					'errortype':'not implemented'
+					}
 	});
 	errorCube.init();
 }
@@ -65,7 +69,7 @@ function ErrorCube(options)
 	
 	this.getFaceData = function(dataObj, dynamicTexture){
 		console.log("Function :: getFaceData");
-		var str = dataObj['Display'];
+		var str = dataObj['display'];
 		console.log('str',str);
 		cubielabelarray = [];
 		stringDivider(str,16,"");

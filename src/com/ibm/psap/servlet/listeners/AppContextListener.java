@@ -1,9 +1,13 @@
 package com.ibm.psap.servlet.listeners;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Hashtable;
+import java.util.Properties;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -26,14 +30,15 @@ import com.ibm.psap.util.ReadJsonFile;
 
 @WebListener
 public class AppContextListener implements ServletContextListener {
-
+	
     public void contextInitialized(ServletContextEvent servletContextEvent) {
     	ServletContext ctx = servletContextEvent.getServletContext();
     	
     	//Get the App mode
     	String mode = ctx.getInitParameter("productionMode");
-    	ctx.setAttribute("productionMode", Boolean.parseBoolean(mode));
     	
+    	ctx.setAttribute("productionMode", Boolean.valueOf(mode));
+        	
     	//initialize DB Connection
     	String dbSource = ctx.getInitParameter("dbSource");
     
@@ -72,6 +77,7 @@ public class AppContextListener implements ServletContextListener {
 			}
 		}
     	System.out.println("log4j configured properly");
+    	
     	if (true){
     		System.out.println("Reading the JSON file");
     		//development mode
@@ -92,6 +98,25 @@ public class AppContextListener implements ServletContextListener {
 	    		System.out.println("Successfully loaded Assets JSON data");
 	    		System.out.println("Successfully loaded JSON data");
 			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		
+    	}
+    	//read mapping file
+    	{
+    		System.out.println("Reading the mapping file");
+    		Properties prop = new Properties();
+    		InputStream input = null;
+			try {
+				String webAppPath = ctx.getRealPath("/");
+	           
+				input = new FileInputStream(webAppPath + "/data/map.properties");
+				// load a properties file
+				prop.load(input);
+	    		ctx.setAttribute("MapFile", prop);
+	    		System.out.println("Successfully loaded the mapping file");
+	    	} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

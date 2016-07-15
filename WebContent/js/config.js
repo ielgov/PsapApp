@@ -1,22 +1,45 @@
 var config={};
+<<<<<<< HEAD
 //config.weburl = "http://172.27.50.135:9080"; //DEV
 //config.weburl = "http://9.19.48.23:9080"; //PROD_EXTERNAL
 //config.weburl = "http://172.27.50.134:9080"; //PROD INTERNAL
 config.weburl = "https://172.27.50.155:9443"; //TEST
+=======
+config.weburl = "http://172.27.50.135:9080"; //DEV
+//config.weburl = "https://9.19.48.23:9443"; //PROD-EXTERNAL
+//config.weburl = "http://172.27.50.134:9080"; //PROD INTERNAL
+//config.weburl = "http://172.27.50.155:9080"; //TEST
+//config.weburl = "https://172.27.50.155:9443"; //TEST HTTPS
+>>>>>>> refs/remotes/origin/TEST
 
 config.weburl = runFromLocalStorage == true ? "http://172.27.50.135:9080" : config.weburl ; // uses dev server if run from local file system
 
-config.allowRandomLinks = !true; // TODO remove
+config.minTileMargin = 5.5;
+//config.minTileMargin = 0;
 
-config.assetMargin = 8; // THIS NUMBER BEING SUBTRACTED HAS TO BE THE SAME AS THE MARGIN VALUE IN THE CSS
+config.maxCharInTile = 51;
 
-config.popupWidth = 95; // window percent to take up for popup; this is needed so it can stay in em and be animated
-config.popupHeight = 92; // window percent to take up for popup
+//config.assetMargin = 8; // THIS NUMBER BEING SUBTRACTED HAS TO BE THE SAME AS THE MARGIN VALUE IN THE CSS
+
+config.popupWidth = 50; // window percent to take up for popup; this is needed so it can stay in em and be animated
+config.popupHeight = 50; // window percent to take up for popup
+
+config.backUpImage = 'images/icons/COMMUNITY.svg'; // window percent to take up for popup
 
 config.keysToShow = [
-	"DESC_DISPLAY",
-	"URL"
+	"desc_display"
 ]
+
+config.categoriesURL = "/PSAP/dbCategories?action=search&type=SOLUTION&parentid=";
+config.solutionsURL = "/PSAP/dbCategories?action=search&type=OFERING&parentid=";
+config.offeringsURL = "/PSAP/dbAssets?action=search&SubmittedBy="//+"gscgov@us.ibm.com"; // this one doesnt seem to be working right
+
+config.categories = {
+	"Intelligent Lead Policing Investigative and Predictive Analytics":"01",
+	"Command and Control, Operations, and Emergency Management":"02",
+	"Realtime Crime / Fusion Center":"03",
+	"Video, Physical Cyber Security and Surveillance":"04"
+}
 
 config.keyIsToBeShown =  function( key )
 {
@@ -29,3 +52,4 @@ config.keyIsToBeShown =  function( key )
 	}
 	return false;
 }
+

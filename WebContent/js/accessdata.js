@@ -93,8 +93,8 @@ function getRESTRequest(restURL,usejson,func)
 						console.log("Response - " + JSON.stringify(response));
 						if (!errorCube.visible && !activeRubiksCube.visible)
 						{
-							errorCube.refreshCubeFaces({'Display':'Coming soon',
-														'Name':'Coming soon',
+							errorCube.refreshCubeFaces({'display':'Coming soon',
+														/*'Name':'Coming soon',*/
 														'errortype':'Coming soon'});
 							errorCube.showErrorCube();
 						}
@@ -113,6 +113,15 @@ function getRESTRequest(restURL,usejson,func)
 					if (func)
 						func(response);
 				}
+				else if (response.hasOwnProperty('response'))
+				{
+					if (response['response'].hasOwnProperty('docs'))
+					{
+						console.log("Response docs",response['response']['docs']);
+						if (func)
+							func(response['response']);
+					}					
+				}				
 				else
 				{
 					console.log("Response - " + JSON.stringify(response));
@@ -129,8 +138,8 @@ function getRESTRequest(restURL,usejson,func)
 		xhr.onerror = function(error)
 		{
 			console.log("Error in connecting",error);
-			errorCube.refreshCubeFaces({'Display':'Connection Error',
-										'Name':'Connection Error',
+			errorCube.refreshCubeFaces({'display':'Connection Error',
+										/*'Name':'Connection Error',*/
 										'errortype':'Connection Error'});
 			if (!errorCube.visible && !activeRubiksCube.visible)
 			{
@@ -169,8 +178,8 @@ function getData(obj,func)
 	{
 		//Get all solutions for category with ID
 		//What is category ID
-		var categoryId = obj['getDataFor']['CategoryId'];
-		var display = obj['getDataFor']['Display'];
+		var categoryId = obj['getDataFor']['categoryid'];
+		var display = obj['getDataFor']['display'];
 		getSolutions(obj.parentId, func);
 		
 	}
@@ -178,8 +187,8 @@ function getData(obj,func)
 	{
 		//Get all solutions for solution with ID
 		//What is solution ID
-		var categoryId = obj['getDataFor']['CategoryId'];
-		var display = obj['getDataFor']['Display'];
+		var categoryId = obj['getDataFor']['categoryid'];
+		var display = obj['getDataFor']['display'];
 		getOfferings(obj.parentId, func);
 		
 	}
