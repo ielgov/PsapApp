@@ -79,14 +79,17 @@ function sizeAssets(seedButton, containerArr) // sorry, this is really jank
 		var buttonCount = parseInt( parentWidth / buttonWidth );
 		var marginCount = buttonCount*2;
 	
+		var totalButtonsWidth = buttonWidth*buttonCount;
 		
-		marginWidth = (parentWidth - ( buttonWidth*buttonCount ))/( marginCount )
+		var extraWidth = parentWidth - totalButtonsWidth;
+		
+		marginWidth = extraWidth/marginCount;
 		
 		var assets = document.querySelectorAll(".asset")
 		for(var i=0; i<assets.length; i++)
 		{
-			assets[i].style.marginLeft = marginWidth+"px";
-			assets[i].style.marginRight = marginWidth+"px";
+			assets[i].style.marginLeft = (marginWidth + config.minTileMargin/2)+"px";
+			assets[i].style.marginRight = (marginWidth + config.minTileMargin/2)+"px";
 		}
 	}
 }
@@ -96,7 +99,6 @@ function resize()
 	sizeAssets(buttonForSizing, document.querySelectorAll(".assetSmallererParent"));
 	sizePopOutWidth( undefined, true );
 	assetsSlider.style.width = window.innerWidth
-	//resizeX();
 }
 
 function closePopUp()
@@ -117,6 +119,7 @@ function togglePopUpWidth()
 		assetsSlider.classList.add("expanded");
 		//slideArrowRight();
 	}
+	assetsSlider.addEventListener("transitionend", resize);
 }
 
 
