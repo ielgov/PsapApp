@@ -62,9 +62,9 @@ function populateSearchResults(result, searchType)
 	if (tpLen == 0)
 	{
 		if (searchType == 'top-pages')
-			tr = '<tr><td class="cell1" rowspan="1">Top Pages</td>'+getSearchCell(result['display'],result['desc_display'],result['url'])+'</tr>';
+			tr = '<tr><td class="cell1" rowspan="1">Top Results</td>'+getSearchCell(result['display'],result['desc_display'],result['url'])+'</tr>';
 		else if (searchType == 'people')
-			tr = '<tr><td class="cell1" rowspan="1">People</td>'+getSearchCell(result['display'],result['desc_display'],result['url'])+'</tr>';
+			tr = '<tr><td class="cell1" rowspan="1">Contacts</td>'+getSearchCell(result['display'],result['desc_display'],result['url'])+'</tr>';
 		
 		$('#search-table> tbody.'+searchType).append(tr);
 	}

@@ -93,6 +93,8 @@ function initializeClicks()
 		e.preventDefault();
 		assetsSlider.classList.remove("hidden");
 		$('#search-results').addClass('display-none');
+		$('#WebGL-output').addClass('translateX-38');
+		activeRubiksCube.group.rotation.set(0.32,-0.78,0);
 	});
 }
 var searchcount = 0;
