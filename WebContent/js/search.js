@@ -98,7 +98,7 @@ function clearSearchBox()
 {
 	console.log("Function :: clearSearchBox");
 	$('#search-results').addClass('display-none');
-	assetsSlider.classList.add("hidden");
+	//assetsSlider.classList.add("hidden");
 	//$('#searchbox').val('');
 	$('#searchbox').blur();		
 	emptySearchResults();	
