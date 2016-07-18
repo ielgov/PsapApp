@@ -12,14 +12,13 @@ function doSearch(queryText,func)
 	getSearchResults(queryText,function(response){
 		//console.log('search response',response);
 		var results = response['result'];
-		for (var i=0; i<results.length && i<=searchTableLimit; i++)
+		for (var i=0; i<results.length; i++)
 		{
 			console.log('results',results[i]);
 			if (results[i]['asset_type'] == 'contact')
 				populateSearchResults(results[i],'people');
 			else
-				populateSearchResults(results[i],'top-pages');
-			
+				populateSearchResults(results[i],'top-pages');			
 		}		
 		//showPopUpResults( results );
 		
