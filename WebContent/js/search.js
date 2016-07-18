@@ -101,5 +101,6 @@ function clearSearchBox()
 	//assetsSlider.classList.add("hidden");
 	//$('#searchbox').val('');
 	$('#searchbox').blur();		
-	emptySearchResults();	
+	emptySearchResults();
+	$('.jumpToBar').show();
 }

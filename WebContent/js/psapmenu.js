@@ -108,6 +108,8 @@ function handleSearch(func)
 	
 	emptySearchResults();
 	
+	$('.jumpToBar').hide();
+	
 	if (searchText.length == 0)
 	{
 		$('#search-results').addClass('display-none');
