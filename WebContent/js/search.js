@@ -106,5 +106,5 @@ function clearSearchBox()
 	$('#searchbox').blur();		
 	emptySearchResults();
 	$('.jumpToBar').show();
-	hideAssetOverlay();
+	//hideAssetOverlay();
 }
