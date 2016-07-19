@@ -59,6 +59,10 @@
 	font-size: 1.63rem;
 }
 
+{
+	cursor: pointer;
+}
+
 .asset.open
 {
 	/*transition: all .4s, width .4s, height .4s;*/

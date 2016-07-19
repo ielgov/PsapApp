@@ -600,6 +600,11 @@ Cube highlight face 3 = #ff8039
 	text-decoration: underline;
 }
 
+.assetOverlayParent .assetOvLink > a:hover
+{
+	cursor: pointer;
+}
+
 #pxIcon
 {
 	width: 2rem;
