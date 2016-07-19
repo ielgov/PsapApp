@@ -91,13 +91,16 @@ function getRESTRequest(restURL,usejson,func)
 					{
 						console.log("Empty data received");
 						console.log("Response - " + JSON.stringify(response));
-						if (!errorCube.visible && !activeRubiksCube.visible)
-						{
-							errorCube.refreshCubeFaces({'display':'Coming soon',
-														/*'Name':'Coming soon',*/
-														'errortype':'Coming soon'});
-							errorCube.showErrorCube();
-						}
+						
+						setTimeout(function(){
+							if (!errorCube.visible && !activeRubiksCube.visible)
+							{
+								errorCube.refreshCubeFaces({'display':'Coming soon',
+															/*'Name':'Coming soon',*/
+															'errortype':'Coming soon'});
+								errorCube.showErrorCube();
+							}
+						},2000);
 					}
 					else
 					{
