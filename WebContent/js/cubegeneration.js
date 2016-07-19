@@ -1119,6 +1119,14 @@ function colorThisFace(intersectObj)
 	var materialIndex = intersectObj.face.materialIndex;
 	var cubieMesh = intersectObj.object;
 	
+	//$('#WebGL-output').removeClass('translateX-38');
+	
+	if (!(assetsSlider.classList.contains('hidden')))
+	{
+		$('#WebGL-output').removeClass('translateX-38');
+		assetsSlider.classList.add("hidden");
+	}
+	
 	console.log('cubenum = ' + cubieMesh.$cubie.$cubenum + ' | materialIndex = ' + materialIndex + ' | faceIndex = ' + faceIndex + ' | type of cubie = ' + cubieMesh.$cubie.type);
 	
 	if (cubieMesh.$cubie.type == 'center')
@@ -1219,7 +1227,10 @@ function resetBreadCrumAndCube()
 {
 	console.log("Function :: resetBreadCrumAndCube");
 	if (breadCrumsPos['categories'].hasOwnProperty('cubieMesh'))
+	{
 		processBreadCrum(breadCrumsPos['categories']['cubieMesh'],'categories');
+	}
+	$('#WebGL-output').removeClass('translateX-38');
 }
 
 function processBreadCrum(cubieMesh,breadCrumType)

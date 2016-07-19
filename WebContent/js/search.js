@@ -10,23 +10,26 @@ function doSearch(queryText,func)
 {
 	console.log("Function :: doSearch");
 	getSearchResults(queryText,function(response){
-		//console.log('search response',response);
-		var results = response['result'];
-		for (var i=0; i<results.length && i<=searchTableLimit; i++)
+		console.log('search response',response);
+		
+		if (response.hasOwnProperty('result'))
 		{
-			console.log('results',results[i]);
-			if (results[i]['asset_type'] == 'contact')
-				populateSearchResults(results[i],'people');
-			else
-				populateSearchResults(results[i],'top-pages');
+			var results = response['result'];
+			for (var i=0; i<results.length; i++)
+			{
+				//console.log('results',results[i]);
+				if (results[i]['asset_type'] == 'contact')
+					populateSearchResults(results[i],'people');
+				else
+					populateSearchResults(results[i],'top-pages');			
+			}		
+			//showPopUpResults( results );
 			
+			showPopUp({'results':results},queryText);
+			
+			if (func)
+				func();
 		}		
-		//showPopUpResults( results );
-		
-		showPopUp({'results':results},queryText);
-		
-		if (func)
-			func();
 	});
 }
 
@@ -59,9 +62,9 @@ function populateSearchResults(result, searchType)
 	if (tpLen == 0)
 	{
 		if (searchType == 'top-pages')
-			tr = '<tr><td class="cell1" rowspan="1">Top Five</td>'+getSearchCell(result['display'],result['desc_display'],result['url'])+'</tr>';
+			tr = '<tr><td class="cell1" rowspan="1">Top Results</td>'+getSearchCell(result['display'],result['desc_display'],result['url'])+'</tr>';
 		else if (searchType == 'people')
-			tr = '<tr><td class="cell1" rowspan="1">People</td>'+getSearchCell(result['display'],result['desc_display'],result['url'])+'</tr>';
+			tr = '<tr><td class="cell1" rowspan="1">Contacts</td>'+getSearchCell(result['display'],result['desc_display'],result['url'])+'</tr>';
 		
 		$('#search-table> tbody.'+searchType).append(tr);
 	}
@@ -98,8 +101,9 @@ function clearSearchBox()
 {
 	console.log("Function :: clearSearchBox");
 	$('#search-results').addClass('display-none');
-	assetsSlider.classList.add("hidden");
+	//assetsSlider.classList.add("hidden");
 	//$('#searchbox').val('');
 	$('#searchbox').blur();		
-	emptySearchResults();	
+	emptySearchResults();
+	$('.jumpToBar').show();
 }

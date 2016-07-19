@@ -11,8 +11,10 @@ function buildPopUp( results )
 	var clusterSelect = document.querySelector(".jumpToBar select")
 	clusterSelect.innerHTML = "";
 	var option = document.createElement("option");
-	option.innerHTML = "Make a selection";
+	option.innerHTML = "Jump to";
 	clusterSelect.appendChild( option );
+	
+	//window.CS = clusterSelect;
 	
 	for(var k in results)
 	{
@@ -34,6 +36,11 @@ function buildPopUp( results )
 		option.innerHTML = abrivateString(k, 54);
 		clusterSelect.appendChild( option );
 	}
+	
+	if (clusterSelect.children.length <= 2)
+		clusterSelect.style.visibility = 'hidden';
+	else
+		clusterSelect.style.visibility = 'visible';
 	
 	/*// this is the part to center the text in the tile on the slid up
 	
