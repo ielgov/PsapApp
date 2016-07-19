@@ -109,6 +109,12 @@ function initializeClicks()
 		});
 		
 	});
+	
+	
+	$('#pxIcon').bind(onUserAction, function(e){
+		e.preventDefault();
+		hideAssetOverlay();
+	});
 }
 var searchcount = 0;
 function handleSearch(func)
@@ -121,6 +127,7 @@ function handleSearch(func)
 	console.log("Search event",searchcount++);
 	console.log("serachText = " + searchText + ", length = " + searchText.length);
 	
+	hideAssetOverlay();
 	emptySearchResults();
 	
 	$('.jumpToBar').hide();

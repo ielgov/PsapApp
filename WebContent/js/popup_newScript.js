@@ -83,6 +83,8 @@ function toggleExpanded( e )
 var lastClicked; // TODO remove?
 function openButton(buttonClicked)
 {
+	console.log("Function :: openButton",buttonClicked);
+	window.buttonClicked = buttonClicked;
 	greyOutBox.classList.remove("hidden");
 	
 	buttonClicked = buttonClicked || lastClicked;

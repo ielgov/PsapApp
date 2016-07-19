@@ -59,6 +59,11 @@
 	font-size: 1.63rem;
 }
 
+.asset .title  a:hover
+{
+	cursor: pointer;
+}
+
 .asset.open
 {
 	/*transition: all .4s, width .4s, height .4s;*/
