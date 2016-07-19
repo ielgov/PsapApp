@@ -1121,6 +1121,8 @@ function colorThisFace(intersectObj)
 	
 	//$('#WebGL-output').removeClass('translateX-38');
 	
+	hideAssetOverlay();
+	
 	if (!(assetsSlider.classList.contains('hidden')))
 	{
 		$('#WebGL-output').removeClass('translateX-38');

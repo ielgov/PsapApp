@@ -147,9 +147,9 @@ function makeAssetSmallerParent(assets, id)
 		img.setAttribute("onerror", "this.src=config.backUpImage" );
 		asset.appendChild(img);	
 		//*/
-				
+		asset.$data = assetObj;		
 		var title = document.createElement("div");
-		title.appendChild(abrivateStringWithMore( assetObj.display, config.maxCharInTile, function(e){ e.stopPropagation(); openButton(asset); }, hasDescription ));
+		title.appendChild(abrivateStringWithMore( assetObj.display, config.maxCharInTile, function(e){ e.stopPropagation(); populateAssetOverlay(assetObj);/* openButton(asset);*/ }, hasDescription ));
 		title.classList.add("title");
 		asset.appendChild( title )
 	

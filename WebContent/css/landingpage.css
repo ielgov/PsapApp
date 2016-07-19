@@ -552,3 +552,63 @@ Cube highlight face 3 = #ff8039
     white-space: nowrap;
     padding-top: 0.5rem;
 }
+
+#assetOverlay
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 12;
+}
+
+.assetOverlayParent
+{
+    background: #ffffff;
+    color: black;
+	padding: 2.18rem;
+    font-size: 1.5rem;
+    overflow: hidden;
+    transition: margin .2s .2s;
+    
+}
+
+.assetOverlayParent .assetOvTitle
+{
+    text-align: left;
+	font-size: 2rem;
+	padding-top: 2rem;
+}
+
+.assetOverlayParent .assetOvContent
+{
+    text-align: left;
+    padding-top: 2rem;
+}
+
+.assetOverlayParent .assetOvLink
+{
+	xfont-size: 2rem;
+	padding-top: 2rem;
+	text-align: left;
+}
+
+.assetOverlayParent .assetOvLink > a
+{
+	color: blue;
+	text-decoration: underline;
+}
+
+#pxIcon
+{
+	width: 2rem;
+    height: 2rem;
+    opacity: 1;
+    z-index: 2;
+    position: absolute;
+    transition: opacity .4s;
+    transform: translateZ(100px);
+    right: 3%;
+    top: 10%;
+}
