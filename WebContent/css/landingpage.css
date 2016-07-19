@@ -617,3 +617,38 @@ Cube highlight face 3 = #ff8039
     right: 3%;
     top: 10%;
 }
+
+.assetOverlayParent .social-icons
+{
+	padding-top: 2rem;
+}
+
+.assetOverlayParent .social-icons .icon
+{
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	margin-right: 2rem;
+	height: 2rem;
+	width: 2rem;
+}
+
+.assetOverlayParent .social-icons .icon:nth-child(1)
+{
+	background-image: url(../images/icons/bookmark_64.png);
+}
+
+.assetOverlayParent .social-icons .icon:nth-child(2)
+{
+	background-image: url(../images/icons/HeartsFilled-64-black.png);
+}
+
+.assetOverlayParent .social-icons .icon:nth-child(3)
+{
+	background-image: url(../images/icons/ShareFilled.png);
+}
+
+.assetOverlayParent .social-icons .icon:nth-child(4)
+{
+	background-image: url(../images/icons/TwitterFilled.png);
+}
