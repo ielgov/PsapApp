@@ -59,6 +59,7 @@
 	font-size: 1.63rem;
 }
 
+.asset .title  a:hover
 {
 	cursor: pointer;
 }
