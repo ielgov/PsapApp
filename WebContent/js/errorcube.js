@@ -110,7 +110,7 @@ function ErrorCube(options)
 	
 	this.showErrorCube = function(){
 		console.log("Function :: showErrorCube");
-		if (!activeRubiksCube.visible)
+		if (!ref.visible && !activeRubiksCube.visible)
 		{
 			showRubiksCube(ref.cube, function(){
 				ref.visible = true;
