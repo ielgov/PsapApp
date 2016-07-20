@@ -348,7 +348,7 @@ Cube highlight face 3 = #ff8039
     height: 100%;
     /* width: 12vw; */
     top: 0;
-    font-size: 2.25rem;
+    font-size: 2rem;
     padding: 1rem;
     box-shadow: inset -2px 0 38px -9px rgba(0,0,0,1);
 }
