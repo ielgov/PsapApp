@@ -194,6 +194,12 @@ function drawRubiksCube(cubeData,parentData)
 				activeRubiksCube = RC;
 				showRubiksCube(RC.group, function(){
 					//console.log('showRubiksCube callback');
+					
+					if (errorCube.visible)
+					{
+						errorCube.hideErrorCube();
+					}
+					
 					activeRubiksCube.visible = true;
 					var tween = new TWEEN.Tween(activeRubiksCube.group.rotation).to({x:degToRad(25),y:degToRad(-45)}, 500).easing(TWEEN.Easing.Linear.None);
 					/*tween.onUpdate(function(){
@@ -216,6 +222,10 @@ function drawRubiksCube(cubeData,parentData)
 		activeRubiksCube = cubeData.RC;
 		activeRubiksCube.allowRotation = true;
 		showRubiksCube(activeRubiksCube.group, function(){
+			if (errorCube.visible)
+			{
+				errorCube.hideErrorCube();
+			}
 			activeRubiksCube.visible = true;
 		});
 		activeRubiksCube.parentData = parentData;
