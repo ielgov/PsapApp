@@ -274,6 +274,8 @@ Cube highlight face 3 = #ff8039
     margin-left: 0.5rem;
     cursor: pointer;
     /* top: 5px; */
+    /* background-color: red; */
+    bottom: 4px;
 }
 
 #header .search-entry
@@ -292,6 +294,8 @@ Cube highlight face 3 = #ff8039
     right: 0.5rem;
     cursor: pointer;
     /* top: 5px; */
+    /* background-color: red; */
+    bottom: 4px;
 }
 
 .menu-turquoise
