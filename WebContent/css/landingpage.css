@@ -196,9 +196,9 @@ Cube highlight face 3 = #ff8039
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-position: center;
-    height: 3rem;
-    width: 6rem;
-    margin-left: 3rem;
+    height: 2rem;
+    width: 5rem;
+    margin-left: 2rem;
 }
 
 #header .titlename
@@ -228,8 +228,8 @@ Cube highlight face 3 = #ff8039
 	background-position: center;
 	border-radius: 50%;
 	/* border: 1px solid rgba(255,255,255,1); */
-	height:4rem;
-	width:4rem;
+	height:3rem;
+	width:3rem;
 	margin-right:1rem;
 }
 
@@ -273,7 +273,7 @@ Cube highlight face 3 = #ff8039
     width: 1.75rem;
     margin-left: 0.5rem;
     cursor: pointer;
-    top: 5px;
+    /* top: 5px; */
 }
 
 #header .search-entry
@@ -290,7 +290,8 @@ Cube highlight face 3 = #ff8039
     height: 2rem;
     width: 2rem;
     right: 0.5rem;
-    top: 5px;
+    cursor: pointer;
+    /* top: 5px; */
 }
 
 .menu-turquoise
@@ -308,10 +309,11 @@ Cube highlight face 3 = #ff8039
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-position: center;
-	height:3rem;
-	width:3rem;
+	height:2rem;
+	width:2rem;
 	margin-left:1rem;
 	transition: transform 0.3s ease;
+	cursor: pointer;
 }
 
 #header .home-icon
