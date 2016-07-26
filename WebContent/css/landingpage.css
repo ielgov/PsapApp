@@ -268,14 +268,18 @@ Cube highlight face 3 = #ff8039
     background-image: url(../images/icons/Search-Filled-64-gray.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
-    height: 1.75rem;
-    width: 1.75rem;
+    xbackground-size: contain;
+    background-size: 70%;
+    xheight: 1.75rem;
+    xwidth: 1.75rem;
+    height: 100%;
+    width: 5%;
     margin-left: 0.5rem;
     cursor: pointer;
     /* top: 5px; */
     /* background-color: red; */
-    bottom: 4px;
+    xbottom: 4px;
+    bottom:0;
 }
 
 #header .search-entry
@@ -288,14 +292,18 @@ Cube highlight face 3 = #ff8039
 	background-image: url(../images/icons/forward_128-white.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
-    height: 2rem;
-    width: 2rem;
+    xbackground-size: contain;
+    background-size: 70%;
+    xheight: 2rem;
+    xwidth: 2rem;
+    height: 100%;
+    width: 5%;
     right: 0.5rem;
     cursor: pointer;
     /* top: 5px; */
     /* background-color: red; */
-    bottom: 4px;
+    xbottom: 4px;
+    bottom:0;
 }
 
 .menu-turquoise
@@ -475,7 +483,7 @@ Cube highlight face 3 = #ff8039
     padding-top: 5px;
     border-bottom: 1px solid rgba(255,255,255,0.5);
     /* -webkit-appearance: none; */
-    padding-left: 30px;
+    padding-left: 35px;
 }
 
 /*search-results*/
@@ -620,8 +628,8 @@ Cube highlight face 3 = #ff8039
     position: absolute;
     transition: opacity .4s;
     transform: translateZ(100px);
-    right: 3%;
-    top: 10%;
+    right: 2%;
+    top: 5%;
 }
 
 .assetOverlayParent .social-icons
@@ -655,6 +663,41 @@ Cube highlight face 3 = #ff8039
 }
 
 .assetOverlayParent .social-icons .icon:nth-child(4)
+{
+	background-image: url(../images/icons/TwitterFilled.png);
+}
+
+.asset-social-icons
+{
+	padding-top: 1rem;
+}
+
+.asset-social-icons .icon
+{
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	margin-right: 2rem;
+	height: 1.5rem;
+	width: 1.5rem;
+}
+
+.asset-social-icons .icon:nth-child(1)
+{
+	background-image: url(../images/icons/bookmark_64.png);
+}
+
+.asset-social-icons .icon:nth-child(2)
+{
+	background-image: url(../images/icons/HeartsFilled-64-black.png);
+}
+
+.asset-social-icons .icon:nth-child(3)
+{
+	background-image: url(../images/icons/ShareFilled.png);
+}
+
+.asset-social-icons .icon:nth-child(4)
 {
 	background-image: url(../images/icons/TwitterFilled.png);
 }

@@ -4,6 +4,7 @@ var mouseSelectX =0, mouseSelectY=0;
 var currentPosition = {};
 var movedCount = 0;
 var multipleTouch = false;
+var cubeInTransistion = false;
 function onDocumentMouseDown( event )
 {
 	//console.log("Function :: onDocumentMouseDown");
@@ -305,7 +306,9 @@ function checkSelected(currX,currY)
 		console.log("Intersected cube face",intersects[0]);
 		//console.log("Hit @ ",intersects[0].point);
 		
-		colorThisFace(intersects[0]);
+		console.warn('cubeInTransistion',cubeInTransistion);
+		if (!cubeInTransistion)
+			colorThisFace(intersects[0]);
 		/*
 		var materialINDEX = intersects[0].face.materialIndex;
 		//intersects[0].face.color.setHex( 0xff0000 );
