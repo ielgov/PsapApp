@@ -18,7 +18,7 @@ function doSearch(queryText,func)
 			for (var i=0; i<results.length; i++)
 			{
 				//console.log('results',results[i]);
-				if (results[i]['asset_type'] == 'contact')
+				if (results[i]['asset_type'].toLowerCase() == 'contact')
 					populateSearchResults(results[i],'people');
 				else
 					populateSearchResults(results[i],'top-pages');			

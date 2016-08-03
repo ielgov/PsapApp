@@ -1131,13 +1131,13 @@ function colorThisFace(intersectObj)
 	
 	//$('#WebGL-output').removeClass('translateX-38');
 	
-	hideAssetOverlay();
+	/*hideAssetOverlay();
 	
 	if (!(assetsSlider.classList.contains('hidden')))
 	{
 		$('#WebGL-output').removeClass('translateX-38');
 		assetsSlider.classList.add("hidden");
-	}
+	}*/
 	
 	console.log('cubenum = ' + cubieMesh.$cubie.$cubenum + ' | materialIndex = ' + materialIndex + ' | faceIndex = ' + faceIndex + ' | type of cubie = ' + cubieMesh.$cubie.type);
 	
@@ -1146,8 +1146,17 @@ function colorThisFace(intersectObj)
 		console.log('center cube clicked');
 		activeRubiksCube.allowRotation = true;
 	}
-	else
+	else if (cubieMesh.$cubie.type != 'center')
 	{
+		hideAssetOverlay();
+		
+		if (!(assetsSlider.classList.contains('hidden')))
+		{
+			$('#WebGL-output').removeClass('translateX-38');
+			assetsSlider.classList.add("hidden");
+		}
+		
+		console.log('NOT center cube clicked');
 		//check whether the clicked cubie is part of the rubiks cube OR part of the bread crum cubies
 		var isBreadCrum = false;
 		var breadCrumType = undefined;
@@ -1216,8 +1225,12 @@ function colorThisFace(intersectObj)
 					//console.log('next function');
 					activeRubiksCube.visible = false;
 					setCubeData(nextLevelDataOBj, cubieMesh.$cubie.$rubiksCubeType);
+					cubeInTransistion = false;
+					console.warn('cubeInTransistion',cubeInTransistion);
 				};
 				show2dBreadCrum(nextLevelDataOBj, cubieMesh.$cubie.$rubiksCubeType);
+				cubeInTransistion = true;
+				console.warn('cubeInTransistion',cubeInTransistion);
 				moveCubieToTop(cubieMesh, nextStep);
 								
 			}
@@ -1420,6 +1433,10 @@ function reversalBreadCrum(breadCrumsObj, animationDuration)
 			if (catCM.type != 'offerings')
 			{
 				scaleBreadCrum(catCM.cubieMesh,1,catCM.cubieMesh.rotationDetails['scaleAxis'],750);
+				
+				cubeInTransistion = true;
+				console.warn('cubeInTransistion',cubeInTransistion);
+				
 				moveObject(catCM.cubieMesh,catCM.cubieMeshOriginalVector.x,catCM.cubieMeshOriginalVector.y,catCM.cubieMeshOriginalVector.z,animationDuration,function(){
 					hide2dBreamCrum(catCM.type);
 					
@@ -1468,6 +1485,9 @@ function reversalBreadCrum(breadCrumsObj, animationDuration)
 					activeRubiksCube.allowRotation = true;
 					activeRubiksCube.visible = true;
 					//activeRubiksCube.addAllCubieClicks();
+					
+					cubeInTransistion = false;
+					console.warn('cubeInTransistion',cubeInTransistion);
 
 				});
 			}
