@@ -91,6 +91,7 @@ function initializeClicks()
 		if (e.keyCode === 13)
 		{
 			assetsSlider.classList.add("hidden");
+			hideConversation();
 			handleSearch(function(){
 				$('#search-results').removeClass('display-none');
 			});
@@ -100,6 +101,7 @@ function initializeClicks()
 	$('#search-send').bind(onUserAction, function(e){
 		e.preventDefault();
 		assetsSlider.classList.add("hidden");
+		hideConversation();
 		handleSearch(function(){
 			$('#search-results').removeClass('display-none');
 		});

@@ -223,6 +223,7 @@ var ConversationPanel = (function() {
 				
 				//console.log('conversation :: doSearch callback');
 				
+			  assetsSlider.classList.remove("expanded");
 			  showAllSearchResults();
 			  
 			  var showWatsonMessage = {
