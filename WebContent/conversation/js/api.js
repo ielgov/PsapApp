@@ -15,12 +15,14 @@ var Api = (function() {
       return requestPayload;
     },
     setRequestPayload: function(newPayloadStr) {
+    	//console.log("Api setRequestPayload");
       requestPayload = JSON.parse(newPayloadStr);
     },
     getResponsePayload: function() {
       return responsePayload;
     },
     setResponsePayload: function(newPayloadStr) {
+    	//console.log("Api setResponsePayload");
       responsePayload = JSON.parse(newPayloadStr);
     }
   };

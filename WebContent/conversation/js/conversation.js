@@ -26,7 +26,7 @@ var ConversationPanel = (function() {
 
   // Initialize the module
   function init() {
-	  console.log("Function :: ConversationPanel init");
+	  //console.log("Function :: ConversationPanel init");
     //chatUpdateSetup();
     Api.sendRequest( '', null );
     setupInputBox();
@@ -37,21 +37,24 @@ var ConversationPanel = (function() {
 	  
     var currentRequestPayloadSetter = Api.setRequestPayload;
     Api.setRequestPayload = function(newPayloadStr) {
+    	//console.log("ConversationPanel setRequestPayload");
       currentRequestPayloadSetter.call(Api, newPayloadStr);
-      console.log("calling displayMessage for 'user'");
+      //console.log("calling displayMessage for 'user'");
       displayMessage(JSON.parse(newPayloadStr), settings.authorTypes.user);
     };
 
     var currentResponsePayloadSetter = Api.setResponsePayload;
     Api.setResponsePayload = function(newPayloadStr) {
+    	//console.log("ConversationPanel setResponsePayload");
       currentResponsePayloadSetter.call(Api, newPayloadStr);
-      console.log("calling displayMessage for 'watson'");
+      //console.log("calling displayMessage for 'watson'");
       displayMessage(JSON.parse(newPayloadStr), settings.authorTypes.watson);
+      checkResponseForSearch(JSON.parse(newPayloadStr));
     };
   }
 
   function setupInputBox() {
-	  console.log("Function :: setupInputBox");
+	  //console.log("Function :: setupInputBox");
     var input = document.getElementById('textInput');
     var dummy = document.getElementById('textInputDummy');
     var padding = 3;
@@ -205,5 +208,34 @@ var ConversationPanel = (function() {
       inputBox.value = '';
       Common.fireEvent(inputBox, 'input');
     }
+  }
+  
+  
+  function checkResponseForSearch(newPayload)
+  {
+	  //console.log("Function :: checkResponseForSearch");
+	  var textExists = (newPayload.output && newPayload.output.text);
+	  if (textExists[0].includes("get back with results"))
+	  {
+		  var searchText = (newPayload.input && newPayload.input.text);
+		  console.log("Do search here for",searchText);		  
+		  doSearch(searchText, function(){
+				
+				//console.log('conversation :: doSearch callback');
+				
+			  showAllSearchResults();
+			  
+			  var showWatsonMessage = {
+					  'output':{
+						  'text':['These are the search results I could find for "' + searchText + '".']
+					  }
+			  };
+			  displayMessage(showWatsonMessage, settings.authorTypes.watson);
+			});
+	  }
+	  else
+	  {
+		  console.log("no need for search..continue");
+	  }
   }
 }());
