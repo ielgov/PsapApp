@@ -15,16 +15,8 @@
 	<link href="css/flex.css" rel="stylesheet" type="text/css" />
 	<link href="css/sizes.css" rel="stylesheet" type="text/css" />
 	<link href="css/landingpage.css" rel="stylesheet" type="text/css" />
-
-    <!-- Bootstrap -->
-    <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+	
+	<link href="conversation/css/app.css" rel="stylesheet" type="text/css" />
 	
 	<!--start of Drew's headers-->
 		<script src="js/popup_script.js"></script>
@@ -132,14 +124,15 @@
 				<div id="menu-button" class="menu-icon menu-white"></div>
 				<div class="ibm-logo"></div>
 				<div class="titlename">Public Safety</div>
+				<div class="watson-icon"></div>
 			</div>
 			<div class="width30 height100 display-flex flex-align-center flex-justify-center">
-				<div class="search-box width100 height50 positionRelative display-flex flex-align-center flex-justify-space-between white-txt">
+				<div class="search-box width100 height60 positionRelative display-flex flex-align-center flex-justify-space-between white-txt">
 					<!-- <div class="search-icon"></div>
 					<div class="search-entry">Search</div>
 					<div class="search-send"></div> -->
-					<div class="search-icon positionAbsolute"></div>
 					<input type="text" id="searchbox" name="searchbox" class="serachbox" placeholder="Search" autocomplete="off" />
+					<div class="search-icon positionAbsolute"></div>
 					<div id="search-send" class="search-send positionAbsolute"></div>
 					
 					<div id="search-results" class="display-none search-results" style="color:black;">
@@ -162,26 +155,37 @@
 		
 			<img id="cubeSpinner" class="hidden spinner" src="images\loading.gif"></img>
 	    	
+	    	<!-- Breadcrums -->
 	    	<div id="breadcrum-strip" class="helvLightFont breadcrum-strip display-flex flex-align-center white-txt translateY-100">
 		    	<div class="categories-parent display-flex flex-align-center"><div class="categories breadcrum-items" data-breadcrumitem="categories"></div><div class="arrow"></div></div>
 		    	<div class="solutions-parent display-flex flex-align-center"><div class="solutions breadcrum-items" data-breadcrumitem="solutions"></div><div class="arrow"></div></div>
 		    	<div class="offerings-parent display-flex flex-align-center"><div class="offerings breadcrum-items" data-breadcrumitem="offerings"></div><div class="arrow display-none"></div></div>	    	
 		    </div>
-		    
-	    	<div id="breadcrum-container" class="display-none helvLightFont breadcrum-container helvLightFont display-flex">
-	    		<div class="categories-parent display-flex "><div class="categories breadcrum-items display-flex flex-align-center flex-justify-center" data-breadcrumitem="categories"></div>
-	    			<div class="triangle"><svg width="15" height="100"><polygon points="0 100,15 50,0 0"></polygon></svg></div>
-	    		</div>	    		
-	    		<div class="solutions-parent display-flex">
-	    			<div class="solutions breadcrum-items display-flex flex-align-center flex-justify-center" data-breadcrumitem="solutions"></div>
-	    			<div class="triangle"><svg width="15" height="100"><polygon points="0 100,15 50,0 0"></polygon></svg></div>
-	    		</div>	    		
-	    		<div class="offerings-parent display-flex">
-	    			<div class="offerings breadcrum-items display-flex flex-align-center flex-justify-center" data-breadcrumitem="offerings"></div>
-	    			<div class="triangle"><svg width="15" height="100"><polygon points="0 100,15 50,0 0"></polygon></svg></div>
-	    		</div>	    		
-	    	</div>
 	    	
+	    	<!-- Watson Conversation -->
+	    	<!-- https://github.com/watson-developer-cloud/conversation-simple -->
+	    	<div id="chat-column-holder" class="responsive-column content-column positionAbsolute hideConversationWindow">
+				<div class="chat-column positionRelative">
+				  	<div class="close-button"></div>
+				    <div id="scrollingChat"></div>
+				    <label for="textInput" class="inputOutline">
+				      <input id="textInput" class="input responsive-column"
+				        placeholder="Type something" type="text"
+				        onkeydown="ConversationPanel.inputKeyDown(event, this)">
+				      
+				      <div class="microphone"></div>
+				  </label>
+				</div>
+				<div id="payload-column" class="display-none fixed-column content-column">
+			      <div id="payload-initial-message">
+			        Type something to see the output
+			      </div>
+			      <div id="payload-request" class="payload"></div>
+			      <div id="payload-response" class="payload"></div>
+			    </div>
+			</div>
+	    	
+	    	<!-- WebGL container that contains CANVAS element for threejs-->
 	    	<div id="WebGL-output"></div>
 		    <!-- <div id="canvas-overlay" class="xdisplay-none">
 		    	<div class="image"></div>
@@ -214,6 +218,7 @@
 					<span>
 				</div>
 				
+				<!-- New Asset overlay/box to show asset contains when a card is clicked -->
 				<div id="assetOverlay" class="assetOverlay display-none">
 					<div class="positionAbsolute width100 height100" style="background: rgba(1,1,1,.55);z-index:1;top:0;left:0;"></div>
 					<div class="positionAbsolute width100 height100" style="z-index:2;">
@@ -236,14 +241,8 @@
     </div>
     <!-- <canvas id="textureCanvas"></canvas> -->
     <!-- <div id="footer"></div> -->
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <!-- <script src="js/bootstrap.min.js"></script> -->
     
-     <script type="text/javascript" src="js/Threejs/jquery.min.js"></script>
-	<!-- <script type="text/javascript" src="js/Threejs/Three-r71.js"></script> -->
+    <script type="text/javascript" src="js/Threejs/jquery.min.js"></script>
 	<script type="text/javascript" src="js/Threejs/Three.js"></script>
 	<script type="text/javascript" src="js/Threejs/OrbitControls.js"></script>
 	<script type="text/javascript" src="js/Threejs/stats.min.js"></script>
@@ -267,6 +266,13 @@
 	<script type="text/javascript" src="js/cubeinteraction.js"></script>
 	<script type="text/javascript" src="js/errorcube.js"></script>
 	<script type="text/javascript" src="js/search.js"></script>
+	
+	<script src="conversation/js/common.js"></script>
+	<script src="conversation/js/api.js"></script>
+	<script src="conversation/js/conversation.js"></script>
+	<script src="conversation/js/payload.js"></script>
+	<script src="conversation/js/global.js"></script>
+	
 	
 	<!-- 
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>

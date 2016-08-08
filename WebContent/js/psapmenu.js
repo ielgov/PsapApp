@@ -1,5 +1,6 @@
 var menuClicked = undefined;
 var initScene = false;
+var conversationOpen = false;
 function initializeClicks()
 {
 	console.log("Function :: initializeClicks");
@@ -49,10 +50,25 @@ function initializeClicks()
 		else if (menuClicked == 'transformation')
 			reversalBreadCrum(breadCrumsPos['offerings'])
 		*/
-		
+				
 		if (menuClicked == 'logout')
 			postLogout();
 			
+	});
+	
+	//user profile icon
+	$('#header .watson-icon').bind(onUserAction, function(e){
+		e.preventDefault();
+		if (conversationOpen)
+			hideConversation();
+		else
+			showConversation();
+	});
+	
+	$('#chat-column-holder .close-button').bind(onUserAction, function(e){
+		e.preventDefault();
+		if (conversationOpen)
+			hideConversation();
 	});
 	
 	$('.breadcrum-items').bind(onUserAction, function(e){
@@ -218,4 +234,30 @@ function closeMenu()
 	document.querySelector('#main-container').style.transform = "translateX(0px)";
 	document.querySelector('#menu-button').classList.add('menu-white');
 	document.querySelector('#menu-button').classList.remove('menu-turquoise');
+}
+
+function hideConversation()
+{
+	conversationOpen = false;
+	/*$('.chat-column').removeClass('translateY15').addClass('translateY-100');
+	$('#conversationParent').fadeOut(1000);*/
+	
+	$('#chat-column-holder').removeClass('showConversationWindow').addClass('hideConversationWindow');
+	setTimeout(function(){
+		$('#scrollingChat').empty();
+	},750);
+}
+
+function showConversation()
+{
+	conversationOpen = true;
+	/*$('#conversationParent').fadeIn(500, function(){
+		$('.chat-column').removeClass('translateY-100').addClass('translateY15');
+		setTimeout(function(){initializeConversation();},750);
+	});*/
+	
+	$('#chat-column-holder').removeClass('hideConversationWindow').addClass('showConversationWindow');
+	setTimeout(function(){
+		initializeConversation();
+	},750);
 }

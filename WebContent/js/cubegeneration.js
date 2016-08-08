@@ -314,7 +314,6 @@ function RubiksCube(options)
 	            {
 	            	var cubie = ref.findCubieFaceColors(x_loc, y_loc, z_loc, ref.cubenum);
 	            	cubie.position = {};
-	            	cubie.position.x = 
 	            	cubie.position.x = (x_loc - ref.positionOffset)*(ref.cubeSize + ref.gapBetweenCubes);
 	            	cubie.position.y = (y_loc - ref.positionOffset)*(ref.cubeSize + ref.gapBetweenCubes);
 	            	cubie.position.z = (z_loc - ref.positionOffset)*(ref.cubeSize + ref.gapBetweenCubes);
@@ -1149,6 +1148,7 @@ function colorThisFace(intersectObj)
 	else if (cubieMesh.$cubie.type != 'center')
 	{
 		hideAssetOverlay();
+		hideConversation();
 		
 		if (!(assetsSlider.classList.contains('hidden')))
 		{
