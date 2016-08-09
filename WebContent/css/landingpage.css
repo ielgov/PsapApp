@@ -196,9 +196,9 @@ Cube highlight face 3 = #ff8039
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-position: center;
-    height: 3rem;
-    width: 6rem;
-    margin-left: 3rem;
+    height: 2rem;
+    width: 5rem;
+    margin-left: 2rem;
 }
 
 #header .titlename
@@ -228,8 +228,8 @@ Cube highlight face 3 = #ff8039
 	background-position: center;
 	border-radius: 50%;
 	/* border: 1px solid rgba(255,255,255,1); */
-	height:4rem;
-	width:4rem;
+	height:3rem;
+	width:3rem;
 	margin-right:1rem;
 }
 
@@ -268,12 +268,18 @@ Cube highlight face 3 = #ff8039
     background-image: url(../images/icons/Search-Filled-64-gray.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
-    height: 1.75rem;
-    width: 1.75rem;
+    xbackground-size: contain;
+    background-size: 70%;
+    xheight: 1.75rem;
+    xwidth: 1.75rem;
+    height: 100%;
+    width: 5%;
     margin-left: 0.5rem;
     cursor: pointer;
-    top: 5px;
+    /* top: 5px; */
+    /* background-color: red; */
+    xbottom: 4px;
+    bottom:0;
 }
 
 #header .search-entry
@@ -286,11 +292,18 @@ Cube highlight face 3 = #ff8039
 	background-image: url(../images/icons/forward_128-white.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
-    height: 2rem;
-    width: 2rem;
+    xbackground-size: contain;
+    background-size: 70%;
+    xheight: 2rem;
+    xwidth: 2rem;
+    height: 100%;
+    width: 5%;
     right: 0.5rem;
-    top: 5px;
+    cursor: pointer;
+    /* top: 5px; */
+    /* background-color: red; */
+    xbottom: 4px;
+    bottom:0;
 }
 
 .menu-turquoise
@@ -308,10 +321,11 @@ Cube highlight face 3 = #ff8039
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-position: center;
-	height:3rem;
-	width:3rem;
+	height:2rem;
+	width:2rem;
 	margin-left:1rem;
 	transition: transform 0.3s ease;
+	cursor: pointer;
 }
 
 #header .home-icon
@@ -346,7 +360,7 @@ Cube highlight face 3 = #ff8039
     height: 100%;
     /* width: 12vw; */
     top: 0;
-    font-size: 2.25rem;
+    font-size: 2rem;
     padding: 1rem;
     box-shadow: inset -2px 0 38px -9px rgba(0,0,0,1);
 }
@@ -469,7 +483,7 @@ Cube highlight face 3 = #ff8039
     padding-top: 5px;
     border-bottom: 1px solid rgba(255,255,255,0.5);
     /* -webkit-appearance: none; */
-    padding-left: 30px;
+    padding-left: 35px;
 }
 
 /*search-results*/
@@ -551,4 +565,139 @@ Cube highlight face 3 = #ff8039
     overflow: hidden;
     white-space: nowrap;
     padding-top: 0.5rem;
+}
+
+#assetOverlay
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 12;
+}
+
+.assetOverlayParent
+{
+    background: #ffffff;
+    color: black;
+	padding: 2.18rem;
+    font-size: 1.5rem;
+    overflow: hidden;
+    transition: margin .2s .2s;
+    
+}
+
+.assetOverlayParent .assetOvTitle
+{
+    text-align: left;
+	font-size: 2rem;
+	padding-top: 2rem;
+}
+
+.assetOverlayParent .assetOvContent
+{
+    text-align: left;
+    padding-top: 2rem;
+}
+
+.assetOverlayParent .assetOvLink
+{
+	xfont-size: 2rem;
+	padding-top: 2rem;
+	text-align: left;
+}
+
+.assetOverlayParent .assetOvLink > a
+{
+	color: blue;
+	text-decoration: underline;
+}
+
+.assetOverlayParent .assetOvLink > a:hover
+{
+	cursor: pointer;
+}
+
+#pxIcon
+{
+	width: 2rem;
+    height: 2rem;
+    opacity: 1;
+    z-index: 2;
+    position: absolute;
+    transition: opacity .4s;
+    transform: translateZ(100px);
+    right: 2%;
+    top: 5%;
+}
+
+.assetOverlayParent .social-icons
+{
+	padding-top: 2rem;
+}
+
+.assetOverlayParent .social-icons .icon
+{
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	margin-right: 2rem;
+	height: 2rem;
+	width: 2rem;
+}
+
+.assetOverlayParent .social-icons .icon:nth-child(1)
+{
+	background-image: url(../images/icons/bookmark_64.png);
+}
+
+.assetOverlayParent .social-icons .icon:nth-child(2)
+{
+	background-image: url(../images/icons/HeartsFilled-64-black.png);
+}
+
+.assetOverlayParent .social-icons .icon:nth-child(3)
+{
+	background-image: url(../images/icons/ShareFilled.png);
+}
+
+.assetOverlayParent .social-icons .icon:nth-child(4)
+{
+	background-image: url(../images/icons/TwitterFilled.png);
+}
+
+.asset-social-icons
+{
+	padding-top: 1rem;
+}
+
+.asset-social-icons .icon
+{
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	margin-right: 2rem;
+	height: 1.5rem;
+	width: 1.5rem;
+}
+
+.asset-social-icons .icon:nth-child(1)
+{
+	background-image: url(../images/icons/bookmark_64.png);
+}
+
+.asset-social-icons .icon:nth-child(2)
+{
+	background-image: url(../images/icons/HeartsFilled-64-black.png);
+}
+
+.asset-social-icons .icon:nth-child(3)
+{
+	background-image: url(../images/icons/ShareFilled.png);
+}
+
+.asset-social-icons .icon:nth-child(4)
+{
+	background-image: url(../images/icons/TwitterFilled.png);
 }

@@ -194,6 +194,12 @@ function drawRubiksCube(cubeData,parentData)
 				activeRubiksCube = RC;
 				showRubiksCube(RC.group, function(){
 					//console.log('showRubiksCube callback');
+					
+					if (errorCube.visible)
+					{
+						errorCube.hideErrorCube();
+					}
+					
 					activeRubiksCube.visible = true;
 					var tween = new TWEEN.Tween(activeRubiksCube.group.rotation).to({x:degToRad(25),y:degToRad(-45)}, 500).easing(TWEEN.Easing.Linear.None);
 					/*tween.onUpdate(function(){
@@ -216,6 +222,10 @@ function drawRubiksCube(cubeData,parentData)
 		activeRubiksCube = cubeData.RC;
 		activeRubiksCube.allowRotation = true;
 		showRubiksCube(activeRubiksCube.group, function(){
+			if (errorCube.visible)
+			{
+				errorCube.hideErrorCube();
+			}
 			activeRubiksCube.visible = true;
 		});
 		activeRubiksCube.parentData = parentData;
@@ -1119,6 +1129,16 @@ function colorThisFace(intersectObj)
 	var materialIndex = intersectObj.face.materialIndex;
 	var cubieMesh = intersectObj.object;
 	
+	//$('#WebGL-output').removeClass('translateX-38');
+	
+	/*hideAssetOverlay();
+	
+	if (!(assetsSlider.classList.contains('hidden')))
+	{
+		$('#WebGL-output').removeClass('translateX-38');
+		assetsSlider.classList.add("hidden");
+	}*/
+	
 	console.log('cubenum = ' + cubieMesh.$cubie.$cubenum + ' | materialIndex = ' + materialIndex + ' | faceIndex = ' + faceIndex + ' | type of cubie = ' + cubieMesh.$cubie.type);
 	
 	if (cubieMesh.$cubie.type == 'center')
@@ -1126,8 +1146,17 @@ function colorThisFace(intersectObj)
 		console.log('center cube clicked');
 		activeRubiksCube.allowRotation = true;
 	}
-	else
+	else if (cubieMesh.$cubie.type != 'center')
 	{
+		hideAssetOverlay();
+		
+		if (!(assetsSlider.classList.contains('hidden')))
+		{
+			$('#WebGL-output').removeClass('translateX-38');
+			assetsSlider.classList.add("hidden");
+		}
+		
+		console.log('NOT center cube clicked');
 		//check whether the clicked cubie is part of the rubiks cube OR part of the bread crum cubies
 		var isBreadCrum = false;
 		var breadCrumType = undefined;
@@ -1196,8 +1225,12 @@ function colorThisFace(intersectObj)
 					//console.log('next function');
 					activeRubiksCube.visible = false;
 					setCubeData(nextLevelDataOBj, cubieMesh.$cubie.$rubiksCubeType);
+					cubeInTransistion = false;
+					console.warn('cubeInTransistion',cubeInTransistion);
 				};
 				show2dBreadCrum(nextLevelDataOBj, cubieMesh.$cubie.$rubiksCubeType);
+				cubeInTransistion = true;
+				console.warn('cubeInTransistion',cubeInTransistion);
 				moveCubieToTop(cubieMesh, nextStep);
 								
 			}
@@ -1219,7 +1252,10 @@ function resetBreadCrumAndCube()
 {
 	console.log("Function :: resetBreadCrumAndCube");
 	if (breadCrumsPos['categories'].hasOwnProperty('cubieMesh'))
+	{
 		processBreadCrum(breadCrumsPos['categories']['cubieMesh'],'categories');
+	}
+	$('#WebGL-output').removeClass('translateX-38');
 }
 
 function processBreadCrum(cubieMesh,breadCrumType)
@@ -1397,6 +1433,10 @@ function reversalBreadCrum(breadCrumsObj, animationDuration)
 			if (catCM.type != 'offerings')
 			{
 				scaleBreadCrum(catCM.cubieMesh,1,catCM.cubieMesh.rotationDetails['scaleAxis'],750);
+				
+				cubeInTransistion = true;
+				console.warn('cubeInTransistion',cubeInTransistion);
+				
 				moveObject(catCM.cubieMesh,catCM.cubieMeshOriginalVector.x,catCM.cubieMeshOriginalVector.y,catCM.cubieMeshOriginalVector.z,animationDuration,function(){
 					hide2dBreamCrum(catCM.type);
 					
@@ -1445,6 +1485,9 @@ function reversalBreadCrum(breadCrumsObj, animationDuration)
 					activeRubiksCube.allowRotation = true;
 					activeRubiksCube.visible = true;
 					//activeRubiksCube.addAllCubieClicks();
+					
+					cubeInTransistion = false;
+					console.warn('cubeInTransistion',cubeInTransistion);
 
 				});
 			}

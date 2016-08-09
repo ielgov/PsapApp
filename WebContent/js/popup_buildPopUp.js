@@ -11,8 +11,10 @@ function buildPopUp( results )
 	var clusterSelect = document.querySelector(".jumpToBar select")
 	clusterSelect.innerHTML = "";
 	var option = document.createElement("option");
-	option.innerHTML = "Make a selection";
+	option.innerHTML = "Jump to";
 	clusterSelect.appendChild( option );
+	
+	//window.CS = clusterSelect;
 	
 	for(var k in results)
 	{
@@ -34,6 +36,11 @@ function buildPopUp( results )
 		option.innerHTML = abrivateString(k, 54);
 		clusterSelect.appendChild( option );
 	}
+	
+	if (clusterSelect.children.length <= 2)
+		clusterSelect.style.visibility = 'hidden';
+	else
+		clusterSelect.style.visibility = 'visible';
 	
 	/*// this is the part to center the text in the tile on the slid up
 	
@@ -140,9 +147,9 @@ function makeAssetSmallerParent(assets, id)
 		img.setAttribute("onerror", "this.src=config.backUpImage" );
 		asset.appendChild(img);	
 		//*/
-				
+		asset.$data = assetObj;		
 		var title = document.createElement("div");
-		title.appendChild(abrivateStringWithMore( assetObj.display, config.maxCharInTile, function(e){ e.stopPropagation(); openButton(asset); }, hasDescription ));
+		title.appendChild(abrivateStringWithMore( assetObj.display, config.maxCharInTile, function(e){ e.stopPropagation(); populateAssetOverlay(assetObj);/* openButton(asset);*/ }, hasDescription ));
 		title.classList.add("title");
 		asset.appendChild( title )
 	
@@ -179,6 +186,12 @@ function makeAssetSmallerParent(assets, id)
 		
 			asset.appendChild(linkSpan);
 		}
+		
+		var assetSocialIcons = "<div class='positionAbsolute' style='bottom:15px;'><div class='asset-social-icons display-flex flex-row'>"
+			+ "<div class='icon'></div><div class='icon'></div><div class='icon'></div><div class='icon'></div>"
+			+ "</div></div>";
+		
+		$(asset).append(assetSocialIcons);
 		
 		return asset;
 	}
@@ -242,7 +255,8 @@ function abrivateStringWithMore( str, length, action, hasDescription )
 		{
 			a.onclick = action;
 		}
-		a.innerHTML = "...More"
+		//a.innerHTML = "...More"
+		a.innerHTML = "<br/>More..."
 		e.appendChild(a);
 	}
 	

@@ -44,7 +44,7 @@
 
 .asset .title
 {
-	font-size:2.27rem;/*about 25 px on ipad*/
+	font-size:2rem;/*about 25 px on ipad*/
 }
 
 .asset .title  a.hidden 
@@ -57,6 +57,11 @@
 	text-decoration: underline;
 	color:blue;
 	font-size: 1.63rem;
+}
+
+.asset .title  a:hover
+{
+	cursor: pointer;
 }
 
 .asset.open
@@ -240,7 +245,7 @@
 #assetsSlider .assetsSliderContent
 {	
 	background-color:#f2f2f2;
-	box-shadow: -1px 0px 5px rgba(1,1,1,.25);
+	/* box-shadow: -1px 0px 5px rgba(1,1,1,.25); */
 	width:100%;
 	height:100%;
 }
@@ -401,6 +406,7 @@
 	height:100%;
 	align-items: center;
 	justify-content: flex-end;
+	background-color: #f2f2f2;
 }
 
 #slideUpCloseArrow > img

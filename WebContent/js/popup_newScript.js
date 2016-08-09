@@ -83,6 +83,8 @@ function toggleExpanded( e )
 var lastClicked; // TODO remove?
 function openButton(buttonClicked)
 {
+	console.log("Function :: openButton",buttonClicked);
+	window.buttonClicked = buttonClicked;
 	greyOutBox.classList.remove("hidden");
 	
 	buttonClicked = buttonClicked || lastClicked;
@@ -107,7 +109,8 @@ function openButton(buttonClicked)
 	//buttonClicked.style.top = (buttonClickedBoundingRect.top - config.assetMargin)+"px";
 	
 	//TODO if this next part works remove left and top from above
-	buttonClicked.style.left = "20%";
+	//buttonClicked.style.left = "20%";
+	buttonClicked.style.left = "25%";
 	buttonClicked.style.top = "20%";
 	
 	buttonClicked.style.zIndex = 10;
@@ -123,7 +126,8 @@ function openButton(buttonClicked)
 	console.log("buttonClicked.style.left is "+buttonClicked.style.left) // TODO remove
 	console.log("buttonClicked.style.top is "+buttonClicked.style.top) // TODO remove
 	
-	buttonClicked.style.width = "60%";
+	//buttonClicked.style.width = "60%";
+	buttonClicked.style.width = "55%";
 	buttonClicked.style.height = "auto";
 	
 	buttonClicked.classList.add("open");

@@ -138,7 +138,8 @@ public class Search extends HttpServlet {
 				//add request header
 				con.setRequestProperty("Content-Type", "application/json");
 				con.setRequestProperty("Accept", "application/json");
-				con.setRequestProperty("Authorization", "Basic " + "OGQ0MDlhZDEtY2YwMC00MDc5LTllMGItMGU1OTM4N2M5OGEwOkozQzVuZGFIcjdjSA==");
+				//con.setRequestProperty("Authorization", "Basic " + "OGQ0MDlhZDEtY2YwMC00MDc5LTllMGItMGU1OTM4N2M5OGEwOkozQzVuZGFIcjdjSA==");	// blue index
+				con.setRequestProperty("Authorization", "Basic " + "MmUzMDAzZTMtMjQxMS00YjgyLWFlNDAtZTBkOTJiMGU1NTA4OnhHaE1UVUtPcVluNQ==");		// green index
 				
 				int responseCode = con.getResponseCode();
 				logger.info("Response Code : " + responseCode);

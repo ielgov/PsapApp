@@ -91,13 +91,16 @@ function getRESTRequest(restURL,usejson,func)
 					{
 						console.log("Empty data received");
 						console.log("Response - " + JSON.stringify(response));
-						if (!errorCube.visible && !activeRubiksCube.visible)
-						{
-							errorCube.refreshCubeFaces({'display':'Coming soon',
-														/*'Name':'Coming soon',*/
-														'errortype':'Coming soon'});
-							errorCube.showErrorCube();
-						}
+						
+						setTimeout(function(){
+							if (!errorCube.visible && !activeRubiksCube.visible)
+							{
+								errorCube.refreshCubeFaces({'display':'Coming soon',
+															/*'Name':'Coming soon',*/
+															'errortype':'Coming soon'});
+								errorCube.showErrorCube();
+							}
+						},2000);
 					}
 					else
 					{
@@ -138,13 +141,16 @@ function getRESTRequest(restURL,usejson,func)
 		xhr.onerror = function(error)
 		{
 			console.log("Error in connecting",error);
-			errorCube.refreshCubeFaces({'display':'Connection Error',
-										/*'Name':'Connection Error',*/
-										'errortype':'Connection Error'});
-			if (!errorCube.visible && !activeRubiksCube.visible)
-			{
-				errorCube.showErrorCube();
-			}
+			setTimeout(function(){
+				if (!errorCube.visible && !activeRubiksCube.visible)
+				{
+					errorCube.refreshCubeFaces({'display':'Connection Error',
+						/*'Name':'Connection Error',*/
+						'errortype':'Connection Error'});
+					errorCube.showErrorCube();
+				}
+			},2000);
+			
 				
 			if (func)
 				func('ERROR');

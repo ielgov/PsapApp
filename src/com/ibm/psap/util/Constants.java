@@ -7,9 +7,12 @@ public final class Constants {
             // restrict instantiation
     }
     
-    //public static final String CognitiveSearchUrl = "https://8d409ad1-cf00-4079-9e0b-0e59387c98a0:J3C5ndaHr7cH@gateway.watsonplatform.net/retrieve-and-rank/api/v1/solr_clusters/sce670ab37_c683_41a1_93d0_1a26dda6df93/solr/le_collection/select?&wt=json&fl=AssetDisplayName,AssetDisplayDescription,AssetType,URL&q=";
-    public static final String CognitiveSearchUrl = "https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/solr_clusters/sce670ab37_c683_41a1_93d0_1a26dda6df93/solr/le_collection/select?&wt=json&fl=AssetDisplayName,AssetDisplayDescription,AssetType,URL&q=";
+    // Blue index: public static final String CognitiveSearchUrl = "https://8d409ad1-cf00-4079-9e0b-0e59387c98a0:J3C5ndaHr7cH@gateway.watsonplatform.net/retrieve-and-rank/api/v1/solr_clusters/sce670ab37_c683_41a1_93d0_1a26dda6df93/solr/le_collection/select?&wt=json&fl=AssetDisplayName,AssetDisplayDescription,AssetType,URL&q=";
+    //public static final String CognitiveSearchUrl = "https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/solr_clusters/sce670ab37_c683_41a1_93d0_1a26dda6df93/solr/le_collection/select?&wt=json&fl=AssetDisplayName,AssetDisplayDescription,AssetType,URL&q=";
     
+    // Green index: https://2e3003e3-2411-4b82-ae40-e0d92b0e5508:xGhMTUKOqYn5@gateway.watsonplatform.net/retrieve-and-rank/api/v1/solr_clusters/scc1739641_21e8_4426_bb9a_6dfa7aafb403/solr/le_collection/fcselect?ranker_id=3b140ax15-rank-10489&q={{{topic}}}&resultcount=20&wt=json&fl=AssetDisplayName,AssetDisplayDescription,AssetType,URL,id
+    public static final String CognitiveSearchUrl = "https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/solr_clusters/scc1739641_21e8_4426_bb9a_6dfa7aafb403/solr/le_collection/fcselect?ranker_id=3b140ax15-rank-10489&wt=json&fl=AssetDisplayName,AssetDisplayDescription,AssetType,URL&q=";
+        
     public static final String BLUEMIX = "bluemix"; 
     public static final String DB = "db"; 
     public static final String JSON = "json"; 

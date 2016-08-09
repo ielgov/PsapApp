@@ -70,7 +70,7 @@ function ErrorCube(options)
 	this.getFaceData = function(dataObj, dynamicTexture){
 		console.log("Function :: getFaceData");
 		var str = dataObj['display'];
-		console.log('str',str);
+		console.log('string =',str);
 		cubielabelarray = [];
 		stringDivider(str,16,"");
 		var arrylen = cubielabelarray.length;
@@ -110,11 +110,14 @@ function ErrorCube(options)
 	
 	this.showErrorCube = function(){
 		console.log("Function :: showErrorCube");
-		showRubiksCube(ref.cube, function(){
-			ref.visible = true;
-			ref.allowRotation = true;
-			console.log('tween complete - show error cube');
-		});
+		if (!ref.visible && !activeRubiksCube.visible)
+		{
+			showRubiksCube(ref.cube, function(){
+				ref.visible = true;
+				ref.allowRotation = true;
+				console.log('tween complete - show error cube');
+			});
+		}		
 	};
 	
 	this.hideErrorCube = function(){

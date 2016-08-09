@@ -32,6 +32,7 @@
 		<script src="js/popup_helperFunctions.js"></script>
 		<script src="js/popup_buildPopUp.js"></script>
 		<script src="js/config.js"></script>
+		<script src="js/popup_pratik.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/popup_newStyle.css">
 	<!--end of Drew's headers-->
     
@@ -186,32 +187,50 @@
 		    	<div class="image"></div>
 		    </div> -->
 			<div id="assetsSlider" class="hidden">
-			<div class="slideUpCloseArrowContainer">
-				<div id="slideUpCloseArrow" >
-					<img src="images\icons\Chevron Left in Circle.svg" onclick="togglePopUpWidth()"></img>
+				<div class="slideUpCloseArrowContainer">
+					<div id="slideUpCloseArrow" >
+						<img src="images\icons\Chevron Left in Circle.svg" onclick="togglePopUpWidth()"></img>
+					</div>
 				</div>
-			</div>
-			<div class="assetsSliderContent">
-				<img id="assetSpinner" class="hidden spinner" src="images\loading.gif"></img>
+				<div class="assetsSliderContent">
+					<img id="assetSpinner" class="hidden spinner" src="images\loading.gif"></img>
+					
+					</span>
+						<!--
+						<svg id="slideUpCloseArrow" onclick="togglePopUpWidth()">
+							<line style="stroke:#525659; stroke-width:1px" />
+							<line style="stroke:#525659; stroke-width:1px" />
+						</svg>
+						-->
+					</span>
+					<span>
+							<div id="assetsTitle">
+								<span>Showing <span id="numberOfResults" style="color:black">00</span> results <span id="resultsName"></span></span>
+								<span class="jumpToBar">
+									<select onchange="selectJumpTo(event);"></select>
+								</span>
+							</div>
+							<div class="containerForResults"><div id="assetsHolder"></div></div>
+					<span>
+				</div>
 				
-				</span>
-					<!--
-					<svg id="slideUpCloseArrow" onclick="togglePopUpWidth()">
-						<line style="stroke:#525659; stroke-width:1px" />
-						<line style="stroke:#525659; stroke-width:1px" />
-					</svg>
-					-->
-				</span>
-				<span>
-						<div id="assetsTitle">
-							<span>Showing <span id="numberOfResults" style="color:black">00</span> results <span id="resultsName"></span></span>
-							<span class="jumpToBar">
-								<select onchange="selectJumpTo(event);"></select>
-							</span>
+				<div id="assetOverlay" class="assetOverlay display-none">
+					<div class="positionAbsolute width100 height100" style="background: rgba(1,1,1,.55);z-index:1;top:0;left:0;"></div>
+					<div class="positionAbsolute width100 height100" style="z-index:2;">
+						<div class="positionRelative width100 height100 display-flex flex-justify-center flex-align-center">
+							<div class="positionRelative xheight50 width50 assetOverlayParent display-flex flex-column flex-align-start">
+								<img id="pxIcon" src="images/x.svg">
+								<img class="assetOvTypeImage" src="images/icons/URL.svg" onerror="this.src=config.backUpImage">
+								<div class="assetOvTitle"></div>
+								<div class="assetOvContent"></div>
+								<span class="assetOvLink display-flex"><a>Go to Link</a></span>
+								<div class="social-icons display-flex flex-row">
+									<div class="icon"></div><div class="icon"></div><div class="icon"></div><div class="icon"></div>
+								</div>
+							</div>
 						</div>
-						<div class="containerForResults"><div id="assetsHolder"></div></div>
-				<span>
-			</div>
+					</div>
+				</div>
 			</div>		    
 	    </div>
     </div>
